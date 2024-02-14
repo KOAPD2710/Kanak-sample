@@ -1,18 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import DemoLayout from '../layouts/DemoLayout.astro';
 import Card from '../components/Card.astro';
 import { Image } from 'astro:assets';
 import myImage from "../assets/404-title.jpg"
+
+import {getPage} from '../prismic.js';
+const {data} = await getPage('home');
+console.log(data)
 ---
 
-<Layout title="Welcome to Astro.">
+<DemoLayout title={data.page_title}>
 	<main>
-		<h1>Welcome to <span class="text-gradient">About</span></h1>
+		<h1>Welcome to <span class="text-gradient">{data.hero_title[0].text}</span></h1>
 		<p class="instructions">
 			To get started, open the directory <code>src/pages</code> in your project.<br />
 			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
 		</p>
 		<Image src={myImage} alt="A very cool penguin!"/>
+		<a href="./about/">about</a>
 		<ul role="list" class="link-card-grid">
 			<Card
 				href="https://docs.astro.build/"
@@ -36,9 +41,9 @@ import myImage from "../assets/404-title.jpg"
 			/>
 		</ul>
 	</main>
-</Layout>
+</DemoLayout>
 
-<style>
+<style lang="scss">
 	img {
 		display: block;
 		width: 100%;
@@ -52,7 +57,9 @@ import myImage from "../assets/404-title.jpg"
 		color: white;
 		font-size: 20px;
 		line-height: 1.6;
-        
+		a {
+        	background-color: red;
+		}
 	}
 	.astro-a {
 		position: absolute;
