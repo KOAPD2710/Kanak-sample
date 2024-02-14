@@ -1,5 +1,5 @@
 {
-  "name": "Kanak",
+  "name": "kanak",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -10,6 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@prismicio/client": "^7.3.1",
+    "@prismicio/helpers": "^2.3.9",
     "astro": "^4.3.5",
     "gsap": "^3.12.5"
   }
