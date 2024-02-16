@@ -28,7 +28,9 @@ html {
         pointer-events: none;
     }
 }
-
+.main {
+    position: relative;
+}
 .grid {
     --grid-gap: 2rem;
     display: grid;
@@ -43,7 +45,7 @@ html {
     width: 100%;
     margin: 0 auto;
     padding: 0 var(--container-padding);
-    max-width: var(--container-width);
+    // max-width: var(--container-width);
     &.fluid {
         max-width: none;
     }

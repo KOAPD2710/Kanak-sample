@@ -4,10 +4,11 @@ interface Props {
     sub_title: string;
 }
 const { title, sub_title } = Astro.props;
+import '../../styles/global.scss';
 ---
 <section class="home-hero">
     <div class="container grid">
-        <h1 class="heading h0 txt-black home-hero-title">
+        <h1 class="heading h0 txt-black txt-up home-hero-title">
             {title}
         </h1>
         <div class="grid home-hero-sub">
@@ -27,24 +28,45 @@ const { title, sub_title } = Astro.props;
         </div>
     </div>
 </section>
+<section class="home-abt">
+    <div class="container">
+        <h2 class="heading h0 txt-up txt-black home-abt-title">
+            <span class="heading h0 txt-up txt-black home-abt-title-top">Your Reputation</span> <br> Our Unwavering Commitment
+        </h2>
+    </div>
+</section>
 
 <script>
-    console.log('home hero embed')
-    document.querySelector('.home-hero-sub-btn-wrap .btn').addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('hello world')
-    })
+    function duplicateAbout() {
+        let el = $('.home-abt-title-top').eq(0);
+        let clone = el.clone();
+        clone.css({
+            'position': 'absolute',
+            'top': `${el.offset().top}px`,
+            'left': `${el.offset().left}px`,
+            'z-index': '2'
+        })
+        $('.main').append(clone);
+        $(window).on('resize', () => {
+            clone.css({
+            'top': `${el.offset().top}px`,
+            'left': `${el.offset().left}px`,
+            })  
+        })
+    }
+    duplicateAbout()
 </script>
 
 <style lang="scss">
     .home-hero {
         padding-top: 18.4rem;
+        min-height: 100vh;
         &-title {
             grid-column: 1/10;
             margin-bottom: 6rem;
         }
         &-sub {
-            grid-column: 1/7;
+            grid-column: 1/8;
             grid-row: 2/3;
             grid-template-columns: repeat(2, 1fr);
             max-width: 48.9rem;
@@ -67,6 +89,27 @@ const { title, sub_title } = Astro.props;
                 justify-content: center;
                 border-top: none;
                 border-left: none;
+            }
+        }
+    }
+    .home-abt {
+        padding-top: 13.8rem;
+        padding-bottom: 35.2rem;
+        .container {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        &-title {
+            text-align: center;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 103.6rem;
+            &-top {
+                margin-bottom: 2rem;
+                max-width: 103.6rem;
+                text-align: center;
+                display: inline-block;
             }
         }
     }

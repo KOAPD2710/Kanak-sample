@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/inter';
 import '../styles/global.scss';
+import BaseHead from '../components/globals/BaseHead.astro';
 import Header from '../components/globals/Header.astro';
 import Footer from '../components/globals/Footer.astro';
 
@@ -11,18 +12,15 @@ const { title } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
+	<BaseHead title={title}/>
 	<body>
-		<Header/>
-		<slot />
-		<!-- <Footer title="this is the footer"/> -->
+		<Header />
+		<div class="main">
+			<slot />
+		</div>
+		<Footer />
+
+		<script src="/jquery.js" is:inline></script>
 	</body>
 </html>
 

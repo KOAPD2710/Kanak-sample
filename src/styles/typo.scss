@@ -17,16 +17,23 @@
     font-weight: 700;
     font-display: swap;
 }
+@font-face {
+    font-family: 'HelveticaNowDisplay';
+    src: url('../fonts/HelveticaNowDisplayBlack.woff') format('woff');
+    font-weight: 900;
+    font-display: swap;
+}
 :root {
-    font-size: 0.6944444444vw;
-    @media only screen and (max-width: 1729px) and (min-width: 991px) {
+    // font-size: 0.6944444444vw;
+    font-size: 0.5787037037vw;
+    @media only screen and (min-width: 991px) {
         @media screen and (min-aspect-ratio: 1600 / 800) {
-            font-size: 0.9259259259vh;
+            font-size: 1.1vh;
         }
     }
-    @media only screen and (min-width: 1728px) {
-        font-size: 10px;
-    }
+    // @media only screen and (min-width: 1728px) {
+    //     font-size: 10px;
+    // }
     @media only screen and (max-width: 991px) {
         font-size: 1.1990407674vw;
     }

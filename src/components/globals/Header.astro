@@ -16,16 +16,18 @@ const pages = [
 <header class="header">
     <div class="container grid">
         <div class="header-main">
-            <a href="./" class="header-logo">
-                <Image src={kanakLogo} alt="Kanak Logo" class="img-h"/>
-            </a>
-            <div class="header-menu">
-                {pages.map((page, idx) => (
-                    <a href={page.link} class="txt txt-14 txt-up txt-semi txt-link">{page.name}</a>
-                    <span style={idx === pages.length - 1 && 'display: none'} class="txt txt-14 txt-semi txt-div">/</span>
-                ))}
+            <div class="header-main-inner">
+                <a href="./" class="header-logo">
+                    <Image src={kanakLogo} alt="Kanak Logo" class="img-h"/>
+                </a>
+                <div class="header-menu">
+                    {pages.map((page, idx) => (
+                        <a href={page.link} class="txt txt-14 txt-up txt-semi txt-link">{page.name}</a>
+                        <span style={idx === pages.length - 1 && 'display: none'} class="txt txt-14 txt-semi txt-div">/</span>
+                    ))}
+                </div>
+                <div class="line"></div>
             </div>
-            <div class="line"></div>
         </div>
         <div class="header-sub">
             <div class="ic ic-32">
@@ -52,14 +54,17 @@ const pages = [
             height: 4.8rem;
         }
         &-main {
-            grid-column: 1/10;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            column-gap: 6rem;
-            padding-top: 1.7rem;
-            padding-bottom: 1.7rem;
-            position: relative;
+            grid-column: 1/15;
+            justify-self: start;
+            &-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                column-gap: 6rem;
+                padding-top: 1.7rem;
+                padding-bottom: 1.7rem;
+                position: relative;
+            }
         }
         &-menu {
             display: flex;
@@ -77,8 +82,9 @@ const pages = [
         }
 
         &-sub {
-            grid-column: 1/10;
+            grid-column: 1/15;
             grid-row: 2/3;
+            justify-self: start;
             display: flex;
             align-items: center;
             column-gap: .8rem;
