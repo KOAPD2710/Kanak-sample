@@ -9,7 +9,6 @@ interface Props {
 	title: string;
 }
 const { title } = Astro.props;
-import '../styles/global.scss';
 ---
 
 <html lang="en">
@@ -24,4 +23,11 @@ import '../styles/global.scss';
 		<!-- <script src="/jquery.js" is:inline></script> -->
 	</body>
 </html>
+
+<style lang="scss" is:global>
+	@import '../styles/global';
+	// @import '../styles/colors.scss';
+	// @import '../styles/common.scss';
+	// @import '../styles/typo.scss';
+</style>
 
