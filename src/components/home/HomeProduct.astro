@@ -1,0 +1,58 @@
+---
+// interface Props {
+// 	title: string;
+//     sub_title: string;
+// }
+// const { title, sub_title } = Astro.props;
+const productList = [
+    'Bowls',
+    'Plates & Platters',
+    'Trays',
+    'Soup Containers',
+    'Produce',
+    'Kutlery',
+    'Kups',
+    'Straws',
+    'Klamshells',
+    'Carry-Out Bags',
+]
+---
+<section class="home-prod">
+    <div class="container grid">
+        <div class="home-prod-title-wrap">
+            <h2 class="heading h1 txt-up txt-black home-prod-title">
+                Explore our products, made with up to 100% recycled materials, reflecting our commitment to quality and the environment. All are designed with sustainability in mind.
+            </h2>
+        </div>
+        <div class="home-prod-main">
+            <div class="home-prod-main-list">
+                <div class="home-prod-main-item">
+                    <h3 class="heading h6 txt-up txt-black home-prod-main-item-title">
+                        Bowls
+                    </h3>
+                    <div class="txt txt-20 txt-bold home-prod-main-item-label">
+                        01
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style lang="scss">
+    .home-prod {
+        padding-bottom: 28.8rem;
+        &-title-wrap {
+            grid-column: 1/-1;
+            margin-bottom: 8rem;
+        }
+        &-title {
+            max-width: 89rem;
+        }
+        &-main {
+            grid-column: 1/9;
+            display: flex;
+            flex-direction: column;
+
+        }
+    }
+</style>

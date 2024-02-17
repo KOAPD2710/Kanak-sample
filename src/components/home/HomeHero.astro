@@ -4,7 +4,6 @@ interface Props {
     sub_title: string;
 }
 const { title, sub_title } = Astro.props;
-import '../../styles/global.scss';
 ---
 <section class="home-hero">
     <div class="container grid">
@@ -37,6 +36,7 @@ import '../../styles/global.scss';
 </section>
 
 <script>
+    import $ from 'jquery';
     function duplicateAbout() {
         let el = $('.home-abt-title-top').eq(0);
         let clone = el.clone();

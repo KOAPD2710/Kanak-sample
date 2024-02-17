@@ -54,8 +54,8 @@ html {
     --h0-fs: 11rem;
     --h0-lh: 1em;
     
-    --h1-fs: 7.2rem;
-    --h1-lh: 1.1em;
+    --h1-fs: 7rem;
+    --h1-lh: .96em;
 
     --h2-fs: 6.2rem;
     --h2-lh: 1.2em;
@@ -69,8 +69,8 @@ html {
     --h5-fs: 3.2em;
     --h5-lh: 1.3em;
 
-    --h6-fs: 2.4rem;
-    --h6-lh: 1.5em;
+    --h6-fs: 2rem;
+    --h6-lh: 1.2em;
 }
 .heading {
     font-family: 'HelveticaNowDisplay', sans-serif;
@@ -83,7 +83,7 @@ html {
 }
 
 // Body text
-$txtSizes: 10, 14, 16, 18;
+$txtSizes: 10, 14, 16, 18, 20;
 :root {
     --fs-10: 1rem;
     --lh-10: 1.2em;
@@ -96,6 +96,9 @@ $txtSizes: 10, 14, 16, 18;
 
     --fs-18: 1.8rem;
     --lh-18: 1.2em;
+
+    --fx-20: 2rem;
+    --lh-20: .96em;
 }
 
 .txt {

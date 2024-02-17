@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HomeHero from '../components/home/HomeHero.astro';
+import HomeProduct from '../components/home/HomeProduct.astro';
 
 import {getPage} from '../prismic.js';
 const {data} = await getPage('home');
@@ -8,4 +9,5 @@ const {data} = await getPage('home');
 
 <Layout title="Homepage">
 	<HomeHero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
+	<HomeProduct />
 </Layout>

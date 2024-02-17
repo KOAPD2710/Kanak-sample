@@ -9,6 +9,7 @@ interface Props {
 	title: string;
 }
 const { title } = Astro.props;
+import '../styles/global.scss';
 ---
 
 <html lang="en">
@@ -20,7 +21,7 @@ const { title } = Astro.props;
 		</div>
 		<Footer />
 
-		<script src="/jquery.js" is:inline></script>
+		<!-- <script src="/jquery.js" is:inline></script> -->
 	</body>
 </html>
 
