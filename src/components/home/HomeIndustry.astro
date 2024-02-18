@@ -1,5 +1,8 @@
 ---
 import { Image } from "astro:assets";
+import eduIcon from '../../assets/edu.svg';
+import arrIcon from '../../assets/arr-ext.svg';
+import ctaTxt from '../../assets/cta-txt.svg';
 const { title, sub_title } = Astro.props;
 ---
 <section class="home-indus">
@@ -12,8 +15,47 @@ const { title, sub_title } = Astro.props;
                 <h2 class="heading h0 txt-up txt-black home-indus-title">
                     Katering to every need
                 </h2>
+                <div class="home-indus-cta-wrap">
+                    <a href="#" class="home-indus-cta">
+                        <div class="home-indus-cta-inner">
+                            <Image src={arrIcon} alt="arr icon" class="ic ic-36" />
+                        </div>
+                        <div class="home-indus-cta-outer">
+                            <Image src={ctaTxt} alt="arr icon" class="ic" />
+                        </div>
+                    </a>
+                </div>
             </div>
-            
+        </div>
+        <div class="home-indus-main">
+            <div class="home-indus-main-list">
+                {(() => {
+                    const arr = [];
+                    for (let i = 0; i < 6; i++) {
+                        arr.push(
+                            <div class="grid home-indus-main-item">
+                                <div class="home-indus-main-item-ic">
+                                    <Image src={eduIcon} alt="education icon" class="ic ic-100"/>
+                                </div>
+                                <div class="home-indus-main-item-content">
+                                    <h3 class="heading h4 txt-up txt-black home-indus-main-item-title">
+                                        Retail
+                                    </h3>
+                                    <p class="txt txt-18 txt-med home-indus-main-item-sub">
+                                        Boost your brand with our private label packaging, tailored to resonate with your customers.
+                                    </p>
+                                    <a href="#" class="txt txt-18 txt-med txt-orange home-indus-main-item-link">
+                                        Learn more
+                                    </a>
+                                </div>
+                                <div class="line"></div>
+                                {i == 5 && <div class="line line-bottom"></div>}
+                            </div>
+                        );
+                    }
+                    return arr;
+                })()}
+            </div>
         </div>
     </div>
 </section>
@@ -23,6 +65,8 @@ const { title, sub_title } = Astro.props;
 </script>
 
 <style lang="scss">
+    @import '../../styles/colors.scss';
+    @import '../../styles/mixins.scss';
     .home-indus {
         padding-top: 20rem;
         padding-bottom: 20rem;
@@ -34,11 +78,85 @@ const { title, sub_title } = Astro.props;
         }
         &-title-stick {
             position: sticky;
+            top: 20rem;
             max-width: 69rem;
             min-height: calc(100vh - 20rem - 6rem);
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: space-between;
         }
         &-label {
             margin-bottom: 2rem;
+        }
+        &-title {
+            margin-bottom: auto;
+        }
+        &-cta {
+            display: block;
+            position: relative;
+            padding: 2.8rem;
+            @include size(16rem);
+            &-inner {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background-color: var(--cl-orange);
+                @include size(100%);
+            }
+            &-outer {
+                position: absolute;
+                inset: 0;
+                animation: rot 20s linear infinite;
+            }
+            @keyframes rot {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(-360deg);
+                }
+            }
+        }
+        &-main {
+            grid-column: 10/17;
+            &-item {
+                grid-template-columns: repeat(7, 1fr);
+                padding-top: 8rem;
+                padding-bottom: 8rem;
+                position: relative;
+                &-ic {
+                    grid-column: 1/4;
+                    align-self: start;
+                    justify-self: start;
+                }
+                &-content {
+                    grid-column: 4/-1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                }
+                &-title {
+                    margin-bottom: 1.6rem;
+                }
+                &-sub {
+                    margin-bottom: 3.2rem;
+                    color: rgba($cl-txt-light, .6);
+                }
+                .line {
+                    width: 100%;
+                    height: .2rem;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba($cl-border, .3);
+                    &-bottom {
+                        top: auto;
+                        bottom: 0;
+                    }
+                }
+            }
         }
     }
 </style>

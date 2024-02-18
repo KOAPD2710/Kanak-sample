@@ -123,6 +123,9 @@ $txtSizes: 10, 14, 16, 18, 20;
     &-green {
         color: var(--cl-green);   
     }
+    &-orange {
+        color: var(--cl-orange);
+    }
     @each $size in $txtSizes {
         &-#{$size} {
             font-size: var(--fs-#{$size});
@@ -139,11 +142,17 @@ $txtSizes: 10, 14, 16, 18, 20;
     &-32 {
         @include size(3.2rem);
     }
+    &-36 {
+        @include size(3.6rem);
+    }
     &-40 {
         @include size(4rem);
     }
     &-80 {
         @include size(8rem);
+    }
+    &-100 {
+        @include size(10rem);
     }
 }
 
