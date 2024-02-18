@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+const { title, sub_title } = Astro.props;
+---
+<section class="home-indus">
+    <div class="container grid">
+        <div class="home-indus-title-wrap">
+            <div class="home-indus-title-stick">
+                <p class="heading h4 txt-up txt-black home-indus-label">
+                    Kustomers we serve
+                </p>
+                <h2 class="heading h0 txt-up txt-black home-indus-title">
+                    Katering to every need
+                </h2>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<script>
+    
+</script>
+
+<style lang="scss">
+    .home-indus {
+        padding-top: 20rem;
+        padding-bottom: 20rem;
+        background-color: var(--cl-bg-dark);
+        color: var(--cl-txt-light);
+        &-title-wrap {
+            position: relative;
+            grid-column: 1/8;
+        }
+        &-title-stick {
+            position: sticky;
+            max-width: 69rem;
+            min-height: calc(100vh - 20rem - 6rem);
+        }
+        &-label {
+            margin-bottom: 2rem;
+        }
+    }
+</style>

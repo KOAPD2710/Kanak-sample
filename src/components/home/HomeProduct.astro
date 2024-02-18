@@ -3,7 +3,7 @@ const { title, product_list } = Astro.props;
 
 import { Image } from 'astro:assets';
 import arrIcon from '../../assets/arr-right.svg?raw';
-import sampleQR from '../../assets/sample-qr.png';
+import sampleQR from '../../assets/image 11.png';
 import PDFIcon from '../../assets/ic-pdf.svg';
 import {getByUID} from '../../prismic.js';
 const productList = [
@@ -209,10 +209,20 @@ const list = await Promise.all(
                     justify-content: center;
                     color: var(--cl-txt);
                     .ic {
-                        @include transition(all 400ms ease);
+                        @include transition(all 200ms ease);
                     }
                     &:not(.disable):hover {
                         color: var(--cl-orange)
+                    }
+                    &:not(.disable):active {
+                        .ic {
+                            transform: translateX(.5rem);
+                        }
+                        &:first-child {
+                            .ic {
+                                transform: rotate(180deg) translateX(.5rem);
+                            }
+                        }
                     }
                     &:first-child .ic {
                         transform: rotate(180deg);

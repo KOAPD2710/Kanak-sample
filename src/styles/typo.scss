@@ -63,8 +63,8 @@ html {
     --h3-fs: 5.2rem;
     --h3-lh: 1.2em;
 
-    --h4-fs: 4.4rem;
-    --h4-lh: 1.2em;
+    --h4-fs: 4rem;
+    --h4-lh: 1em;
 
     --h5-fs: 3.2em;
     --h5-lh: 1em;
@@ -119,6 +119,9 @@ $txtSizes: 10, 14, 16, 18, 20;
     }
     &-up {
         text-transform: uppercase;
+    }
+    &-green {
+        color: var(--cl-green);   
     }
     @each $size in $txtSizes {
         &-#{$size} {
