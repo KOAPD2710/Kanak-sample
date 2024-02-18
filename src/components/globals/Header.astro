@@ -50,6 +50,10 @@ const pages = [
         top: 0;
         left: 0;
         width: 100%;
+        pointer-events: none;
+        .container > * {
+            pointer-events: auto;
+        }
         &-logo {
             height: 4.8rem;
         }

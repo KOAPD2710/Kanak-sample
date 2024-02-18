@@ -9,5 +9,6 @@ const {data} = await getPage('home');
 
 <Layout title="Homepage">
 	<HomeHero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
-	<HomeProduct />
+	<HomeProduct title={data.product_title[0].text} product_list={data.product_list}/>
+
 </Layout>

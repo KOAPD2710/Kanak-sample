@@ -1,12 +1,11 @@
 ---
-// interface Props {
-// 	title: string;
-//     sub_title: string;
-// }
-// const { title, sub_title } = Astro.props;
+const { title, product_list } = Astro.props;
+
 import { Image } from 'astro:assets';
-import arrIcon from '../../assets/arr-right.svg';
+import arrIcon from '../../assets/arr-right.svg?raw';
 import sampleQR from '../../assets/sample-qr.png';
+import PDFIcon from '../../assets/ic-pdf.svg';
+import {getByUID} from '../../prismic.js';
 const productList = [
     'Bowls',
     'Plates & Platters',
@@ -19,20 +18,28 @@ const productList = [
     'Klamshells',
     'Carry-Out Bags',
 ]
+
+const list = await Promise.all(
+    product_list.map(async (product) => {
+        let item = getByUID('product', product.item.uid)
+        return item
+    })
+)
+
 ---
 <section class="home-prod">
     <div class="container grid">
         <div class="home-prod-title-wrap">
             <h2 class="heading h1 txt-up txt-black home-prod-title">
-                Explore our products, made with up to 100% recycled materials, reflecting our commitment to quality and the environment. All are designed with sustainability in mind.
+                {title}
             </h2>
         </div>
         <div class="home-prod-main">
             <div class="home-prod-main-list">
-                {productList.map((item, idx) => (
+                {list.map((item, idx) => (
                     <div class="home-prod-main-item">
                         <h3 class="heading h6 txt-up txt-black home-prod-main-item-title">
-                            {item}
+                            {item.data.title}
                         </h3>
                         <div class="txt txt-20 txt-bold home-prod-main-item-label">
                             {(idx + 1) < 10 ? '0' + (idx + 1) : idx + 1}
@@ -40,7 +47,7 @@ const productList = [
                         <div class="line">
                             <div class="line-inner"></div>
                         </div>
-                        {idx == productList.length - 1 && (
+                        {idx == list.length - 1 && (
                             <div class="line line-bottom"></div>
                         )}
                     </div>
@@ -54,26 +61,71 @@ const productList = [
                         Product Kategories
                     </div>
                     <div class="home-prod-cards-nav">
-                        <a href="#" class="home-prod-cards-nav-item">
-                            <Image src={arrIcon} alt="Kanak Logo" class="ic ic-40"/>
+                        <a href="#" class="home-prod-cards-nav-item prev disable">
+                            <div class="ic ic-40"><Fragment set:html={arrIcon}/></div>
                         </a>
-                        <a href="#" class="home-prod-cards-nav-item">
-                            <Image src={arrIcon} alt="Kanak Logo" class="ic ic-40"/>
+                        <a href="#" class="home-prod-cards-nav-item next">
+                            <div class="ic ic-40"><Fragment set:html={arrIcon}/></div>
                         </a>
                     </div>
                 </div>
                 <div class="home-prod-cards-bottom">
-                    <div class="heading h5 txt-up txt-black home-prod-cards-bottom-txt">
-                        {productList[0]}
+                    <div class="home-prod-cards-bottom-txt-wrap">
+                        {list.map((item, idx) => (
+                            <div class:list={['heading h5 txt-up txt-black home-prod-cards-bottom-txt', { active: idx == 0 }]}>
+                                {item.data.title}
+                            </div>
+                        ))}
                     </div>
-                    <div class="home-prod-cards-qr">
-                        <Image src={sampleQR} alt="Kanak Logo" class="ic ic-80"/>
+                    <div class="home-prod-cards-qr-wrap">
+                        <div class="home-prod-cards-qr">
+                            <Image src={sampleQR} alt="" class="ic ic-80"/>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="home-prod-pdf">
+            <a href="#" class="home-prod-pdf-link">
+                <div class="home-prod-pdf-link-ic">
+                    <Image src={PDFIcon} alt="pdf icon" class="ic ic-32"/>
+                </div>
+                <div class="txt txt-20 txt-bold home-prod-pdf-link-txt">
+                    Download Product Catalog
+                </div>
+            </a>
+        </div>
     </div>
 </section>
+
+<script>
+    import $ from 'jquery';
+    $('.home-prod-main-item').on('pointerenter', function() {
+        let idx = $(this).index()
+        activeItem(idx)
+    })
+    function activeItem(idx: number) {
+        $('.home-prod-cards-bottom-txt').removeClass('active')
+        $('.home-prod-cards-bottom-txt').eq(idx).addClass('active')
+        $('.home-prod-cards-nav-item').removeClass('disable')
+        if (idx == 0) {
+            $('.home-prod-cards-nav-item.prev').addClass('disable')
+        } else if (idx == $('.home-prod-cards-bottom-txt').length - 1) {
+            $('.home-prod-cards-nav-item.next').addClass('disable')
+        }
+    }
+    $('.home-prod-cards-nav-item').on('click', function(e) {
+        e.preventDefault();
+        let currIdx = $('.home-prod-cards-bottom-txt.active').index();
+        console.log(currIdx)
+        if ($(this).hasClass('next')) {
+            activeItem(currIdx + 1)
+        } else {
+            activeItem(currIdx - 1)
+        }
+    })
+</script>
+
 <style lang="scss">
     @import '../../styles/colors.scss';
     @import '../../styles/mixins.scss';
@@ -134,10 +186,14 @@ const productList = [
         }
         &-cards {
             grid-column: 11/16;
+            position: relative;
             &-inner {
                 border-radius: 1rem;
                 border: solid .2rem var(--cl-txt);
-                height: 100%;
+                height: 66.2rem;
+                top: 22.8rem;
+                position: sticky;
+                max-height: calc(100vh - 45.6rem);
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
@@ -151,9 +207,21 @@ const productList = [
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    color: var(--cl-txt);
+                    .ic {
+                        @include transition(all 400ms ease);
+                    }
+                    &:not(.disable):hover {
+                        color: var(--cl-orange)
+                    }
                     &:first-child .ic {
                         transform: rotate(180deg);
-                        opacity: .2;
+                    }
+                    &.disable {
+                        pointer-events: none;
+                        .ic {
+                            opacity: .2;
+                        }
                     }
                 }
             }
@@ -174,8 +242,20 @@ const productList = [
                 justify-content: space-between;
                 border-top: solid .2rem var(--cl-txt);
                 align-items: center;
-                &-txt {
+                &-txt-wrap {
                     margin-left: 3.2rem;
+                    display: grid;
+                }
+                &-txt {
+                    grid-column: 1/2;
+                    grid-row: 1/2;
+                    opacity: 0;
+                    pointer-events: none;
+                    @include transition(opacity 400ms ease);
+                    &.active {
+                        opacity: 1;
+                        pointer-events: auto;
+                    }
                 }
             }
             &-qr {
@@ -186,6 +266,28 @@ const productList = [
                 justify-content: center;
                 img {
                     
+                }
+            }
+        }
+        &-pdf {
+            grid-column: 1/9;
+            justify-self: start;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            &-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: solid .2rem var(--cl-txt);
+                &-ic {
+                    @include size(7.2rem, 7rem);
+                    border-right: solid .2rem var(--cl-txt);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                &-txt {
+                    padding: 2rem;
                 }
             }
         }

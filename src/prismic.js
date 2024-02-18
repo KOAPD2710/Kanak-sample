@@ -12,4 +12,7 @@ const client = prismic.createClient(repositoryName)
 export function getPage(slug) {
     return client.getSingle(slug)
 }
+export function getByUID(customType, uid) {
+  return client.getByUID(customType, uid)
+}
 
