@@ -27,7 +27,7 @@ import compareLine from '../../assets/compare-line.svg?raw';
                         <div class="home-comp-main-prog-dot">
                             <Image src={compareDotDash} alt="" class="img" />
                         </div>
-                        <div class="home-comp-main-prog-line" style=`--PI: ${Math.PI};`>                            
+                        <div class="home-comp-main-prog-line" style=`--PI: ${Math.PI};`>
                             <Fragment set:html={compareLine} alt="" class="img" />
                         </div>
                     </div>
@@ -47,25 +47,18 @@ import compareLine from '../../assets/compare-line.svg?raw';
     let tl = gsap.timeline({
         scrollTrigger: {
             trigger: '.home-comp',
-            start: 'top top+=20%',
-            end: 'bottom bottom+=25%',
+            start: 'top top',
+            end: 'bottom bottom',
             scrub: true,
+            snap: [0, .25, .5, .75],
+            markers: true,
             onUpdate: (self) => {
                 let prog = self.progress;
                 let idx;
-                if (prog >= .75) {
-                    idx = 3;
-                    console.log(idx)
-                } else if (prog >= .5) {
-                    idx = 2
-                    console.log(idx)
-                } else if (prog >= .25) {
-                    idx = 1
-                    console.log(idx)
-                } else {
-                    idx = 0
-                    console.log(idx)
-                }
+                if (prog >= .75) {idx = 3
+                } else if (prog >= .5) {idx = 2
+                } else if (prog >= .25) {idx = 1
+                } else {idx = 0}
                 
             }
         },
@@ -74,14 +67,15 @@ import compareLine from '../../assets/compare-line.svg?raw';
         }
     })
     tl
-    .to('.home-comp-main-prog-line', {'--prog': 100})
+    //.to('.home-comp-main-prog-line', {duration: .125})
+    .to('.home-comp-main-prog-line', {'--prog': 100, duration: 1})
 </script>
 
 <style lang="scss">
     @import '../../styles/colors.scss';
     @import '../../styles/mixins.scss';
     .home-comp {
-        height: 300vh;
+        height: 400vh;
         position: relative;
         .container {
             display: flex;
