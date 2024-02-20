@@ -4,6 +4,7 @@ import '../styles/global.scss';
 import BaseHead from '../components/globals/BaseHead.astro';
 import Header from '../components/globals/Header.astro';
 import Footer from '../components/globals/Footer.astro';
+import '../styles/global.scss';
 
 interface Props {
 	title: string;
@@ -28,6 +29,6 @@ const { title } = Astro.props;
 </script>
 
 <style lang="scss" is:global>
-	@import '../styles/global';
+	
 </style>
 
