@@ -1,0 +1,134 @@
+---
+const { title, brand_list } = Astro.props;
+
+import { Image } from 'astro:assets';
+import arrIcon from '../../assets/arr-ext-21.svg';
+import {getByUID} from '../../prismic.js';
+
+let replaceWord = title.split(',')[title.split(',').length - 1]
+let newTitle = title.replace(replaceWord, `<span class="txt-green">${replaceWord}</span>`)
+
+const list = await Promise.all(
+    brand_list.map(async (brand: any) => {
+        let item = getByUID('brand', brand.item.uid)
+        return item
+    })
+)
+---
+<section class="home-brand">
+    <div class="container grid">
+        <div class="home-brand-canvas">
+            <div class="home-brand-canvas-inner"></div>
+        </div>
+        <div class="line line-ver"></div>
+        <div class="home-brand-main">
+            <h2 class="heading h0 txt-up txt-black home-brand-title">
+                <Fragment set:html={newTitle} />
+            </h2>
+            <div class="home-brand-main-list">
+                {list.map((item, idx) => (
+                    <a href="#" class="home-brand-main-item">
+                        <div class="home-brand-main-item-head">
+                            <h3 class="heading h4 txt-up txt-black home-brand-main-item-title">
+                                {item.data.title[0].text}
+                            </h3>
+                            <div class="ic ic-20 home-brand-main-item-ic">
+                                <Image src={arrIcon} alt=''/>
+                            </div>
+                        </div>
+                        <div class="home-brand-main-item-body">
+                            <p class="txt txt-18 txt-med home-brand-main-item-sub">
+                                {item.data.sub_title}
+                            </p>
+                        </div>
+                        <div class="line"></div>
+                    </a>
+                ))}
+            </div>
+        </div>
+        <div class="line line-bot"></div>
+    </div>
+</section>
+
+<script>
+</script>
+
+<style lang="scss">
+    @import '../../styles/colors.scss';
+    @import '../../styles/mixins.scss';
+
+    .home-brand {
+        min-height: 100vh;
+        height: auto;
+        .container {
+            height: 100%;
+        }
+        &-canvas {
+            grid-column: 1/10;
+        }
+        .line {
+            width: 100%;
+            height: .2rem;
+            background-color: var(--cl-txt);
+            &-ver {
+                height: 100%;
+                width: .2rem;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            &-bot {
+                grid-column: 1/-1;
+                position: absolute;
+                bottom: 0;
+            }
+        }
+        
+        &-title {
+            margin-bottom: 5.2rem;
+            max-width: 61.8rem;
+        }
+        &-main {
+            padding-top: 8rem;
+            padding-bottom: 2.5rem;
+            grid-column: 10/17;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            &-item {
+                padding-top: 5.2rem;
+                padding-bottom: 5.2rem;
+                position: relative;
+                > * {
+                    @include transition(opacity 400ms ease);
+                }
+                .line {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                &-head {
+                    display: flex;
+                    align-items: start;
+                    justify-content: space-between;
+                    margin-bottom: 5.2rem;
+                }
+                &-title {
+                    max-width: 45.7rem;
+                }
+                &-ic {
+                    margin-top: 1rem;
+                }
+            }
+            :hover {
+                .home-brand-main-item:not(:hover) {
+                    > *:not(.line) {
+                        opacity: .5;
+                    }
+                }
+            }
+        }
+        
+    }
+</style>

@@ -19,15 +19,15 @@ const { title } = Astro.props;
 			<slot />
 		</div>
 		<Footer />
-
-		<!-- <script src="/jquery.js" is:inline></script> -->
 	</body>
 </html>
 
+<script>
+	import main from '../js/main'
+	main()
+</script>
+
 <style lang="scss" is:global>
 	@import '../styles/global';
-	// @import '../styles/colors.scss';
-	// @import '../styles/common.scss';
-	// @import '../styles/typo.scss';
 </style>
 

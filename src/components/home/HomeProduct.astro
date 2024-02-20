@@ -6,26 +6,13 @@ import arrIcon from '../../assets/arr-right.svg?raw';
 import sampleQR from '../../assets/image 11.png';
 import PDFIcon from '../../assets/ic-pdf.svg';
 import {getByUID} from '../../prismic.js';
-const productList = [
-    'Bowls',
-    'Plates & Platters',
-    'Trays',
-    'Soup Containers',
-    'Produce',
-    'Kutlery',
-    'Kups',
-    'Straws',
-    'Klamshells',
-    'Carry-Out Bags',
-]
 
 const list = await Promise.all(
-    product_list.map(async (product) => {
+    product_list.map(async (product: any) => {
         let item = getByUID('product', product.item.uid)
         return item
     })
 )
-
 ---
 <section class="home-prod">
     <div class="container grid">

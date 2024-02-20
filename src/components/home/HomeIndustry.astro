@@ -1,19 +1,28 @@
 ---
+const { label, title, industry_list } = Astro.props;
+
 import { Image } from "astro:assets";
 import eduIcon from '../../assets/edu.svg';
 import arrIcon from '../../assets/arr-ext.svg';
 import ctaTxt from '../../assets/cta-txt.svg';
-const { title, sub_title } = Astro.props;
+import {getByUID} from '../../prismic.js';
+
+const list = await Promise.all(
+industry_list.map(async (industry: any) => {
+        let item = getByUID('industry', industry.item.uid)
+        return item
+    })
+)
 ---
 <section class="home-indus">
     <div class="container grid">
         <div class="home-indus-title-wrap">
             <div class="home-indus-title-stick">
                 <p class="heading h4 txt-up txt-black home-indus-label">
-                    Kustomers we serve
+                    {label}
                 </p>
                 <h2 class="heading h0 txt-up txt-black home-indus-title">
-                    Katering to every need
+                    {title}
                 </h2>
                 <div class="home-indus-cta-wrap">
                     <a href="#" class="home-indus-cta">
@@ -29,32 +38,26 @@ const { title, sub_title } = Astro.props;
         </div>
         <div class="home-indus-main">
             <div class="home-indus-main-list">
-                {(() => {
-                    const arr = [];
-                    for (let i = 0; i < 6; i++) {
-                        arr.push(
-                            <div class="grid home-indus-main-item">
-                                <div class="home-indus-main-item-ic">
-                                    <Image src={eduIcon} alt="education icon" class="ic ic-100"/>
-                                </div>
-                                <div class="home-indus-main-item-content">
-                                    <h3 class="heading h4 txt-up txt-black home-indus-main-item-title">
-                                        Retail
-                                    </h3>
-                                    <p class="txt txt-18 txt-med home-indus-main-item-sub">
-                                        Boost your brand with our private label packaging, tailored to resonate with your customers.
-                                    </p>
-                                    <a href="#" class="txt txt-18 txt-med txt-orange home-indus-main-item-link">
-                                        Learn more
-                                    </a>
-                                </div>
-                                <div class="line"></div>
-                                {i == 5 && <div class="line line-bottom"></div>}
-                            </div>
-                        );
-                    }
-                    return arr;
-                })()}
+                {list.map((item, idx) => (
+                    <div class="grid home-indus-main-item">
+                        <div class="home-indus-main-item-ic">
+                            <Image src={item.data.icon.url} alt={item.data.icon.alt} class="ic ic-100" width={item.data.icon.dimensions.width} height={item.data.icon.dimensions.height}/>
+                        </div>
+                        <div class="home-indus-main-item-content">
+                            <h3 class="heading h4 txt-up txt-black home-indus-main-item-title">
+                                {item.data.title}
+                            </h3>
+                            <p class="txt txt-18 txt-med home-indus-main-item-sub">
+                                {item.data.sub_title}
+                            </p>
+                            <a href="#" class="txt txt-18 txt-med txt-orange home-indus-main-item-link">
+                                Learn more
+                            </a>
+                        </div>
+                        <div class="line"></div>
+                        {idx == list.length && <div class="line line-bottom"></div>}
+                    </div>
+                ))}
             </div>
         </div>
     </div>
@@ -139,6 +142,7 @@ const { title, sub_title } = Astro.props;
                 }
                 &-title {
                     margin-bottom: 1.6rem;
+                    max-width: 28.3rem;
                 }
                 &-sub {
                     margin-bottom: 3.2rem;

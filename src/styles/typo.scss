@@ -61,7 +61,7 @@ html {
     --h2-lh: 1.2em;
 
     --h3-fs: 5.2rem;
-    --h3-lh: 1.2em;
+    --h3-lh: 1em;
 
     --h4-fs: 4rem;
     --h4-lh: 1em;
@@ -139,6 +139,9 @@ $txtSizes: 10, 14, 16, 18, 20;
     display: flex;
     align-items: center;
     justify-content: center;
+    &-20 {
+        @include size(2rem);
+    }
     &-32 {
         @include size(3.2rem);
     }
