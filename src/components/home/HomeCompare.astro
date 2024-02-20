@@ -41,34 +41,33 @@ import compareLine from '../../assets/compare-line.svg?raw';
 </section>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger"
-    gsap.registerPlugin(ScrollTrigger);
-    let tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.home-comp',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: true,
-            snap: [0, .25, .5, .75],
-            markers: true,
-            onUpdate: (self) => {
-                let prog = self.progress;
-                let idx;
-                if (prog >= .75) {idx = 3
-                } else if (prog >= .5) {idx = 2
-                } else if (prog >= .25) {idx = 1
-                } else {idx = 0}
+    // import { gsap } from "gsap";
+    // import { ScrollTrigger } from "gsap/ScrollTrigger";
+    // gsap.registerPlugin(ScrollTrigger);
+    // let tl = gsap.timeline({
+    //     scrollTrigger: {
+    //         trigger: '.home-comp',
+    //         start: 'top top',
+    //         end: 'bottom bottom',
+    //         scrub: true,
+    //         snap: [0, .25, .5, .75],
+    //         markers: true,
+    //         onUpdate: (self) => {
+    //             let prog = self.progress;
+    //             let idx;
+    //             if (prog >= .75) {idx = 3
+    //             } else if (prog >= .5) {idx = 2
+    //             } else if (prog >= .25) {idx = 1
+    //             } else {idx = 0}
                 
-            }
-        },
-        defaults: {
-            ease: 'linear'
-        }
-    })
-    tl
-    //.to('.home-comp-main-prog-line', {duration: .125})
-    .to('.home-comp-main-prog-line', {'--prog': 100, duration: 1})
+    //         }
+    //     },
+    //     defaults: {
+    //         ease: 'linear'
+    //     }
+    // })
+    // tl
+    // .to('.home-comp-main-prog-line', {'--prog': 100, duration: 1})
 </script>
 
 <style lang="scss">
