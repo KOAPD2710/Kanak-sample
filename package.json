@@ -10,12 +10,18 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^3.0.10",
     "@fontsource-variable/inter": "^5.0.16",
+    "@gsap/react": "^2.1.0",
     "@prismicio/client": "^7.3.1",
     "@prismicio/helpers": "^2.3.9",
     "@studio-freight/lenis": "^1.0.35",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
     "astro": "^4.3.5",
     "gsap": "^3.12.5",
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

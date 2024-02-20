@@ -86,26 +86,30 @@ const list = await Promise.all(
 </section>
 
 <script>
-    import $ from 'jquery';
-    $('.home-prod-main-item').on('pointerenter', function() {
-        let idx = $(this).index()
+    import * as ut from '../../js/utils.js';
+
+    let allItems = ut.dom('.home-prod-main-item');
+    ut.addEventAll(allItems, 'pointerenter', function(e) {
+        let idx = ut.getIndex(this)
         activeItem(idx)
     })
-    function activeItem(idx: number) {
-        $('.home-prod-cards-bottom-txt').removeClass('active')
-        $('.home-prod-cards-bottom-txt').eq(idx).addClass('active')
-        $('.home-prod-cards-nav-item').removeClass('disable')
+    function activeItem(idx) {
+        ut.dom('.home-prod-cards-bottom-txt.active').classList.remove('active')
+        ut.dom('.home-prod-cards-bottom-txt')[idx].classList.add('active')
+        if (ut.dom('.home-prod-cards-nav-item.disable', false).length) {
+            ut.dom('.home-prod-cards-nav-item.disable').classList.remove('disable')
+        }
         if (idx == 0) {
-            $('.home-prod-cards-nav-item.prev').addClass('disable')
-        } else if (idx == $('.home-prod-cards-bottom-txt').length - 1) {
-            $('.home-prod-cards-nav-item.next').addClass('disable')
+            ut.dom('.home-prod-cards-nav-item.prev').classList.add('disable')
+        } else if (idx == ut.dom('.home-prod-cards-bottom-txt').length - 1) {
+            ut.dom('.home-prod-cards-nav-item.next').classList.add('disable')
         }
     }
-    $('.home-prod-cards-nav-item').on('click', function(e) {
+
+    ut.addEventAll(ut.dom('.home-prod-cards-nav-item'), 'click', function(e) {
         e.preventDefault();
-        let currIdx = $('.home-prod-cards-bottom-txt.active').index();
-        console.log(currIdx)
-        if ($(this).hasClass('next')) {
+        let currIdx = ut.getIndex('.home-prod-cards-bottom-txt.active')
+        if (this.classList.contains('next')) {
             activeItem(currIdx + 1)
         } else {
             activeItem(currIdx - 1)
