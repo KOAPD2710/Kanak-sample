@@ -32,22 +32,22 @@ const { title, sub_title } = Astro.props;
 </section>
 
 <script>
-    import $ from 'jquery';
+    import * as ut from '../../js/utils.js';
     function duplicateAbout() {
-        let el = $('.home-abt-title-top').eq(0);
-        let clone = el.clone();
-        clone.css({
-            'position': 'absolute',
-            'top': `${el.offset().top}px`,
-            'left': `${el.offset().left}px`,
-            'z-index': '2'
-        })
-        $('.main').append(clone);
-        $(window).on('resize', () => {
-            clone.css({
-            'top': `${el.offset().top}px`,
-            'left': `${el.offset().left}px`,
-            })  
+        let el = ut.dom('.home-abt-title-top', false)[0];
+        let clone = el.cloneNode(true);
+        clone.style.cssText = `
+            position: absolute;
+            top: ${ut.offset(el).top}px;
+            left: ${ut.offset(el).left}px;
+            z-index: 2
+        `;
+        ut.dom('.main').append(clone);
+        ut.addEvent(window, 'resize', () => {
+            clone.style.cssText = `
+                top: ${ut.offset(el).top}px;
+                left: ${ut.offset(el).left}px;
+            `;
         })
     }
     duplicateAbout()
