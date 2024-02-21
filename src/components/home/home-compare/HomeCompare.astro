@@ -61,6 +61,7 @@ const list = await Promise.all(
                                 </h4>
                             ))}
                         </div>
+                        <div class="line line-ver"></div>
                     </div>
                 </div>
                 <div class="home-comp-main-item bad">
@@ -157,9 +158,13 @@ const list = await Promise.all(
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                position: relative;
                 &-inner {
                     width: calc(100vh - 16rem - 10rem - 8.2rem - var(--h0-fs) - var(--h3-fs));
                     position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
                 &-plates {
                 }
@@ -168,15 +173,15 @@ const list = await Promise.all(
                     position: absolute;
                     inset: 0;
                 }
-                &-line :global() {
-                    z-index: 1;
-                    position: absolute;
-                    inset: 0rem;
-                    --arcL: calc(2 * var(--PI) * 315);
-                    --prog: 0;
-                    --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
-                    transform: rotate(-90deg);
-                }
+                // &-line :global() {
+                //     z-index: 1;
+                //     position: absolute;
+                //     inset: 0rem;
+                //     --arcL: calc(2 * var(--PI) * 315);
+                //     --prog: 0;
+                //     --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
+                //     transform: rotate(-90deg);
+                // }
                 :global(.home-comp-main-prog-line) {
                     z-index: 1;
                     position: absolute;
@@ -205,6 +210,14 @@ const list = await Promise.all(
                             @include transform(scale(1));
                         }
                     }
+                }
+                .line-ver {
+                    width: .4rem;
+                    height: 50vh;
+                    position: absolute;
+                    top: -1rem;
+                    margin-top: 100%;
+                    background-color: var(--cl-txt);
                 }
             }
         }

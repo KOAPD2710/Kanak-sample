@@ -1,11 +1,43 @@
 ---
 const { label, title } = Astro.props;
 ---
-
 <section class="home-part">
     <div class="home-part-stick">
         <div class="container">
+            <div class="home-part-inner">
+                <h3 class="heading h3 txt-up txt-black home-part-title">
+                    We're <br>more than just <br>a packaging supplier. We are <span class="txt-green">your strategic partner</span>
+                </h3>
 
+            </div>
         </div>
     </div>
 </section>
+<script>
+
+</script>
+<style lang="scss">
+    .home-part {
+        // height: 400vh;
+        position: relative;
+        &-stick {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            height: 100%;
+        }
+        &-inner {
+            height: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+        &-title {
+            margin-left: 7.6rem;
+            margin-top: calc(((100vh - 5.2rem * 6) * .4) );
+            max-width: 53.2rem;
+        }
+    }
+</style>

@@ -79,3 +79,7 @@ img {
         width: auto;
     }
 }
+.line {
+    @include size(100%, .2rem);
+    background-color: var(--cl-txt);
+}

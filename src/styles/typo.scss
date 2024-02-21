@@ -83,10 +83,13 @@ html {
 }
 
 // Body text
-$txtSizes: 10, 14, 16, 18, 20;
+$txtSizes: 10, 12, 14, 16, 18, 20;
 :root {
     --fs-10: 1rem;
     --lh-10: 1.2em;
+
+    --fs-12: 1.2rem;
+    --lh-12: 1.4em;
 
     --fs-14: 1.4rem;
     --lh-14: 1.2em;
@@ -141,6 +144,9 @@ $txtSizes: 10, 14, 16, 18, 20;
     justify-content: center;
     &-20 {
         @include size(2rem);
+    }
+    &-24 {
+        @include size(2.4rem);
     }
     &-32 {
         @include size(3.2rem);
