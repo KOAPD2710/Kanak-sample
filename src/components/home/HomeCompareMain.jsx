@@ -32,7 +32,7 @@ function HomeCompareMain({ ...props }) {
             <div className="home-comp-main-prog-line" style={{'--PI': Math.PI}}>
                 {props.plateLine}
             </div>
-            {/* <style jsx="true" global="true">{`
+            <style jsx="true" global="true">{`
                 .home-comp-main-prog-line {
                     z-index: 1;
                     position: absolute;
@@ -43,7 +43,7 @@ function HomeCompareMain({ ...props }) {
                     transform: rotate(-90deg);
                 }
             `}
-            </style> */}
+            </style>
         </>
 
     )
