@@ -4,10 +4,7 @@ const { label, title } = Astro.props;
 import { Image } from 'astro:assets';
 import comparePlates from '../../assets/compare.png';
 import compareDotDash from '../../assets/compare-dot-dash.svg';
-import compareLine from '../../assets/compare-line.svg?raw'
-
-import HomeCompareMain from './HomeCompareMain.jsx';
-
+import compareLine from '../../assets/compare-line.svg?raw';
 ---
 <section class="home-comp">
     <div class="home-comp-stick">
@@ -30,9 +27,9 @@ import HomeCompareMain from './HomeCompareMain.jsx';
                         <div class="home-comp-main-prog-dot">
                             <Image src={compareDotDash} alt="" class="img" />
                         </div>
-                        <HomeCompareMain client:visible>
-                            <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
-                        </HomeCompareMain>
+                        <div class="home-comp-main-prog-line" style=`--PI: ${Math.PI};`>
+                            <Fragment set:html={compareLine} alt="" class="img" />
+                        </div>
                     </div>
                 </div>
                 <div class="home-comp-main-item">
@@ -43,6 +40,34 @@ import HomeCompareMain from './HomeCompareMain.jsx';
     </div>
 </section>
 
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger"
+    gsap.registerPlugin(ScrollTrigger);
+    let tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.home-comp',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+            snap: [0, .25, .5, .75],
+            onUpdate: (self) => {
+                let prog = self.progress;
+                let idx;
+                if (prog >= .75) {idx = 3
+                } else if (prog >= .5) {idx = 2
+                } else if (prog >= .25) {idx = 1
+                } else {idx = 0}
+                
+            }
+        },
+        defaults: {
+            ease: 'linear'
+        }
+    })
+    tl
+    .to('.home-comp-main-prog-line', {'--prog': 100, duration: 1})
+</script>
 
 <style lang="scss">
     @import '../../styles/colors.scss';
@@ -103,10 +128,7 @@ import HomeCompareMain from './HomeCompareMain.jsx';
                     position: absolute;
                     inset: 0;
                 }
-                &-line :global() {
-                    
-                }
-                :global(.home-comp-main-prog-line) {
+                &-line {
                     z-index: 1;
                     position: absolute;
                     inset: 0rem;
@@ -115,6 +137,7 @@ import HomeCompareMain from './HomeCompareMain.jsx';
                     --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
                     transform: rotate(-90deg);
                 }
+                
             }
         }
     }

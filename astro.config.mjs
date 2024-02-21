@@ -12,5 +12,10 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: 'viewport'
   },
-  integrations: [react()]
+  integrations: [
+    react({
+      experimentalReactChildren: true,
+    }),
+  ],
+  
 });
