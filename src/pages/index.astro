@@ -5,7 +5,8 @@ import HomeProduct from '../components/home/HomeProduct.astro';
 import HomeClient from '../components/home/HomeClient.astro';
 import HomeIndustry from '../components/home/HomeIndustry.astro';
 import HomeBrand from '../components/home/HomeBrand.astro';
-import HomeCompare from '../components/home/HomeCompare.astro';
+import HomeCompare from '../components/home/home-compare/HomeCompare.astro';
+import HomePartner from '../components/home/home-partner/HomePartner.astro';
 
 import {getPage} from '../prismic.js';
 const {data} = await getPage('home');
@@ -17,5 +18,6 @@ const {data} = await getPage('home');
 	<HomeClient	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/>
 	<HomeIndustry label={data.industry_label[0].text} title={data.industry_title[0].text} industry_list={data.industry_list}/>
 	<HomeBrand title={data.brand_title[0].text} brand_list={data.brand_list}/>
-	<HomeCompare label={data.compare_label[0].text} title={data.compare_title[0].text} />
+	<HomeCompare label={data.compare_label[0].text} title={data.compare_title[0].text} compare_list={data.compare_list}/>
+	<HomePartner />
 </Layout>
