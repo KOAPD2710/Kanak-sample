@@ -1,0 +1,68 @@
+---
+const { title, sub_title } = Astro.props;
+import { Image } from "astro:assets"
+import homeCtaBg from '../../assets/home-cta-bg2.jpg';
+---
+<div class="home-cta">
+    <div class="home-cta-bg">
+        <Image src={homeCtaBg} alt="" class="img img-fill" />
+    </div>
+    <div class="container grid">
+        <div class="home-cta-main bg-light">
+            <div class="home-cta-main-head">
+                <h2 class="heading h1 txt-up txt-black home-cta-title">
+                    Ready to elevate your brand?
+                </h2>
+                <h3 class="heading h5 txt-up txt-black home-cta-sub">
+                    Partner with us today!
+                </h3>
+            </div>
+            <div class="home-cta-main-tail">
+                <div class="line"></div>
+                <a href="" class="btn btn-lg btn-wide home-cta-main-tail-btn">
+                    <div class="txt txt-18 txt-med">
+                        Request a quote
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style lang="scss">
+    .home-cta {
+        height: 90rem;
+        position: relative;
+        &-bg {
+            position: absolute;
+            inset: 0;
+
+        }
+        .container {
+            height: 100%;
+        }
+        &-main {
+            grid-column: 1/6;
+            margin-bottom: 12rem;
+            align-self: end;
+            border: solid .2rem var(--cl-txt);
+            background-color: var(--cl-bg);
+            &-head {
+                padding: 2rem;
+            }
+            &-tail {
+                padding: 2rem 1.8rem 1.8rem;
+                position: relative;
+                .line {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+            }
+        }
+        &-title {
+            margin-bottom: 1rem;
+        }
+        
+    }
+</style>

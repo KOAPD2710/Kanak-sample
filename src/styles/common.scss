@@ -78,8 +78,36 @@ img {
         height: 100%;
         width: auto;
     }
+    &.img-fill {
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+//Button
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 2.4rem;
+    background-color: var(--cl-orange);
+    color: var(--cl-white);
+    &-lg {
+        padding: 2.8rem 2.4rem;
+    }
+    &-wide {
+        width: 100%;
+    }
 }
 .line {
     @include size(100%, .2rem);
     background-color: var(--cl-txt);
+}
+body, .bg-light {
+    background: var(--bg-txt) repeat;
+    background-size: 40rem auto;
+}
+.bg-dark {
+    background: var(--bg-txt-dark);
+    background-size: 40rem auto;
 }

@@ -1,17 +1,22 @@
 ---
 import '@fontsource-variable/inter';
 import '../styles/global.scss';
+import { getImage } from "astro:assets";
+import bgTexture from "../assets/bg-texture-sm.png";
+import bgTextureDark from "../assets/bg-texture-dark-sm.png";
 import BaseHead from '../components/globals/BaseHead.astro';
 import Header from '../components/globals/Header.astro';
 import Footer from '../components/globals/Footer.astro';
 import '../styles/global.scss';
 
+const OpBgTexture = await getImage({src: bgTexture, format: 'webp', width: bgTexture.width / 2})
+const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width * 2})
 const { title } = Astro.props;
 ---
 
 <html lang="en">
 	<BaseHead title={title}/>
-	<body>
+	<body style={`--bg-txt: url(${OpBgTexture.src}); --bg-txt-dark: url(${OpBgTextureDark.src});`}>
 		<Header />
 		<div class="main">
 			<slot />
@@ -24,8 +29,4 @@ const { title } = Astro.props;
 	import main from '../js/main'
 	main()
 </script>
-
-<style lang="scss" is:global>
-	
-</style>
 

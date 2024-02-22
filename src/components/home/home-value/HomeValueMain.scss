@@ -1,0 +1,89 @@
+@import '../../../styles/colors.scss';
+.home-val {
+    background-color: var(--cl-bg-dark);
+    color: var(--cl-txt-light);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: calc((53vw * 3));
+    &-stick {
+        position: sticky;
+        bottom: 0;
+        overflow: hidden;
+    }
+    &-title-wrap {
+        padding-top: 20rem;
+        padding-bottom: 24rem;
+        width: 100%;
+        max-width: 122.8rem;
+        margin: 0 auto;
+        text-align: center;
+    }
+    &-label {
+        margin-bottom: 3.2rem;
+    }
+    &-main {
+        &-wrap {
+            display: flex;
+            flex-wrap: nowrap;
+            position: relative;
+        }
+        &-inner {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+        .line-top {
+            position: absolute;
+            top: -.2rem;
+            left: 0;
+            background-color: var(--cl-txt);
+        }
+        &-item {         
+            flex: none;
+            padding-top: 5.7rem;
+            padding-bottom: 10rem;
+            padding-right: 8rem;
+            padding-left: 16.5rem;
+            position: relative;
+            width: calc(48vw + 16.5rem + 8rem);
+            &:first-child {
+                padding-left: 0;
+                width: calc(48vw + 8rem);    
+            }
+            &:last-child {
+                width: calc(48vw + 16.5rem);
+                padding-right: 0;
+            }
+            &-head {
+                display: flex;
+                align-items: start;
+                justify-content: space-between;
+                margin-bottom: 3.2rem;
+            }
+            &-num {
+                font-size: 8rem;
+                line-height: 1em;
+                color: rgba($cl-txt-light, .8);
+            }
+            &-title {
+                max-width: 58rem;
+                margin-bottom: 4rem;
+            }
+            &-sub {
+                max-width: 79.4rem;
+                margin-bottom: 4rem;
+                color: rgba($cl-txt-light, .6);
+            }
+            .line-left {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: .2rem;
+                height: 100%;
+                background-color: var(--cl-txt);
+            }
+        }
+    }
+}

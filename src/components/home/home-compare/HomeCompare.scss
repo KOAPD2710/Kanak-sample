@@ -1,0 +1,70 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
+.home-comp {
+    height: 400vh;
+    position: relative;
+    .container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    &-stick {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+    }
+    &-title-wrap {
+        padding-top: 16rem;
+        margin-bottom: 8.2rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    &-title {
+        width: 100%;
+        margin: 0 auto;
+    }
+    &-main {
+        grid-template-columns: repeat(16, 1fr);
+        align-items: center;
+        flex-grow: 1;
+        padding-bottom: 10rem;
+        &-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            grid-column: span 4;
+        }
+        &-prog {
+            grid-column: span 8;
+            padding-left: 6.2rem;
+            padding-right: 6.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &-inner {
+                width: calc(100vh - 16rem - 10rem - 8.2rem - var(--h0-fs) - var(--h3-fs));
+                position: relative;
+            }
+            &-plates {
+            }
+            &-dot {
+                z-index: 2;
+                position: absolute;
+                inset: 0;
+            }
+            &-line {
+                z-index: 1;
+                position: absolute;
+                inset: 0rem;
+                --arcL: calc(2 * var(--PI) * 315);
+                --prog: 0;
+                --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
+                transform: rotate(-90deg);
+            }
+            
+        }
+    }
+}

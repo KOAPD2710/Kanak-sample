@@ -29,5 +29,8 @@ const offset = (el) => {
       top: box.top + window.scrollY - docElem.clientTop,
       left: box.left + window.scrollX - docElem.clientLeft
     };
-  }
-export { dom, addEvent, addEventAll, getIndex, offset }
+}
+const parseRem = (input) => {
+    return input / 10 * parseFloat(window.getComputedStyle(dom('html')).getPropertyValue("font-size"));
+}
+export { dom, addEvent, addEventAll, getIndex, offset, parseRem }

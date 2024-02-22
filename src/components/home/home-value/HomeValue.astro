@@ -1,0 +1,10 @@
+---
+import { Image } from "astro:assets"
+import itemIcon from '../../../assets/ic-network.svg';
+import HomeValueMain from "./HomeValueMain.jsx"
+---
+<HomeValueMain client:visible>
+    <Image src={itemIcon} alt="" class="ic ic-150" slot="itemIcon" />
+</HomeValueMain>
+
+

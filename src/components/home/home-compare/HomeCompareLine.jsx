@@ -42,24 +42,9 @@ function HomeCompareLine({ ...props }) {
         }
     })
     return (
-        <>
-            <div className="home-comp-main-prog-line" style={{'--PI': Math.PI}}>
-                {props.plateLine}
-            </div>
-            {/* <style jsx="true">{`
-                .home-comp-main-prog-line {
-                    z-index: 1;
-                    position: absolute;
-                    inset: 0rem;
-                    --arcL: calc(2 * var(--PI) * 315);
-                    --prog: 0;
-                    --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
-                    transform: rotate(-90deg);
-                }
-            `}
-            </style> */}
-        </>
-
+        <div className="home-comp-main-prog-line" style={{'--PI': Math.PI}}>
+            {props.plateLine}
+        </div>
     )
 }
 export default HomeCompareLine;
