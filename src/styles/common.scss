@@ -70,7 +70,7 @@ button, input, textarea {
 button {
     cursor: pointer;
 }
-img {
+img, .img {
     display: block;
     width: 100%;
     height: auto;
@@ -84,7 +84,6 @@ img {
     }
 }
 
-//Button
 .btn {
     display: flex;
     justify-content: center;

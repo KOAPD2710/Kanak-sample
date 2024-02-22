@@ -45,8 +45,10 @@ const { title, sub_title } = Astro.props;
         ut.dom('.main').append(clone);
         ut.addEvent(window, 'resize', () => {
             clone.style.cssText = `
+                position: absolute;
                 top: ${ut.offset(el).top}px;
                 left: ${ut.offset(el).left}px;
+                z-index: 2
             `;
         })
     }

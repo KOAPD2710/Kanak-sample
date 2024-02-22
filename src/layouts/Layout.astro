@@ -10,7 +10,7 @@ import Footer from '../components/globals/Footer.astro';
 import '../styles/global.scss';
 
 const OpBgTexture = await getImage({src: bgTexture, format: 'webp', width: bgTexture.width / 2})
-const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width * 2})
+const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width})
 const { title } = Astro.props;
 ---
 

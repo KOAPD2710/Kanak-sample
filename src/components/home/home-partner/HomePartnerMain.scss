@@ -1,0 +1,36 @@
+.home-part {
+    height: 400vh;
+    position: relative;
+    &-stick {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: hidden;
+        background-color: var(--cl-bg);
+    }
+    .container {
+        height: 100%;
+    }
+    &-inner {
+        height: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        
+    }
+    &-line {
+        &-wrap {
+            margin-left: 50%;
+            margin-right: 50%;
+        }
+        &-main.img {
+            margin-top: -24.66001813vh;
+            height: 124.66001813vh;
+            margin-left: -12.9698338442%;
+        }
+    }
+    &-title {
+        margin-left: 7.6rem;
+        margin-top: calc(((100vh - 5.2rem * 6) * .4) );
+        max-width: 53.2rem;
+    }
+}

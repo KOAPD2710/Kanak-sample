@@ -13,8 +13,8 @@ function HomeValueMain({...props}) {
                 trigger: '.home-val-stick',
                 start: 'bottom bottom',
                 endTrigger: '.home-val',
-                end: 'bottom bottom',
-                scrub: .3
+                end: `bottom-=${window.innerHeight} bottom`,
+                scrub: .3,
             },
             defaults: {
                 ease: 'linear',
@@ -32,9 +32,20 @@ function HomeValueMain({...props}) {
         .to([...allItems[1].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
         .to(allItems[2], {x: -dis2})
         .to([...allItems[2].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
+        // const tlScroll = gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: '.home-val',
+        //         start: `bottom-=${window.innerHeight} bottom`,
+        //         end: 'bottom bottom',
+        //         scrub: true
+        //     }
+        // })
+        // tlScroll
+        // .to('.home-val-title-wrap', {y: -160})
+        // .to('.home-val-main', {y: -200}, 0)
     }, [])
     return (
-        <div className="home-val bg-dark">
+        <div className="home-val bg-dark" style={{'--offsetMargin': '100vh'}}>
             <div className="home-val-stick">
                 <div className="container">
                     <div className="home-val-title-wrap">
@@ -57,7 +68,7 @@ function HomeValueMain({...props}) {
                                             1.
                                         </div>
                                         <div className="home-val-main-item-ic">
-                                            {props.itemIcon}
+                                            {props.icNetwork}
                                         </div>
                                     </div>
                                     <div className="home-val-main-item-body">
@@ -78,7 +89,7 @@ function HomeValueMain({...props}) {
                                             2.
                                         </div>
                                         <div className="home-val-main-item-ic">
-                                            {props.itemIcon}
+                                            {props.icTree}
                                         </div>
                                     </div>
                                     <div className="home-val-main-item-body">
@@ -100,7 +111,7 @@ function HomeValueMain({...props}) {
                                             3.
                                         </div>
                                         <div className="home-val-main-item-ic">
-                                            {props.itemIcon}
+                                            {props.icAward}
                                         </div>
                                     </div>
                                     <div className="home-val-main-item-body">

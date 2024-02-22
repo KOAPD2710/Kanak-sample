@@ -1,10 +1,12 @@
 ---
 import { Image } from "astro:assets"
-import itemIcon from '../../../assets/ic-network.svg';
+import icNetwork from '../../../assets/ic-network.svg';
+import icTree from '../../../assets/ic-tree.svg';
+import icAward from '../../../assets/ic-award.svg';
 import HomeValueMain from "./HomeValueMain.jsx"
 ---
 <HomeValueMain client:visible>
-    <Image src={itemIcon} alt="" class="ic ic-150" slot="itemIcon" />
+    <Image src={icNetwork} alt="" class="ic ic-150" slot="icNetwork" />
+    <Image src={icTree} alt="" class="ic ic-150" slot="icTree" />
+    <Image src={icAward} alt="" class="ic ic-150" slot="icAward" />
 </HomeValueMain>
-
-

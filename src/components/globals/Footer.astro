@@ -5,7 +5,7 @@ import linkedIn from '../../assets/ic-linkedin.svg';
 const currYear = new Date().getFullYear()
 ---
 
-<footer class="ft">
+<footer class="ft bg-light">
     <div class="line line-top"></div>
     <div class="container grid">
         <div class="ft-left">
@@ -47,9 +47,9 @@ const currYear = new Date().getFullYear()
                         <Image src={linkedIn} alt="Linkedin" class="ic ic-24"/>
                     </a>
                 </div>
-                <h3 class="heading h1 txt-up txt-black ft-left-body-title">
+                <a href="#" class="heading h1 txt-up txt-black ft-left-body-title">
                     Let's talk!
-                </h3>
+                </a>
             </div>
             <div class="ft-tail">
                 <div class="line line-top"></div>
@@ -221,6 +221,8 @@ const currYear = new Date().getFullYear()
     @import '../../styles/mixins.scss';
     .ft {
         position: relative;
+        z-index: 4;
+        background-color: var(--cl-bg);
         &-left {
             grid-column: span 6;
             margin-right: calc(var(--grid-gap) * -1);
