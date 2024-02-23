@@ -1,5 +1,6 @@
 .home-part {
-    height: 400vh;
+    margin-bottom: -200vh;
+    height: calc(400vh + 200vh);
     position: relative;
     &-stick {
         position: sticky;
@@ -20,17 +21,96 @@
     &-line {
         &-wrap {
             margin-left: 50%;
-            margin-right: 50%;
+            //padding-left: 50%;
+            // margin-right: 50%;
+            position: relative;
         }
         &-main.img {
             margin-top: -24.66001813vh;
             height: 124.66001813vh;
             margin-left: -12.9698338442%;
+            margin-right: -12.9698338442%;
+            position: relative;
         }
-    }
-    &-title {
-        margin-left: 7.6rem;
-        margin-top: calc(((100vh - 5.2rem * 6) * .4) );
-        max-width: 53.2rem;
+        &-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin-left: -12.9698338442%;
+            margin-right: -12.9698338442%;
+            height: 100%;
+            pointer-events: none;
+            --half: calc((100vw - (var(--container-padding) * 2)) / 2);
+            & > * {
+                pointer-events: auto;
+            }
+            &-ic {
+                width: 28.2864913871vh;
+                height: 28.2864913871vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                border: solid .4rem;
+                background-color: var(--cl-bg);
+            }
+            &-title {
+                position: absolute;
+                width: max-content;
+                &-center {
+                    text-align: center;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+            &-item {
+                position: absolute;
+                &.item {
+                    &-1 {
+                        top: 29.28377153vh;
+                        left: 58.7488667271vh;
+                        .home-part-line-content-title {            
+                            left: calc(((var(--half) * -1) + 50% + 7.6rem));
+                            top: 0;
+                            max-width: 53.2rem;
+                        }
+                    }
+                    &-2 {
+                        display: flex;
+                        align-items: center;
+                        top: 26.291931097vh;
+                        left: 187.3980054397vh;
+                        .home-part-line-content-ic:first-child {
+                            margin-right: -5.2rem;
+                        }
+                        .home-part-line-content-title {            
+                            top: 100%;
+                            margin-top: 5.3490480508vh;
+                            max-width: 60.5rem;
+                        }
+                    }
+                    &-4 {
+                        top: 49.04805077063vh;
+                        left: 322.121486854vh;
+                        .home-part-line-content-title {            
+                            bottom: 100%;
+                            margin-bottom: 13.4179510426vh;
+                            max-width: 68.4rem;
+                        }
+                    }
+                    &-5 {
+                        top: 14.7778785131vh;
+                        left: 474.9773345422vh;
+                        .home-part-line-content-title {            
+                            top: 100%;
+                            margin-top: 6.6183136899vh;
+                            max-width: 74.4rem;
+                        }
+                    }
+                }
+            }
+            
+        }
     }
 }

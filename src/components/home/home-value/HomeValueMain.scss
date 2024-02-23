@@ -8,10 +8,29 @@
     justify-content: end;
     height: calc((53vw * 3) + var(--offsetMargin));
     margin-bottom: calc(var(--offsetMargin) * -1);
+    z-index: 2;
+    &-arr{
+        display: flex;
+        align-items: end;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        z-index: 3;
+        &-inner {
+            width: 100%;
+            margin-bottom: -18%;
+            svg {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
     &-stick {
         position: sticky;
         bottom: 0;
-        overflow: hidden;
     }
     &-title-wrap {
         padding-top: 20rem;
@@ -25,6 +44,10 @@
         margin-bottom: 3.2rem;
     }
     &-main {
+        overflow: hidden;
+        .container {
+            padding-top: .2rem;
+        }
         &-wrap {
             display: flex;
             flex-wrap: nowrap;
