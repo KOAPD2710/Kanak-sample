@@ -3,7 +3,7 @@ const { title, sub_title } = Astro.props;
 import { Image } from "astro:assets"
 import homeCtaBg from '../../assets/home-cta-bg2.jpg';
 ---
-<div class="home-cta">
+<section class="home-cta">
     <div class="home-cta-bg">
         <Image src={homeCtaBg} alt="" class="img img-fill" />
     </div>
@@ -27,7 +27,7 @@ import homeCtaBg from '../../assets/home-cta-bg2.jpg';
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <style lang="scss">
     .home-cta {

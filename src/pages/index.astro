@@ -10,13 +10,18 @@ import HomePartner from '../components/home/home-partner/HomePartner.astro';
 import HomeCta from '../components/home/HomeCta.astro';
 import HomeValue from '../components/home/home-value/HomeValue.astro';
 
+import HomeThree from '../components/home/home-three/HomeThree.astro'
+
 import {getPage} from '../prismic.js';
 const {data} = await getPage('home');
 ---
 
 <Layout title="Homepage">
-	<HomeHero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
-	<HomeProduct title={data.product_title[0].text} product_list={data.product_list}/>
+	<div class="home-three-wrap">
+		<HomeThree />
+		<HomeHero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
+		<HomeProduct title={data.product_title[0].text} product_list={data.product_list}/>
+	</div>
 	<HomeClient	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/>
 	<HomeIndustry label={data.industry_label[0].text} title={data.industry_title[0].text} industry_list={data.industry_list}/>
 	<HomeBrand title={data.brand_title[0].text} brand_list={data.brand_list}/>

@@ -14,7 +14,7 @@ function HomeValueMain({...props}) {
                 start: 'bottom bottom',
                 endTrigger: '.home-val',
                 end: `bottom-=${window.innerHeight} bottom`,
-                scrub: .3,
+                scrub: true,
             },
             defaults: {
                 ease: 'linear',
@@ -44,11 +44,25 @@ function HomeValueMain({...props}) {
                 ease: 'linear'
             }
         })
-        requestAnimationFrame(() => {
-            tl2
-            .from('.home-val-arr-inner', {scale: .2, transformOrigin: 'center top' })
-            // .from('.home-val-title-wrap', {yPercent: -20, scale: .5, transformOrigin: 'center top'}, 0)
+        tl2
+        .from('.home-val-arr-inner', {scale: .2, transformOrigin: 'center top' })
+
+        const tl3 = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.home-val-title-wrap',
+                start: `top-=${window.innerHeight * .4} bottom`,
+                end: 'bottom bottom',
+                scrub: true,
+            },
+            defaults: {
+                ease: 'linear'
+            }
         })
+        requestAnimationFrame(() => {
+            tl3
+            .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .4), transformOrigin: 'center top' })
+        })
+        
     }, [])
     return (
         <>

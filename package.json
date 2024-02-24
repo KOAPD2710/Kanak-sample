@@ -15,6 +15,7 @@
     "@gsap/react": "^2.1.0",
     "@prismicio/client": "^7.3.1",
     "@prismicio/helpers": "^2.3.9",
+    "@react-three/fiber": "^8.15.16",
     "@studio-freight/lenis": "^1.0.35",
     "@types/react": "^18.2.57",
     "@types/react-dom": "^18.2.19",
@@ -22,7 +23,8 @@
     "gsap": "^3.12.5",
     "jquery": "^3.7.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "three": "^0.161.0"
   },
   "devDependencies": {
     "node-sass": "^9.0.0",

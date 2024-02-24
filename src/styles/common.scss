@@ -107,6 +107,7 @@ body, .bg-light {
     background-size: 40rem auto;
 }
 .bg-dark {
-    background: var(--bg-txt-dark);
+    // background: var(--bg-txt-dark);
+    background-color: var(--cl-bg-dark);
     background-size: 40rem auto;
 }

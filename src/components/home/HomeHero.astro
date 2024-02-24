@@ -40,7 +40,7 @@ const { title, sub_title } = Astro.props;
             position: absolute;
             top: ${ut.offset(el).top}px;
             left: ${ut.offset(el).left}px;
-            z-index: 2
+            z-index: 10
         `;
         ut.dom('.main').append(clone);
         ut.addEvent(window, 'resize', () => {
@@ -48,7 +48,7 @@ const { title, sub_title } = Astro.props;
                 position: absolute;
                 top: ${ut.offset(el).top}px;
                 left: ${ut.offset(el).left}px;
-                z-index: 2
+                z-index: 10
             `;
         })
     }
