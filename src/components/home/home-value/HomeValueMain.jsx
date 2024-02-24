@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import * as ut from '../../../js/utils.js';
+import imgText from '../../../assets/bg-texture-dark-sm.png'
 import './HomeValueMain.scss';
 
 function HomeValueMain({...props}) {
@@ -73,13 +74,18 @@ function HomeValueMain({...props}) {
                             <mask id="svgmask1">
                                 <path fill-rule="evenodd" mask="url(#svgmask1)" clip-rule="evenodd" d="M1033 210.787L864.558 0L696.114 210.787H797.029C789.32 480.211 619.781 1012 0 1012V1325H862.635H865.365H1728V1012C1108.22 1012 938.68 480.211 930.971 210.787H1033Z" fill="white"/>
                             </mask>
-                            <g clip-path="url(#clip0_1002_23544)">
-                                <rect width="100%" height="100%" fill="var(--cl-bg-dark)" mask="url(#svgmask1)" className="bg-dark"/>
+                            <g clip-path="url(#clip0_1002_23544)" mask="url(#svgmask1)">
+                                <rect width="100%" height="100%" fill="var(--cl-bg-dark)" className="bg-dark"/>
+                                <rect width="1728" height="1325" fill="url(#pattern0)" fill-opacity="1"/>    
                             </g>
                             <defs>
+                            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.16956" height="0.22717">
+                                <use xlink:href="#image01" transform="scale(0.000289352 0.000377358)"/>
+                            </pattern>
                             <clipPath id="clip0_1002_23544">
                             <rect width="1728" height="1325" fill="white"/>
                             </clipPath>
+                            <image id="image01" width="586" height="602" xlink:href={imgText.src}/>
                             </defs>
                         </svg>
                     </div>

@@ -1,4 +1,5 @@
 .home-three {
+    --btnHeight: 16.8rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -6,6 +7,7 @@
     height: 100%;
     z-index: 99;
     pointer-events: none;
+    height: calc(100% - 23.8rem); //28.8 - x (need vh)
     &-wrap {
         position: relative;
         z-index: 2;

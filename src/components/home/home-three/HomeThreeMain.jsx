@@ -39,8 +39,10 @@ function Content() {
                 start: 'bottom bottom',
                 endTrigger: '.home-prod-cards',
                 end: `top-=${window.getComputedStyle(document.querySelector('.home-prod-cards-inner')).top} top`,
-                markers: true,
                 scrub: true
+            },
+            defaults: {
+                ease: 'linear'
             }
         })
         tl2
