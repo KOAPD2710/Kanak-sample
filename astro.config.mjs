@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import react from "@astrojs/react";
 
+import compress from "astro-compress";
+
 // https://astro.build/config
 export default defineConfig({
   // base: '/dist',
@@ -12,10 +14,7 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: 'viewport'
   },
-  integrations: [
-    react({
-      experimentalReactChildren: true,
-    }),
-  ],
-  
+  integrations: [react({
+    experimentalReactChildren: true
+  }), compress()]
 });
