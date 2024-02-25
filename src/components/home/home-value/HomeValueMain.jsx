@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import * as ut from '../../../js/utils.js';
-import imgText from '../../../assets/bg-texture-dark-sm.png'
 import './HomeValueMain.scss';
 
 function HomeValueMain({...props}) {
@@ -85,7 +84,7 @@ function HomeValueMain({...props}) {
                             <clipPath id="clip0_1002_23544">
                             <rect width="1728" height="1325" fill="white"/>
                             </clipPath>
-                            <image id="image01" width="586" height="602" xlinkHref={imgText.src}/>
+                            <image id="image01" width="586" height="602" xlinkHref={props.bgText.src}/>
                             </defs>
                         </svg>
                     </div>

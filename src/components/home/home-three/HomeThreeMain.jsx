@@ -67,7 +67,7 @@ function HomeThreeMain() {
     return (
         <div className="home-three">
             <div className="home-three-stick">
-                <Canvas frameloop="demand">
+                <Canvas performance={{ min: 0.5 }}>
                     <Content />
                 </Canvas>
             </div>

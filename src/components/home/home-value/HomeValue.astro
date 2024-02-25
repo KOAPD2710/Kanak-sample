@@ -1,11 +1,13 @@
 ---
-import { Image } from "astro:assets"
+import { Image, getImage } from "astro:assets"
 import icNetwork from '../../../assets/ic-network.svg';
 import icTree from '../../../assets/ic-tree.svg';
 import icAward from '../../../assets/ic-award.svg';
-import HomeValueMain from "./HomeValueMain.jsx"
+import HomeValueMain from "./HomeValueMain.jsx";
+import bgTextureDark from "../../../assets/bg-texture-dark-sm.png";
+const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width})
 ---
-<HomeValueMain client:visible>
+<HomeValueMain client:visible bgText={OpBgTextureDark}>
     <Image src={icNetwork} alt="" class="ic ic-150" slot="icNetwork" />
     <Image src={icTree} alt="" class="ic ic-150" slot="icTree" />
     <Image src={icAward} alt="" class="ic ic-150" slot="icAward" />
