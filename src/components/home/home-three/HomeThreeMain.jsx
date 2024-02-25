@@ -3,14 +3,14 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
+import {Model} from './KA10054.jsx';
 import * as ut from '../../../js/utils.js';
 import './HomeThreeMain.scss';
 
 function Content() {
     const cube = useRef()
     const wrap = useRef()
-    useFrame(() => {
-        console.log('anim')
+    useFrame((state, delta) => {
         if (!cube.current) return;
         cube.current.rotation.y += 0.01
     })
@@ -32,7 +32,7 @@ function Content() {
         })
         tl.to(cube.current.rotation, {z: Math.PI * 2})
         .to(cube.current.position, {x: 0}, 0)
-        .to(cube.current.scale, {x: 1, y: 1, z: 1}, 0)
+        .to(cube.current.scale, {x: 1.2, y: 1.2, z: 1.2}, 0)
         const tl2 = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-abt',
@@ -54,10 +54,10 @@ function Content() {
         <>
             <group ref={wrap}>
                 <mesh ref={cube} position={[2.25,0,0]} scale={[1.4,1.4,1.4]}>
-                    <boxGeometry args={[2,.5,2]}/>
-                    <meshStandardMaterial />
+                <Model scale={[8,8,8]}/>
                 </mesh>
             </group>
+            
             <ambientLight />
         </>
     )

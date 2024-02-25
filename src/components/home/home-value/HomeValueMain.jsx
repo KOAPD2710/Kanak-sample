@@ -72,20 +72,20 @@ function HomeValueMain({...props}) {
                     <div className="home-val-arr-inner">
                         <svg width="1728" height="1325" viewBox="0 0 1728 1325" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="svgmask1">
-                                <path fill-rule="evenodd" mask="url(#svgmask1)" clip-rule="evenodd" d="M1033 210.787L864.558 0L696.114 210.787H797.029C789.32 480.211 619.781 1012 0 1012V1325H862.635H865.365H1728V1012C1108.22 1012 938.68 480.211 930.971 210.787H1033Z" fill="white"/>
+                                <path fillRule="evenodd" mask="url(#svgmask1)" clipRule="evenodd" d="M1033 210.787L864.558 0L696.114 210.787H797.029C789.32 480.211 619.781 1012 0 1012V1325H862.635H865.365H1728V1012C1108.22 1012 938.68 480.211 930.971 210.787H1033Z" fill="white"/>
                             </mask>
-                            <g clip-path="url(#clip0_1002_23544)" mask="url(#svgmask1)">
+                            <g clipPath="url(#clip0_1002_23544)" mask="url(#svgmask1)">
                                 <rect width="100%" height="100%" fill="var(--cl-bg-dark)" className="bg-dark"/>
-                                <rect width="1728" height="1325" fill="url(#pattern0)" fill-opacity="1"/>    
+                                <rect width="1728" height="1325" fill="url(#pattern0)" fillOpacity="1"/>    
                             </g>
                             <defs>
                             <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.16956" height="0.22717">
-                                <use xlink:href="#image01" transform="scale(0.000289352 0.000377358)"/>
+                                <use xlinkHref="#image01" transform="scale(0.000289352 0.000377358)"/>
                             </pattern>
                             <clipPath id="clip0_1002_23544">
                             <rect width="1728" height="1325" fill="white"/>
                             </clipPath>
-                            <image id="image01" width="586" height="602" xlink:href={imgText.src}/>
+                            <image id="image01" width="586" height="602" xlinkHref={imgText.src}/>
                             </defs>
                         </svg>
                     </div>
