@@ -44,7 +44,7 @@ function HomePartnerMain({...props}) {
                                 {/* All follow svg's hieght = 100vh */}
                                 <div className="home-part-line-content-item item-1">
                                     <div className="home-part-line-content-ic bg-light">
-                                        <img src={partIc1.src} alt="" className="ic" />
+                                        {props.partIc1}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
                                         We're <br/>more than just <br/>a packaging supplier. We are <span className="txt-green">your strategic partner</span>
@@ -52,10 +52,10 @@ function HomePartnerMain({...props}) {
                                 </div>
                                 <div className="home-part-line-content-item item-2">
                                     <div className="home-part-line-content-ic bg-light">
-                                        <img src={partIc2.src} alt="" className="ic" />
+                                        {props.partIc2}
                                     </div>
                                     <div className="home-part-line-content-ic bg-light">
-                                        <img src={partIc3.src} alt="" className="ic" />
+                                        {props.partIc3}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
                                         We're Combining sustainability with innovation...
@@ -63,7 +63,7 @@ function HomePartnerMain({...props}) {
                                 </div>
                                 <div className="home-part-line-content-item item-4">
                                     <div className="home-part-line-content-ic bg-light">
-                                        <img src={partIc4.src} alt="" className="ic" />
+                                        {props.partIc4}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
                                         ...to deliver eco-friendly packaging solutions...
@@ -71,7 +71,7 @@ function HomePartnerMain({...props}) {
                                 </div>
                                 <div className="home-part-line-content-item item-5">
                                     <div className="home-part-line-content-ic bg-light">
-                                        <img src={partIc5.src} alt="" className="ic" />
+                                        {props.partIc5}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
                                         That exceed <br/>your expectations <br/>and contribute to your brand's growth
