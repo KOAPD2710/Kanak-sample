@@ -67,7 +67,7 @@ function HomeThreeMain() {
     return (
         <div className="home-three">
             <div className="home-three-stick">
-                <Canvas>
+                <Canvas frameloop="demand">
                     <Content />
                 </Canvas>
             </div>
