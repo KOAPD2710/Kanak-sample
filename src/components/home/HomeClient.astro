@@ -26,7 +26,7 @@ const list = await Promise.all(
             <div class="home-client-title-wrap">
                 <h2 class="heading h0 txt-up txt-black home-client-title">
                     <Fragment set:html={newTitle} />
-                    <Image src={quality} alt="quality" class="home-client-title-quality"/>
+                    <Image src={quality} alt="quality" class="home-client-title-quality" width={quality.width / 2}/>
                 </h2>
             </div>
             <div class="home-client-sub-wrap">
