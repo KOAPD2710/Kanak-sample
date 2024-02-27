@@ -15,4 +15,7 @@ export function getPage(slug) {
 export function getByUID(customType, uid) {
   return client.getByUID(customType, uid)
 }
+export function getAllByType(customType) {
+  return client.getAllByType(customType)
+}
 

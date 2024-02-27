@@ -83,7 +83,13 @@ img, .img {
         object-fit: cover;
     }
 }
-
+button {
+    appearance: none;
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+    border: none;
+}
 .btn {
     display: flex;
     justify-content: center;

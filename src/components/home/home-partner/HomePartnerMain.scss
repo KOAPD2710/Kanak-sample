@@ -1,15 +1,19 @@
 .home-part {
+    margin-top: -10rem;
+    padding-top: 10rem;
+    contain: paint;
     margin-bottom: -200vh;
-    height: calc(400vh + 200vh);
+    height: calc(500vh + 200vh + 10rem);
     position: relative;
     &-stick {
         position: sticky;
         top: 0;
-        height: 100vh;
+        height: calc(100vh + 10rem);
+        margin-top: -10rem;
         overflow: hidden;
-        background-color: var(--cl-bg);
     }
     .container {
+        background-color: var(--cl-bg);
         height: 100%;
     }
     &-inner {
@@ -31,6 +35,9 @@
             margin-left: -12.9698338442%;
             margin-right: -12.9698338442%;
             position: relative;
+            path {
+                --totalOffset: calc(var(--totalL) * ((100 - var(--prog)) / 100));
+            }
         }
         &-content {
             position: absolute;

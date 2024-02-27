@@ -3,8 +3,9 @@ import { Image } from "astro:assets"
 import logo from '../../assets/kanak-logo.svg';
 import linkedIn from '../../assets/ic-linkedin.svg';
 const currYear = new Date().getFullYear()
+import {getAllByType} from '../../prismic.js';
+const industryList = await getAllByType('industry')
 ---
-
 <footer class="ft bg-light">
     <div class="line line-top"></div>
     <div class="container grid">
@@ -109,42 +110,14 @@ const currYear = new Date().getFullYear()
                     <div class="line line-bottom"></div>
                 </div>
                 <div class="ft-right-body">
-                    <a href="#" class="ft-right-body-link">
-                        <div class="dot"></div>
-                        <div class="txt txt-18 txt-med ft-right-body-link-txt">
-                            Retails
-                        </div>
-                    </a>
-                    <a href="#" class="ft-right-body-link">
-                        <div class="dot"></div>
-                        <div class="txt txt-18 txt-med ft-right-body-link-txt">
-                            Food service
-                        </div>
-                    </a>
-                    <a href="#" class="ft-right-body-link">
-                        <div class="dot"></div>
-                        <div class="txt txt-18 txt-med ft-right-body-link-txt">
-                            Food processors
-                        </div>
-                    </a>
-                    <a href="#" class="ft-right-body-link">
-                        <div class="dot"></div>
-                        <div class="txt txt-18 txt-med ft-right-body-link-txt">
-                            Catering
-                        </div>
-                    </a>
-                    <a href="#" class="ft-right-body-link">
-                        <div class="dot"></div>
-                        <div class="txt txt-18 txt-med ft-right-body-link-txt">
-                            Education
-                        </div>
-                    </a>
-                    <a href="#" class="ft-right-body-link">
-                        <div class="dot"></div>
-                        <div class="txt txt-18 txt-med ft-right-body-link-txt">
-                            Medical
-                        </div>
-                    </a>
+                    {industryList.map((item) => (
+                        <a href={'/kustomer/' + item.uid} class="ft-right-body-link">
+                            <div class="dot"></div>
+                            <div class="txt txt-18 txt-med ft-right-body-link-txt">
+                                {item.data.title}
+                            </div>
+                        </a>
+                    ))}
                 </div>
                 <div class="ft-tail">
                     <div class="line line-top"></div>

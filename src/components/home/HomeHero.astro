@@ -26,7 +26,7 @@ const { title, sub_title } = Astro.props;
 <section class="home-abt">
     <div class="container">
         <h2 class="heading h0 txt-up txt-black home-abt-title">
-            <span class="heading h0 txt-up txt-black home-abt-title-top">Your Reputation</span> <br> Our Unwavering Commitment
+            Your Reputation<br> <span class="heading h0 txt-up txt-black home-abt-title-top">Our Unwavering Commitment</span> 
         </h2>
     </div>
 </section>
@@ -59,9 +59,15 @@ const { title, sub_title } = Astro.props;
     .home-hero {
         padding-top: 18.4rem;
         min-height: 100vh;
+        height: 100vh;
+        .container {
+            height: 100%;
+            grid-template-rows: 1fr auto;
+        }
         &-title {
             grid-column: 1/10;
             margin-bottom: 6rem;
+            align-self: center;
         }
         &-sub {
             grid-column: 1/8;
@@ -69,6 +75,8 @@ const { title, sub_title } = Astro.props;
             grid-template-columns: repeat(2, 1fr);
             max-width: 48.9rem;
             column-gap: 0;
+            align-self: end;
+            margin-bottom: 8rem;
             &-top {
                 grid-column: 1/3;
                 padding: 1.8rem 1.4rem;

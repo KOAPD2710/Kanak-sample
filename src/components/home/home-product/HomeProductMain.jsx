@@ -1,0 +1,111 @@
+import { useEffect, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import SplitType from 'split-type';
+import { useGSAP } from '@gsap/react';
+import './HomeProductMain.scss';
+
+function HomeProductMain({...props}) {
+    const [index, setIndex] = useState(0);
+
+    function onClickNavPrev(e) {
+        e.preventDefault();
+        setIndex(index - 1)
+    }
+    function onClickNavNext(e) {
+        e.preventDefault();
+        setIndex(index + 1)
+    }
+    useEffect(() => {
+        
+    }, [index])
+    useGSAP(() => {
+        const text = new SplitType('.home-prod-title', { types: 'words, chars'});
+        gsap.from(text.chars, {
+            scrollTrigger: {
+                trigger: '.home-prod-title-wrap',
+                start: 'top top+=65%',
+                end: 'bottom top+=45%',
+                scrub: true,
+            },
+            opacity: .2, stagger: .06, ease: 'linear'
+        })
+    }, [])
+    return (
+        <section className="home-prod">
+            <div className="container grid">
+                <div className="home-prod-title-wrap">
+                    <h2 className="heading h1 txt-up txt-black home-prod-title">
+                        {props.title}
+                    </h2>
+                </div>
+                <div className="home-prod-main">
+                    <div className="home-prod-main-list">
+                        {props.list.map((item, idx) => (
+                            <div className={`home-prod-main-item${idx == index ? ' active':''}`} onPointerEnter={() => setIndex(idx)} key={idx}>
+                                <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
+                                    {item.data.title}
+                                </h3>
+                                <div className="txt txt-20 txt-bold home-prod-main-item-label">
+                                    {(idx + 1) < 10 ? '0' + (idx + 1) : idx + 1}
+                                </div>
+                                <div className="line">
+                                    <div className="line-inner"></div>
+                                </div>
+                                {idx == props.list.length - 1 && (
+                                    <div className="line line-bottom"></div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="home-prod-cards">
+                    <div className="home-prod-cards-inner">
+                        <div className="home-prod-cards-top">
+                            <div className="heading h6 txt-up txt-black home-prod-cards-top-txt">
+                                Product Kategories
+                            </div>
+                            <div className="home-prod-cards-nav">
+                                <button className={`home-prod-cards-nav-item prev${index == 0 ? ' disable':''}`} onClick={onClickNavPrev}>
+                                    <div className="ic ic-40">
+                                        {props.arrIcon}
+                                    </div>
+                                </button>
+                                <button className={`home-prod-cards-nav-item next${index == props.list.length - 1 ? ' disable':''}`} onClick={onClickNavNext}>
+                                    <div className="ic ic-40">
+                                        {props.arrIcon}
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="home-prod-cards-bottom">
+                            <div className="home-prod-cards-bottom-txt-wrap">
+                                {props.list.map((item, idx) => (
+                                    <div className={`heading h5 txt-up txt-black home-prod-cards-bottom-txt${idx == index ? ' active' : ''}`} key={idx}>
+                                        {item.data.title}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="home-prod-cards-qr-wrap">
+                                <div className="home-prod-cards-qr">
+                                    {props.sampleQR}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="home-prod-pdf">
+                    <a href="#" className="home-prod-pdf-link">
+                        <div className="home-prod-pdf-link-ic">
+                            {props.PDFIcon}
+                        </div>
+                        <div className="txt txt-20 txt-bold home-prod-pdf-link-txt">
+                            Download Product Catalog
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    )
+}
+export default HomeProductMain;

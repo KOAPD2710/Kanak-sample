@@ -54,11 +54,11 @@ function Content() {
         <>
             <group ref={wrap}>
                 <mesh ref={cube} position={[2.25,0,0]} scale={[1.4,1.4,1.4]}>
-                <Model scale={[8,8,8]}/>
+                    <Model scale={[8,8,8]}/>
                 </mesh>
             </group>
             
-            <ambientLight />
+            <ambientLight intensity={4} />
         </>
     )
 }
@@ -67,8 +67,8 @@ function HomeThreeMain() {
     return (
         <div className="home-three">
             <div className="home-three-stick">
-                <Canvas performance={{ min: 0.5 }}>
-                    <Content />
+                <Canvas>
+                    <Content /> 
                 </Canvas>
             </div>
         </div>

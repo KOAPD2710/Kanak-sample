@@ -1,0 +1,18 @@
+---
+import {getAllByType} from '../../prismic.js';
+
+export async function getStaticPaths() {
+    const list = await getAllByType('industry')
+    return list.map((item) => {
+        return {
+            params: {kustomer: item.uid},
+            props: {item}
+        }
+    })
+}
+
+const { kustomer } = Astro.params;
+const { item } = Astro.props;
+console.log(kustomer)
+---
+<div>Good kustomer, {kustomer}!</div>

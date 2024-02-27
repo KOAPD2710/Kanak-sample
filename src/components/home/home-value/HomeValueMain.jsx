@@ -37,7 +37,7 @@ function HomeValueMain({...props}) {
             scrollTrigger: {
                 trigger: '.home-val-arr',
                 start: 'top-=200 bottom',
-                end: 'bottom bottom',
+                end: 'bottom bottom+=5%',
                 scrub: true,
             },
             defaults: {
@@ -50,7 +50,7 @@ function HomeValueMain({...props}) {
         const tl3 = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-val-title-wrap',
-                start: `top-=${window.innerHeight * .4} bottom`,
+                start: `top-=${window.innerHeight * .5} bottom`,
                 end: 'bottom bottom',
                 scrub: true,
             },
@@ -60,7 +60,7 @@ function HomeValueMain({...props}) {
         })
         requestAnimationFrame(() => {
             tl3
-            .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .4), transformOrigin: 'center top' })
+            .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .5), transformOrigin: 'center top' })
         })
         
     }, [])
@@ -78,13 +78,13 @@ function HomeValueMain({...props}) {
                                 <rect width="1728" height="1325" fill="url(#pattern0)" fillOpacity="1"/>    
                             </g>
                             <defs>
-                            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.16956" height="0.22717">
-                                <use xlinkHref="#image01" transform="scale(0.000289352 0.000377358)"/>
-                            </pattern>
-                            <clipPath id="clip0_1002_23544">
-                            <rect width="1728" height="1325" fill="white"/>
-                            </clipPath>
-                            <image id="image01" width="586" height="602" xlinkHref={props.bgText.src}/>
+                                <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.16956" height="0.22717">
+                                    <use xlinkHref="#image01" transform="scale(0.000289352 0.000377358)"/>
+                                </pattern>
+                                <clipPath id="clip0_1002_23544">
+                                    <rect width="1728" height="1325" fill="white"/>
+                                </clipPath>
+                                <image id="image01" width="586" height="602" xlinkHref={props.bgText.src}/>
                             </defs>
                         </svg>
                     </div>
