@@ -6,24 +6,27 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import {Model} from './EDU.jsx';
+import {ModelFork} from './PC6200.jsx';
 import * as ut from '../../../js/utils.js';
 import './HomeThreeMain.scss';
 
 function Content({...props}) {
-    const cube = useRef()
     const wrap = useRef()
     const model = useRef()
-    const [scale, setScale] = useState([ut.parseRem(3000),ut.parseRem(3000),ut.parseRem(3000)]);
+    const forkWrap = useRef()
+    const fork = useRef()
+    const [scale, setScale] = useState([ut.parseRem(3200),ut.parseRem(3200),ut.parseRem(3200)]);
     const [pos, setPos] = useState([props.width * .2, -props.height *.15, 0]);
     const [rot, setRot] = useState([Math.PI * .25, - Math.PI *.33, Math.PI * .175]);
     const clock = useThree(state => state.clock)
-    const start = clock.elapsedTime
     useFrame((state, delta) => {
         if (!model.current) return;
         const t = clock.elapsedTime
         model.current.rotation.x = Math.cos(t / 2) * Math.PI * .02
         model.current.rotation.y = Math.sin(t / 2) * Math.PI * .04
         model.current.position.y = Math.sin(t / 2) * .02
+        fork.current.rotation.x = Math.cos(t / 2) * Math.PI * .02 * -1
+        fork.current.rotation.y = Math.sin(t / 2) * Math.PI * .04 * -1   
     })
     useGSAP(() => {
         console.log(wrap)
@@ -64,6 +67,8 @@ function Content({...props}) {
         // setScale(ut.parseRem(2700),ut.parseRem(2700),ut.parseRem(2700))
         // setPos([props.width * .25, -props.height *.2, 0]);
         // setRot([Math.PI * .25, - Math.PI *.33, Math.PI * .175])
+        // fork.current.children[0].rotation.y = Math.PI
+        // fork.current.children[0].rotation.x = Math.PI * .25 * -1
     }, [props.width, props.height])
  
     return (
@@ -73,8 +78,13 @@ function Content({...props}) {
                     <boxGeometry args={[1,1,1]}/>
                     <meshStandardMaterial color="#00ff00"/>
                 </mesh> */}
-                <mesh ref={model} >
+                <mesh ref={model}>
                     <Model />
+                </mesh>
+            </group>
+            <group ref={forkWrap} scale={scale} position={[props.width * .25, props.height * .15, 0]} rotation={[Math.PI * .35, -1 * Math.PI * .25, 0]}>
+                <mesh ref={fork}>
+                    <ModelFork />
                 </mesh>
             </group>
             <ambientLight intensity={4} />
