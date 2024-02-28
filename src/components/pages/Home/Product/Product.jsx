@@ -3,21 +3,23 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import SplitType from 'split-type';
 import { useGSAP } from '@gsap/react';
-import './HomeProductMain.scss';
+import './Product.scss';
+import { useStore } from '@nanostores/react';
+import { productIndex } from '@contexts/StoreGlobal';
 
-function HomeProductMain({...props}) {
-    const [index, setIndex] = useState(0);
+function HomeProduct({...props}) {
+    const index = useStore(productIndex);
 
     function onClickNavPrev(e) {
         e.preventDefault();
-        setIndex(index - 1)
+        productIndex.set(index - 1);
     }
     function onClickNavNext(e) {
         e.preventDefault();
-        setIndex(index + 1)
+        productIndex.set(index + 1)
     }
     useEffect(() => {
-        
+        // productIndex.set(index);
     }, [index])
     useGSAP(() => {
         const text = new SplitType('.home-prod-title', { types: 'words, chars'});
@@ -42,7 +44,7 @@ function HomeProductMain({...props}) {
                 <div className="home-prod-main">
                     <div className="home-prod-main-list">
                         {props.list.map((item, idx) => (
-                            <div className={`home-prod-main-item${idx == index ? ' active':''}`} onPointerEnter={() => setIndex(idx)} key={idx}>
+                            <div className={`home-prod-main-item${idx == index ? ' active':''}`} onPointerEnter={() => productIndex.set(idx)} key={idx}>
                                 <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
                                     {item.data.title}
                                 </h3>
@@ -108,4 +110,4 @@ function HomeProductMain({...props}) {
         </section>
     )
 }
-export default HomeProductMain;
+export default HomeProduct;

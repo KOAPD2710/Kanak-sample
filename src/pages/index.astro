@@ -1,16 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import HomeHero from '../components/home/HomeHero.astro';
-import HomeProduct from '../components/home/home-product/HomeProduct.astro';
-import HomeClient from '../components/home/HomeClient.astro';
-import HomeIndustry from '../components/home/HomeIndustry.astro';
-import HomeBrand from '../components/home/HomeBrand.astro';
-import HomeCompare from '../components/home/home-compare/HomeCompare.astro';
-import HomePartner from '../components/home/home-partner/HomePartner.astro';
-import HomeCta from '../components/home/HomeCta.astro';
-import HomeValue from '../components/home/home-value/HomeValue.astro';
+import HomeHero from '@pages/Home/HomeHero.astro';
+import Product from '@pages/Home/Product/Product.astro';
+import HomeClient from '@pages/Home/HomeClient.astro';
+import HomeIndustry from '@pages/Home/HomeIndustry.astro';
+import Brand from "@pages/Home/Brand/Brand.astro";
+// import Client from "@pages/Home/Client/Client.astro";
+import Compare from '@pages/Home/Compare/Compare.astro';
+import Partner from '@pages/Home/Partner/Partner.astro';
+import HomeCta from '@pages/Home/HomeCta.astro';
+import Value from '@pages/Home/Value/Value.astro';
 
-import HomeThree from '../components/home/home-three/HomeThree.astro'
+import Three from '@pages/Home/Three/Three.astro'
 
 import {getPage} from '../prismic.js';
 const {data} = await getPage('home');
@@ -18,15 +19,16 @@ const {data} = await getPage('home');
 
 <Layout title="Homepage">
 	<div class="home-three-wrap">
-		<HomeThree />
+		<Three />
 		<HomeHero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
-		<HomeProduct title={data.product_title[0].text} product_list={data.product_list}/>
+		<Product title={data.product_title[0].text} product_list={data.product_list}/>
 	</div>
 	<HomeClient	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/>
+	<!-- <Client	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/> -->
 	<HomeIndustry label={data.industry_label[0].text} title={data.industry_title[0].text} industry_list={data.industry_list}/>
-	<HomeBrand title={data.brand_title[0].text} brand_list={data.brand_list}/>
-	<HomeCompare label={data.compare_label[0].text} title={data.compare_title[0].text} compare_list={data.compare_list}/>
-	<HomePartner />
-	<HomeValue />
+	<Brand title={data.brand_title[0].text} brand_list={data.brand_list}/>
+	<Compare label={data.compare_label[0].text} title={data.compare_title[0].text} compare_list={data.compare_list}/>
+	<Partner />
+	<Value />
 	<HomeCta />
-</Layout>
+</Layout>../components/pages/Home/Brand/Brand.astro

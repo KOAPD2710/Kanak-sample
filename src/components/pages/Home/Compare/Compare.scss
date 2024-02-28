@@ -1,5 +1,6 @@
-@import '../../../styles/colors.scss';
-@import '../../../styles/mixins.scss';
+@use '../../../../styles/colors' as *;
+@use '../../../../styles/colors' as *;
+
 .home-comp {
     height: 400vh;
     position: relative;
@@ -64,7 +65,7 @@
                 --arcOffset: calc(var(--arcL) * ((100 - var(--prog)) / 100));
                 transform: rotate(-90deg);
             }
-            
+
         }
     }
 }

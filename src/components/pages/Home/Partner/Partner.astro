@@ -1,17 +1,17 @@
 ---
 const { label, title } = Astro.props;
 import { Image } from 'astro:assets';
-import partIc1 from '../../../assets/part-ic-1.svg';
-import partIc2 from '../../../assets/part-ic-2.svg';
-import partIc3 from '../../../assets/part-ic-3.svg';
-import partIc4 from '../../../assets/part-ic-4.svg';
-import partIc5 from '../../../assets/part-ic-5.svg';
-import HomePartnerMain from './HomePartnerMain.jsx';
+import partIc1 from '@assets/part-ic-1.svg';
+import partIc2 from '@assets/part-ic-2.svg';
+import partIc3 from '@assets/part-ic-3.svg';
+import partIc4 from '@assets/part-ic-4.svg';
+import partIc5 from '@assets/part-ic-5.svg';
+import HomePartner from './Partner';
 ---
-<HomePartnerMain client:idle>
+<HomePartner client:idle>
     <Image src={partIc1} alt="" class="ic" slot='partIc1'/>
     <Image src={partIc2} alt="" class="ic" slot='partIc2'/>
     <Image src={partIc3} alt="" class="ic" slot='partIc3'/>
     <Image src={partIc4} alt="" class="ic" slot='partIc4'/>
     <Image src={partIc5} alt="" class="ic" slot='partIc5'/>
-</HomePartnerMain>
+</HomePartner>

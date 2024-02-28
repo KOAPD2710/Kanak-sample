@@ -26,13 +26,13 @@ const { title, sub_title } = Astro.props;
 <section class="home-abt">
     <div class="container">
         <h2 class="heading h0 txt-up txt-black home-abt-title">
-            Your Reputation<br> <span class="heading h0 txt-up txt-black home-abt-title-top">Our Unwavering Commitment</span> 
+            Your Reputation<br> <span class="heading h0 txt-up txt-black home-abt-title-top">Our Unwavering Commitment</span>
         </h2>
     </div>
 </section>
 
 <script>
-    import * as ut from '../../js/utils.js';
+import * as ut from '../../../js/utils.js';
     function duplicateAbout() {
         let el = ut.dom('.home-abt-title-top', false)[0];
         let clone = el.cloneNode(true);

@@ -2,10 +2,10 @@ import { useState } from "react";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
-import * as ut from '../../../js/utils.js';
-import './HomeValueMain.scss';
+import * as ut from '../../../../js/utils.js';
+import './Value.scss';
 
-function HomeValueMain({...props}) {
+function HomeValue({...props}) {
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
         const tl = gsap.timeline({
@@ -62,7 +62,7 @@ function HomeValueMain({...props}) {
             tl3
             .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .5), transformOrigin: 'center top' })
         })
-        
+
     }, [])
     return (
         <>
@@ -75,7 +75,7 @@ function HomeValueMain({...props}) {
                             </mask>
                             <g clipPath="url(#clip0_1002_23544)" mask="url(#svgmask1)">
                                 <rect width="100%" height="100%" fill="var(--cl-bg-dark)" className="bg-dark"/>
-                                <rect width="1728" height="1325" fill="url(#pattern0)" fillOpacity="1"/>    
+                                <rect width="1728" height="1325" fill="url(#pattern0)" fillOpacity="1"/>
                             </g>
                             <defs>
                                 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.16956" height="0.22717">
@@ -179,7 +179,7 @@ function HomeValueMain({...props}) {
                 </section>
             </div>
         </>
-        
+
     )
 }
-export default HomeValueMain;
+export default HomeValue;

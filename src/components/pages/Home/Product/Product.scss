@@ -1,5 +1,5 @@
-@import '../../../styles/colors.scss';
-@import '../../../styles/mixins.scss';
+@use '../../../../styles/colors' as *;
+@use '../../../../styles/mixins' as *;
 .home-prod {
     padding-bottom: 28.8rem;
     &-title-wrap {
@@ -146,7 +146,7 @@
             align-items: center;
             justify-content: center;
             img {
-                
+
             }
         }
     }

@@ -2,10 +2,10 @@
 const { label, title, industry_list } = Astro.props;
 
 import { Image } from "astro:assets";
-import eduIcon from '../../assets/edu.svg';
-import arrIcon from '../../assets/arr-ext.svg';
-import ctaTxt from '../../assets/cta-txt.svg';
-import {getByUID} from '../../prismic.js';
+import eduIcon from '@assets/edu.svg';
+import arrIcon from '@assets/arr-ext.svg';
+import ctaTxt from '@assets/cta-txt.svg';
+import {getByUID} from '@/prismic.js';
 
 const list = await Promise.all(
 industry_list.map(async (industry: any) => {
@@ -64,12 +64,12 @@ industry_list.map(async (industry: any) => {
 </section>
 
 <script>
-    
+
 </script>
 
 <style lang="scss">
-    @import '../../styles/colors.scss';
-    @import '../../styles/mixins.scss';
+    @use '@styles/colors' as *;
+    @use '@styles/mixins' as *;
     .home-indus {
         padding-top: 20rem;
         padding-bottom: 20rem;

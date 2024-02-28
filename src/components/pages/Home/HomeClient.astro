@@ -1,10 +1,10 @@
 ---
 const { title, sub_title, client_list } = Astro.props;
 import { Image } from "astro:assets";
-import quality from '../../assets/quality.png';
-import logo from '../../assets/logo-mcdonald.svg';
-import map from '../../assets/usa-map.svg';
-import {getByUID} from '../../prismic.js';
+import quality from '@assets/quality.png';
+import logo from '@assets/logo-mcdonald.svg';
+import map from '@assets/usa-map.svg';
+import {getByUID} from '@/prismic.js';
 
 let newTitle = title.split('\n').map((i: any, idx: number) => {
     return (idx === title.split('\n').length - 1) ? i : i + '<br>'
@@ -48,11 +48,11 @@ const list = await Promise.all(
 </section>
 
 <script>
-    
+
 </script>
 
 <style lang="scss">
-    @import '../../styles/mixins.scss';
+    @use '@styles/mixins' as *;
     .home-client {
         padding-bottom: 7rem;
         .grid {

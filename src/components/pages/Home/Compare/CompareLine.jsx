@@ -2,9 +2,9 @@ import { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
-import * as ut from '../../../js/utils.js';
+import * as ut from '../../../../js/utils.js';
 
-function HomeCompareLine({ ...props }) {
+function CompareLine({ ...props }) {
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
         let currIdx;
@@ -13,7 +13,7 @@ function HomeCompareLine({ ...props }) {
                 trigger: '.home-comp',
                 start: 'top top',
                 end: 'bottom bottom',
-                scrub: true,                
+                scrub: true,
                 snap: [0, .25, .5, .75, 1],
                 onUpdate: (self) => {
                     let prog = self.progress;
@@ -47,6 +47,6 @@ function HomeCompareLine({ ...props }) {
         </div>
     )
 }
-export default HomeCompareLine;
+export default CompareLine;
 
 
