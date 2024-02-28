@@ -1,5 +1,5 @@
 ---
-import {getAllByType} from '../../prismic.js';
+import {getAllByType} from '@/prismic.js';
 
 export async function getStaticPaths() {
     const list = await getAllByType('industry')

@@ -10,7 +10,7 @@ import { ModelFork } from './PC6200.jsx';
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import './Three.scss';
-import * as ut from '../../../../js/utils.js';
+import * as ut from '@/js/utils.js';
 
 function Content({...props}) {
     const wrap = useRef()
