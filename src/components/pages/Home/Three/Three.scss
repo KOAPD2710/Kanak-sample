@@ -1,3 +1,4 @@
+@use '@styles/mixins' as *;
 .home-three {
     --btnHeight: 16.8rem;
     position: absolute;
@@ -7,7 +8,10 @@
     height: 100%;
     z-index: 99;
     pointer-events: none;
-    height: calc(100% - 23.8rem); //28.8 - x (need vh)
+    height: calc(100% - 23.8rem);  //28.8 - x (need vh)
+    @include md {
+        z-index: 1;
+    }
     &-wrap {
         position: relative;
         z-index: 2;

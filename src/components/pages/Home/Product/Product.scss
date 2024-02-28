@@ -1,10 +1,17 @@
-@use '../../../../styles/colors' as *;
-@use '../../../../styles/mixins' as *;
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
 .home-prod {
     padding-bottom: 28.8rem;
+    @include md {
+        padding-bottom: 13rem;
+    }
     &-title-wrap {
-        grid-column: 1/-1;
+        grid-column: 1/-2;
         margin-bottom: 8rem;
+        margin-right: -2rem;
+        @include md {
+            margin-bottom: 14rem;
+        }
     }
     &-title {
         max-width: 90rem;
@@ -13,6 +20,9 @@
         grid-column: 1/9;
         display: flex;
         flex-direction: column;
+        @include md {
+            grid-column: 1/8;
+        }
         &-item {
             display: flex;
             align-items: center;
@@ -58,6 +68,9 @@
     &-cards {
         grid-column: 11/16;
         position: relative;
+        @include md {
+            grid-column: 9/13;
+        }
         &-inner {
             border-radius: 1rem;
             border: solid .2rem var(--cl-txt);
@@ -69,6 +82,9 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            @include md {
+                max-height: 32.4rem; //static number from design. calc later
+            }
         }
         &-nav {
             display: flex;
@@ -79,6 +95,9 @@
                 align-items: center;
                 justify-content: center;
                 color: var(--cl-txt);
+                @include md {
+                    @include size(5.6rem);
+                }
                 .ic {
                     @include transition(all 200ms ease);
                 }
@@ -112,9 +131,16 @@
             justify-content: space-between;
             border-bottom: solid .2rem var(--cl-txt);
             align-items: center;
+            @include md {
+                height: 5.6rem;
+            }
             &-txt {
                 margin-left: 3.2rem;
                 max-width: 13.6rem;
+                @include md {
+                    margin-left: 1.2rem;
+                    @include text(14);
+                }
             }
         }
         &-bottom {
@@ -123,9 +149,15 @@
             justify-content: space-between;
             border-top: solid .2rem var(--cl-txt);
             align-items: center;
+            @include md {
+                height: 5.6rem;
+            }
             &-txt-wrap {
                 margin-left: 3.2rem;
                 display: grid;
+                @include md {
+                    margin-left: 1.2rem;
+                }
             }
             &-txt {
                 grid-column: 1/2;
@@ -133,6 +165,9 @@
                 opacity: 0;
                 pointer-events: none;
                 @include transition(opacity 400ms ease);
+                @include md {
+                    @include text(16);
+                }
                 &.active {
                     opacity: 1;
                     pointer-events: auto;
@@ -145,16 +180,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            img {
-
+            @include md {
+                @include size(5.6rem);
+                .ic-80 {
+                    @include size(4rem);
+                }
             }
         }
     }
     &-pdf {
         grid-column: 1/9;
         justify-self: start;
-        padding-top: 5rem;
-        padding-bottom: 5rem;
+        padding-block: 5rem;
+        @include md {
+            padding-block: 3.6rem;
+        }
         &-link {
             display: flex;
             align-items: center;
@@ -166,9 +206,15 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                @include md {
+                    @include size(6rem);
+                }
             }
             &-txt {
                 padding: 2rem;
+                @include md {
+                    padding: 1.8rem 1.6rem;
+                }
             }
         }
     }

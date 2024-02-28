@@ -6,7 +6,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import {Model} from './EDU.jsx';
-import {ModelFork} from './PC6200.jsx';
+import { ModelFork } from './PC6200.jsx';
+import { useStore } from '@nanostores/react';
+import { productIndex } from '@contexts/StoreGlobal';
 import './Three.scss';
 import * as ut from '../../../../js/utils.js';
 
@@ -17,7 +19,8 @@ function Content({...props}) {
     const fork = useRef()
     const [scale, setScale] = useState([ut.parseRem(3200),ut.parseRem(3200),ut.parseRem(3200)]);
     const [pos, setPos] = useState([props.width * .2, -props.height *.15, 0]);
-    const [rot, setRot] = useState([Math.PI * .25, - Math.PI *.33, Math.PI * .175]);
+    const [rot, setRot] = useState([Math.PI * .25, - Math.PI * .33, Math.PI * .175]);
+    const index = useStore(productIndex);
     const clock = useThree(state => state.clock)
     useFrame((state, delta) => {
         if (!model.current) return;
@@ -28,6 +31,9 @@ function Content({...props}) {
         fork.current.rotation.x = Math.cos(t / 2) * Math.PI * .02 * -1
         fork.current.rotation.y = Math.sin(t / 2) * Math.PI * .04 * -1
     })
+    useEffect(() => {
+        // console.log(index);
+    }, [index])
     useGSAP(() => {
         console.log(wrap)
         const tl = gsap.timeline({
