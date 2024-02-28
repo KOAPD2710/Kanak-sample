@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets"
-import logo from '../../assets/kanak-logo.svg';
-import linkedIn from '../../assets/ic-linkedin.svg';
+import logo from '@assets/kanak-logo.svg';
+import linkedIn from '@assets/ic-linkedin.svg';
 const currYear = new Date().getFullYear()
-import {getAllByType} from '../../prismic.js';
+import {getAllByType} from '@/prismic.js';
 const industryList = await getAllByType('industry')
 ---
 <footer class="ft bg-light">
@@ -190,8 +190,8 @@ const industryList = await getAllByType('industry')
 </footer>
 
 <style lang="scss">
-    @use '../../styles/colors' as *;
-    @use '../../styles/mixins' as *;
+    @use '@styles/colors' as *;
+    @use '@styles/mixins' as *;
     .ft {
         position: relative;
         z-index: 4;

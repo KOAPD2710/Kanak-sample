@@ -32,7 +32,7 @@ const { title, sub_title } = Astro.props;
 </section>
 
 <script>
-import * as ut from '../../../js/utils.js';
+import * as ut from '@/js/utils.js';
     function duplicateAbout() {
         let el = ut.dom('.home-abt-title-top', false)[0];
         let clone = el.cloneNode(true);

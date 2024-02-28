@@ -1,13 +1,12 @@
 ---
 import '@fontsource-variable/inter';
-import '../styles/global.scss';
+import '@styles/global.scss';
 import { getImage } from "astro:assets";
-import bgTexture from "../assets/bg-texture-sm.png";
-import bgTextureDark from "../assets/bg-texture-dark-sm.png";
-import BaseHead from '../components/globals/BaseHead.astro';
-import Header from '../components/globals/Header.astro';
-import Footer from '../components/globals/Footer.astro';
-import '../styles/global.scss';
+import bgTexture from "@assets/bg-texture-sm.png";
+import bgTextureDark from "@assets/bg-texture-dark-sm.png";
+import BaseHead from '@components/globals/BaseHead.astro';
+import Header from '@components/globals/Header.astro';
+import Footer from '@components/globals/Footer.astro';
 
 const OpBgTexture = await getImage({src: bgTexture, format: 'webp', width: bgTexture.width / 2})
 const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width})
@@ -16,17 +15,17 @@ const { title } = Astro.props;
 
 <html lang="en">
 	<BaseHead title={title}/>
+
 	<body style={`--bg-txt: url(${OpBgTexture.src}); --bg-txt-dark: url(${OpBgTextureDark.src});`}>
 		<Header />
-		<div class="main">
-			<slot />
-		</div>
+			<div class="main">
+				<slot />
+			</div>
 		<Footer />
 	</body>
 </html>
 
 <script>
-	import main from '../js/main'
+	import main from '@/js/main'
 	main()
 </script>
-
