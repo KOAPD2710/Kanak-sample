@@ -58,7 +58,7 @@ import compareLine from '../../assets/compare-line.svg?raw';
                 } else if (prog >= .5) {idx = 2
                 } else if (prog >= .25) {idx = 1
                 } else {idx = 0}
-                
+
             }
         },
         defaults: {
@@ -70,8 +70,8 @@ import compareLine from '../../assets/compare-line.svg?raw';
 </script>
 
 <style lang="scss">
-    @import '../../styles/colors.scss';
-    @import '../../styles/mixins.scss';
+    @use '../../styles/colors' as *;
+    @use '../../styles/mixins' as *;
     .home-comp {
         height: 400vh;
         position: relative;
@@ -137,7 +137,7 @@ import compareLine from '../../assets/compare-line.svg?raw';
                     --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
                     transform: rotate(-90deg);
                 }
-                
+
             }
         }
     }

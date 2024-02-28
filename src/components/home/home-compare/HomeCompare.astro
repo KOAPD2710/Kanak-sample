@@ -82,8 +82,8 @@ const list = await Promise.all(
 </section>
 
 <style lang="scss">
-    @import '../../../styles/colors.scss';
-    @import '../../../styles/mixins.scss';
+    @use '../../../styles/colors.scss' as *;
+    @use '../../../styles/mixins.scss' as *;
     .home-comp {
         height: 400vh;
         position: relative;

@@ -190,8 +190,8 @@ const industryList = await getAllByType('industry')
 </footer>
 
 <style lang="scss">
-    @import '../../styles/colors.scss';
-    @import '../../styles/mixins.scss';
+    @use '../../styles/colors' as *;
+    @use '../../styles/mixins' as *;
     .ft {
         position: relative;
         z-index: 4;

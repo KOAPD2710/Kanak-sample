@@ -1,4 +1,5 @@
-@import '../../../styles/colors.scss';
+@use '../../../styles/colors' as *;
+
 .home-val {
     background-color: var(--cl-bg-dark);
     color: var(--cl-txt-light);
@@ -64,7 +65,7 @@
             left: 0;
             background-color: var(--cl-txt);
         }
-        &-item {         
+        &-item {
             flex: none;
             padding-top: 5.7rem;
             padding-bottom: 10rem;
@@ -75,7 +76,7 @@
             will-change: transform;
             &:first-child {
                 padding-left: 0;
-                width: calc(48vw + 8rem);    
+                width: calc(48vw + 8rem);
             }
             &:last-child {
                 width: calc(48vw + 16.5rem);
