@@ -8,7 +8,7 @@ const dom = (el, toEl = true) => {
 }
 
 const addEvent = (el, event, callback) => {
-    el.addEventListener(event, callback) 
+    el.addEventListener(event, callback)
 }
 const addEventAll = (arr, event, callback) => {
     arr.forEach(el => {

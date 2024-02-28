@@ -5,16 +5,16 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
       "@pages/*": ["src/components/pages/*"],
       "@contexts/*": ["src/components/contexts/*"],
+      "@hooks/*": ["src/components/hooks/*"],
+      "@utils/*": ["src/components/utils/*"],
       "@styles/*": ["src/styles/*"],
       "@assets/*": ["src/assets/*"],
       "@lib/*": ["src/lib/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@vendors/*": ["src/vendors/*"],
-      "@/*": ["src/*"],
+      "@vendors/*": ["src/vendors/*"]
     }
   }
 }

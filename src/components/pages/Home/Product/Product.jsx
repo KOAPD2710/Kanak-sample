@@ -3,11 +3,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import SplitType from 'split-type';
 import { useGSAP } from '@gsap/react';
-import './HomeProductMain.scss';
+import './Product.scss';
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 
-function HomeProductMain({...props}) {
+function HomeProduct({...props}) {
     const index = useStore(productIndex);
 
     function onClickNavPrev(e) {
@@ -110,4 +110,4 @@ function HomeProductMain({...props}) {
         </section>
     )
 }
-export default HomeProductMain;
+export default HomeProduct;

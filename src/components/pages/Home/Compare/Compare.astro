@@ -2,14 +2,14 @@
 const { label, title, compare_list } = Astro.props;
 
 import { Image } from 'astro:assets';
-import { getByUID } from '../../../prismic';
-import comparePlates from '../../../assets/compare.png';
-import compareDotDash from '../../../assets/compare-dot-dash.svg';
-import compareLine from '../../../assets/compare-line.svg?raw';
-import compareGood from '../../../assets/comp-good.svg';
-import compareBad from '../../../assets/comp-bad.svg';
+import { getByUID } from '@/prismic.js';
+import comparePlates from '@assets/compare.png';
+import compareDotDash from '@assets/compare-dot-dash.svg';
+import compareLine from '@assets/compare-line.svg?raw';
+import compareGood from '@/assets/comp-good.svg';
+import compareBad from '@assets/comp-bad.svg';
 
-import HomeCompareLine from './HomeCompareLine.jsx';
+import CompareLine from '@pages/Home/Compare/CompareLine';
 
 const list = await Promise.all(
     compare_list.map(async (compare: any, idx: number) => {
@@ -51,9 +51,9 @@ const list = await Promise.all(
                         <div class="home-comp-main-prog-dot">
                             <Image src={compareDotDash} alt="" class="img" />
                         </div>
-                        <HomeCompareLine customClass=".home-comp-main-prog-line" client:visible >
+                        <CompareLine customClass=".home-comp-main-prog-line" client:visible >
                             <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
-                        </HomeCompareLine>
+                        </CompareLine>
                         <div class="home-comp-main-prog-list">
                             {list.map((item, idx) => (
                                 <h4 class:list={["heading h3 txt-up txt-black home-comp-main-prog-list-item", {active: idx == 0}]}>
@@ -82,8 +82,8 @@ const list = await Promise.all(
 </section>
 
 <style lang="scss">
-    @use '../../../styles/colors.scss' as *;
-    @use '../../../styles/mixins.scss' as *;
+    @use '../../../../styles/colors' as *;
+    @use '../../../../styles/mixins' as *;
     .home-comp {
         height: 400vh;
         position: relative;

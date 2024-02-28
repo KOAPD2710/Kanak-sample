@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import useWindowSize from "../../hooks/useWindowSize.js";
+import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import {Model} from './EDU.jsx';
 import {ModelFork} from './PC6200.jsx';
-import * as ut from '../../../js/utils.js';
-import './HomeThreeMain.scss';
+import './Three.scss';
+import * as ut from '../../../../js/utils.js';
 
 function Content({...props}) {
     const wrap = useRef()
@@ -26,7 +26,7 @@ function Content({...props}) {
         model.current.rotation.y = Math.sin(t / 2) * Math.PI * .04
         model.current.position.y = Math.sin(t / 2) * .02
         fork.current.rotation.x = Math.cos(t / 2) * Math.PI * .02 * -1
-        fork.current.rotation.y = Math.sin(t / 2) * Math.PI * .04 * -1   
+        fork.current.rotation.y = Math.sin(t / 2) * Math.PI * .04 * -1
     })
     useGSAP(() => {
         console.log(wrap)
@@ -70,7 +70,7 @@ function Content({...props}) {
         // fork.current.children[0].rotation.y = Math.PI
         // fork.current.children[0].rotation.x = Math.PI * .25 * -1
     }, [props.width, props.height])
- 
+
     return (
         <>
             <group ref={wrap} scale={scale} position={pos} rotation={rot}>
@@ -94,19 +94,19 @@ function Content({...props}) {
     )
 }
 
-function HomeThreeMain() {
+function HomeThree() {
     const { width, height } = useWindowSize();
     let perspective = height;
-    let fov = (Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI;    
+    let fov = (Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI;
     return (
         <div className="home-three">
             <div className="home-three-stick">
                 <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
-                    <Content width={width} height={height}/> 
+                    <Content width={width} height={height}/>
                 </Canvas>
                 <div className="cube"></div>
             </div>
         </div>
     )
 }
-export default HomeThreeMain;
+export default HomeThree;

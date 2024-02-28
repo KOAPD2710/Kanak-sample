@@ -2,9 +2,9 @@
 const { label, title } = Astro.props;
 
 import { Image } from 'astro:assets';
-import comparePlates from '../../assets/compare.png';
-import compareDotDash from '../../assets/compare-dot-dash.svg';
-import compareLine from '../../assets/compare-line.svg?raw';
+import comparePlates from '@assets/compare.png';
+import compareDotDash from '@assets/compare-dot-dash.svg';
+import compareLine from '@assets/compare-line.svg?raw';
 ---
 <section class="home-comp">
     <div class="home-comp-stick">
@@ -70,8 +70,8 @@ import compareLine from '../../assets/compare-line.svg?raw';
 </script>
 
 <style lang="scss">
-    @use '../../styles/colors' as *;
-    @use '../../styles/mixins' as *;
+    @use '@styles/colors' as *;
+    @use '@styles/mixins' as *;
     .home-comp {
         height: 400vh;
         position: relative;
