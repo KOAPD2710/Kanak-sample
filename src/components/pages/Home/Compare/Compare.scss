@@ -46,7 +46,7 @@
             align-items: center;
             justify-content: center;
             &-inner {
-                width: calc(100vh - 16rem - 10rem - 8.2rem - var(--h0-fs) - var(--h3-fs));
+                width: calc(100vh - 16rem - 10rem - 8.2rem - var(--fs-h0) - var(--fs-h3));
                 position: relative;
             }
             &-plates {

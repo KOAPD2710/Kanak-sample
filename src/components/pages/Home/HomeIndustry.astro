@@ -78,6 +78,9 @@ industry_list.map(async (industry: any) => {
         &-title-wrap {
             position: relative;
             grid-column: 1/8;
+            @include md {
+                grid-column: 1/6;
+            }
         }
         &-title-stick {
             position: sticky;
@@ -124,6 +127,10 @@ industry_list.map(async (industry: any) => {
         }
         &-main {
             grid-column: 10/17;
+            @include md {
+                display: none;
+                grid-column: 8/13;
+            }
             &-item {
                 grid-template-columns: repeat(7, 1fr);
                 padding-top: 8rem;

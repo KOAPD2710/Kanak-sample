@@ -1,3 +1,13 @@
+$xs-min: 477px;
+$sm-min: 768px;
+$md-min: 992px;
+$lg-min: 1728px;
+
+$xs-max: ($xs-min - 1); // Mobile
+$sm-max: ($sm-min - 1); // Tablet
+$md-max: ($md-min - 1); // Desktop
+$lg-max: ($lg-min - 1); // Large Desktop
+
 @mixin lg {
 	@media screen and (max-width: $lg-min) {
 		@content;
@@ -31,10 +41,11 @@
 	}
 }
 
-@mixin text($fs, $lh) {
-	font-size: $fs;
-	line-height: $lh;
+@mixin text($fontSize) {
+	font-size: var(--fs-#{$fontSize});
+	line-height: var(--lh-#{$fontSize});
 }
+
 @mixin size($w, $h: $w) {
 	width: $w;
 	height: $h;

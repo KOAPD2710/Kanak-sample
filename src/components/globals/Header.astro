@@ -44,6 +44,7 @@ const pages = [
 </header>
 
 <style lang="scss">
+    @use '@styles/mixins' as *;
     .header {
         z-index: 999;
         position: fixed;
@@ -61,6 +62,9 @@ const pages = [
         }
         &-main {
             grid-column: 1/9;
+            @include md {
+                grid-column: span 12;
+            }
             &-inner {
                 display: flex;
                 align-items: center;
@@ -75,6 +79,9 @@ const pages = [
             display: flex;
             align-items: center;
             column-gap: 1.8rem;
+            @include md {
+                display: none;
+            }
         }
         .line {
             width: 100%;
@@ -94,6 +101,9 @@ const pages = [
             align-items: center;
             column-gap: .8rem;
             padding-top: 2rem;
+            @include md {
+                grid-column: span 12;
+            }
             &-txt {
                 max-width: 28.4rem;
             }

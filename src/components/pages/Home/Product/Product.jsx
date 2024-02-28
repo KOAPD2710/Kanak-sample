@@ -101,7 +101,7 @@ function HomeProduct({...props}) {
                         <div className="home-prod-pdf-link-ic">
                             {props.PDFIcon}
                         </div>
-                        <div className="txt txt-20 txt-bold home-prod-pdf-link-txt">
+                        <div className="txt txt-20 txt-med home-prod-pdf-link-txt">
                             Download Product Catalog
                         </div>
                     </a>

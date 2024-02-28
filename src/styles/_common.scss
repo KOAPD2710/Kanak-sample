@@ -35,6 +35,9 @@ html {
     --grid-gap: 2rem;
     display: grid;
     column-gap: var(--grid-gap);
+    @include md {
+        --grid-gap: 1.6rem;
+    }
 }
 .container {
     --container-width: 1728px;
@@ -52,8 +55,11 @@ html {
     &.grid {
         grid-template-columns: repeat(var(--grid-column), 1fr);
     }
+    @include md {
+        --grid-column: 12;
+        --container-padding: 4rem;
+    }
 }
-
 
 a {
     text-decoration: none;
