@@ -19,7 +19,7 @@ function HomeProduct({...props}) {
         productIndex.set(index + 1)
     }
     useEffect(() => {
-        // productIndex.set(index);
+        
     }, [index])
     useGSAP(() => {
         const text = new SplitType('.home-prod-title', { types: 'words, chars'});

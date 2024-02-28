@@ -1,9 +1,8 @@
 ---
 const { title, sub_title, client_list } = Astro.props;
 
-import { Image, imageConfig } from "astro:assets";
+import { Image } from "astro:assets";
 import quality from '@assets/quality.png';
-import logo from '@assets/logo-mcdonald.svg';
 import map from '@assets/usa-map.svg';
 import { getByUID } from '@/prismic.js';
 import HomeClient from './Client';
@@ -16,22 +15,26 @@ let lastWord = newTitle.join(' ').split(' ')[newTitle.join(' ').split(' ').lengt
 newTitle = newTitle.join('').replace(lastWord, `<div class="txt-green">${lastWord}</div>`);
 
 const list = await Promise.all(
-    client_list.map(async (client: any, idx) => {
+    client_list.map(async (client: any) => {
         let item = getByUID('client', client.item.uid);
         return item;
     })
 )
 
 ---
-<!-- <HomeClient title={newTitle} subTitle={sub_title} list={list} client:visible>
-    <Image src={quality} alt="quality" width={quality.width / 2} slot="img_quality"/>
-    <Image src={map} alt="McDonald" slot="img_map"/>
-    {list.map((item) => (
-        <div class="home-client-item">
-            <Image src={item.data.client_logo.url} alt="McDonald" width={item.data.client_logo.dimensions.width} height={item.data.client_logo.dimensions.height}/>
-        </div>
-    ))}
-</HomeClient> -->
+<HomeClient subTitle={sub_title} client:visible>
+    <Fragment set:html={newTitle} slot="title"/>
+    <Image src={quality} class="home-client-title-quality" alt="quality" width={quality.width / 2} slot="imgQuality"/>
+    <Image src={map} alt="world map" slot="imgMap"/>
+    <Fragment slot="newList">
+        {list.map((item, idx) => (
+            <div class="home-client-item" data-key={idx}>
+                <Image src={item.data.client_logo.url} alt="McDonald" width={item.data.client_logo.dimensions.width} height={item.data.client_logo.dimensions.height}/>
+            </div>
+        ))}
+    </Fragment>
+    
+</HomeClient>
 
 
 
