@@ -80,12 +80,12 @@ function Content({...props}) {
 
     return (
         <>
-            <group ref={wrap}>
+            <group ref={wrap} scale={scale} position={pos} rotation={rot}>
                 {/* <mesh ref={cube} scale={[100,100,100]} position={[0,0,0]}>
                     <boxGeometry args={[1,1,1]}/>
                     <meshStandardMaterial color="#00ff00"/>
                 </mesh> */}
-                <mesh ref={model}>
+                <mesh ref={model} >
                     <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
                 </mesh>
             </group>
