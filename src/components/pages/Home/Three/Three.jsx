@@ -81,13 +81,13 @@ function Content({...props}) {
     return (
         <>
             <group ref={wrap}>
-                <mesh ref={cube} scale={[100,100,100]} position={[0,0,0]}>
+                {/* <mesh ref={cube} scale={[100,100,100]} position={[0,0,0]}>
                     <boxGeometry args={[1,1,1]}/>
                     <meshStandardMaterial color="#00ff00"/>
-                </mesh>
-                {/* <mesh ref={model}>
-                    <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
                 </mesh> */}
+                <mesh ref={model}>
+                    <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
+                </mesh>
             </group>
             {/* <group ref={forkWrap} scale={scale} position={[props.width * .25, props.height * .15, 0]} rotation={[Math.PI * .35, -1 * Math.PI * .25, 0]}>
                 <mesh ref={fork}>
