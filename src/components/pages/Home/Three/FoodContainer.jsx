@@ -7,11 +7,14 @@ Files: EDU.glb [26.6MB] > /Users/mac/Dropbox/Code Assets/kanak/public/EDU-transf
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
-  const { nodes, materials } = useGLTF('/EDU-transformed.glb')
+export function FoodContainer(props) {
+  const { nodes } = useGLTF('/glb/food-container-clean.glb')
+  console.log(props.material)
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.three_compartment_tray.geometry} material={materials.StingrayPBS1} />
+      <mesh geometry={nodes.three_compartment_tray.geometry} castShadow={true} receiveShadow={true}>
+        {props.material}
+      </mesh>
     </group>
   )
 }

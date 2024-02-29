@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
-import {Model} from './EDU.jsx';
-import { ModelFork } from './PC6200.jsx';
+import {FoodContainer} from './FoodContainer.jsx';
+import { Fork } from './Fork.jsx';
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import './Three.scss';
 import * as ut from '@/js/utils.js';
-
+function CustomMaterial({...props}) {
+    return (<meshStandardMaterial color={props.color} roughness={props.roughness} />)
+}
 function Content({...props}) {
     const wrap = useRef()
     const model = useRef()
@@ -25,11 +25,11 @@ function Content({...props}) {
     useFrame((state, delta) => {
         if (!model.current) return;
         const t = clock.elapsedTime
-        model.current.rotation.x = Math.cos(t / 2) * Math.PI * .02
-        model.current.rotation.y = Math.sin(t / 2) * Math.PI * .04
-        model.current.position.y = Math.sin(t / 2) * .02
-        fork.current.rotation.x = Math.cos(t / 2) * Math.PI * .02 * -1
-        fork.current.rotation.y = Math.sin(t / 2) * Math.PI * .04 * -1
+        // model.current.rotation.x = Math.cos(t / 2) * Math.PI * .02
+        // model.current.rotation.y = Math.sin(t / 2) * Math.PI * .04
+        // model.current.position.y = Math.sin(t / 2) * .02
+        // fork.current.rotation.x = Math.cos(t / 2) * Math.PI * .02 * -1
+        // fork.current.rotation.y = Math.sin(t / 2) * Math.PI * .04 * -1
     })
     useEffect(() => {
         // console.log(index);
@@ -85,16 +85,16 @@ function Content({...props}) {
                     <meshStandardMaterial color="#00ff00"/>
                 </mesh> */}
                 <mesh ref={model}>
-                    <Model />
+                    <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
                 </mesh>
             </group>
             <group ref={forkWrap} scale={scale} position={[props.width * .25, props.height * .15, 0]} rotation={[Math.PI * .35, -1 * Math.PI * .25, 0]}>
                 <mesh ref={fork}>
-                    <ModelFork />
+                    <Fork material={<CustomMaterial color='#F9833A'/>} roughness={0}/>
                 </mesh>
             </group>
-            <ambientLight intensity={4} />
-
+            <ambientLight intensity={2} />
+            <directionalLight intensity={2}/>
             {/* <OrbitControls /> */}
         </>
     )
@@ -107,7 +107,7 @@ function HomeThree() {
     return (
         <div className="home-three">
             <div className="home-three-stick">
-                <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
+                <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows="basic">
                     <Content width={width} height={height}/>
                 </Canvas>
                 <div className="cube"></div>
