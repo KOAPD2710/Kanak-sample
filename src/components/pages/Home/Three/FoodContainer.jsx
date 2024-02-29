@@ -4,7 +4,6 @@ Command: npx gltfjsx@6.2.16 EDU.glb --transform
 Files: EDU.glb [26.6MB] > /Users/mac/Dropbox/Code Assets/kanak/public/EDU-transformed.glb [577.28KB] (98%)
 */
 
-import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function FoodContainer(props) {
@@ -19,4 +18,4 @@ export function FoodContainer(props) {
   )
 }
 
-useGLTF.preload('/EDU-transformed.glb')
+useGLTF.preload('/glb/food-container-clean.glb')

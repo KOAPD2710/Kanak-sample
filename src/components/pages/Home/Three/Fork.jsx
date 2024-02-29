@@ -18,4 +18,4 @@ export function Fork(props) {
   )
 }
 
-useGLTF.preload('/PC6200-transformed.glb')
+useGLTF.preload('/glb/fork-clean.glb')

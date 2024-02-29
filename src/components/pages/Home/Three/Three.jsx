@@ -14,6 +14,7 @@ function CustomMaterial({...props}) {
 }
 function Content({...props}) {
     const wrap = useRef()
+    const cube = useRef()
     const model = useRef()
     const forkWrap = useRef()
     const fork = useRef()
@@ -35,39 +36,39 @@ function Content({...props}) {
         // console.log(index);
     }, [index])
     useGSAP(() => {
-        console.log(wrap)
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.home-hero',
-                start: 'top top',
-                endTrigger: '.home-abt',
-                end: 'bottom bottom',
-                scrub: true
-            },
-            defaults: {
-                ease: 'linear'
-            }
-        })
-        tl.to(wrap.current.rotation, {x: Math.PI * .15, y: Math.PI *.1, z: Math.PI * .05})
-        .to(wrap.current.position, {x: 0, y: 0}, 0)
-        .to(wrap.current.scale, {x: 2000, y: 2000, z: 2000}, 0)
-        const tl2 = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.home-abt',
-                start: 'bottom bottom',
-                endTrigger: '.home-prod-main',
-                end: `top-=${window.getComputedStyle(document.querySelector('.home-prod-cards-inner')).top} top`,
-                // end: 'bottom bottom',
-                scrub: true
-            },
-            defaults: {
-                ease: 'linear'
-            }
-        })
-        tl2
-        .to(wrap.current.rotation, {x: Math.PI * .15, y: Math.PI * .5, z: Math.PI * 0})
-        .to(wrap.current.position, {x: props.width * .25}, 0)
-        .to(wrap.current.scale, {x: 2000, y: 2000, z: 2000}, 0)
+        // console.log(wrap)
+        // const tl = gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: '.home-hero',
+        //         start: 'top top',
+        //         endTrigger: '.home-abt',
+        //         end: 'bottom bottom',
+        //         scrub: true
+        //     },
+        //     defaults: {
+        //         ease: 'linear'
+        //     }
+        // })
+        // tl.to(wrap.current.rotation, {x: Math.PI * .15, y: Math.PI *.1, z: Math.PI * .05})
+        // .to(wrap.current.position, {x: 0, y: 0}, 0)
+        // .to(wrap.current.scale, {x: 2000, y: 2000, z: 2000}, 0)
+        // const tl2 = gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: '.home-abt',
+        //         start: 'bottom bottom',
+        //         endTrigger: '.home-prod-main',
+        //         end: `top-=${window.getComputedStyle(document.querySelector('.home-prod-cards-inner')).top} top`,
+        //         // end: 'bottom bottom',
+        //         scrub: true
+        //     },
+        //     defaults: {
+        //         ease: 'linear'
+        //     }
+        // })
+        // tl2
+        // .to(wrap.current.rotation, {x: Math.PI * .15, y: Math.PI * .5, z: Math.PI * 0})
+        // .to(wrap.current.position, {x: props.width * .25}, 0)
+        // .to(wrap.current.scale, {x: 2000, y: 2000, z: 2000}, 0)
     }, [])
     useEffect(() => {
         // setScale(ut.parseRem(2700),ut.parseRem(2700),ut.parseRem(2700))
@@ -79,20 +80,20 @@ function Content({...props}) {
 
     return (
         <>
-            <group ref={wrap} scale={scale} position={pos} rotation={rot}>
-                {/* <mesh ref={cube} scale={size} position={pos}>
+            <group ref={wrap}>
+                <mesh ref={cube} scale={[100,100,100]} position={[0,0,0]}>
                     <boxGeometry args={[1,1,1]}/>
                     <meshStandardMaterial color="#00ff00"/>
-                </mesh> */}
-                <mesh ref={model}>
-                    <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
                 </mesh>
+                {/* <mesh ref={model}>
+                    <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
+                </mesh> */}
             </group>
-            <group ref={forkWrap} scale={scale} position={[props.width * .25, props.height * .15, 0]} rotation={[Math.PI * .35, -1 * Math.PI * .25, 0]}>
+            {/* <group ref={forkWrap} scale={scale} position={[props.width * .25, props.height * .15, 0]} rotation={[Math.PI * .35, -1 * Math.PI * .25, 0]}>
                 <mesh ref={fork}>
                     <Fork material={<CustomMaterial color='#F9833A'/>} roughness={0}/>
                 </mesh>
-            </group>
+            </group> */}
             <ambientLight intensity={2} />
             <directionalLight intensity={2}/>
             {/* <OrbitControls /> */}
@@ -110,7 +111,6 @@ function HomeThree() {
                 <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows="basic">
                     <Content width={width} height={height}/>
                 </Canvas>
-                <div className="cube"></div>
             </div>
         </div>
     )
