@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Fork(props) {
-  const { nodes } = useGLTF('/glb/fork-clean.glb')
+  const { nodes } = useGLTF('/glb/fork-clean-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Ivory_ForkIvory_Fork.geometry}>
@@ -18,4 +18,4 @@ export function Fork(props) {
   )
 }
 
-useGLTF.preload('/glb/fork-clean.glb')
+// useGLTF.preload('/glb/fork-clean-transformed.glb')

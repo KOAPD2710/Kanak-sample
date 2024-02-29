@@ -7,7 +7,7 @@ Files: EDU.glb [26.6MB] > /Users/mac/Dropbox/Code Assets/kanak/public/EDU-transf
 import { useGLTF } from '@react-three/drei'
 
 export function FoodContainer(props) {
-  const { nodes } = useGLTF('/glb/food-container-clean.glb')
+  const { nodes } = useGLTF('/glb/food-container-clean-transformed.glb')
   console.log(props.material)
   return (
     <group {...props} dispose={null}>
@@ -18,4 +18,4 @@ export function FoodContainer(props) {
   )
 }
 
-useGLTF.preload('/glb/food-container-clean.glb')
+// useGLTF.preload('/glb/food-container-clean-transformed.glb')

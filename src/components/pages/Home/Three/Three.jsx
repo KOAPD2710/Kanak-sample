@@ -15,7 +15,8 @@ function CustomMaterial({...props}) {
 function Content({...props}) {
     const wrap = useRef()
     const cube = useRef()
-    const model = useRef()
+    const foodWrap = useRef()
+    const food = useRef()
     const forkWrap = useRef()
     const fork = useRef()
     const [scale, setScale] = useState([ut.parseRem(3200),ut.parseRem(3200),ut.parseRem(3200)]);
@@ -24,11 +25,11 @@ function Content({...props}) {
     const index = useStore(productIndex);
     const clock = useThree(state => state.clock)
     useFrame((state, delta) => {
-        if (!model.current) return;
+        if (!food.current) return;
         const t = clock.elapsedTime
-        // model.current.rotation.x = Math.cos(t / 2) * Math.PI * .02
-        // model.current.rotation.y = Math.sin(t / 2) * Math.PI * .04
-        // model.current.position.y = Math.sin(t / 2) * .02
+        // food.current.rotation.x = Math.cos(t / 2) * Math.PI * .02
+        // food.current.rotation.y = Math.sin(t / 2) * Math.PI * .04
+        // food.current.position.y = Math.sin(t / 2) * .02
         // fork.current.rotation.x = Math.cos(t / 2) * Math.PI * .02 * -1
         // fork.current.rotation.y = Math.sin(t / 2) * Math.PI * .04 * -1
     })
@@ -85,15 +86,17 @@ function Content({...props}) {
                     <boxGeometry args={[1,1,1]}/>
                     <meshStandardMaterial color="#00ff00"/>
                 </mesh> */}
-                <mesh ref={model} >
-                    <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
-                </mesh>
-            </group>
-            {/* <group ref={forkWrap} scale={scale} position={[props.width * .25, props.height * .15, 0]} rotation={[Math.PI * .35, -1 * Math.PI * .25, 0]}>
-                <mesh ref={fork}>
-                    <Fork material={<CustomMaterial color='#F9833A'/>} roughness={0}/>
-                </mesh>
-            </group> */}
+                <group ref={foodWrap}>
+                    <mesh ref={food} >
+                        <FoodContainer material={<CustomMaterial color='#EAD6B3'/>} />
+                    </mesh>
+                </group>
+                <group ref={forkWrap} scale={scale} position={[props.width * .25, props.height * .15, 0]} rotation={[Math.PI * .35, -1 * Math.PI * .25, 0]}>
+                    <mesh ref={fork}>
+                        <Fork material={<CustomMaterial color='#F9833A'/>} roughness={0}/>
+                    </mesh>
+                </group>
+            </group>            
             <ambientLight intensity={2} />
             <directionalLight intensity={2}/>
             {/* <OrbitControls /> */}
