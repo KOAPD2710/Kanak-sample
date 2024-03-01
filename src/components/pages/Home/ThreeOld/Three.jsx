@@ -93,7 +93,6 @@ function Content({...props}) {
             scrollTrigger: {
                 trigger: '.home-prod-main-list',
                 start: 'top bottom',
-                markers: true,
                 onEnter: () => {
                     productIndex.set(0)
                 },
