@@ -3,7 +3,8 @@ const { title, brand_list } = Astro.props;
 
 import {getByUID} from '@/prismic.js';
 import { Image } from 'astro:assets';
-import arrIcon from '@assets/arr-ext-21.svg';
+import arrIconDesk from '@assets/arr-ext-21.svg';
+import arrIconMob from '@assets/arrow-small.svg';
 import HomeBrand from './Brand';
 
 let replaceWord = title.split(',')[title.split(',').length - 1]
@@ -18,7 +19,8 @@ const list = await Promise.all(
 ---
 
 <HomeBrand title={newTitle} list={list} client:visible>
-    <Image src={arrIcon} alt='' slot='arrIcon'/>
+    <Image src={arrIconDesk} alt='' slot='arrIconDesk'/>
+    <Image src={arrIconMob} alt='' slot='arrIconMob'/>
 </HomeBrand>
 
 

@@ -1,6 +1,5 @@
 @use '@styles/colors' as *;
-@use '@styles/colors' as *;
-
+@use '@styles/mixins' as *;
 .home-comp {
     height: 400vh;
     position: relative;
@@ -8,11 +7,13 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        background-color: var(--cl-txt)FF;
     }
     &-stick {
         position: sticky;
         top: 0;
         height: 100vh;
+        background-color: var(--cl-bg);
     }
     &-title-wrap {
         padding-top: 16rem;
@@ -21,11 +22,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        // max-width: 140rem;
         overflow: hidden;
     }
     &-title {
         width: 100%;
         margin: 0 auto;
+        max-width: 140rem;
     }
     &-main {
         grid-template-columns: repeat(16, 1fr);
@@ -37,6 +40,34 @@
             flex-direction: column;
             align-items: center;
             grid-column: span 4;
+            text-align: center;
+            max-width: 38.7rem;
+            justify-self: center;
+            .ic {
+                margin-bottom: 2rem;
+            }
+            &-title {
+                margin-bottom: 2rem;
+                &.good {
+                    max-width: 28.4rem;
+                }
+                &-bad {
+                    max-width: 32.5rem;
+                }
+            }
+            &-list {
+                padding: 0 2rem;
+                display: grid;
+                &-item {
+                    grid-column: 1/2;
+                    grid-row: 1/2;
+                    opacity: 0;
+                    @include transition(all 600ms ease);
+                    &.active {
+                        opacity: 1;
+                    }
+                }
+            }
         }
         &-prog {
             grid-column: span 8;
@@ -45,9 +76,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
             &-inner {
-                width: calc(100vh - 16rem - 10rem - 8.2rem - var(--fs-h0) - var(--fs-h3));
+                width: calc(100vh - 16rem - 10rem - 8.2rem - var(--fs-h0) * 2);
                 position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             &-plates {
             }
@@ -56,16 +91,52 @@
                 position: absolute;
                 inset: 0;
             }
-            &-line {
+            // &-line :global() {
+            //     z-index: 1;
+            //     position: absolute;
+            //     inset: 0rem;
+            //     --arcL: calc(2 * var(--PI) * 315);
+            //     --prog: 0;
+            //     --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
+            //     transform: rotate(-90deg);
+            // }
+            :global(.home-comp-main-prog-line) {
                 z-index: 1;
                 position: absolute;
                 inset: 0rem;
                 --arcL: calc(2 * var(--PI) * 315);
                 --prog: 0;
-                --arcOffset: calc(var(--arcL) * ((100 - var(--prog)) / 100));
+                --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
                 transform: rotate(-90deg);
             }
-
+            &-list {
+                position: absolute;
+                inset: 0;
+                display: grid;
+                align-items: center;
+                justify-content: center;
+                &-item {
+                    grid-column: 1/2;
+                    grid-row: 1/2;
+                    opacity: 0;
+                    text-align: center;
+                    max-width: 45rem;
+                    @include transition(all 600ms ease);
+                    @include transform(scale(.94));
+                    &.active {
+                        opacity: 1;
+                        @include transform(scale(1));
+                    }
+                }
+            }
+            .line-ver {
+                width: .4rem;
+                height: 50vh;
+                position: absolute;
+                top: -1rem;
+                margin-top: 100%;
+                background-color: var(--cl-txt);
+            }
         }
     }
 }

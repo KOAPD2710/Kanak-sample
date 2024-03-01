@@ -35,6 +35,11 @@
     &-title {
         margin-bottom: 5.2rem;
         max-width: 61.8rem;
+        @include md {
+            @include text(h1);
+            max-width: 31rem;
+            margin-bottom: 3.2rem;
+        }
     }
     &-main {
         padding-top: 8rem;
@@ -44,14 +49,19 @@
         flex-direction: column;
         justify-content: space-between;
         @include md {
-            grid-column: 7/13;
+            grid-column: 8/13;
+            padding-top: 5.6rem;
+            padding-bottom: 2.4rem;
+            margin-left: -1.6rem;
         }
         &-item {
-            padding-top: 5.2rem;
-            padding-bottom: 5.2rem;
             position: relative;
+            padding-block: 5.2rem;
             > * {
                 @include transition(opacity 400ms ease);
+            }
+            @include md {
+                padding-block: 3.2rem;
             }
             .line {
                 position: absolute;
@@ -63,12 +73,27 @@
                 align-items: start;
                 justify-content: space-between;
                 margin-bottom: 5.2rem;
+                @include md {
+                    margin-bottom: 2rem;
+                }
             }
             &-title {
                 max-width: 45.7rem;
+                @include md {
+                    @include text(h5);
+                    max-width: 28rem;
+                }
             }
             &-ic {
                 margin-top: 1rem;
+                @include md {
+                    margin-top: .5rem;
+                }
+            }
+            &-sub {
+                @include md {
+                    @include text(14);
+                }
             }
         }
         :hover {

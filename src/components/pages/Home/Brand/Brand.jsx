@@ -1,5 +1,7 @@
+import useDevice from '@/components/hooks/useDevice';
 import './Brand.scss';
 function HomeBrand({ ...props }) {
+    const { isDesktop } = useDevice();
     return (
         <section className="home-brand">
             <div className="container grid">
@@ -16,8 +18,8 @@ function HomeBrand({ ...props }) {
                                     <h3 className="heading h4 txt-up txt-black home-brand-main-item-title">
                                         {data.title[0].text}
                                     </h3>
-                                    <div className="ic ic-20 home-brand-main-item-ic">
-                                        {props.arrIcon}
+                                    <div className={`ic${isDesktop ? ' ic-20' : ' ic-16'} home-brand-main-item-ic`}>
+                                        { isDesktop ? props.arrIconDesk : props.arrIconMob }
                                     </div>
                                 </div>
                                 <div className="home-brand-main-item-body">
