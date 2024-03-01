@@ -5,18 +5,20 @@ import SplitType from 'split-type';
 import { useGSAP } from '@gsap/react';
 import './Product.scss';
 import { useStore } from '@nanostores/react';
-import { productIndex } from '@contexts/StoreGlobal';
+import { productIndex, prevProductIndex } from '@contexts/StoreGlobal';
 
 function HomeProduct({...props}) {
     const index = useStore(productIndex);
 
     function onClickNavPrev(e) {
         e.preventDefault();
+        prevProductIndex.set(index);
         productIndex.set(index - 1);
     }
     function onClickNavNext(e) {
         e.preventDefault();
-        productIndex.set(index + 1)
+        prevProductIndex.set(index);
+        productIndex.set(index + 1);
     }
     useEffect(() => {
 
@@ -44,7 +46,10 @@ function HomeProduct({...props}) {
                 <div className="home-prod-main">
                     <div className="home-prod-main-list">
                         {props.list.map((item, idx) => (
-                            <div className={`home-prod-main-item${idx == index ? ' active':''}`} onPointerEnter={() => productIndex.set(idx)} key={idx}>
+                            <div className={`home-prod-main-item${idx == index ? ' active':''}`} onPointerEnter={() => {
+                                prevProductIndex.set(index);
+                                productIndex.set(idx);
+                            }} key={idx}>
                                 <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
                                     {item.data.title}
                                 </h3>

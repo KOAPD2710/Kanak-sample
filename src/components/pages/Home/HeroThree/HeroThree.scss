@@ -9,6 +9,7 @@
     z-index: 99;
     pointer-events: none;
     height: calc(100% - 28.8rem - var(--btnHeight) + ((100vh - var(--HomeProductCardHeight)) / 2));  // 100% - padding - btn + card's top
+    
     &-wrap {
         --HomeProductCardHeight: 66.2rem;
         position: relative;
