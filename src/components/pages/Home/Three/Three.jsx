@@ -77,7 +77,7 @@ function Content({...props}) {
         tl2
         // .to(camera, {x: leftOffset},0)
         .to(foodWrap.current.scale, {x: 2200, y: 2200, z: 2200}, 0)
-        .to(foodWrap.current.position, {x: leftOffset}, 0)
+        .to(foodWrap.current.position, {x: leftOffset, y: -props.height * .05}, 0)
         .to(foodWrap.current.rotation, {x: Math.PI * .1, y: Math.PI * .5, z: 0}, 0)
 
         .to(forkWrap.current.scale, {x: 3000, y: 3000, z: 3000}, 0)

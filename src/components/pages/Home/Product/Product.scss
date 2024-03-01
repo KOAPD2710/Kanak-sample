@@ -74,10 +74,11 @@
         &-inner {
             border-radius: 1rem;
             border: solid .2rem var(--cl-txt);
-            height: 66.2rem;
-            top: 22.8rem;
+            height: var(--HomeProductCardHeight);
+            // top: 22.8rem;
+            top: calc((100vh - var(--HomeProductCardHeight)) / 2);
             position: sticky;
-            max-height: calc(100vh - 45.6rem);
+            //max-height: calc(100vh - 45.6rem);
             overflow: hidden;
             display: flex;
             flex-direction: column;
