@@ -8,7 +8,6 @@ import { useGLTF } from '@react-three/drei'
 
 export function FoodContainer(props) {
   const { nodes } = useGLTF('/glb/food-container-clean-transformed.glb')
-  console.log(props.material)
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.three_compartment_tray.geometry} castShadow={true} receiveShadow={true}>
@@ -18,4 +17,4 @@ export function FoodContainer(props) {
   )
 }
 
-// useGLTF.preload('/glb/food-container-clean-transformed.glb')
+useGLTF.preload('/glb/food-container-clean-transformed.glb')

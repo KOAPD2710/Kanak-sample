@@ -1,5 +1,5 @@
 ---
-const { label, title, compare_list } = Astro.props;
+const { title, compare_list } = Astro.props;
 
 import { Image } from 'astro:assets';
 import { getByUID } from '@/prismic.js';
@@ -13,10 +13,8 @@ import CompareLine from '@pages/Home/Compare/CompareLine';
 
 const list = await Promise.all(
     compare_list.map(async (compare: any, idx: number) => {
-        if (idx < 4) {
-            let item = getByUID('compare', compare.item.uid)
-            return item
-        }
+        let item = getByUID('compare', compare.item.uid)
+        return item
     })
 )
 ---
@@ -25,7 +23,6 @@ const list = await Promise.all(
         <div class="container">
             <div class="home-comp-title-wrap">
                 <h2 class="heading txt-up txt-black home-comp-title">
-                    <span class="h3">{label}</span><br>
                     <span class="h0">{title}</span>
                 </h2>
             </div>
