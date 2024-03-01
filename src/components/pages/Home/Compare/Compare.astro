@@ -22,15 +22,15 @@ const list = await Promise.all(
     <div class="home-comp-stick bg-light">
         <div class="container">
             <div class="home-comp-title-wrap">
-                <h2 class="heading txt-up txt-black home-comp-title">
-                    <span class="h0">{title}</span>
+                <h2 class="h0 heading txt-up txt-black home-comp-title">
+                    {title}
                 </h2>
             </div>
             <div class="home-comp-main grid">
                 <div class="home-comp-main-item good">
                     <Image src={compareGood} alt="" class='ic ic-80' />
                     <h3 class="heading h5 txt-up txt-black home-comp-main-item-title good">
-                        Kanak Naturals Plate
+                        Kanak Naturals Dinnerware
                     </h3>
                     <div class="home-comp-main-item-list">
                         {list.map((item, idx) => (
@@ -48,7 +48,7 @@ const list = await Promise.all(
                         <div class="home-comp-main-prog-dot">
                             <Image src={compareDotDash} alt="" class="img" />
                         </div>
-                        <CompareLine customClass=".home-comp-main-prog-line" client:visible >
+                        <CompareLine customClass=".home-comp-main-prog-line" listLength={list.length} client:visible>
                             <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
                         </CompareLine>
                         <div class="home-comp-main-prog-list">
@@ -63,7 +63,7 @@ const list = await Promise.all(
                 <div class="home-comp-main-item bad">
                     <Image src={compareBad} alt="" class='ic ic-80' />
                     <h3 class="heading h5 txt-up txt-black home-comp-main-item-title bad">
-                        Traditional Styrofoam Plate
+                        Traditional Dinnerware
                     </h3>
                     <div class="home-comp-main-item-list">
                         {list.map((item, idx) => (
@@ -103,11 +103,13 @@ const list = await Promise.all(
             display: flex;
             align-items: center;
             justify-content: center;
+            // max-width: 140rem;
             overflow: hidden;
         }
         &-title {
             width: 100%;
             margin: 0 auto;
+            max-width: 140rem;
         }
         &-main {
             grid-template-columns: repeat(16, 1fr);
@@ -157,7 +159,7 @@ const list = await Promise.all(
                 justify-content: center;
                 position: relative;
                 &-inner {
-                    width: calc(100vh - 16rem - 10rem - 8.2rem - var(--fs-h0) - var(--fs-h3));
+                    width: calc(100vh - 16rem - 10rem - 8.2rem - var(--fs-h0) * 2);
                     position: relative;
                     display: flex;
                     align-items: center;

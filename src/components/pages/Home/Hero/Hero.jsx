@@ -1,7 +1,8 @@
 import * as ut from '@/js/utils.js';
 import './Hero.scss'
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
+import useDevice from '@/components/hooks/useDevice';
 
 const TextEl = forwardRef(function TextEl({...props}, ref) {
     return (<span ref={ref} className="heading h0 txt-up txt-black home-abt-title-top">{props.text}</span>)
@@ -11,14 +12,29 @@ function HomeHero(props) {
     const el = useRef()
     const cloneEl = useRef()
     const { width, height } = useWindowSize();
+    const { isDesktop } = useDevice();
+
     useEffect(() => {
-        cloneEl.current.style.cssText = `
-            position: absolute;
-            top: ${ut.offset(el.current).top}px;
-            left: ${ut.offset(el.current).left}px;
-            z-index: 99
-        `;
-    }, [width, height])
+        const elRect = el.current.getBoundingClientRect();
+        if (isDesktop) {
+                cloneEl.current.style.cssText = `
+                    position: absolute;
+                    top: ${elRect.y}px;
+                    left: ${elRect.x}px;
+                    width: ${el.width}px;
+                    z-index: 99
+                `;
+            }
+            else {
+                cloneEl.current.style.cssText = `
+                    position: absolute;
+                    top: ${elRect.y}px;
+                    left: 0;
+                    width: ${el.width}px;
+                    z-index: 99
+                `;
+            }
+    }, [width, height, el, cloneEl])
     return (
         <>
             <section className="home-hero">
@@ -46,11 +62,11 @@ function HomeHero(props) {
             <section className="home-abt">
                 <div className="container">
                     <h2 className="heading h0 txt-up txt-black home-abt-title">
-                        Your Reputation<br/> <TextEl ref={el} text="Our Unwavering Commitment"/>
+                        Your Reputation<br/> <TextEl ref={el} text="Is Our Pride"/>
                     </h2>
                 </div>
             </section>
-            <TextEl ref={cloneEl} text="Our Unwavering Commitment"/>
+            <TextEl ref={cloneEl} text="Is Our Pride"/>
         </>
     )
 }

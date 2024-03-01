@@ -5,6 +5,8 @@
     min-height: 100vh;
     height: 100vh;
     @include md {
+        position: relative;
+        z-index: 99;
         padding-top: 13.5rem;
     }
     .container {
@@ -16,7 +18,7 @@
         margin-bottom: 6rem;
         align-self: center;
         @include md {
-            grid-column: 2/11;
+            grid-column: 2/12;
             text-align: center;
             margin-bottom: 0;
 
@@ -32,9 +34,10 @@
         align-self: end;
         margin-bottom: 8rem;
         @include md {
-            grid-column: 3/10;
+            grid-column: 3/11;
             margin-bottom: 0;
             padding-bottom: 9.5dvh;
+            max-width: none;
         }
         &-top {
             grid-column: 1/3;
@@ -50,6 +53,9 @@
             border-top: none;
             @include md {
                 padding: 1.2rem;
+                .btn-main {
+                    padding: 1.85rem 6.2rem;
+                }
             }
         }
         &-cta-wrap {
@@ -60,6 +66,9 @@
             justify-content: center;
             border-top: none;
             border-left: none;
+            @include md {
+                padding: 1.2rem;
+            }
         }
     }
 }

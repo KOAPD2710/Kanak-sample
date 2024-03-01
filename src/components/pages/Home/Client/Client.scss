@@ -24,7 +24,7 @@
         @include md {
             grid-column: 1/5;
             grid-row: 1/3;
-            margin-top: 0;
+            margin-top: -3.4rem;
         }
     }
     &-title {
@@ -54,6 +54,7 @@
         @include md {
             grid-column: 1/4;
             grid-row: 3/4;
+            margin-top: -.8rem;
         }
     }
     &-sub {

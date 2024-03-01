@@ -19,7 +19,7 @@ function HomeProduct({...props}) {
         productIndex.set(index + 1)
     }
     useEffect(() => {
-        
+
     }, [index])
     useGSAP(() => {
         const text = new SplitType('.home-prod-title', { types: 'words, chars'});
@@ -102,7 +102,7 @@ function HomeProduct({...props}) {
                             {props.PDFIcon}
                         </div>
                         <div className="txt txt-20 txt-med home-prod-pdf-link-txt">
-                            Download Product Catalog
+                            Download Catalog
                         </div>
                     </a>
                 </div>
