@@ -144,8 +144,10 @@
                 position: absolute;
                 width: 100vw;
                 height: 100vh;
-                background-color: blue;
-                opacity: .2;
+                pointer-events: none;
+                & > * {
+                    pointer-events: none !important;
+                }
             }
         }
         &-bottom {

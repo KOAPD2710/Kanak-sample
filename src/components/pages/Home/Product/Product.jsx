@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './Product.scss';
 import { useStore } from '@nanostores/react';
 import { productIndex, prevProductIndex } from '@contexts/StoreGlobal';
-import HomeProductThree from '../ProductThree/ProductThree.astro';
+import HomeProductThree from './ProductThree.jsx';
 
 function HomeProduct({...props}) {
     const index = useStore(productIndex);
@@ -67,7 +67,7 @@ function HomeProduct({...props}) {
                         </div>
                         <div className="home-prod-cards-middle">
                             <div className="home-prod-cards-middle-inner">
-
+                                <HomeProductThree list={props.list} client:visible/>
                             </div>
                         </div>
                         <div className="home-prod-cards-bottom">

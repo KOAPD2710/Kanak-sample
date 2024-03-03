@@ -2,6 +2,8 @@
 .home-hero-abt {
     padding-top: 13.8rem;
     padding-bottom: 35.2rem;
+    min-height: 100vh;
+    height: 100vh;
     @include md {
         padding-top: 22.3rem;
         padding-bottom: 28.8rem;
