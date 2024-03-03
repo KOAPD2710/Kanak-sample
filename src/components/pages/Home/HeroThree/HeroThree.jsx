@@ -81,6 +81,8 @@ function Content({...props}) {
             </group>            
             <ambientLight intensity={2} />
             <directionalLight intensity={2}/>
+            <directionalLight intensity={1} position={[props.width * .25, 0,100]}/>
+            <directionalLight intensity={1} position={[-props.width * .25, 0,100]}/>
         </>
     )
 }

@@ -7,7 +7,10 @@ import { useStore } from '@nanostores/react';
 import { productIndex, prevProductIndex } from '@contexts/StoreGlobal';
 import { GetModel } from "./GetModel.jsx";
 function CustomMaterial({...props}) {
-    return (<meshStandardMaterial color={props.color} roughness={props.roughness}/>)
+    return ( <>
+     <meshStandardMaterial color={props.color} roughness={props.roughness}/>
+    </>
+    )
 }
 function Content({...props}) {
     const wrap = useRef()
