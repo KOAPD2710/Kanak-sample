@@ -1,0 +1,26 @@
+@use '@styles/mixins' as *;
+.home-hero-abt {
+    padding-top: 13.8rem;
+    padding-bottom: 35.2rem;
+    @include md {
+        padding-top: 22.3rem;
+        padding-bottom: 28.8rem;
+    }
+    .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    &-title {
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 103.6rem;
+        &-top {
+            margin-bottom: 2rem;
+            max-width: 103.6rem;
+            text-align: center;
+            display: inline-block;
+        }
+    }
+}

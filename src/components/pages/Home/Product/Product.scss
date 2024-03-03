@@ -1,20 +1,13 @@
 @use '@styles/colors' as *;
 @use '@styles/mixins' as *;
 .home-prod {
+    //--btnHeight: 16.8rem;
+    --HomeProductCardHeight: 66.2rem;
+    //height: calc(100% - 28.8rem - var(--btnHeight) + ((100vh - var(--HomeProductCardHeight)) / 2));  // 100% - padding - btn + card's top
     padding-bottom: 28.8rem;
+    contain: paint;
     @include md {
         padding-bottom: 13rem;
-    }
-    &-title-wrap {
-        grid-column: 1/-2;
-        margin-bottom: 8rem;
-        @include md {
-            margin-right: -1.6rem;
-            margin-bottom: 14rem;
-        }
-    }
-    &-title {
-        max-width: 90rem;
     }
     &-main {
         grid-column: 1/9;
@@ -75,11 +68,8 @@
             border-radius: 1rem;
             border: solid .2rem var(--cl-txt);
             height: var(--HomeProductCardHeight);
-            // top: 22.8rem;
             top: calc((100vh - var(--HomeProductCardHeight)) / 2);
             position: sticky;
-            //max-height: calc(100vh - 45.6rem);
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -142,6 +132,20 @@
                     margin-left: 1.2rem;
                     @include text(14);
                 }
+            }
+        }
+        &-middle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            &-inner {
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                background-color: blue;
+                opacity: .2;
             }
         }
         &-bottom {

@@ -1,8 +1,9 @@
 ---
 import HomeHero from './Hero';
+import HomeHeroProduct from './HeroProduct'
+import HomeHeroAbout from './HeroAbout';
 ---
-<HomeHero {...Astro.props} client:only="react"/>
+<HomeHero {...Astro.props} client:visible/>
+<HomeHeroAbout {...Astro.props} client:visible/>
+<HomeHeroProduct {...Astro.props} client:visible/>
 
-<script>
-
-</script>

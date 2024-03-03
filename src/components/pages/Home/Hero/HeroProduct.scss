@@ -1,0 +1,14 @@
+@use '@styles/mixins' as *;
+.home-hero-prod {
+    &-title-wrap {
+        grid-column: 1/-2;
+        margin-bottom: 8rem;
+        @include md {
+            margin-right: -1.6rem;
+            margin-bottom: 14rem;
+        }
+    }
+    &-title {
+        max-width: 90rem;
+    }
+}

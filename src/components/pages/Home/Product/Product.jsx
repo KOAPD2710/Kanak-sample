@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import SplitType from 'split-type';
-import { useGSAP } from '@gsap/react';
 import './Product.scss';
 import { useStore } from '@nanostores/react';
 import { productIndex, prevProductIndex } from '@contexts/StoreGlobal';
+import HomeProductThree from '../ProductThree/ProductThree.astro';
 
 function HomeProduct({...props}) {
     const index = useStore(productIndex);
@@ -23,26 +20,9 @@ function HomeProduct({...props}) {
     useEffect(() => {
 
     }, [index])
-    useGSAP(() => {
-        const text = new SplitType('.home-prod-title', { types: 'words, chars'});
-        gsap.from(text.chars, {
-            scrollTrigger: {
-                trigger: '.home-prod-title-wrap',
-                start: 'top top+=65%',
-                end: 'bottom top+=45%',
-                scrub: true,
-            },
-            opacity: .2, stagger: .06, ease: 'linear'
-        })
-    }, [])
     return (
         <section className="home-prod">
             <div className="container grid">
-                <div className="home-prod-title-wrap">
-                    <h2 className="heading h1 txt-up txt-black home-prod-title">
-                        {props.title}
-                    </h2>
-                </div>
                 <div className="home-prod-main">
                     <div className="home-prod-main-list">
                         {props.list.map((item, idx) => (
@@ -83,6 +63,11 @@ function HomeProduct({...props}) {
                                         {props.arrIcon}
                                     </div>
                                 </button>
+                            </div>
+                        </div>
+                        <div className="home-prod-cards-middle">
+                            <div className="home-prod-cards-middle-inner">
+
                             </div>
                         </div>
                         <div className="home-prod-cards-bottom">

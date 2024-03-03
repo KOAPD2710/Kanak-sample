@@ -1,26 +1,6 @@
-import * as ut from '@/js/utils.js';
 import './Hero.scss'
-import { forwardRef, useEffect, useRef, useState } from 'react';
-import useWindowSize from '@hooks/useWindowSize';
 
-const TextEl = forwardRef(function TextEl({...props}, ref) {
-    return (<span ref={ref} className="heading h0 txt-up txt-black home-abt-title-top">{props.text}</span>)
-})
-
-function HomeHero(props) {
-    const el = useRef()
-    const cloneEl = useRef()
-    const { width, height } = useWindowSize();
-    useEffect(() => {
-        const elRect = ut.offset(el.current);
-        cloneEl.current.style.cssText = `
-            position: absolute;
-            top: ${elRect.top}px;
-            left: ${elRect.left}px;
-            width: ${el.width}px;
-            z-index: 99
-        `;
-    }, [width, height, el, cloneEl])
+function HomeHero(props) {    
     return (
         <>
             <section className="home-hero">
@@ -45,14 +25,6 @@ function HomeHero(props) {
                     </div>
                 </div>
             </section>
-            <section className="home-abt">
-                <div className="container">
-                    <h2 className="heading h0 txt-up txt-black home-abt-title">
-                        Your Reputation<br/> <TextEl ref={el} text="Is Our Pride"/>
-                    </h2>
-                </div>
-            </section>
-            <TextEl ref={cloneEl} text="Is Our Pride"/>
         </>
     )
 }
