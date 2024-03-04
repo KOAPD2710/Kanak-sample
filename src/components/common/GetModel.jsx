@@ -8,11 +8,11 @@ import { useGLTF } from '@react-three/drei'
 let path;
 export function GetModel({...props}) {
   path = props.file
-  const { nodes } = useGLTF(props.file)
+  const { nodes } = useGLTF(props.file) 
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.Scene.children[0].geometry}>
-        {props.material}
+      <mesh geometry={nodes.Scene.children[0].geometry} material={!props.material && nodes.Scene.children[0].material}>
+        {props.material && props.material}
       </mesh>
     </group>
   )

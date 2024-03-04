@@ -1,19 +1,25 @@
 import useDevice from '@/components/hooks/useDevice';
+import HomeBrandThree from './BrandThree';
+import { brandIndex } from '@contexts/StoreGlobal';
+
 import './Brand.scss';
+
 function HomeBrand({ ...props }) {
     const { isDesktop } = useDevice();
     return (
         <section className="home-brand">
             <div className="container grid">
                 <div className="home-brand-canvas">
-                    <div className="home-brand-canvas-inner"></div>
+                    <div className="home-brand-canvas-inner">
+                        <HomeBrandThree list={props.list}/>
+                    </div>
                 </div>
                 <div className="line line-ver"></div>
                 <div className="home-brand-main">
                     <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/>
                     <div className="home-brand-main-list">
                         {props.list.map(({ data }, idx) => (
-                            <a href="#" className="home-brand-main-item" key={idx}>
+                            <a href="#" className="home-brand-main-item" key={idx} onPointerOver={() => {brandIndex.set(idx)}}>
                                 <div className="home-brand-main-item-head">
                                     <h3 className="heading h4 txt-up txt-black home-brand-main-item-title">
                                         {data.title[0].text}
