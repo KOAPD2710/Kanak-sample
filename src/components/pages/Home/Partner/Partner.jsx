@@ -4,9 +4,11 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import * as ut from '@/js/utils.js';
 import './Partner.scss';
+import useDevice from "@/components/hooks/useDevice";
 
 function HomePartner({ ...props }) {
     const sectionRef = useRef();
+    const { isTablet } = useDevice();
 
     useGSAP(() => {
         const DOM = {
@@ -52,10 +54,12 @@ function HomePartner({ ...props }) {
         .to(DOM.line, {'--prog': 100, ease: 'linear'})
     }, [sectionRef])
 
-    useEffect(() => {
-        let compareItemHeight = document.querySelector('.home-comp-main-item').offsetHeight;
-        sectionRef.current.style.setProperty('--content-compare-height', `${compareItemHeight / 10}rem`);
-    }, [])
+    // useEffect(() => {
+    //     if (isTablet) {
+    //         let compareItemHeight = document.querySelector('.home-comp-main-item').offsetHeight;
+    //         sectionRef.current.style.setProperty('--content-compare-height', `${compareItemHeight / 10}rem`);
+    //     }
+    // }, [isTablet])
     return (
         <section className="home-part" ref={sectionRef}>
             <div className="home-part-stick">
