@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Fork } from './Fork.jsx';
 import { useStore } from '@nanostores/react';
-import { productIndex, prevProductIndex } from '@contexts/StoreGlobal';
+import { productIndex } from '@contexts/StoreGlobal';
 import './Three.scss';
 import * as ut from '@/js/utils.js';
 import { GetModel } from "./GetModel.jsx";
@@ -19,8 +19,7 @@ function Content({...props}) {
     const forkWrap = useRef()
     const fork = useRef()
     const [scale, setScale] = useState([3200,3200,3200]);
-    const index = useStore(productIndex);
-    const prevIndex = useStore(prevProductIndex);
+    const index = useStore(productIndex); 
     const clock = useThree(state => state.clock);
     useFrame((state, delta) => {
         if (!products.current) return;
