@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -18,7 +18,6 @@ function Content({...props}) {
     const brandsWrap = useRef()
     const brands = useRef()
     useGSAP(() => {
-        console.log(activeIndex)
         if (activeIndex == 1) {
             gsap.to(brands.current.rotation, {
                 x: Math.PI * .1, y: -Math.PI * 1.45, z: 0
@@ -52,8 +51,6 @@ function Content({...props}) {
                 x: -.8, y: -.2, z: 0
             })
         }
-        console.log(brands.current)
-        
     }, [activeIndex])
     return (
         <>
