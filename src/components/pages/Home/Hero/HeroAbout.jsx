@@ -1,10 +1,14 @@
 import * as ut from '@/js/utils.js';
 import './HeroAbout.scss'
-import { forwardRef, useEffect, useRef } from 'react';
+import { Children, forwardRef, useEffect, useRef } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 
 const TextEl = forwardRef(function TextEl({...props}, ref) {
-    return (<span ref={ref} className="heading h0 txt-up txt-black home-hero-abt-title-top">{props.text}</span>)
+    return (
+        <span ref={ref} className="heading txt-up txt-black home-hero-abt-title-top">
+            {props.children}
+        </span>
+    )
 })
 
 function HomeHeroAbout({...props}) {
@@ -17,7 +21,6 @@ function HomeHeroAbout({...props}) {
             position: absolute;
             top: ${elRect.top}px;
             left: ${elRect.left}px;
-            width: ${el.width}px;
             z-index: 99
         `;
     }, [width, height])
@@ -26,11 +29,23 @@ function HomeHeroAbout({...props}) {
             <section className="home-hero-abt">
                 <div className="container">
                     <h2 className="heading h0 txt-up txt-black home-hero-abt-title">
-                        Your Reputation<br/> <TextEl ref={el} text="Is Our Pride"/>
+                        <span className='heading h0 txt-up txt-black'>Your</span>
+                        <br />
+                        <span className='txt txt-180 txt-up txt-black'>Reputation</span>
+                        <br />
+                        <TextEl ref={el}>
+                            <span className='heading h0'>Is our</span>
+                            <br/>
+                            <span className='txt txt-180'>Pride</span>
+                        </TextEl>
                     </h2>
                 </div>
             </section>
-            <TextEl ref={cloneEl} text="Is Our Pride"/>
+            <TextEl ref={cloneEl}>
+                <span className='heading h0'>Is our</span>
+                <br/>
+                <span className='txt txt-180'>Pride</span>
+            </TextEl >
         </>
     )
 }

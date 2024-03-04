@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets"
+import logo from '@assets/kanak-logo.svg';
+import linkedIn from '@assets/ic-linkedin.svg';
+const currYear = new Date().getFullYear()
+import { getAllByType } from '@/prismic.js';
+const industryList = await getAllByType('industry')
+import GlobalFooter from './Footer';
+---
+<GlobalFooter list={industryList}>
+    <Image src={logo} alt="kanak logo" class="img img-h" slot="logo"/>
+    <Image src={linkedIn} alt="Linkedin" class="ic ic-24" slot="imgLinkedIn"/>
+</GlobalFooter>

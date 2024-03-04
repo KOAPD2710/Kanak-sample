@@ -1,6 +1,8 @@
+import useDevice from '@/components/hooks/useDevice';
 import './Hero.scss'
 
-function HomeHero(props) {    
+function HomeHero(props) {
+    const { isMobile } = useDevice();
     return (
         <>
             <section className="home-hero">
@@ -20,7 +22,17 @@ function HomeHero(props) {
                             </a>
                         </div>
                         <div className="home-hero-sub-cta-wrap">
-                            <div className="txt txt-18 txt-med">Scroll to Explore</div>
+                            <div className="txt txt-18 txt-med">Scroll {isMobile ? 'Down' : 'to Explore'}</div>
+                        </div>
+                    </div>
+                    <div className='home-hero-badge-wrap'>
+                        <div className='home-hero-badge'>
+                            <div className='home-hero-badge-inside'>
+                                {props.icBadgeInside}
+                            </div>
+                            <div className='home-hero-badge-outside'>
+                                {props.icBadgeOutside}
+                            </div>
                         </div>
                     </div>
                 </div>

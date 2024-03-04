@@ -1,0 +1,203 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.ft {
+    position: relative;
+    z-index: 4;
+    background-color: var(--cl-bg);
+    &-left {
+        grid-column: span 6;
+        margin-right: calc(var(--grid-gap) * -1);
+        @include md {
+            grid-column: span 12;
+        }
+        @include sm {
+            grid-column: span 4;
+        }
+        &-body {
+            padding-top: 4.6rem;
+            @include md {
+                padding-top: 2.4rem;
+            }
+            &-list {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                row-gap: 3.2rem;
+                margin-bottom: 3.2rem;
+                @include md {
+                    row-gap: 2.4rem;
+                    margin-bottom: 4rem;
+                }
+                &-item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    row-gap: .4rem;
+                }
+            }
+            &-social {
+                margin-bottom: 11rem;
+                &-item {
+                    @include size(5.6rem);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: var(--cl-txt);
+                }
+                @include md {
+                    display: none;
+                }
+            }
+            &-title {
+                margin-top: auto;
+                margin-bottom: 1.8rem;
+                @include md {
+                    margin-bottom: 3rem;
+                }
+            }
+            &-label {
+                @include md {
+                    @include text(14);
+                }
+            }
+        }
+    }
+    &-right {
+        grid-column: span 10;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        @include md {
+            grid-column: span 12;
+            border-top: 2px solid var(--cl-txt);
+        }
+        @include sm {
+            grid-column: span 4;
+            display: flex;
+            flex-direction: column;
+        }
+        &-col {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            .ft-head {
+                padding: 0 2rem;
+                @include md {
+                    padding: 2.4rem 2.4rem 2.7rem;
+
+                }
+            }
+            .ft-tail {
+                margin-top: auto;
+                padding: 0 2rem;
+            }
+            @include md {
+                &:first-child {
+                    .ft-head {
+                        padding-left: 0;
+                    }
+                    .line.line-left {
+                        display: none;
+                    }
+                    .ft-right-body {
+                        padding-left: 0;
+                    }
+                }
+                &:last-child {
+                    .ft-head {
+                        padding-right: 0;
+                    }
+                    .ft-right-body {
+                        padding-right: 0;
+                    }
+                }
+            }
+        }
+        &-body {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            row-gap: 2rem;
+            padding: 2.8rem 2rem;
+            @include md {
+                padding: 1.7rem 2.4rem 2rem;
+                row-gap: 1.6rem;
+            }
+            &-link {
+                display: flex;
+                align-items: center;
+                column-gap: .8rem;
+                .dot {
+                    flex: none;
+                    border-radius: 50%;
+                    @include size(1rem);
+                    background-color: var(--cl-txt);
+                }
+                @include md {
+                    &-txt {
+                        @include text(16);
+                    }
+                }
+            }
+        }
+    }
+    &-head {
+        height: 9.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        position: relative;
+        @include md {
+            height: auto;
+            padding: {
+                top: 2.6rem;
+                bottom: 2.8rem;
+            }
+        }
+    }
+    &-tail {
+        height: 6.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        position: relative;
+        @include md {
+            display: none;
+        }
+    }
+    &-logo {
+        height: 5.2rem;
+        @include md {
+            height: 4.5rem;
+        }
+    }
+    &-copyright-mb {
+        display: none;
+        @include md {
+            position: relative;
+            display: block;
+            grid-column: span 12;
+            padding: 1.2rem 0 2rem;
+            text-align: center;
+        }
+    }
+    .line {
+        position: absolute;
+        &-top {
+            left: 0;
+            top: 0;
+        }
+        &-bottom {
+            left: 0;
+            bottom: 0;
+        }
+        &-left {
+            width: .2rem;
+            height: 100%;
+            left: -.2rem;
+            top: 0;
+        }
+    }
+}

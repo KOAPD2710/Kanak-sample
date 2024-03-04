@@ -79,6 +79,12 @@ html {
         --fs-h1: 5rem;
         --lh-h1: 1em;
 
+        --fs-h2: 4.4rem;
+        --lh-h2: 1.1em;
+
+        --fs-h3: 3.6rem;
+        --lh-h3: 1.1em;
+
         --fs-h4: 2.8rem;
         --lh-h4: 1.1em;
 
@@ -100,7 +106,7 @@ html {
 }
 
 // Body text
-$txtSizes: 10, 12, 14, 16, 18, 20;
+$txtSizes: 10, 12, 14, 16, 18, 20, 180;
 :root {
     --fs-10: 1rem;
     --lh-10: 1.2em;
@@ -119,6 +125,9 @@ $txtSizes: 10, 12, 14, 16, 18, 20;
 
     --fs-20: 2rem;
     --lh-20: 1.4em;
+
+    --fs-180: 18rem;
+    --lh-180: 1em;
 }
 
 .txt {

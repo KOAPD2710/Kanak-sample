@@ -8,10 +8,17 @@ import partIc4 from '@assets/part-ic-4.svg';
 import partIc5 from '@assets/part-ic-5.svg';
 import HomePartner from './Partner';
 ---
-<HomePartner client:idle>
+<HomePartner client:visible>
     <Image src={partIc1} alt="" class="ic" slot='partIc1'/>
     <Image src={partIc2} alt="" class="ic" slot='partIc2'/>
     <Image src={partIc3} alt="" class="ic" slot='partIc3'/>
     <Image src={partIc4} alt="" class="ic" slot='partIc4'/>
     <Image src={partIc5} alt="" class="ic" slot='partIc5'/>
 </HomePartner>
+
+<!-- <script>
+    let compareItemHeight = document.querySelector('.home-comp-main-item').offsetHeight;
+    let partnerSection = document.querySelector('.home-part');
+    partnerSection.style.setProperty('--content-compare-height', `${compareItemHeight / 10}rem`);
+</script> -->
+

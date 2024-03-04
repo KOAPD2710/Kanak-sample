@@ -1,14 +1,21 @@
 import useDevice from '@/components/hooks/useDevice';
+import { useKeenSlider } from 'keen-slider/react'
+import { useState } from 'react';
+import "keen-slider/keen-slider.min.css"
 import HomeBrandThree from './BrandThree';
 import { brandIndex } from '@contexts/StoreGlobal';
 
 import './Brand.scss';
 
 function HomeBrand({ ...props }) {
-    const { isDesktop } = useDevice();
+    const { isDesktop, isMobile } = useDevice();
+    const [sliderRef, instanceRef] = useKeenSlider({
+        initial: 0
+    })
     return (
         <section className="home-brand">
             <div className="container grid">
+                { isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/> }
                 <div className="home-brand-canvas">
                     <div className="home-brand-canvas-inner">
                         <HomeBrandThree list={props.list}/>
@@ -16,10 +23,15 @@ function HomeBrand({ ...props }) {
                 </div>
                 <div className="line line-ver"></div>
                 <div className="home-brand-main">
-                    <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/>
-                    <div className="home-brand-main-list">
+                    { !isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/> }
+                    <div className={`home-brand-main-list${isMobile ? ' keen-slider' : ''}`} ref={isMobile && sliderRef}>
                         {props.list.map(({ data }, idx) => (
-                            <a href="#" className="home-brand-main-item" key={idx} onPointerOver={() => {brandIndex.set(idx)}}>
+                            <a
+                                key={idx}
+                                href="#"
+                                className={`home-brand-main-item${isMobile ? ' keen-slider__slide' : ''}`}
+                                onPointerOver={() => {brandIndex.set(idx)}}
+                            >
                                 <div className="home-brand-main-item-head">
                                     <h3 className="heading h4 txt-up txt-black home-brand-main-item-title">
                                         {data.title[0].text}

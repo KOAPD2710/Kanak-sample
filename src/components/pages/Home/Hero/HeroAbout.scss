@@ -2,11 +2,12 @@
 .home-hero-abt {
     padding-top: 13.8rem;
     padding-bottom: 35.2rem;
-    min-height: 100vh;
-    height: 100vh;
     @include md {
         padding-top: 22.3rem;
         padding-bottom: 28.8rem;
+    }
+    @include sm {
+        padding-top: calc(22.3rem + 5vh);
     }
     .container {
         height: 100%;
@@ -17,12 +18,52 @@
         text-align: center;
         margin: 0 auto;
         width: 100%;
-        max-width: 103.6rem;
+        > span:first-child {
+            margin-bottom: -2.4rem;
+        }
+        @include md {
+            span {
+                @include text(h0);
+            }
+        }
+        @include sm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            > span:first-child {
+                margin-bottom: 0;
+            }
+            span {
+                @include text(h2);
+                display: inline-block;
+            }
+            br {
+                display: none;
+            }
+        }
         &-top {
-            margin-bottom: 2rem;
-            max-width: 103.6rem;
             text-align: center;
             display: inline-block;
+            span {
+                display: inline-block;
+                @include md {
+                    @include text(h0);
+                }
+                @include sm {
+                    @include text(h2);
+                }
+                &:last-child {
+                    margin-top: -1.4rem;
+                    @include md {
+                        margin-top: 0;
+                    }
+                }
+            }
+            @include md {
+                br {
+                    display: none
+                }
+            }
         }
     }
 }

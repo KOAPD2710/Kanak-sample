@@ -1,10 +1,17 @@
+@use "@styles/mixins" as *;
 .home-part {
+    --content-compare-height: 0;
+
     margin-top: -10rem;
     padding-top: 10rem;
     contain: paint;
     margin-bottom: -200vh;
     height: calc(500vh + 200vh + 10rem);
     position: relative;
+    @include md {
+        margin-top: calc((var( --content-compare-height) + 4.3rem) * -1);
+        padding-top: calc(var( --content-compare-height) + 4.3rem);
+    }
     &-stick {
         position: sticky;
         top: 0;
@@ -20,7 +27,6 @@
         height: 100%;
         display: flex;
         flex-wrap: nowrap;
-
     }
     &-line {
         &-wrap {
@@ -37,6 +43,9 @@
             position: relative;
             path {
                 --totalOffset: calc(var(--totalL) * ((100 - var(--prog)) / 100));
+                @include md {
+                    stroke-width: .2rem;
+                }
             }
         }
         &-content {
@@ -61,10 +70,17 @@
                 border-radius: 50%;
                 border: solid .4rem;
                 background-color: var(--cl-bg);
+                @include md {
+                    @include size(15.4783861671vh);
+                    border: solid .2rem;
+                }
             }
             &-title {
                 position: absolute;
                 width: max-content;
+                @include md {
+                    @include text(h4);
+                }
                 &-center {
                     text-align: center;
                     left: 50%;
@@ -77,10 +93,17 @@
                     &-1 {
                         top: 29.28377153vh;
                         left: 58.7488667271vh;
+                        @include md {
+                            left: 65.268867vh;
+                        }
                         .home-part-line-content-title {
                             left: calc(((var(--half) * -1) + 50% + 7.6rem));
                             top: 0;
                             max-width: 53.2rem;
+                            @include md {
+                                max-width: 30.5rem;
+                                left: calc(((var(--half) * -1) + 50%));
+                            }
                         }
                     }
                     &-2 {
@@ -88,31 +111,53 @@
                         align-items: center;
                         top: 26.291931097vh;
                         left: 187.3980054397vh;
+                        @include md {
+                            top: 32.291931097vh;
+                        }
                         .home-part-line-content-ic:first-child {
                             margin-right: -5.2rem;
                         }
                         .home-part-line-content-title {
                             top: 100%;
                             margin-top: 5.3490480508vh;
-                            max-width: 60.5rem;
+                            max-width: 111rem;
+
+                            @include md {
+                                margin-top: 3.3490480508vh;
+                                max-width: 36.5rem;
+                            }
                         }
                     }
                     &-4 {
                         top: 49.04805077063vh;
                         left: 322.121486854vh;
+                        @include md {
+                            top: 55.04805077063vh;
+                        }
                         .home-part-line-content-title {
                             bottom: 100%;
                             margin-bottom: 13.4179510426vh;
-                            max-width: 68.4rem;
+                            max-width: 95rem;
+                            @include md {
+                                max-width: 34.2rem;
+                                margin-bottom: 3.4179510426vh;
+                            }
                         }
                     }
                     &-5 {
                         top: 14.7778785131vh;
                         left: 474.9773345422vh;
+                        @include md {
+                            top: 20.7778785131vh;
+                        }
                         .home-part-line-content-title {
                             top: 100%;
                             margin-top: 6.6183136899vh;
-                            max-width: 74.4rem;
+                            max-width: 92rem;
+                            @include md {
+                                max-width: 42.5rem;
+                                margin-top: 3.6183136899vh;
+                            }
                         }
                     }
                 }

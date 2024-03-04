@@ -24,6 +24,7 @@
     "astro": "^4.3.5",
     "astro-compress": "^2.2.10",
     "gsap": "^3.12.5",
+    "keen-slider": "^6.8.6",
     "nanostores": "^0.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

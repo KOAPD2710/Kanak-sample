@@ -16,6 +16,9 @@
         @include md {
             grid-column: 1/8;
         }
+        @include sm {
+            grid-column: span 4;
+        }
         &-item {
             display: flex;
             align-items: center;
@@ -64,6 +67,9 @@
         @include md {
             grid-column: 9/13;
         }
+        @include sm {
+            grid-column: span 4;
+        }
         &-inner {
             border-radius: 1rem;
             border: solid .2rem var(--cl-txt);
@@ -75,6 +81,12 @@
             justify-content: space-between;
             @include md {
                 max-height: 32.4rem; //static number from design. calc later
+            }
+            @include sm {
+                position: relative;
+                height: auto;
+                max-height: none;
+                top: 0;
             }
         }
         &-nav {
@@ -140,11 +152,20 @@
             align-items: center;
             justify-content: center;
             height: 100%;
+            @include sm {
+                height: auto;
+                width: 100%;
+                aspect-ratio: 1.1;
+            }
             &-inner {
                 position: absolute;
                 width: 100vw;
                 height: 100vh;
                 pointer-events: none;
+                @include sm {
+                    height: 100%;
+                    width: 100%;
+                }
                 & > * {
                     pointer-events: none !important;
                 }
@@ -182,15 +203,48 @@
             }
         }
         &-qr {
-            @include size(10.2rem, 10rem);
             border-left: solid .2rem var(--cl-txt);
             display: flex;
             align-items: center;
             justify-content: center;
+            grid-area: 1/1/2/2;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            @include size(10.2rem, 10rem);
             @include md {
                 @include size(5.6rem);
                 .ic-80 {
                     @include size(4rem);
+                }
+            }
+            &.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            &-wrap {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+        }
+        &-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-block: 1.6rem;
+            &-dot {
+                padding: .3rem;
+                span {
+                    @include size(.7rem);
+                    border-radius: 50%;
+                    background-color: var(--cl-txt);
+                    transition: all 0.4s ease;
+                    display: block;
+                }
+                &.active {
+                    span {
+                        background-color: var(--cl-orange);
+                    }
                 }
             }
         }
@@ -201,6 +255,11 @@
         padding-block: 5rem;
         @include md {
             padding-block: 3.6rem;
+        }
+        @include sm {
+            grid-column: span 4;
+            justify-self: center;
+            padding-block: 2rem;
         }
         &-link {
             display: flex;
@@ -216,11 +275,17 @@
                 @include md {
                     @include size(6rem);
                 }
+                .ic-32 {
+                    @include size(2.4rem);
+                }
             }
             &-txt {
                 padding: 2rem;
                 @include md {
                     padding: 1.8rem 1.6rem;
+                }
+                @include sm {
+                    padding: 1.6rem 1.8rem;
                 }
             }
         }
