@@ -5,17 +5,18 @@ import { useGSAP } from '@gsap/react';
 import * as ut from '@/js/utils.js';
 import './Partner.scss';
 import useDevice from "@/components/hooks/useDevice";
+import useSelector from "@/components/hooks/useSelector";
 
-function HomePartner({ ...props }) {
-    const sectionRef = useRef();
+function HomePartner(props) {
+    const [q, ref] = useSelector(null);
     const { isTablet } = useDevice();
 
     useGSAP(() => {
         const DOM = {
-            section: sectionRef.current,
-            lineWrap: sectionRef.current.querySelector('.home-part-line-wrap'),
-            line: sectionRef.current.querySelector('.home-part-line-main'),
-            linePath: sectionRef.current.querySelector('.home-part-line-main path'),
+            section: ref.current,
+            lineWrap: q('.home-part-line-wrap'),
+            line: q('.home-part-line-main'),
+            linePath: q('.home-part-line-main path'),
         }
 
         gsap.registerPlugin(ScrollTrigger)
@@ -24,7 +25,7 @@ function HomePartner({ ...props }) {
             scrollTrigger: {
                 trigger: DOM.section,
                 start: 'top top',
-                end: `bottom-=${(sectionBotOffset)} bottom`,
+                end: `bottom-=${sectionBotOffset} bottom`,
                 scrub: true,
             },
             defaults: {
@@ -52,16 +53,15 @@ function HomePartner({ ...props }) {
         })
         tl2
         .to(DOM.line, {'--prog': 100, ease: 'linear'})
-    }, [sectionRef])
+    }, [{ scope: ref, dependencies: ref }])
 
-    // useEffect(() => {
-    //     if (isTablet) {
-    //         let compareItemHeight = document.querySelector('.home-comp-main-item').offsetHeight;
-    //         sectionRef.current.style.setProperty('--content-compare-height', `${compareItemHeight / 10}rem`);
-    //     }
-    // }, [isTablet])
+    useEffect(() => {
+        let sectionCompare = document.querySelector('.home-comp')
+        gsap.set(ref.current, { '--content-compare-height': getComputedStyle(sectionCompare).getPropertyValue('--content-compare-height') })
+    }, [ref])
+
     return (
-        <section className="home-part" ref={sectionRef}>
+        <section className="home-part" ref={ref}>
             <div className="home-part-stick">
                 <div className="container bg-light">
                     <div className="home-part-inner">

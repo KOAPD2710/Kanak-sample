@@ -177,11 +177,15 @@ industry_list.map(async (industry: any) => {
                 grid-column: span 4;
             }
             &-item {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(7, 1fr);
                 padding-block: 8rem;
                 position: relative;
                 @include md {
                     padding-block: 3.2rem;
+                    grid-template-columns: repeat(6, 1fr);
+                }
+                @include sm {
+                    grid-template-columns: repeat(4, 1fr);
                 }
                 &-ic {
                     grid-column: 1/2;
@@ -205,6 +209,7 @@ industry_list.map(async (industry: any) => {
                     align-items: start;
                     @include md {
                         margin-left: 2.6rem;
+                        grid-column: 2/7;
                     }
                     @include sm {
                         grid-column: span 3;

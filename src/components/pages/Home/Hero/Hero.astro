@@ -1,8 +1,17 @@
 ---
+import { Image } from "astro:assets";
 import HomeHero from './Hero';
+import HomeHeroProduct from './HeroProduct'
+import HomeHeroAbout from './HeroAbout';
+import icBadgeInside from '@assets/badge-inside.png';
+import icBadgeOuside from '@assets/badge-outside.svg';
+
+
 ---
-<HomeHero {...Astro.props} client:only="react"/>
+<HomeHero {...Astro.props} client:visible>
+    <Image src={icBadgeInside} alt="" class="img" slot='icBadgeInside' />
+    <Image src={icBadgeOuside} alt="" class="img" slot='icBadgeOutside'/>
+</HomeHero>
+<HomeHeroAbout {...Astro.props} client:visible/>
+<HomeHeroProduct {...Astro.props} client:only="react"/>
 
-<script>
-
-</script>

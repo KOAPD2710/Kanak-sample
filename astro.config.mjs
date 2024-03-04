@@ -15,5 +15,7 @@ export default defineConfig({
   },
   integrations: [react({
     experimentalReactChildren: true
-  }), compress()]
+  })
+    // , compress()
+  ]
 });

@@ -1,40 +1,8 @@
-import * as ut from '@/js/utils.js';
-import './Hero.scss'
-import { forwardRef, useEffect, useRef, useState } from 'react';
-import useWindowSize from '@hooks/useWindowSize';
 import useDevice from '@/components/hooks/useDevice';
-
-const TextEl = forwardRef(function TextEl({...props}, ref) {
-    return (<span ref={ref} className="heading h0 txt-up txt-black home-abt-title-top">{props.text}</span>)
-})
+import './Hero.scss'
 
 function HomeHero(props) {
-    const el = useRef()
-    const cloneEl = useRef()
-    const { width, height } = useWindowSize();
-    const { isDesktop, isMobile } = useDevice();
-
-    useEffect(() => {
-        const elRect = el.current.getBoundingClientRect();
-        if (isDesktop) {
-                cloneEl.current.style.cssText = `
-                    position: absolute;
-                    top: ${elRect.y}px;
-                    left: ${elRect.x}px;
-                    width: ${el.width}px;
-                    z-index: 99
-                `;
-            }
-            else {
-                cloneEl.current.style.cssText = `
-                    position: absolute;
-                    top: ${elRect.y}px;
-                    left: 0;
-                    width: ${el.width}px;
-                    z-index: 99
-                `;
-            }
-    }, [width, height, el, cloneEl])
+    const { isMobile } = useDevice();
     return (
         <>
             <section className="home-hero">
@@ -57,16 +25,18 @@ function HomeHero(props) {
                             <div className="txt txt-18 txt-med">Scroll {isMobile ? 'Down' : 'to Explore'}</div>
                         </div>
                     </div>
+                    <div className='home-hero-badge-wrap'>
+                        <div className='home-hero-badge'>
+                            <div className='home-hero-badge-inside'>
+                                {props.icBadgeInside}
+                            </div>
+                            <div className='home-hero-badge-outside'>
+                                {props.icBadgeOutside}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section className="home-abt">
-                <div className="container">
-                    <h2 className="heading h0 txt-up txt-black home-abt-title">
-                        Your Reputation<br/> <TextEl ref={el} text="Is Our Pride"/>
-                    </h2>
-                </div>
-            </section>
-            <TextEl ref={cloneEl} text="Is Our Pride"/>
         </>
     )
 }

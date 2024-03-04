@@ -24,12 +24,12 @@
     "astro": "^4.3.5",
     "astro-compress": "^2.2.10",
     "gsap": "^3.12.5",
-    "jquery": "^3.7.1",
+    "keen-slider": "^6.8.6",
     "nanostores": "^0.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sharp": "^0.33.2",
     "split-type": "^0.3.4",
-    "swiper": "^11.0.7",
     "three": "^0.161.0"
   },
   "devDependencies": {

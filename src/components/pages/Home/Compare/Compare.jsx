@@ -1,13 +1,12 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
-import { useEffect, useState, useCallback, Fragment, useRef } from 'react';
+import { useEffect, useState, useCallback, Fragment } from 'react';
+import { useKeenSlider } from 'keen-slider/react'
+import "keen-slider/keen-slider.min.css"
 import useSelector from '@/components/hooks/useSelector';
 import useDevice from '@/components/hooks/useDevice';
-import { register } from 'swiper/element/bundle';
 import './Compare.scss';
-
-register();
 
 const MainItem = ({ data, type, image, title, content, currentIndex }) => {
     return (
@@ -29,15 +28,24 @@ const MainItem = ({ data, type, image, title, content, currentIndex }) => {
 
 function HomeCompare(props) {
     const [q, ref] = useSelector(null);
-    const swiperElRef = useRef(null);
     const [index, setIndex] = useState(0);
-    const [itemCompareHeight, setItemCompareHeight] = useState(0);
+    const [loaded, setLoaded] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0)
+    const [progressLine, setProgressLine] = useState(0);
+    const [itemCompareHeight, setItemCompareHeight] = useState({
+        height: 0,
+        hasHeader: 0
+    });
     const { isDesktop, isTablet, isMobile } = useDevice();
-
-    const swiperOpts = {
-        slidesPerView: 1,
-        pagination: true
-    };
+    const [sliderRef, instanceRef] = useKeenSlider({
+        initial: 0,
+        slideChanged(slider) {
+            setCurrentSlide(slider.track.details.rel)
+        },
+        created() {
+            setLoaded(true)
+        },
+    })
 
     const onUpdateProgress = useCallback((progress) => {
         const numberOfBreakPoints = props.list.length;
@@ -59,43 +67,31 @@ function HomeCompare(props) {
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
-        let tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ref.current,
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: true,
-                snap: [0, .2, .4, .6, .8, 1],
-                onUpdate: (self) => {
-                    let progress = self.progress;
-                    onUpdateProgress(progress);
-                }
+        ScrollTrigger.create({
+            trigger: ref.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+            duration: 1,
+            snap: [0, .2, .4, .6, .8, 1],
+            onUpdate: (self) => {
+                let progress = self.progress;
+                onUpdateProgress(progress);
+                setProgressLine(progress * 100);
             }
         })
-        tl
-            .to('.home-comp-main-prog-line', { '--prog': 100, duration: 1, ease: 'linear' })
     }, { scope: ref });
 
     useEffect(() => {
         if (isTablet) {
             let heightHeader = document.querySelector('.header') && document.querySelector('.header').offsetHeight;
             let heightCompItem = q('.home-comp-main-item') && q('.home-comp-main-item').offsetHeight;
-            setItemCompareHeight((heightHeader + heightCompItem) / 10);
+            setItemCompareHeight({ height: heightCompItem / 10, hasHeader: (heightHeader + heightCompItem) / 10});
         }
-    }, [ref, isTablet])
+    }, [ref, isTablet, itemCompareHeight])
 
-    useEffect(() => {
-        // swiperElRef.current.addEventListener('swiperprogress', (e) => {
-        //     const [swiper, progress] = e.detail;
-        //     console.log(progress);
-        // });
-
-        // swiperElRef.current.addEventListener('swiperslidechange', (e) => {
-        //     console.log('slide changed');
-        // });
-    }, []);
     return (
-        <section className="home-comp" ref={ref}>
+        <section className="home-comp" ref={ref} style={{ '--content-compare-height': `${itemCompareHeight.height}rem` }}>
             <div className="home-comp-stick bg-light">
                 <div className="container">
                     <div className="home-comp-title-wrap">
@@ -104,14 +100,11 @@ function HomeCompare(props) {
                         </h2>
                     </div>
                     {isMobile ? (
-                        <div className='home-comp-main'>
-                            <swiper-container
-                                ref={swiperElRef}
-                                {...swiperOpts}
-                            >
+                        <div className='home-comp-main' >
+                            <div className='keen-slider home-comp-main-slide' ref={sliderRef}>
                                 {props.list.map(({ data }, idx) => (
-                                    <swiper-slide key={idx}>
-                                        <div className='home-comp-main-slide'>
+                                    <Fragment key={idx}>
+                                        <div className='keen-slider__slide home-comp-main-slide-item'>
                                             <div className='home-comp-main-slide-title'>
                                                 <h3 className='heading h5 txt-up txt-black'>{data.title}</h3>
                                             </div>
@@ -132,9 +125,27 @@ function HomeCompare(props) {
                                                 </div>
                                             </div>
                                         </div>
-                                    </swiper-slide>
+                                    </Fragment>
                                 ))}
-                            </swiper-container>
+                            </div>
+
+                            {/* {loaded && instanceRef.current && (
+                                <div className="dots">
+                                {[
+                                    ...Array(instanceRef.current.track.details.slides.length).keys(),
+                                ].map((idx) => {
+                                    return (
+                                    <button
+                                        key={idx}
+                                        onClick={() => {
+                                        instanceRef.current?.moveToIdx(idx)
+                                        }}
+                                        className={"dot" + (currentSlide === idx ? " active" : "")}
+                                    ></button>
+                                    )
+                                })}
+                                </div>
+                            )} */}
                         </div>
                     ) : (
                         <div className="home-comp-main grid">
@@ -147,14 +158,14 @@ function HomeCompare(props) {
                                 type={"good"}
                             />
                             <div className="home-comp-main-prog">
-                                <div className="home-comp-main-prog-inner" style={{ '--content-height': `${itemCompareHeight}rem` }}>
+                                <div className="home-comp-main-prog-inner" style={{ '--content-height': `${itemCompareHeight.hasHeader}rem` }}>
                                     <div className="home-comp-main-prog-plates">
                                         {props.imgComparePlates}
                                     </div>
                                     <div className="home-comp-main-prog-dot">
                                         {props.imgCompareDotDash}
                                     </div>
-                                    <div className="home-comp-main-prog-line" style={{'--PI': Math.PI}}>
+                                    <div className="home-comp-main-prog-line" style={{'--PI': Math.PI, '--prog': progressLine }}>
                                         {props.plateLine}
                                     </div>
                                     <div className="home-comp-main-prog-list">

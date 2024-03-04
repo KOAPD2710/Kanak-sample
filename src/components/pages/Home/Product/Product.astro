@@ -1,5 +1,5 @@
 ---
-const { title, product_list } = Astro.props;
+const { product_list } = Astro.props;
 
 import { Image } from 'astro:assets';
 import arrIcon from '@assets/arr-right.svg?raw';
@@ -15,7 +15,7 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeProduct title={title} list={list} client:visible>
+<HomeProduct list={list} client:visible>
     <Fragment set:html={arrIcon} slot='arrIcon'/>
     <Image src={sampleQR} alt="" class="ic ic-80" width={sampleQR.width / 2} slot='sampleQR'/>
     <Image src={PDFIcon} alt="pdf icon" class="ic ic-32" slot='PDFIcon'/>
