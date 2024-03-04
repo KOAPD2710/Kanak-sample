@@ -7,4 +7,4 @@ import { atom } from 'nanostores';
  */
 
 export const productIndex = atom(0);
-export const prevProductIndex = atom(0);
+export const brandIndex = atom(0);

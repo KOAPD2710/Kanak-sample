@@ -11,6 +11,13 @@
     }
     &-canvas {
         grid-column: 1/10;
+        position: relative;
+        z-index: 2;
+        &-inner {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
         @include md {
             grid-column: 1/7;
         }

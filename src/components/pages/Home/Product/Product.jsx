@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Product.scss';
 import { useStore } from '@nanostores/react';
-import { productIndex, prevProductIndex } from '@contexts/StoreGlobal';
+import { productIndex } from '@contexts/StoreGlobal';
 import HomeProductThree from './ProductThree.jsx';
 import useDevice from '@/components/hooks/useDevice.js';
 
@@ -11,12 +11,10 @@ function HomeProduct({...props}) {
 
     function onClickNavPrev(e) {
         e.preventDefault();
-        prevProductIndex.set(index);
         productIndex.set(index - 1);
     }
     function onClickNavNext(e) {
         e.preventDefault();
-        prevProductIndex.set(index);
         productIndex.set(index + 1);
     }
     useEffect(() => {
@@ -29,22 +27,17 @@ function HomeProduct({...props}) {
                     <div className="home-prod-main">
                         <div className="home-prod-main-list">
                             {props.list.map((item, idx) => (
-                                <div className={`home-prod-main-item${idx == index ? ' active':''}`} onPointerEnter={() => {
-                                    prevProductIndex.set(index);
-                                    productIndex.set(idx);
-                                }} key={idx}>
+                                <div
+                                    key={idx}
+                                    className={`home-prod-main-item${idx == index ? ' active' : ''}`}
+                                    onPointerEnter={() => productIndex.set(idx)}
+                                >
                                     <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
                                         {item.data.title}
                                     </h3>
                                     <div className="txt txt-20 txt-bold home-prod-main-item-label">
                                         {(idx + 1) < 10 ? '0' + (idx + 1) : idx + 1}
                                     </div>
-                                    <div className="line">
-                                        <div className="line-inner"></div>
-                                    </div>
-                                    {idx == props.list.length - 1 && (
-                                        <div className="line line-bottom"></div>
-                                    )}
                                 </div>
                             ))}
                         </div>
