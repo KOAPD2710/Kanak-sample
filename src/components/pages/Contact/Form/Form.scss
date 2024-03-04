@@ -1,3 +1,6 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
 .contact-form {
     &-ic-wrapper {
         position: relative;
@@ -87,7 +90,7 @@
                 }
                 &:active, &:focus {
                     &~ .line:not(.line-hor) {
-                        background-color: orange;
+                        background-color: var(--cl-orange);
                     }
                     &~ label {
                         transform: var(--transform);
@@ -101,7 +104,7 @@
             }
             
             label {
-                --transform: scale(0.625); // 1.92
+                --transform: translateY(0) scale(0.625); // 2
                 position: absolute;
                 left: var(--offset-left);
                 top: 3rem;
@@ -131,16 +134,13 @@
                     
 
                     &.active {
-                        // &~ .line {
-                        //     background-color: orange;
-                        // }
                         &~ label {
                             transform: var(--transform);
                         }
                     }
                     &-txt {
                         width: 100%;
-                        height: 6rem;
+                        height: 6.69rem;
                     }
                     &-ic {
                         display: flex;
@@ -156,6 +156,11 @@
             &-dropdown {
                 grid-column: 1/-1;
                 overflow: hidden;
+                position: absolute;
+                top: 100%;
+                width: 100%;
+                background-color: var(--cl-orange);
+                z-index: 2;
                 display: none;
 
                 &-wrap{
@@ -203,18 +208,18 @@
 @media (hover: hover) {
     .contact-form-input-field-group:hover {
         .line:not(.line-hor) {
-            background-color: orange;
+            background-color: var(--cl-orange);
         }
     }
     .contact-form-input-field-group-industry.active:hover {
         &~ .line:not(.line-hor) {
-            background-color: orange;
+            background-color: var(--cl-orange);
         }
         &~ label {
             transform: var(--transform);
         }
     }
     .contact-form-input-field-group-dropdown-wrap a:hover {
-        color: orange;
+        color: var(--cl-orange);
     }
 }

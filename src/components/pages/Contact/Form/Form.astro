@@ -1,0 +1,15 @@
+---
+import ContactForm from "./Form.jsx";
+import { Image } from 'astro:assets';
+
+import icAvatar from "@assets/contact-form-avatar.svg";
+import icEmail from "@assets/contact-form-email.svg";
+import icSuccess from "@assets/contact-form-succ.svg";
+---
+
+
+<ContactForm>
+    <Image src={icAvatar} alt="" class="contact-form-ic active" slot="icAvatar"/>
+    <Image src={icEmail} alt="" class="contact-form-ic" slot="icEmail"/>
+    <Image src={icSuccess} alt="" class="contact-form-ic" slot="icSuccess"/>
+</ContactForm>

@@ -1,12 +1,11 @@
-import './ContactHero.scss'
+import './Hero.scss'
 
 function ContactHero() {
     return (
         <>
             <section className="contact-hero">
                 <div className="container grid">
-                    <h1 className='heading h0 txt-black txt-up contact-hero-title'>Let's build something amazing 
-                        together!</h1>
+                    <h1 className='heading h0 txt-black txt-up contact-hero-title'>Let's build something amazing together!</h1>
                     </div>
             </section>
             <section className="contact-info">
