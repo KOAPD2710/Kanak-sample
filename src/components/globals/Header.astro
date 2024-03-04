@@ -59,20 +59,34 @@ const pages = [
         }
         &-logo {
             height: 4.8rem;
+            @include md {
+                height: 4rem;
+            }
+            @include sm {
+                height: 3.2rem
+            }
         }
         &-main {
             grid-column: 1/9;
             @include md {
                 grid-column: span 12;
             }
+            @include sm {
+                grid-column: span 4;
+            }
             &-inner {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 column-gap: 2rem;
-                padding-top: 1.7rem;
-                padding-bottom: 1.7rem;
+                padding-block: 1.7rem;
                 position: relative;
+                @include md {
+                    padding-block: 1.9rem;
+                }
+                @include sm {
+                    padding-block: 1.4rem;
+                }
             }
         }
         &-menu {
@@ -103,6 +117,9 @@ const pages = [
             padding-top: 2rem;
             @include md {
                 grid-column: span 12;
+            }
+            @include sm {
+                grid-column: span 4;
             }
             &-txt {
                 max-width: 28.4rem;

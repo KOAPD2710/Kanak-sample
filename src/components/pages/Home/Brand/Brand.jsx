@@ -1,16 +1,17 @@
 import useDevice from '@/components/hooks/useDevice';
 import './Brand.scss';
 function HomeBrand({ ...props }) {
-    const { isDesktop } = useDevice();
+    const { isDesktop, isMobile } = useDevice();
     return (
         <section className="home-brand">
             <div className="container grid">
+                { isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/> }
                 <div className="home-brand-canvas">
                     <div className="home-brand-canvas-inner"></div>
                 </div>
                 <div className="line line-ver"></div>
                 <div className="home-brand-main">
-                    <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/>
+                    { !isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/> }
                     <div className="home-brand-main-list">
                         {props.list.map(({ data }, idx) => (
                             <a href="#" className="home-brand-main-item" key={idx}>

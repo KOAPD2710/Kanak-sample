@@ -9,6 +9,9 @@
         z-index: 99;
         padding-top: 13.5rem;
     }
+    @include sm {
+        padding-top: 17rem;
+    }
     .container {
         height: 100%;
         grid-template-rows: 1fr auto;
@@ -21,8 +24,13 @@
             grid-column: 2/12;
             text-align: center;
             margin-bottom: 0;
-
             padding-bottom: 4.8rem;
+        }
+        @include sm {
+            grid-column: span 4;
+            @include text(h1);
+            text-align: start;
+            padding-bottom: 4rem;
         }
     }
     &-sub {
@@ -38,6 +46,9 @@
             margin-bottom: 0;
             padding-bottom: 9.5dvh;
             max-width: none;
+        }
+        @include sm {
+            grid-column: span 4;
         }
         &-top {
             grid-column: 1/3;
@@ -55,6 +66,11 @@
                 padding: 1.2rem;
                 .btn-main {
                     padding: 1.85rem 6.2rem;
+                }
+            }
+            @include sm {
+                .btn-main {
+                    padding: 1.85rem 0;
                 }
             }
         }
@@ -89,11 +105,17 @@
         margin: 0 auto;
         width: 100%;
         max-width: 103.6rem;
+        @include sm {
+            @include text(h2);
+        }
         &-top {
             margin-bottom: 2rem;
             max-width: 103.6rem;
             text-align: center;
             display: inline-block;
+            @include sm {
+                @include text(h2);
+            }
         }
     }
 }

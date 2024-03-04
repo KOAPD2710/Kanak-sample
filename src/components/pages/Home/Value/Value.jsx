@@ -93,11 +93,11 @@ function HomeValue({...props}) {
                     <div className="home-val-stick">
                         <div className="container">
                             <div className="home-val-title-wrap">
-                                <p className="heading h3 txt-up txt-black home-val-label">
+                                {/* <p className="heading h3 txt-up txt-black home-val-label">
                                     Elevating your brand
-                                </p>
+                                </p> */}
                                 <h2 className="heading h0 txt-up txt-black home-val-title">
-                                    Sustainable Packaging Tailored for Your Success
+                                    Raise<br />Your Brand<br />to Eco-Excellence
                                 </h2>
                             </div>
                         </div>

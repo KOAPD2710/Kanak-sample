@@ -12,7 +12,7 @@ function HomeHero(props) {
     const el = useRef()
     const cloneEl = useRef()
     const { width, height } = useWindowSize();
-    const { isDesktop } = useDevice();
+    const { isDesktop, isMobile } = useDevice();
 
     useEffect(() => {
         const elRect = el.current.getBoundingClientRect();
@@ -54,7 +54,7 @@ function HomeHero(props) {
                             </a>
                         </div>
                         <div className="home-hero-sub-cta-wrap">
-                            <div className="txt txt-18 txt-med">Scroll to Explore</div>
+                            <div className="txt txt-18 txt-med">Scroll {isMobile ? 'Down' : 'to Explore'}</div>
                         </div>
                     </div>
                 </div>

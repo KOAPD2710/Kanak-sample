@@ -1,5 +1,6 @@
 @use '@styles/colors' as *;
 @use '@styles/mixins' as *;
+
 .home-comp {
     height: 400vh;
     position: relative;
@@ -7,7 +8,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        background-color: var(--cl-txt)FF;
+        color: var(--cl-txt);
     }
     &-stick {
         position: sticky;
@@ -24,17 +25,34 @@
         justify-content: center;
         // max-width: 140rem;
         overflow: hidden;
+        @include md {
+            margin-bottom: 7rem;
+        }
+        @include sm {
+            padding-top: 8rem;
+        }
     }
     &-title {
         width: 100%;
         margin: 0 auto;
         max-width: 140rem;
+        @include sm {
+            @include text(h3);
+            text-align: start;
+        }
     }
     &-main {
         grid-template-columns: repeat(16, 1fr);
         align-items: center;
         flex-grow: 1;
         padding-bottom: 10rem;
+        @include md {
+            grid-template-columns: repeat(12, 1fr);
+            padding-bottom: 4rem;
+        }
+        @include sm {
+            grid-template-columns: repeat(4, 1fr);
+        }
         &-item {
             display: flex;
             flex-direction: column;
@@ -43,11 +61,34 @@
             text-align: center;
             max-width: 38.7rem;
             justify-self: center;
+            @include md {
+                grid-row: 2/3;
+                &.good {
+                    grid-column: 1/6;
+                }
+                &.bad {
+                    grid-column: 8/13;
+                }
+            }
+            @include sm {
+                &.good, &.bad  {
+                    grid-column: span 4;
+                }
+            }
             .ic {
                 margin-bottom: 2rem;
+                @include md {
+                    margin-bottom: 1.6rem;
+                    .ic-80 {
+                        @include size(6rem);
+                    }
+                }
             }
             &-title {
                 margin-bottom: 2rem;
+                @include md {
+                    margin-bottom: 1.6rem;
+                }
                 &.good {
                     max-width: 28.4rem;
                 }
@@ -63,6 +104,9 @@
                     grid-row: 1/2;
                     opacity: 0;
                     @include transition(all 600ms ease);
+                    @include md {
+                        @include text(16);
+                    }
                     &.active {
                         opacity: 1;
                     }
@@ -77,12 +121,27 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            @include md {
+                grid-column: 4/10;
+                grid-row: 1/2;
+                padding-inline: 0;
+                margin-inline: -1.7rem;
+                margin-bottom: -0.7rem;
+            }
+            @include sm {
+                grid-column: span 4;
+            }
             &-inner {
+                --content-height: 0;
                 width: calc(100vh - 16rem - 10rem - 8.2rem - var(--fs-h0) * 2);
                 position: relative;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                @include md {
+                    --content-height: 0;
+                    width: calc(100vh - var(--content-height) - 4rem - 8.5rem - var(--fs-h0) * 2);
+                }
             }
             &-plates {
             }
@@ -91,16 +150,7 @@
                 position: absolute;
                 inset: 0;
             }
-            // &-line :global() {
-            //     z-index: 1;
-            //     position: absolute;
-            //     inset: 0rem;
-            //     --arcL: calc(2 * var(--PI) * 315);
-            //     --prog: 0;
-            //     --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
-            //     transform: rotate(-90deg);
-            // }
-            :global(.home-comp-main-prog-line) {
+            &-line  {
                 z-index: 1;
                 position: absolute;
                 inset: 0rem;
@@ -112,17 +162,23 @@
             &-list {
                 position: absolute;
                 inset: 0;
-                display: grid;
+                display: flex;
                 align-items: center;
                 justify-content: center;
                 &-item {
-                    grid-column: 1/2;
-                    grid-row: 1/2;
                     opacity: 0;
                     text-align: center;
                     max-width: 45rem;
                     @include transition(all 600ms ease);
                     @include transform(scale(.94));
+                    display: flex;
+                    justify-content:center;
+                    align-items: center;
+                    position: absolute;
+                    @include md {
+                        max-width: 17.5rem;
+                        @include text(h4);
+                    }
                     &.active {
                         opacity: 1;
                         @include transform(scale(1));

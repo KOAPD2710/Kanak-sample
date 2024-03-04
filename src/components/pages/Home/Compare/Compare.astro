@@ -1,6 +1,7 @@
 ---
 const { title, compare_list } = Astro.props;
 
+import HomeCompare from './Compare';
 import { Image } from 'astro:assets';
 import { getByUID } from '@/prismic.js';
 import comparePlates from '@assets/compare.png';
@@ -9,8 +10,6 @@ import compareLine from '@assets/compare-line.svg?raw';
 import compareGood from '@/assets/comp-good.svg';
 import compareBad from '@assets/comp-bad.svg';
 
-import CompareLine from '@pages/Home/Compare/CompareLine';
-
 const list = await Promise.all(
     compare_list.map(async (compare: any, idx: number) => {
         let item = getByUID('compare', compare.item.uid)
@@ -18,207 +17,10 @@ const list = await Promise.all(
     })
 )
 ---
-<section class="home-comp">
-    <div class="home-comp-stick bg-light">
-        <div class="container">
-            <div class="home-comp-title-wrap">
-                <h2 class="h0 heading txt-up txt-black home-comp-title">
-                    {title}
-                </h2>
-            </div>
-            <div class="home-comp-main grid">
-                <div class="home-comp-main-item good">
-                    <Image src={compareGood} alt="" class='ic ic-80' />
-                    <h3 class="heading h5 txt-up txt-black home-comp-main-item-title good">
-                        Kanak Naturals Dinnerware
-                    </h3>
-                    <div class="home-comp-main-item-list">
-                        {list.map((item, idx) => (
-                            <p class:list={["txt txt-20 home-comp-main-item-list-item", {active: idx == 0}]}>
-                                {item.data.kanak}
-                            </p>
-                        ))}
-                    </div>
-                </div>
-                <div class="home-comp-main-prog">
-                    <div class="home-comp-main-prog-inner">
-                        <div class="home-comp-main-prog-plates">
-                            <Image src={comparePlates} alt="Compare plates" class="img" />
-                        </div>
-                        <div class="home-comp-main-prog-dot">
-                            <Image src={compareDotDash} alt="" class="img" />
-                        </div>
-                        <CompareLine customClass=".home-comp-main-prog-line" listLength={list.length} client:visible>
-                            <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
-                        </CompareLine>
-                        <div class="home-comp-main-prog-list">
-                            {list.map((item, idx) => (
-                                <h4 class:list={["heading h3 txt-up txt-black home-comp-main-prog-list-item", {active: idx == 0}]}>
-                                    {item.data.title}
-                                </h4>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-                <div class="home-comp-main-item bad">
-                    <Image src={compareBad} alt="" class='ic ic-80' />
-                    <h3 class="heading h5 txt-up txt-black home-comp-main-item-title bad">
-                        Traditional Dinnerware
-                    </h3>
-                    <div class="home-comp-main-item-list">
-                        {list.map((item, idx) => (
-                            <p class:list={["txt txt-20 home-comp-main-item-list-item", {active: idx == 0}]}>
-                                {item.data.other}
-                            </p>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<style lang="scss">
-    @use '@styles/colors' as *;
-    @use '@styles/mixins' as *;
-    .home-comp {
-        height: 400vh;
-        position: relative;
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            background-color: var(--cl-txt)FF;
-        }
-        &-stick {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            background-color: var(--cl-bg);
-        }
-        &-title-wrap {
-            padding-top: 16rem;
-            margin-bottom: 8.2rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            // max-width: 140rem;
-            overflow: hidden;
-        }
-        &-title {
-            width: 100%;
-            margin: 0 auto;
-            max-width: 140rem;
-        }
-        &-main {
-            grid-template-columns: repeat(16, 1fr);
-            align-items: center;
-            flex-grow: 1;
-            padding-bottom: 10rem;
-            &-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                grid-column: span 4;
-                text-align: center;
-                max-width: 38.7rem;
-                justify-self: center;
-                .ic {
-                    margin-bottom: 2rem;
-                }
-                &-title {
-                    margin-bottom: 2rem;
-                    &.good {
-                        max-width: 28.4rem;
-                    }
-                    &-bad {
-                        max-width: 32.5rem;
-                    }
-                }
-                &-list {
-                    padding: 0 2rem;
-                    display: grid;
-                    &-item {
-                        grid-column: 1/2;
-                        grid-row: 1/2;
-                        opacity: 0;
-                        @include transition(all 600ms ease);
-                        &.active {
-                            opacity: 1;
-                        }
-                    }
-                }
-            }
-            &-prog {
-                grid-column: span 8;
-                padding-left: 6.2rem;
-                padding-right: 6.2rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                &-inner {
-                    width: calc(100vh - 16rem - 10rem - 8.2rem - var(--fs-h0) * 2);
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                &-plates {
-                }
-                &-dot {
-                    z-index: 2;
-                    position: absolute;
-                    inset: 0;
-                }
-                // &-line :global() {
-                //     z-index: 1;
-                //     position: absolute;
-                //     inset: 0rem;
-                //     --arcL: calc(2 * var(--PI) * 315);
-                //     --prog: 0;
-                //     --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
-                //     transform: rotate(-90deg);
-                // }
-                :global(.home-comp-main-prog-line) {
-                    z-index: 1;
-                    position: absolute;
-                    inset: 0rem;
-                    --arcL: calc(2 * var(--PI) * 315);
-                    --prog: 0;
-                    --arcOffset: calc(var(--arcL) * (-1 * (var(--prog) - 100) / 100));
-                    transform: rotate(-90deg);
-                }
-                &-list {
-                    position: absolute;
-                    inset: 0;
-                    display: grid;
-                    align-items: center;
-                    justify-content: center;
-                    &-item {
-                        grid-column: 1/2;
-                        grid-row: 1/2;
-                        opacity: 0;
-                        text-align: center;
-                        max-width: 45rem;
-                        @include transition(all 600ms ease);
-                        @include transform(scale(.94));
-                        &.active {
-                            opacity: 1;
-                            @include transform(scale(1));
-                        }
-                    }
-                }
-                .line-ver {
-                    width: .4rem;
-                    height: 50vh;
-                    position: absolute;
-                    top: -1rem;
-                    margin-top: 100%;
-                    background-color: var(--cl-txt);
-                }
-            }
-        }
-    }
-</style>
+<HomeCompare title={title} list={list} client:visible>
+    <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
+    <Image src={compareGood} alt="" class='ic ic-80' slot='imgCompareGood' />
+    <Image src={compareBad} alt="" class='ic ic-80' slot='imgCompareBad' />
+    <Image src={comparePlates} alt="Compare plates" class="img" slot='imgComparePlates' />
+    <Image src={compareDotDash} alt="" class="img" slot='imgCompareDotDash'/>
+</HomeCompare>

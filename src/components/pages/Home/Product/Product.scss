@@ -12,6 +12,9 @@
             margin-right: -1.6rem;
             margin-bottom: 14rem;
         }
+        @include sm {
+            grid-column: span 4;
+        }
     }
     &-title {
         max-width: 90rem;
@@ -22,6 +25,9 @@
         flex-direction: column;
         @include md {
             grid-column: 1/8;
+        }
+        @include sm {
+            grid-column: span 4;
         }
         &-item {
             display: flex;
@@ -70,6 +76,9 @@
         position: relative;
         @include md {
             grid-column: 9/13;
+        }
+        @include sm {
+            grid-column: span 4;
         }
         &-inner {
             border-radius: 1rem;
