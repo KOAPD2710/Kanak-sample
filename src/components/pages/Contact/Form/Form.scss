@@ -5,16 +5,21 @@
     &-ic-wrapper {
         position: relative;
         grid-column: 1/7;
-        display: flex;
+        display: grid;
         justify-content: center;
         align-items: center;
     }
     &-ic {
+        grid-column: 1/1;
+        grid-row: 1/1;
+        position: sticky;
+        top: 50%;
         width: 40rem;
         opacity: 0;
-        &:nth-child(n+2) {
-            position: absolute;
-        }
+        transform: translateY(-50%);
+        // &:nth-child(n+2) {
+        //     position: absolute;
+        // }
 
         &.active {
             opacity: 1;
