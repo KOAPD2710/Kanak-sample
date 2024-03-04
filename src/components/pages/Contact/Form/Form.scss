@@ -16,13 +16,14 @@
         top: 50%;
         width: 40rem;
         opacity: 0;
-        transform: translateY(-50%);
-        // &:nth-child(n+2) {
-        //     position: absolute;
-        // }
+        z-index: 1;
+        transform: translateY(calc(-50% + 5rem));
+        transition: opacity 0.3s ease, transform 0.3s ease;
 
         &.active {
             opacity: 1;
+            transform: translateY(calc(-50%));
+            z-index: 2;
         }
     }
     &-main {
@@ -31,6 +32,15 @@
         --offset-left: 8rem;
         grid-column: 7/-1;
         grid-row: 1/1;
+        
+        .line-ver {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+            height: 100%;
+            width: .2rem;
+        }
     }
     &-quote {
         position: relative;
@@ -63,19 +73,11 @@
                 grid-column: span 1;
             }
             textarea {
-                background: transparent;
-                width: 100%;
                 resize: vertical;
-                // height: max-content;
+                min-height: 4rem;
                 overflow: auto;
                 font: inherit;
                 color: var(--cl-txt);
-                padding: {
-                    top: var(--offset-top);
-                    left: var(--offset-left);
-                    bottom: 3rem;
-                    right: 0;
-                };
             }
             input, textarea {
                 background: transparent;
@@ -94,8 +96,10 @@
                     cursor: text;
                 }
                 &:active, &:focus {
-                    &~ .line:not(.line-hor) {
-                        background-color: var(--cl-orange);
+                    &~ .line {
+                        &-inner {
+                            transform: scaleX(1);
+                        }
                     }
                     &~ label {
                         transform: var(--transform);
@@ -109,22 +113,34 @@
             }
             
             label {
-                --transform: translateY(0) scale(0.625); // 2
+                --transform: translateY(-2.6rem) scale(0.625); // 2
                 position: absolute;
                 left: var(--offset-left);
-                top: 3rem;
+                top: 50%;
                 pointer-events: none;
-                transform: translateY(1.4rem) scale(1);
+                transform: translateY(-50%) scale(1);
                 transform-origin: top left;
-                transition: all .3s ease-out;
+                transition: all .3s ease;
             }
             .line {
                 position: absolute;
                 bottom: 0;
+                left: 0;
                 transition: background-color .3s ease;
+
+                &-inner {
+                    @include size(100%);
+                    transform: scaleX(0);
+                    background-color: var(--cl-orange);
+                    transform-origin: left;
+                    transition: transform .6s ease;
+                }
             }
             
             &.industry {
+                input {
+                    display: none;
+                }
                 .contact-form-input-field-group-industry {
                     display: flex;
                     align-items: center;
@@ -136,16 +152,20 @@
                         bottom: 3rem;
                         right: 0;
                     };
-                    
-
                     &.active {
                         &~ label {
                             transform: var(--transform);
                         }
                     }
-                    &-txt {
+                    &-txt-wrap {
+                        position: relative;
                         width: 100%;
                         height: 6.69rem;
+                        .contact-form-input-field-group-industry-txt {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                        }
                     }
                     &-ic {
                         display: flex;
@@ -161,12 +181,10 @@
             &-dropdown {
                 grid-column: 1/-1;
                 overflow: hidden;
-                position: absolute;
-                top: 100%;
                 width: 100%;
-                background-color: var(--cl-orange);
+                // background-color: var(--cl-orange);
                 z-index: 2;
-                display: none;
+                height: 0px;
 
                 &-wrap{
                     display: flex;
@@ -175,56 +193,89 @@
                     padding-top: 3.4rem;
                     padding-bottom: 3.4rem;
                     gap: 2rem;
-                    
-                    a {
-                        padding-top: 1rem;
-                        padding-bottom: 1rem;
+                }
+                &-inner {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    padding-top: 1rem;
+                    padding-bottom: 1rem;
+                    transition: color .2s ease;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: -3.2rem;
+                        display: block;
+                        opacity: 0;
+                        @include size(1.6rem);
+                        background-color: var(--cl-orange);
+                        transition: opacity .3s ease;
+                    }
+
+                    &.active {
+                        color: var(--cl-orange);
+                        &::after {
+                            opacity: 1;
+                        }
                     }
                 }
             }
-            &.submit {
+            &.note {
                 padding: {
-                    top: calc(var(--offset-top) - (var(--offset-top) - 3rem)/2);
+                    top: 5.8rem;
                     left: var(--offset-left);
-                    bottom: calc(3rem + (var(--offset-top) - 3rem)/2);
+                    bottom: 3rem;
                     right: 0;
                 };
+                textarea {
+                    padding: 0;
+                    resize: none;
+                }
+                label {
+                    --transform: translateY(calc(-50% + 1.9rem)) scale(.625);
+                    top: 3rem;
+                    transform: translateY(calc(-50% + 2.6rem)) scale(1);
+                }
+            }
+            &.submit {
+                .contact-form-input-field-group-btn {
+                    padding: {
+                        top: calc(var(--offset-top) - (var(--offset-top) - 3rem)/2);
+                        left: var(--offset-left);
+                        bottom: calc(3rem + (var(--offset-top) - 3rem)/2);
+                        right: 0;
+                    };
+                }
+                
                 .contact-form-input-field-group-btn {
                     display: flex;
                     justify-content: space-between;
 
-                    svg {
+                    img {
                         width: 3.2rem;
                     }
                 }
             }
         }
-    }    
-}
-.line-hor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-    height: 100%;
-    width: .2rem;
+    }
+    
 }
 
 @media (hover: hover) {
     .contact-form-input-field-group:hover {
-        .line:not(.line-hor) {
-            background-color: var(--cl-orange);
+        .line {
+            &-inner {
+                transform: scaleX(1);
+            }
         }
     }
-    .contact-form-input-field-group-industry.active:hover {
-        &~ .line:not(.line-hor) {
-            background-color: var(--cl-orange);
-        }
-        &~ label {
-            transform: var(--transform);
-        }
-    }
-    .contact-form-input-field-group-dropdown-wrap a:hover {
+    .contact-form-input-field-group-dropdown-inner:hover {
         color: var(--cl-orange);
+
+        &::after {
+            opacity: 1;
+        }
     }
+
 }

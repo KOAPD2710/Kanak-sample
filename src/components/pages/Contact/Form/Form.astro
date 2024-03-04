@@ -5,11 +5,15 @@ import { Image } from 'astro:assets';
 import icAvatar from "@assets/contact-form-avatar.svg";
 import icEmail from "@assets/contact-form-email.svg";
 import icSuccess from "@assets/contact-form-succ.svg";
+import icArrowUpRight from "@assets/arrow-up-right.svg"
+import icArrowDown from "@assets/arrow-down.svg"
 ---
 
 
-<ContactForm>
-    <Image src={icAvatar} alt="" class="contact-form-ic active" slot="icAvatar"/>
-    <Image src={icEmail} alt="" class="contact-form-ic" slot="icEmail"/>
-    <Image src={icSuccess} alt="" class="contact-form-ic" slot="icSuccess"/>
+<ContactForm client:visible>
+    <Image src={icAvatar} alt="" class="contact-form-ic active" data-ic="avatar" slot="icAvatar"/>
+    <Image src={icEmail} alt="" class="contact-form-ic" data-ic="email" slot="icEmail"/>
+    <Image src={icSuccess} alt="" class="contact-form-ic" data-ic="sent" slot="icSuccess"/>
+    <Image src={icArrowUpRight} alt="" slot="icArrowUpRight"/>
+    <!-- <Image src={icArrowDown} alt="" slot="icArrowDown"/> -->
 </ContactForm>
