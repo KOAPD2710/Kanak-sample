@@ -20,7 +20,6 @@ const list = await Promise.all(
         return item;
     })
 )
-
 ---
 <HomeClient subTitle={sub_title} client:visible>
     <Fragment set:html={newTitle} slot="title"/>
@@ -33,7 +32,6 @@ const list = await Promise.all(
             </div>
         ))}
     </Fragment>
-    
 </HomeClient>
 
 

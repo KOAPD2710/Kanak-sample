@@ -1,0 +1,220 @@
+.contact-form {
+    &-ic-wrapper {
+        position: relative;
+        grid-column: 1/7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &-ic {
+        width: 40rem;
+        opacity: 0;
+        &:nth-child(n+2) {
+            position: absolute;
+        }
+
+        &.active {
+            opacity: 1;
+        }
+    }
+    &-main {
+        position: relative;
+        --offset-top: 5.8rem;
+        --offset-left: 8rem;
+        grid-column: 7/-1;
+        grid-row: 1/1;
+    }
+    &-quote {
+        position: relative;
+        padding: {
+            top: 3rem;
+            left: var(--offset-left);
+            bottom: 3rem;
+            right: 0;
+        };
+
+        &-title {
+            margin-bottom: .4rem;
+        }
+        .line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
+    &-input {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: minmax(1px, 1fr) minmax(1px, 1fr);
+        grid-auto-columns: 1fr;
+        &-field-group {
+            position: relative;
+            grid-column: 1/-1;
+
+            &.firstname, &.lastname, &.captcha, &.submit {
+                grid-column: span 1;
+            }
+            textarea {
+                background: transparent;
+                width: 100%;
+                resize: vertical;
+                // height: max-content;
+                overflow: auto;
+                font: inherit;
+                color: var(--cl-txt);
+                padding: {
+                    top: var(--offset-top);
+                    left: var(--offset-left);
+                    bottom: 3rem;
+                    right: 0;
+                };
+            }
+            input, textarea {
+                background: transparent;
+                width: 100%;
+                color: var(--cl-txt);
+                padding: {
+                    top: var(--offset-top);
+                    left: var(--offset-left);
+                    bottom: 3rem;
+                    right: 0;
+                };
+                &:not(:active), &:not(:focus){
+                    cursor: pointer;
+                }
+                &:active, &:focus {
+                    cursor: text;
+                }
+                &:active, &:focus {
+                    &~ .line:not(.line-hor) {
+                        background-color: orange;
+                    }
+                    &~ label {
+                        transform: var(--transform);
+                    }
+                }
+                &:not(:placeholder-shown) {
+                    &~ label {
+                        transform: var(--transform);
+                    }
+                }
+            }
+            
+            label {
+                --transform: scale(0.625); // 1.92
+                position: absolute;
+                left: var(--offset-left);
+                top: 3rem;
+                pointer-events: none;
+                transform: translateY(1.4rem) scale(1);
+                transform-origin: top left;
+                transition: all .3s ease-out;
+            }
+            .line {
+                position: absolute;
+                bottom: 0;
+                transition: background-color .3s ease;
+            }
+            
+            &.industry {
+                .contact-form-input-field-group-industry {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    text-transform: uppercase;
+                    padding: {
+                        top: 3rem;
+                        left: var(--offset-left);
+                        bottom: 3rem;
+                        right: 0;
+                    };
+                    
+
+                    &.active {
+                        // &~ .line {
+                        //     background-color: orange;
+                        // }
+                        &~ label {
+                            transform: var(--transform);
+                        }
+                    }
+                    &-txt {
+                        width: 100%;
+                        height: 6rem;
+                    }
+                    &-ic {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                        width: 4rem;
+                        height: 4rem;
+                        padding: 0 1rem;
+                    }
+                }
+            }
+            &-dropdown {
+                grid-column: 1/-1;
+                overflow: hidden;
+                display: none;
+
+                &-wrap{
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: var(--offset-left);
+                    padding-top: 3.4rem;
+                    padding-bottom: 3.4rem;
+                    gap: 2rem;
+                    
+                    a {
+                        padding-top: 1rem;
+                        padding-bottom: 1rem;
+                    }
+                }
+            }
+            &.submit {
+                padding: {
+                    top: calc(var(--offset-top) - (var(--offset-top) - 3rem)/2);
+                    left: var(--offset-left);
+                    bottom: calc(3rem + (var(--offset-top) - 3rem)/2);
+                    right: 0;
+                };
+                .contact-form-input-field-group-btn {
+                    display: flex;
+                    justify-content: space-between;
+
+                    svg {
+                        width: 3.2rem;
+                    }
+                }
+            }
+        }
+    }    
+}
+.line-hor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    height: 100%;
+    width: .2rem;
+}
+
+@media (hover: hover) {
+    .contact-form-input-field-group:hover {
+        .line:not(.line-hor) {
+            background-color: orange;
+        }
+    }
+    .contact-form-input-field-group-industry.active:hover {
+        &~ .line:not(.line-hor) {
+            background-color: orange;
+        }
+        &~ label {
+            transform: var(--transform);
+        }
+    }
+    .contact-form-input-field-group-dropdown-wrap a:hover {
+        color: orange;
+    }
+}

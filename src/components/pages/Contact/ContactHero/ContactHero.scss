@@ -1,0 +1,28 @@
+.contact-hero {
+    padding-top: 14rem;
+
+    &-title {
+        grid-column: 1/-1;
+        margin-top: 4rem;
+    }
+    padding-bottom: 5rem;
+}
+
+.contact-info {
+    position: relative;
+    padding: 4rem 0;
+    &-headquarters {
+        grid-column: 1/7;
+    }
+    &-getintouch {
+        grid-column: 7/12;
+    }
+    &-contact {
+        grid-column: 12/-1;
+    }
+
+    .line {
+        position: absolute;
+        top: 0;
+    }
+}
