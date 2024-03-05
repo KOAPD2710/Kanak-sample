@@ -15,7 +15,7 @@ function HomeBrand({ ...props }) {
     return (
         <section className="home-brand">
             <div className="container grid">
-                { isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/> }
+                { isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title">{props.title}</h2> }
                 <div className="home-brand-canvas">
                     <div className="home-brand-canvas-inner">
                         <HomeBrandThree list={props.list}/>
@@ -23,8 +23,8 @@ function HomeBrand({ ...props }) {
                 </div>
                 <div className="line line-ver"></div>
                 <div className="home-brand-main">
-                    { !isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/> }
-                    <div className={`home-brand-main-list${isMobile ? ' keen-slider' : ''}`} ref={isMobile && sliderRef}>
+                    { !isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title">{props.title}</h2> }
+                    <div className={`home-brand-main-list${isMobile ? ' keen-slider' : ''}`} ref={isMobile ? sliderRef : null}>
                         {props.list.map(({ data }, idx) => (
                             <a
                                 key={idx}

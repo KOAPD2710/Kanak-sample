@@ -5,7 +5,7 @@ import useWindowSize from '@hooks/useWindowSize';
 
 const TextEl = forwardRef(function TextEl({...props}, ref) {
     return (
-        <span ref={ref} className="heading txt-up txt-black home-hero-abt-title-top">
+        <span ref={ref} className="heading txt-up txt-black home-hero-abt-title-top" style={props.abs && { position: 'absolute'}}>
             {props.children}
         </span>
     )
@@ -21,7 +21,7 @@ function HomeHeroAbout({...props}) {
             position: absolute;
             top: ${elRect.top}px;
             left: ${elRect.left}px;
-            z-index: 99
+            z-index: 999
         `;
     }, [width, height])
     return (
@@ -41,7 +41,7 @@ function HomeHeroAbout({...props}) {
                     </h2>
                 </div>
             </section>
-            <TextEl ref={cloneEl}>
+            <TextEl ref={cloneEl} abs={true}>
                 <span className='heading h0'>Is our</span>
                 <br/>
                 <span className='txt txt-180'>Pride</span>
