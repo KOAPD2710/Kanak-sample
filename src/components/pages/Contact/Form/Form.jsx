@@ -44,7 +44,7 @@ function Input({name, type, required = false}) {
     )
 }
 
-function FieldForm({name, label, type, lineVer = false ,required = false, className}) {
+function FieldForm({name, label, type, lineVer = false ,required = false, className, error}) {
     return (
         <>
             <div className={`heading h5 txt-black txt-up contact-form-input-field-group ${className}`}  data-field={name}>
@@ -66,6 +66,9 @@ function FieldForm({name, label, type, lineVer = false ,required = false, classN
                             <svg width="100%" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.35 0.316681L10 7.95001L17.65 0.316681L20 2.66668L10 12.6667L0 2.66668L2.35 0.316681Z" fill="currentColor"/>
                             </svg>
+                            <svg width="100%" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.35 0.316681L10 7.95001L17.65 0.316681L20 2.66668L10 12.6667L0 2.66668L2.35 0.316681Z" fill="currentColor"/>
+                            </svg>
                         </div>
                     </a>
                 ) : (
@@ -78,6 +81,7 @@ function FieldForm({name, label, type, lineVer = false ,required = false, classN
                 {lineVer && (
                     <div className="line line-ver"></div>
                 )}
+                <div className="txt txt-16 contact-form-input-field-group-error">{error}</div>
             </div>
         </>
     )
@@ -129,9 +133,11 @@ function ContactForm(props) {
                 if (!dropdownWrap.classList.contains('active')) {
                     dropdownWrap.style.height = 'auto';
                     dropdownWrap.classList.add('active')
+                    industryBtn.classList.add('dropdown')
                 } else {
                     dropdownWrap.style.height = '0';
                     dropdownWrap.classList.remove('active')
+                    industryBtn.classList.remove('dropdown')
                 }
             })
             dropdownItems.forEach(el => {
@@ -165,26 +171,44 @@ function ContactForm(props) {
         handleTextArea()
 
         function submit() {
-            let canSubmit = false
+            let canSubmit = []
             let form = document.getElementById('submit-form')
+            function handleForm(event) {
+                event.preventDefault()
+            }
+            form.addEventListener('submit', handleForm)
 
             function checkFormat(target, data) {
-                switch (data) {
-                    case 'text':
-                        canSubmit = true
-                        break;
-
-                    case 'tel':
-                        console.log(object);
-                        break;
-
-                    case 'email':
-                        
-                        break;
-                
-                    default:
-                        break;
+                let value = target.value
+                if (value !== "") {
+                    switch (data) {
+                        case 'text':
+                            canSubmit = true
+                            break;
+    
+                        case 'tel':
+                            if (!/^\d+$/.test(value)) {
+                                canSubmit = false
+                            } else {
+                                canSubmit = true
+                            }
+                            break;
+    
+                        case 'email':
+                            if (!/^\S+@\S+\.\S+$/.test(value)) {
+                                canSubmit = false
+                            } else {
+                                canSubmit = true
+                            }
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                } else {
+                    canSubmit = false
                 }
+                return canSubmit;
             }
 
             function checkField() {
@@ -196,10 +220,24 @@ function ContactForm(props) {
                         } else {
                             checkFormat(el, el.getAttribute('type'))
                         }
-                        // console.log(el.getAttribute('name') + ': ' + el.value);
                     }
                 });
             }
+            function onSuccess() {
+                // form.submit()
+
+                document.querySelector('.contact-form-quote').classList.add('success')
+                document.querySelector('.contact-form-input').style.display = "none"
+                document.querySelector('.contact-form-succ').style.display = "block"
+
+                setTimeout(() => {
+                    document.querySelector('.contact-form-ic.active').classList.remove('active')
+                    document.querySelector(`.contact-form-ic[data-ic=sent]`).classList.add('active')
+                }, 200)
+                document.querySelector(`[data-name]`).textContent = document.querySelector(`input[name="lastname"]`).value + " " + document.querySelector(`input[name="firstname"]`).value
+            }
+            
+
             document.querySelector('[data-btn="submit"]').addEventListener('click', function(e) {
                 e.preventDefault()
                 checkField()
@@ -208,8 +246,9 @@ function ContactForm(props) {
                 formData.forEach((value, key) => {
                     // console.log(`${key}: ${value}`);
                 });
+                console.log(canSubmit);
                 if (canSubmit) {
-                    form.submit()
+                    onSuccess()
                 }
             })
         }
@@ -218,28 +257,29 @@ function ContactForm(props) {
     return (
         <>
             <section title='contact-form'>
-                <div className="line"></div>
                 <div className="container grid">
+                <div className="line contact-form-line"></div>
                     <div className="contact-form-ic-wrapper">
                         {props.icAvatar}
                         {props.icEmail}
                         {props.icSuccess}
                     </div>
                     <div className="contact-form-main">
-                        <div className="line line-ver"></div>
+                        <div className="line line-ver contact-form-main-line"></div>
                         <form id="submit-form" action=""> 
                             <div className="txt-up contact-form-quote">
                                 <h3 className="heading h3 txt-black contact-form-quote-title">Request a quote</h3>
+                                <h3 className="heading h3 txt-black contact-form-quote-title-succ">Successfully sent!</h3>
                                 <p className="txt txt-20 txt-black contact-form-quote-subtitle">By filling out the form below</p>
                                 <div className="line"></div>
                             </div>
                             <div className="contact-form-input">
-                                <FieldForm name="firstname" label="First name" type="text" required className="firstname" />
-                                <FieldForm name="lastname" label="Last name" type="text" required lineVer className="lastname" />
-                                <FieldForm name="email" label="Email Address" type="text" required />
-                                <FieldForm name="phone" label="Phone number" type="tel" required />
-                                <FieldForm name="company" label="Company" type="text" required />
-                                <FieldForm name="industry" label="Industry" type="option" className="industry"/>
+                                <FieldForm name="firstname" label="First name" type="text" required className="firstname" error="Required"/>
+                                <FieldForm name="lastname" label="Last name" type="text" required lineVer className="lastname" error="Required"/>
+                                <FieldForm name="email" label="Email Address" type="text" required error="Check format"/>
+                                <FieldForm name="phone" label="Phone number" type="tel" required error="Required"/>
+                                <FieldForm name="company" label="Company" type="text" required error="Required"/>
+                                <FieldForm name="industry" label="Industry" type="option" className="industry" required error="Select one"/>
                                 <DropDown />
                                 <FieldForm name="note" label="How can we help you?" type="textarea" className="note"/>
                                 <div className="heading h5 txt-black txt-up contact-form-input-field-group captcha">
@@ -252,10 +292,30 @@ function ContactForm(props) {
                                     <div className="line line-ver"></div>
                                 </div>  
                             </div>
+                            <div className="contact-form-succ">
+                                <div className='contact-form-succ-body'>
+
+                                    <div className='heading h4 txt-black txt-up contact-form-succ-body-txt'>
+                                        <p>Thanks <span data-name="#">David SMith</span>,</p>
+                                        <p>Your message has been sent. we will check it and respond to you as soon as possible. 
+                                        Hope to work with you in the future.</p>
+                                    </div>
+                                    <div className='txt-black txt-up contact-form-succ-body-footer'>
+                                        <p className='heading h6'>Regards,</p>
+                                        <p className='heading h4'>Kanak naturalS team</p>
+                                    </div>
+                                    <div className="line"></div>
+                                </div>
+                                <div className="heading h3 txt-black txt-up contact-form-succ-btn-wrap">
+                                    <a href="./" className='contact-form-succ-btn'>
+                                        <p>Back to Home</p>
+                                        {props.icArrowUpRight}
+                                    </a>
+                                </div> 
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div className="line"></div>
             </section>
         </>
     )

@@ -1,3 +1,6 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
 .contact-hero {
     padding-top: 18rem;
     padding-bottom: 5rem;
@@ -9,19 +12,55 @@
 
 .contact-info {
     position: relative;
-    padding: 4rem 0;
+    padding-bottom: 4rem;
     &-headquarters {
         grid-column: 1/7;
+        display: flex;
+        flex-direction: column;
+        row-gap: .4rem;
     }
     &-getintouch {
         grid-column: 7/12;
+        display: flex;
+        flex-direction: column;
+        row-gap: .4rem;
     }
     &-contact {
         grid-column: 12/-1;
+        display: flex;
+        flex-direction: column;
+        row-gap: .4rem;
     }
 
     .line {
-        position: absolute;
-        top: 0;
+        grid-column: 1/-1;
+        margin-bottom: 4rem;
+    }
+}
+
+@include md {
+    .contact-hero {
+        padding-bottom: 4rem;
+    }
+    .contact-info {
+        padding-bottom: 2.4rem;
+        .grid {
+            row-gap: 2rem;
+        }
+        .line {
+            margin-bottom: .4rem;
+        }
+    }
+    .contact-hero-title {
+        grid-column: 1/-1;
+    }
+    .contact-info-headquarters{
+        grid-column: 1/-1;
+    }
+    .contact-info-getintouch {
+        grid-column: 1/-1;
+    }
+    .contact-info-contact {
+        grid-column: 1/-1;
     }
 }

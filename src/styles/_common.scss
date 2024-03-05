@@ -59,6 +59,11 @@ html {
         --grid-column: 12;
         --container-padding: 4rem;
     }
+
+    @include sm {
+        --grid-column: 4;
+        --container-padding: 1.6rem;
+    }
 }
 
 a {
