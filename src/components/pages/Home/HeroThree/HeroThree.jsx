@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import { Fork } from './Fork.jsx';
 import { FoodContainer } from "./FoodContainer.jsx";
@@ -26,6 +27,7 @@ function Content({...props}) {
     })
 
     useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger)
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-hero',

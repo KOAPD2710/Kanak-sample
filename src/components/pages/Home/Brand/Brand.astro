@@ -18,7 +18,7 @@ const list = await Promise.all(
 )
 ---
 
-<HomeBrand title={newTitle} list={list} client:visible>
+<HomeBrand title={newTitle} list={list} client:idle>
     <Image src={arrIconDesk} alt='' slot='arrIconDesk'/>
     <Image src={arrIconMob} alt='' slot='arrIconMob'/>
 </HomeBrand>

@@ -115,6 +115,7 @@
         display: grid;
         grid-template-columns: 1fr;
         margin-right: -2rem;
+        overflow: hidden;
         @include size(25rem);
         @include md {
             margin-right: 0;
