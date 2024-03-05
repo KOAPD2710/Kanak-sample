@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Fork } from './Fork.jsx';
@@ -91,7 +92,7 @@ function Content({...props}) {
 
 function HomeHeroThree({...props}) {
     const { width, height } = useWindowSize();
-    let perspective = height * 2;
+    let perspective = height;
     let fov = ((Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI) / 2;
     return (
         <div className="home-hero-three">

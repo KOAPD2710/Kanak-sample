@@ -2,7 +2,6 @@
 import Layout from "@/layouts/Layout.astro";
 import Hero from '@pages/Home/Hero/Hero.astro';
 import Product from '@pages/Home/Product/Product.astro';
-import HomeClient from '@pages/Home/HomeClient.astro';
 import HomeIndustry from '@pages/Home/HomeIndustry.astro';
 import Brand from "@pages/Home/Brand/Brand.astro";
 import Client from "@pages/Home/Client/Client.astro";
@@ -19,8 +18,8 @@ const { data } = await getPage('home');
 
 <Layout title="Homepage">
 	<div class="home-hero-three-wrap">
-		<HeroThree/>
 		<Hero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} prod_sub_title={data.product_title[0].text}/>
+		<HeroThree/>
 	</div>
 	<Product product_list={data.product_list}/>
 	<Client	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/>

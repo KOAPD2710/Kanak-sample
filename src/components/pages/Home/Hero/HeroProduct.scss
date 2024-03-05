@@ -14,6 +14,7 @@
         }
     }
     &-title {
+        font-kerning: none;
         max-width: 90rem;
         @include sm {
             @include text(h3);

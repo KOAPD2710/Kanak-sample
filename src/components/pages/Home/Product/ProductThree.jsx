@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
@@ -34,6 +35,7 @@ function Content({...props}) {
     }, [index])
 
     useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger)
         const triggerTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-hero-prod',

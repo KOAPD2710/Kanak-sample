@@ -44,7 +44,6 @@ function HomeCompare(props) {
         rtl: false,
         slides: {
             perView: "auto"
-            // spacing: 36,
         },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)

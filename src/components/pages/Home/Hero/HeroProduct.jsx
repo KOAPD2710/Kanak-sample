@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import SplitType from 'split-type';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -9,6 +10,7 @@ function HomeHeroProduct({ ...props }) {
     const ref = useRef();
 
     useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger)
         const text = new SplitType('.home-hero-prod-title', { types: 'words, chars'});
         gsap.registerPlugin(ScrollTrigger)
         gsap.from(text.chars, {
