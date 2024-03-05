@@ -39,6 +39,13 @@ function HomeCompare(props) {
     const { isDesktop, isTablet, isMobile } = useDevice();
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
+        loop: false,
+        mode: "snap",
+        rtl: false,
+        slides: {
+            perView: "auto"
+            // spacing: 36,
+        },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)
         },
@@ -66,6 +73,8 @@ function HomeCompare(props) {
     }, [index])
 
     useGSAP(() => {
+        if (isMobile) return;
+
         gsap.registerPlugin(ScrollTrigger)
         ScrollTrigger.create({
             trigger: ref.current,
@@ -80,15 +89,34 @@ function HomeCompare(props) {
                 setProgressLine(progress * 100);
             }
         })
-    }, { scope: ref });
+    }, [{ scope: ref, dependencies: isMobile, ref }]);
 
     useEffect(() => {
-        if (isTablet) {
-            let heightHeader = document.querySelector('.header') && document.querySelector('.header').offsetHeight;
-            let heightCompItem = q('.home-comp-main-item') && q('.home-comp-main-item').offsetHeight;
-            setItemCompareHeight({ height: heightCompItem / 10, hasHeader: (heightHeader + heightCompItem) / 10});
+        const updateHeights = () => {
+            if (isTablet) {
+                const header = document.querySelector('.header');
+                const compItem = document.querySelector('.home-comp-main-item')
+
+                if (header && compItem) {
+                    const heightHeader = header.offsetHeight;
+                    const heightCompItem = compItem.offsetHeight;
+                    setItemCompareHeight({ height: heightCompItem / 10, hasHeader: (heightHeader + heightCompItem) / 10 });
+                }
+            }
+        };
+
+        if (document.readyState === 'complete') {
+            requestAnimationFrame(() => {
+                updateHeights();
+            })
+        } else {
+            window.addEventListener('load', updateHeights);
         }
-    }, [ref, isTablet, itemCompareHeight])
+
+        return () => {
+            window.removeEventListener('load', updateHeights);
+        };
+    }, [isTablet, itemCompareHeight]);
 
     return (
         <section className="home-comp" ref={ref} style={{ '--content-compare-height': `${itemCompareHeight.height}rem` }}>
@@ -128,24 +156,26 @@ function HomeCompare(props) {
                                     </Fragment>
                                 ))}
                             </div>
-
-                            {/* {loaded && instanceRef.current && (
-                                <div className="dots">
-                                {[
-                                    ...Array(instanceRef.current.track.details.slides.length).keys(),
-                                ].map((idx) => {
-                                    return (
-                                    <button
-                                        key={idx}
-                                        onClick={() => {
-                                        instanceRef.current?.moveToIdx(idx)
-                                        }}
-                                        className={"dot" + (currentSlide === idx ? " active" : "")}
-                                    ></button>
-                                    )
-                                })}
-                                </div>
-                            )} */}
+                            <div className='home-comp-main-slide-pagination'>
+                                {loaded && instanceRef.current && (
+                                    <div className="dots">
+                                    {[
+                                        ...Array(instanceRef.current.track.details.slides.length).keys(),
+                                    ].map((idx) => {
+                                        return (
+                                        <button
+                                            key={idx}
+                                            onClick={() => {
+                                                instanceRef.current?.moveToIdx(idx)
+                                            }}
+                                            className={"dot" + (currentSlide === idx ? " active" : "")}
+                                            ><span></span>
+                                        </button>
+                                        )
+                                    })}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     ) : (
                         <div className="home-comp-main grid">

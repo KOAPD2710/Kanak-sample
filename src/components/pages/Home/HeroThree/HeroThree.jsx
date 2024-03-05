@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Fork } from './Fork.jsx';
 import { FoodContainer } from "./FoodContainer.jsx";
 import './HeroThree.scss';
@@ -20,12 +21,13 @@ function Content({...props}) {
         if (!food.current) return;
         food.current.rotation.x = Math.cos(clock.elapsedTime / 2) * Math.PI * .02
         food.current.rotation.y = Math.sin(clock.elapsedTime / 2) * Math.PI * .04
-        
+
         fork.current.rotation.x = Math.cos(clock.elapsedTime / 2) * Math.PI * .02 * -1
         fork.current.rotation.y = Math.sin(clock.elapsedTime / 2) * Math.PI * .04 * -1
     })
 
     useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger)
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-hero',
@@ -57,13 +59,13 @@ function Content({...props}) {
         .to(forkWrap.current.scale, {duration: 1, x: 1500, y: 1500, z: 1500}, '<=0')
         .to(forkWrap.current.position, {duration: 1, x: -props.width * .375, y: props.height * .025}, '<=0')
         .to(forkWrap.current.rotation, {duration: 1, x: Math.PI * 1, y: -Math.PI * .3, z: -Math.PI * .6}, '<=0')
-         
+
     }, [])
     return (
         <>
             <group ref={wrap}>
-                <group ref={foodWrap} scale={[1600,1600,1600]} 
-                    position={[props.width * .125, -props.height * .1, 0]} 
+                <group ref={foodWrap} scale={[1600,1600,1600]}
+                    position={[props.width * .125, -props.height * .1, 0]}
                     rotation={[Math.PI * .25, -Math.PI * .33, Math.PI * .175]}>
                         <group ref={food}>
                             <mesh>
@@ -71,14 +73,14 @@ function Content({...props}) {
                             </mesh>
                         </group>
                 </group>
-                <group ref={forkWrap} scale={[1600,1600,1600]} 
-                    position={[props.width * .125, props.height * .175, 0]} 
+                <group ref={forkWrap} scale={[1600,1600,1600]}
+                    position={[props.width * .125, props.height * .175, 0]}
                     rotation={[Math.PI * .5, -Math.PI * .1, Math.PI * .33]}>
                     <mesh ref={fork}>
                         <Fork material={<CustomMaterial color='#F9833A' roughness={0} />} />
                     </mesh>
                 </group>
-            </group>            
+            </group>
             <ambientLight intensity={1.25} />
             <directionalLight intensity={1.5}/>
             <directionalLight intensity={1.05} position={[props.width * .125, 0,100]}/>

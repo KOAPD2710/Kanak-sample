@@ -4,6 +4,10 @@
 .home-comp {
     height: 400vh;
     position: relative;
+    contain: paint;
+    @include sm {
+        height: auto;
+    }
     .container {
         display: flex;
         flex-direction: column;
@@ -15,6 +19,9 @@
         top: 0;
         height: 100vh;
         background-color: var(--cl-bg);
+        @include sm {
+            height: auto;
+        }
     }
     &-title-wrap {
         padding-top: 16rem;
@@ -30,6 +37,7 @@
         }
         @include sm {
             padding-top: 8rem;
+            margin-bottom: 4rem;
         }
     }
     &-title {
@@ -52,7 +60,6 @@
         }
         @include sm {
             grid-template-columns: repeat(4, 1fr);
-            border: .2rem solid var(--cl-txt);
             padding-bottom: 0;
         }
         &-item {
@@ -189,12 +196,29 @@
             }
         }
         &-slide {
+            overflow: visible !important;
+            &-item {
+                --width-slide: calc(100% - 5.3rem) !important;
+                min-width: var(--width-slide);
+                max-width: var(--width-slide);
+                border-right: .2rem solid var(--cl-txt);
+                border-top: .2rem solid var(--cl-txt);
+                border-bottom: .2rem solid var(--cl-txt);
+                margin: -.2rem 0;
+                min-height: calc(100% + .4rem) !important;
+                &:first-child {
+                    border-left: .2rem solid var(--cl-txt);
+                }
+            }
             &-title {
-                padding: 3.3rem 1.6rem;
+                padding: 2rem 1.6rem;
                 border-bottom: .2rem solid var(--cl-txt);
                 .heading {
+                    min-height: calc(2.4rem * 1.1 * 2);
                     max-height: calc(2.4rem * 1.1 * 2);
                     overflow: hidden;
+                    display: flex;
+                    align-items: center;
                 }
             }
             &-list {
@@ -216,7 +240,31 @@
                 }
                 &-content {
                     height: calc(1.6rem * 1.3 * 3);
+                    max-height: calc(1.6rem * 1.3 * 3);
                     overflow: hidden;
+                }
+            }
+            &-pagination {
+                margin-top: 4rem;
+                .dots {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center
+                }
+                .dot {
+                    padding: .3rem;
+                    span {
+                        display: block;
+                        @include size(.7rem);
+                        background-color: rgba($cl-txt, .6);
+                        border-radius: 50%;
+                        transition: background-color 0.4s ease;
+                    }
+                    &.active {
+                        span {
+                            background-color: var(--cl-orange);
+                        }
+                    }
                 }
             }
         }

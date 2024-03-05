@@ -18,7 +18,6 @@ function HomeProduct({...props}) {
         productIndex.set(index + 1);
     }
     useEffect(() => {
-        console.log(index)
     }, [index])
     return (
         <section className="home-prod">
@@ -38,6 +37,12 @@ function HomeProduct({...props}) {
                                     <div className="txt txt-20 txt-bold home-prod-main-item-label">
                                         {(idx + 1) < 10 ? '0' + (idx + 1) : idx + 1}
                                     </div>
+                                    <div className="line">
+                                        <div className="line-inner"></div>
+                                    </div>
+                                    {idx == props.list.length - 1 && (
+                                        <div className="line line-bottom"></div>
+                                    )}
                                 </div>
                             ))}
                         </div>

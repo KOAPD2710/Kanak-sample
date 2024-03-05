@@ -1,4 +1,7 @@
+import gsap from 'gsap';
+import { useEffect, useState, useRef } from 'react';
 import './Footer.scss';
+import useDevice from '@/components/hooks/useDevice';
 
 const ContactItem = ({ label, content, link="#" }) => {
     return (
@@ -16,15 +19,37 @@ const MenuItem = ({ link = "#", children }) => {
         </a>
     )
 }
-const MenuColumn = ({ title, children, tail, tail_link="#" }) => {
+const MenuColumn = ({ title, children, tail, tail_link = "#", isOpen, onClick }) => {
+    const contentHeight = useRef();
+    const { isMobile } = useDevice();
     return (
         <div className="ft-right-col">
             <div className="line line-left"></div>
-            <div className="ft-head">
+            <button className={`ft-head${isOpen ? ' active' : ''}`} onClick={isMobile ? onClick : null}>
                 <h3 className="heading h6 txt-up txt-black ft-right-head-title">{title}</h3>
                 <div className="line line-bottom"></div>
-            </div>
-            <div className="ft-right-body">{children}</div>
+                {isMobile && (
+                    <div className='ic ic-20 ft-right-head-title-arr'>
+                    <svg width="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.41 8.58997L12 13.17L16.59 8.58997L18 9.99997L12 16L6 9.99997L7.41 8.58997Z" fill="#212121"/>
+                    </svg>
+                    </div>
+                )}
+            </button>
+            {isMobile ?
+                (<div className="ft-right-body"
+                    ref={contentHeight}
+                    style={
+                        isOpen
+                        ? { height: contentHeight.current.scrollHeight }
+                        : { height: "0px" }
+                    }>{children}</div>)
+                : (
+                    <div className="ft-right-body">
+                        {children}
+                    </div>
+                )
+            }
             <div className="ft-tail">
                 <div className="line line-top"></div>
                 <a href={tail_link} className="txt txt-12 txt-bold txt-up ft-right-tail-link">
@@ -47,6 +72,12 @@ const CopyRight = ({ children }) => {
 }
 
 function GlobalFooter(props) {
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    const accordionClick = (index) => {
+        setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    };
+
     return (
         <footer className="ft bg-light">
             <div className="line line-top"></div>
@@ -78,20 +109,35 @@ function GlobalFooter(props) {
                     </div>
                 </div>
                 <div className="ft-right">
-                    <MenuColumn title="Products & Services" tail="Terms & Conditions">
+                    <MenuColumn
+                        title="Products & Services"
+                        tail="Terms & Conditions"
+                        isOpen={activeIndex === 0}
+                        onClick={() => accordionClick(0)}
+                    >
                         <MenuItem>Product Katalog</MenuItem>
                         <MenuItem>Private Label</MenuItem>
                         <MenuItem>Kustom Packaging Solutions</MenuItem>
                         <MenuItem>Testing, QC & Compliance</MenuItem>
                     </MenuColumn>
-                    <MenuColumn title="Kustomers" tail="Privacy Policy">
+                    <MenuColumn
+                        title="Kustomers"
+                        tail="Privacy Policy"
+                        isOpen={activeIndex === 1}
+                        onClick={() => accordionClick(1)}
+                    >
                         {props.list?.map((item, idx) => {
                             return (
                                 <MenuItem link={`/kustomer/${item.uid}`} key={idx}>{item.data.title}</MenuItem>
                             )
                         })}
                     </MenuColumn>
-                    <MenuColumn title="Kustomers" tail="Back to top">
+                    <MenuColumn
+                        title="About"
+                        tail="Back to top"
+                        isOpen={activeIndex === 2}
+                        onClick={() => accordionClick(2)}
+                    >
                         <MenuItem>Our story</MenuItem>
                         <MenuItem>Awards and Endorsements</MenuItem>
                         <MenuItem>Sustainability</MenuItem>

@@ -10,7 +10,17 @@ import './Brand.scss';
 function HomeBrand({ ...props }) {
     const { isDesktop, isMobile } = useDevice();
     const [sliderRef, instanceRef] = useKeenSlider({
-        initial: 0
+        initial: 0,
+        loop: false,
+        mode: "snap",
+        rtl: false,
+        slides: {
+            perView: "auto",
+            spacing: 36,
+        },
+        slideChanged(slider) {
+            brandIndex.set(slider.track.details.rel)
+        },
     })
     return (
         <section className="home-brand">
@@ -24,7 +34,7 @@ function HomeBrand({ ...props }) {
                 <div className="line line-ver"></div>
                 <div className="home-brand-main">
                     { !isMobile && <h2 className="heading h0 txt-up txt-black home-brand-title" dangerouslySetInnerHTML={{ __html: props.title }}/> }
-                    <div className={`home-brand-main-list${isMobile ? ' keen-slider' : ''}`} ref={isMobile && sliderRef}>
+                    <div className={`home-brand-main-list${isMobile ? ' keen-slider' : ''}`} ref={isMobile ? sliderRef : null}>
                         {props.list.map(({ data }, idx) => (
                             <a
                                 key={idx}
