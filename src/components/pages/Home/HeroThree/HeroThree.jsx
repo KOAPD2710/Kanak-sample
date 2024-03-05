@@ -4,7 +4,6 @@ import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Fork } from './Fork.jsx';
 import { FoodContainer } from "./FoodContainer.jsx";
 import './HeroThree.scss';

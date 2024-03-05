@@ -4,34 +4,54 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import * as ut from '@/js/utils.js';
 import './Value.scss';
+import useDevice from "@/components/hooks/useDevice";
 
-function HomeValue({...props}) {
+function HomeValue(props) {
+    const { isMobile } = useDevice();
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.home-val-stick',
-                start: 'bottom bottom',
-                endTrigger: '.home-val',
-                end: `bottom-=${window.innerHeight} bottom`,
-                scrub: true,
-            },
-            defaults: {
-                ease: 'linear',
-            }
-        })
-        let allItems = ut.dom('.home-val-main-item');
-        let totalDis = 0;
-        allItems.forEach(el => totalDis += el.clientWidth)
-        let disWrap = ut.dom('.home-val-main-inner').clientWidth
-        let offset = disWrap - allItems[allItems.length - 1].clientWidth
-        let dis1 = allItems[0].clientWidth - (offset / 2);
-        let dis2 = totalDis - disWrap
-        tl
-        .to([allItems[1], allItems[2]], {x: -dis1})
-        .to([...allItems[1].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
-        .to(allItems[2], {x: -dis2})
-        .to([...allItems[2].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
+        if (!isMobile) {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-val-stick',
+                    start: 'bottom bottom',
+                    endTrigger: '.home-val',
+                    end: `bottom-=${window.innerHeight} bottom`,
+                    scrub: true,
+                },
+                defaults: {
+                    ease: 'linear',
+                }
+            })
+            let allItems = ut.dom('.home-val-main-item');
+            let totalDis = 0;
+            allItems.forEach(el => totalDis += el.clientWidth)
+            let disWrap = ut.dom('.home-val-main-inner').clientWidth
+            let offset = disWrap - allItems[allItems.length - 1].clientWidth
+            let dis1 = allItems[0].clientWidth - (offset / 2);
+            let dis2 = totalDis - disWrap
+            tl
+            .to([allItems[1], allItems[2]], {x: -dis1})
+            .to([...allItems[1].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
+            .to(allItems[2], {x: -dis2})
+            .to([...allItems[2].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
+
+            const tl3 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-val-title-wrap',
+                    start: `top-=${window.innerHeight * .5} bottom`,
+                    end: 'bottom bottom',
+                    scrub: true,
+                },
+                defaults: {
+                    ease: 'linear'
+                }
+            })
+            requestAnimationFrame(() => {
+                tl3
+                .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .5), transformOrigin: 'center top' })
+            })
+        }
 
         const tl2 = gsap.timeline({
             scrollTrigger: {
@@ -46,22 +66,6 @@ function HomeValue({...props}) {
         })
         tl2
         .from('.home-val-arr-inner', {scale: .2, transformOrigin: 'center top' })
-
-        const tl3 = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.home-val-title-wrap',
-                start: `top-=${window.innerHeight * .5} bottom`,
-                end: 'bottom bottom',
-                scrub: true,
-            },
-            defaults: {
-                ease: 'linear'
-            }
-        })
-        requestAnimationFrame(() => {
-            tl3
-            .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .5), transformOrigin: 'center top' })
-        })
 
     }, [])
     return (
@@ -97,7 +101,7 @@ function HomeValue({...props}) {
                                     Elevating your brand
                                 </p> */}
                                 <h2 className="heading h0 txt-up txt-black home-val-title">
-                                    Raise<br />Your Brand<br />to Eco-Excellence
+                                    Raise<br />Your Brand to <br /><span className="txt txt-180">Eco-Excellence</span>
                                 </h2>
                             </div>
                         </div>

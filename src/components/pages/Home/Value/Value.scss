@@ -39,7 +39,7 @@
     }
     &-title-wrap {
         padding-top: 32rem;
-        padding-bottom: 33.5rem;
+        padding-bottom: 21.5rem;
         width: 100%;
         max-width: 122.8rem;
         margin: 0 auto;
@@ -51,6 +51,17 @@
         @include sm {
             padding-top: 8rem;
             padding-bottom: 6rem;
+            br {
+                display: none
+            }
+        }
+        .txt-180 {
+            @include md {
+                @include text(h0);
+            }
+            @include sm {
+                @include text(h2);
+            }
         }
     }
     &-title {
