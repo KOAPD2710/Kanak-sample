@@ -5,8 +5,6 @@ import HomeHeroProduct from './HeroProduct'
 import HomeHeroAbout from './HeroAbout';
 import icBadgeInside from '@assets/badge-inside.png';
 import icBadgeOuside from '@assets/badge-outside.svg';
-
-
 ---
 <HomeHero {...Astro.props} client:visible>
     <Image src={icBadgeInside} alt="" class="img" slot='icBadgeInside' />
