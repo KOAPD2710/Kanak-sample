@@ -161,6 +161,17 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 180;
         }
     }
 }
+.richtext {
+    @for $i from 0 through 6 {
+        h#{$i}, .h#{$i} {
+            text-transform: uppercase;
+            font-weight: 900
+        }
+    }
+    p {
+        @include text(20);
+    }
+}
 
 //Icon
 .ic {

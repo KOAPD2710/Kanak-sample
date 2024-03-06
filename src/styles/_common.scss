@@ -82,6 +82,9 @@ button, input, textarea {
 }
 button {
     cursor: pointer;
+    * {
+        pointer-events: none;
+    }
 }
 img, .img {
     display: block;

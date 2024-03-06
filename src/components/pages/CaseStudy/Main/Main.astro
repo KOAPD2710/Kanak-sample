@@ -1,0 +1,25 @@
+---
+import './Main.scss'
+import { Image } from 'astro:assets'
+import * as prismicH from '@prismicio/client'
+import {getAllByType} from '@/prismic.js';
+import CasedtlSlide from './CasedtlSlide'
+import CasedtlMain from './CasedtlMain'
+import CasedtlRel from './CasedtlRel'
+import arrIcon from '@assets/arr-right.svg?raw';
+const caseList = await getAllByType('case_study')
+const relList = caseList.filter((item: any) => item.data.category == Astro.props.data.category).length
+---
+<section class="casedtl">
+    <div class="container grid">
+        <CasedtlSlide {...Astro.props}/>
+        <div class="line line-ver"></div>
+        <CasedtlMain {...Astro.props}> 
+            <Image slot='clientLogo' src={Astro.props.data.client_logo.url} alt='' width={Astro.props.data.client_logo.dimensions.width} height={Astro.props.data.client_logo.dimensions.height}/>
+            <Fragment slot='content' set:html={prismicH.asHTML(Astro.props.data.content)}/>
+        </CasedtlMain>
+        <CasedtlRel {...Astro.props} list={relList}>
+            <Fragment set:html={arrIcon} slot='arrIcon'/>
+        </CasedtlRel>
+    </div>
+</section>
