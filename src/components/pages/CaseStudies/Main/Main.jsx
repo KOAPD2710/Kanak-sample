@@ -4,7 +4,7 @@ import './Main.scss';
 
 function CaseItem({...props}) {
     return (
-        <a href={`./${props.uid}`} className="case-list-item">
+        <a href={`./case-studies/${props.uid}`} className="case-list-item">
             <p className="txt txt-20 txt-bold case-list-item-label">
             {props.data.category}
             </p>
