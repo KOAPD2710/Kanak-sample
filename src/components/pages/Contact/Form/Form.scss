@@ -1,0 +1,281 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.contact-form {
+    &-ic-wrapper {
+        position: relative;
+        grid-column: 1/7;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+    &-ic {
+        grid-column: 1/1;
+        grid-row: 1/1;
+        position: sticky;
+        top: 50%;
+        width: 40rem;
+        opacity: 0;
+        z-index: 1;
+        transform: translateY(calc(-50% + 5rem));
+        transition: opacity 0.3s ease, transform 0.3s ease;
+
+        &.active {
+            opacity: 1;
+            transform: translateY(calc(-50%));
+            z-index: 2;
+        }
+    }
+    &-main {
+        position: relative;
+        --offset-top: 5.8rem;
+        --offset-left: 8rem;
+        grid-column: 7/-1;
+        grid-row: 1/1;
+        
+        .line-ver {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+            height: 100%;
+            width: .2rem;
+        }
+    }
+    &-quote {
+        position: relative;
+        padding: {
+            top: 3rem;
+            left: var(--offset-left);
+            bottom: 3rem;
+            right: 0;
+        };
+
+        &-title {
+            margin-bottom: .4rem;
+        }
+        .line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
+    &-input {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: minmax(1px, 1fr) minmax(1px, 1fr);
+        grid-auto-columns: 1fr;
+        &-field-group {
+            position: relative;
+            grid-column: 1/-1;
+
+            &.firstname, &.lastname, &.captcha, &.submit {
+                grid-column: span 1;
+            }
+            textarea {
+                resize: vertical;
+                min-height: 4rem;
+                overflow: auto;
+                font: inherit;
+                color: var(--cl-txt);
+            }
+            input, textarea {
+                background: transparent;
+                width: 100%;
+                color: var(--cl-txt);
+                padding: {
+                    top: var(--offset-top);
+                    left: var(--offset-left);
+                    bottom: 3rem;
+                    right: 0;
+                };
+                &:not(:active), &:not(:focus){
+                    cursor: pointer;
+                }
+                &:active, &:focus {
+                    cursor: text;
+                }
+                &:active, &:focus {
+                    &~ .line {
+                        &-inner {
+                            transform: scaleX(1);
+                        }
+                    }
+                    &~ label {
+                        transform: var(--transform);
+                    }
+                }
+                &:not(:placeholder-shown) {
+                    &~ label {
+                        transform: var(--transform);
+                    }
+                }
+            }
+            
+            label {
+                --transform: translateY(-2.6rem) scale(0.625); // 2
+                position: absolute;
+                left: var(--offset-left);
+                top: 50%;
+                pointer-events: none;
+                transform: translateY(-50%) scale(1);
+                transform-origin: top left;
+                transition: all .3s ease;
+            }
+            .line {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                transition: background-color .3s ease;
+
+                &-inner {
+                    @include size(100%);
+                    transform: scaleX(0);
+                    background-color: var(--cl-orange);
+                    transform-origin: left;
+                    transition: transform .6s ease;
+                }
+            }
+            
+            &.industry {
+                input {
+                    display: none;
+                }
+                .contact-form-input-field-group-industry {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    text-transform: uppercase;
+                    padding: {
+                        top: 3rem;
+                        left: var(--offset-left);
+                        bottom: 3rem;
+                        right: 0;
+                    };
+                    &.active {
+                        &~ label {
+                            transform: var(--transform);
+                        }
+                    }
+                    &-txt-wrap {
+                        position: relative;
+                        width: 100%;
+                        height: 6.69rem;
+                        .contact-form-input-field-group-industry-txt {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                        }
+                    }
+                    &-ic {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                        width: 4rem;
+                        height: 4rem;
+                        padding: 0 1rem;
+                    }
+                }
+            }
+            &-dropdown {
+                grid-column: 1/-1;
+                overflow: hidden;
+                width: 100%;
+                // background-color: var(--cl-orange);
+                z-index: 2;
+                height: 0px;
+
+                &-wrap{
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: var(--offset-left);
+                    padding-top: 3.4rem;
+                    padding-bottom: 3.4rem;
+                    gap: 2rem;
+                }
+                &-inner {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    padding-top: 1rem;
+                    padding-bottom: 1rem;
+                    transition: color .2s ease;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: -3.2rem;
+                        display: block;
+                        opacity: 0;
+                        @include size(1.6rem);
+                        background-color: var(--cl-orange);
+                        transition: opacity .3s ease;
+                    }
+
+                    &.active {
+                        color: var(--cl-orange);
+                        &::after {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+            &.note {
+                padding: {
+                    top: 5.8rem;
+                    left: var(--offset-left);
+                    bottom: 3rem;
+                    right: 0;
+                };
+                textarea {
+                    padding: 0;
+                    resize: none;
+                }
+                label {
+                    --transform: translateY(calc(-50% + 1.9rem)) scale(.625);
+                    top: 3rem;
+                    transform: translateY(calc(-50% + 2.6rem)) scale(1);
+                }
+            }
+            &.submit {
+                .contact-form-input-field-group-btn {
+                    padding: {
+                        top: calc(var(--offset-top) - (var(--offset-top) - 3rem)/2);
+                        left: var(--offset-left);
+                        bottom: calc(3rem + (var(--offset-top) - 3rem)/2);
+                        right: 0;
+                    };
+                }
+                
+                .contact-form-input-field-group-btn {
+                    display: flex;
+                    justify-content: space-between;
+
+                    img {
+                        width: 3.2rem;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+@media (hover: hover) {
+    .contact-form-input-field-group:hover {
+        .line {
+            &-inner {
+                transform: scaleX(1);
+            }
+        }
+    }
+    .contact-form-input-field-group-dropdown-inner:hover {
+        color: var(--cl-orange);
+
+        &::after {
+            opacity: 1;
+        }
+    }
+
+}
