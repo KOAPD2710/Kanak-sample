@@ -25,7 +25,7 @@ const { data } = await getPage('home');
 	<Client	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/>
 	<HomeIndustry label={data.industry_label[0].text} title={data.industry_title[0].text} industry_list={data.industry_list}/>
 	<Brand title={data.brand_title[0].text} brand_list={data.brand_list}/>
-	<!-- <Compare title={data.compare_title[0].text} compare_list={data.compare_list}/> -->
+	<Compare title={data.compare_title[0].text} compare_list={data.compare_list}/>
 	<Partner />
 	<Value />
 	<HomeCta />

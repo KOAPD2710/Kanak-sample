@@ -10,7 +10,7 @@
         top: var(--offset-top);
         left: var(--offset-left);
         bottom: 3rem;
-        right: 0;
+        right: 3rem;
     };
     &:not(:active), &:not(:focus){
         cursor: pointer;

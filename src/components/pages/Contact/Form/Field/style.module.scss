@@ -3,6 +3,7 @@
 
 .field {
     position: relative;
+    
 }
 
 .fieldLine {
@@ -43,5 +44,12 @@
                 }
             }
         }
+    }
+}
+
+@include md {
+    .label {
+        --transform: translateY(-.4rem) scale(0.625); // 
+        top: 3.4rem;
     }
 }

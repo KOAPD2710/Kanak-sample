@@ -93,3 +93,28 @@
         }
     }
 }
+
+@include md {
+    .selectToggleIc {
+        padding: 0 .4rem;
+    }
+    .options {
+        padding-block: 2.2rem;
+    }
+    .option {
+        padding-block: 1rem;
+        &::after {  
+            left: -2rem;
+            @include size(.8rem);
+        }
+    }
+}
+
+@include sm {
+    .option {
+        padding-block: 1.4rem;
+        &::after {  
+            content: none;
+        }
+    }
+}

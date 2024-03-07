@@ -65,7 +65,7 @@ function ContactForm(props) {
 
     return (
         <>
-            <section title='contact-form'>
+            <section title='contact-form' className="contact-form">
                 <div className="container grid">
                     <div className="line contact-form-line"></div>
                     <div className="contact-form-ic-wrapper">
@@ -200,10 +200,8 @@ function ContactForm(props) {
                                 </div>
                             </>
                         )}
-                        
                     </div>
                 </div>
-                <div className="line"></div>
             </section>
         </>
     )

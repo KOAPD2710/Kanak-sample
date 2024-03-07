@@ -32,5 +32,31 @@
 }
 
 @include md {
-    
+    .contact-hero {
+        padding-bottom: 4rem;
+
+        &-title {
+            grid-column: 1/-1;
+        }
+    }
+    .contact-info {
+        padding-bottom: .4rem;
+
+        &-headquarters,
+        &-getintouch,
+        &-contact {
+            grid-column: 1/-1;
+            margin-bottom: 2rem;
+        }
+
+        &-line {
+            margin-bottom: 2.4rem;
+        }
+    }
+}
+
+@include sm {
+    .contact-hero {
+        padding-top: 16rem;
+    }
 }

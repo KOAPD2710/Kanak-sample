@@ -1,14 +1,16 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
 .input {
     background: transparent;
     width: 100%;
     color: var(--cl-txt);
-    // color: transparent;
-    // text-shadow: 0 0 0 var(--cl-txt);
+
     padding: {
         top: var(--offset-top);
         left: var(--offset-left);
         bottom: 3rem;
-        right: 0;
+        right: 3rem;
     };
     &:not(:active), &:not(:focus){
         cursor: pointer;
@@ -33,5 +35,16 @@
             transform: var(--transform);
             top: 3rem;
         }
+    }
+}
+
+@include md {
+    .input {
+        padding: {
+            top: var(--offset-top);
+            left: var(--offset-left);
+            bottom: 2.1rem;
+            right: 2.1rem;
+        };
     }
 }

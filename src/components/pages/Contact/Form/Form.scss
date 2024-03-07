@@ -144,3 +144,55 @@
         color: var(--cl-orange);
     }
 }
+
+
+@include md {
+    .contact-form {
+        .container.grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 0;
+        }
+        &-ic-wrapper {
+            grid-column: 1/2;
+        }
+        &-ic {
+            width: 20rem;
+        }
+        &-main {
+            grid-column: 2/-1;
+        }
+
+        &-main {
+            --offset-top: 4.3rem;
+            --offset-left: 3.2rem;
+        }
+        &-success-body {
+            padding-top: var(--offset-left);
+            padding-bottom: 3rem;
+        }
+    }
+}
+
+@include sm {
+    .contact-form {
+        &-ic-wrapper {
+            display: none;
+        }
+        &-field {
+            grid-column: 1/-1;
+            &:first-child {
+                &:after {
+                    content: none;
+                }
+            }
+        }
+        &-main {
+            grid-column: 1/-1;
+            --offset-left: 0;
+
+            .line-ver {
+                display: none;
+            }
+        }
+    }
+}
