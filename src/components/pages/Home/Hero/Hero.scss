@@ -117,6 +117,7 @@
         margin-right: -2rem;
         overflow: hidden;
         @include size(25rem);
+        overflow: hidden;
         @include md {
             margin-right: 0;
             @include size(17.6rem);

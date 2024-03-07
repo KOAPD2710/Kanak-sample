@@ -1,0 +1,37 @@
+.input {
+    background: transparent;
+    width: 100%;
+    color: var(--cl-txt);
+    // color: transparent;
+    // text-shadow: 0 0 0 var(--cl-txt);
+    padding: {
+        top: var(--offset-top);
+        left: var(--offset-left);
+        bottom: 3rem;
+        right: 0;
+    };
+    &:not(:active), &:not(:focus){
+        cursor: pointer;
+    }
+    &:active, &:focus {
+        cursor: text;
+        outline: none;
+    }
+    &:active, &:focus {
+        &~ span  {
+            &~ span {
+                transform: scaleX(1);
+            }
+        }
+        &~ label {
+            transform: var(--transform);
+            top: 3rem;
+        }
+    }
+    &:not(:placeholder-shown) {
+        &~ label {
+            transform: var(--transform);
+            top: 3rem;
+        }
+    }
+}

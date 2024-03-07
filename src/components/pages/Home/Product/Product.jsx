@@ -18,7 +18,6 @@ function HomeProduct({...props}) {
         productIndex.set(index + 1);
     }
     useEffect(() => {
-        console.log(index)
     }, [index])
     return (
         <section className="home-prod">

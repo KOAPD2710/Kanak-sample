@@ -9,9 +9,10 @@ import useSelector from "@/components/hooks/useSelector";
 
 function HomePartner(props) {
     const [q, ref] = useSelector(null);
-    const { isTablet } = useDevice();
+    const { isTablet, isMobile } = useDevice();
 
     useGSAP(() => {
+        if (isMobile) return;
         const DOM = {
             section: ref.current,
             lineWrap: q('.home-part-line-wrap'),

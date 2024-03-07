@@ -41,9 +41,18 @@ import homeCtaBg from '@assets/home-cta-bg2.jpg';
                 bottom: 5.7rem;
             }
         }
+        @include sm {
+            padding: {
+                top: 29.5rem;
+                bottom: 1.6rem;
+            }
+        }
         &-bg {
             position: absolute;
             inset: 0;
+            @include sm {
+                left: -22rem;
+            }
         }
         .container {
             height: 100%;

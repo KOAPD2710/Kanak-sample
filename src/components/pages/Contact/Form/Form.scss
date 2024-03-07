@@ -1,0 +1,100 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.contact-form {
+    &-ic-wrapper {
+        position: relative;
+        grid-column: 1/7;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+    &-ic {
+        grid-column: 1/1;
+        grid-row: 1/1;
+        position: sticky;
+        top: 50%;
+        width: 40rem;
+        opacity: 0;
+        z-index: 1;
+        transform: translateY(calc(-50% + 5rem));
+        transition: opacity 0.3s ease, transform 0.3s ease;
+
+        &.active {
+            opacity: 1;
+            transform: translateY(calc(-50%));
+            z-index: 2;
+        }
+    }
+    &-main {
+        position: relative;
+        --offset-top: 5.8rem;
+        --offset-left: 8rem;
+        grid-column: 7/-1;
+        grid-row: 1/1;
+
+        .line-ver {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+            height: 100%;
+            width: .2rem;
+        }
+
+    }
+    &-quote {
+        position: relative;
+        padding: {
+            top: 3rem;
+            left: var(--offset-left);
+            bottom: 3rem;
+            right: 0;
+        };
+
+        &-title {
+            margin-bottom: .4rem;
+        }
+        .line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
+    &-inside {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    &-field {
+        &:first-child {
+            &:after {
+                content: '';
+                position: absolute;
+                height: 100%;
+                width: .1rem;
+                top: 0;
+                right: -0.1rem;
+                background-color: var(--cl-txt);
+            }
+        }
+        &:not(:nth-child(-n+2)) {
+            grid-column: span 2;
+        }
+    }
+    &-submit {
+        padding: {
+            top: calc(var(--offset-top) - (var(--offset-top) - 3rem)/2);
+            left: var(--offset-left);
+            bottom: calc(3rem + (var(--offset-top) - 3rem)/2);
+            right: 0;
+        };
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        grid-column: span 2;
+
+        img {
+            width: 3.2rem;
+        }
+    }
+}

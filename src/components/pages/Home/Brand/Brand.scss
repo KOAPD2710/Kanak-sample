@@ -3,6 +3,7 @@
 
 .home-brand {
     height: auto;
+    overflow: hidden;
     @include sm {
         padding-top: 7rem;
     }
@@ -17,6 +18,9 @@
             height: 100vh;
             position: sticky;
             top: 0;
+            @include sm {
+                height: 100%;
+            }
         }
         @include md {
             grid-column: 1/7;
@@ -91,6 +95,11 @@
             padding-top: 0;
             padding-bottom: 3.2rem;
         }
+        &-list {
+            @include sm {
+                overflow: visible !important;
+            }
+        }
         &-item {
             position: relative;
             padding-block: 5.2rem;
@@ -101,7 +110,10 @@
                 padding-block: 3.2rem;
             }
             @include sm {
+                --width-slide: calc(100% - 4.3rem) !important;
                 padding-block: 0;
+                min-width: var(--width-slide);
+                max-width: var(--width-slide);
             }
             .line {
                 position: absolute;
@@ -144,10 +156,12 @@
                 }
             }
         }
-        :hover {
-            .home-brand-main-item:not(:hover) {
-                > *:not(.line) {
-                    opacity: .5;
+        @media (hover:hover) {
+            :hover {
+                .home-brand-main-item:not(:hover) {
+                    > *:not(.line) {
+                        opacity: .5;
+                    }
                 }
             }
         }

@@ -1,0 +1,38 @@
+.textarea {
+    min-height: 4rem;
+    overflow: auto;
+    font: inherit;
+    background: transparent;
+    width: 100%;
+    color: var(--cl-txt);
+    resize: none;
+    padding: {
+        top: var(--offset-top);
+        left: var(--offset-left);
+        bottom: 3rem;
+        right: 0;
+    };
+    &:not(:active), &:not(:focus){
+        cursor: pointer;
+    }
+    &:active, &:focus {
+        cursor: text;
+    }
+    &:active, &:focus {
+        &~ span  {
+            &~ span {
+                transform: scaleX(1);
+            }
+        }
+        &~ label {
+            transform: var(--transform);
+            top: 3rem;
+        }
+    }
+    &:not(:placeholder-shown) {
+        &~ label {
+            transform: var(--transform);
+            top: 3rem;
+        }
+    }
+}

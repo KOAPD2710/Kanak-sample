@@ -10,7 +10,17 @@ import './Brand.scss';
 function HomeBrand({ ...props }) {
     const { isDesktop, isMobile } = useDevice();
     const [sliderRef, instanceRef] = useKeenSlider({
-        initial: 0
+        initial: 0,
+        loop: false,
+        mode: "snap",
+        rtl: false,
+        slides: {
+            perView: "auto",
+            spacing: 36,
+        },
+        slideChanged(slider) {
+            brandIndex.set(slider.track.details.rel)
+        },
     })
     return (
         <section className="home-brand">

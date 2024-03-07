@@ -42,7 +42,7 @@ function Content({...props}) {
                 start: 'bottom bottom',
                 onEnter: () => {
                     productIndex.set(0)
-                }, 
+                },
                 onLeaveBack: () => {
                     productIndex.set(0)
                 }
@@ -57,22 +57,22 @@ function Content({...props}) {
                             {props.list.map((item, idx) => {
                                 if (item.data.file.url) {
                                     return (
-                                        <mesh key={idx} 
+                                        <mesh key={idx}
                                             scale={idx == 0 ? [1,1,1] : [0,0,0]}
                                             position={item.uid == 'kups' ? [0,-.02,0] : [0,0,0]}
                                             rotation={item.uid == 'trays'? [0, Math.PI * .5, 0] : [0, 0, 0]}
                                         >
-                                            <GetModel file={item.data.file.url} 
+                                            <GetModel file={item.data.file.url}
                                                 material={<CustomMaterial color='#EAD6B3' needsUpdate={true} isActive={idx == index}
                                             />} />
                                         </mesh>
                                     )
                                 }
-                                
+
                             })}
                         </group>
                 </group>
-            </group>            
+            </group>
             <ambientLight intensity={1.5} />
             <directionalLight intensity={1.5}/>
             <directionalLight intensity={1.15} position={[props.width * .25, 0,100]}/>
