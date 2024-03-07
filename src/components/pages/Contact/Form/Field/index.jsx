@@ -3,7 +3,7 @@ import cn from 'clsx';
 import s from './style.module.scss'
 
 const FormFieldContext = createContext();
-const FormField = ({ name, render, ...props }) => {
+const FormField = ({ name, ...props }) => {
     return (
         <FormFieldContext.Provider value={{ name }}>
             {props.children}
@@ -21,8 +21,7 @@ const useFormField = () => {
         name: fieldContext.name,
         formItemId: `${id}-form-item`,
         formDescriptionId: `${id}-form-item-description`,
-        formMessageId: `${id}-form-item-message`,
-        // ...fieldState,
+        formMessageId: `${id}-form-item-message`
     }
 }
 

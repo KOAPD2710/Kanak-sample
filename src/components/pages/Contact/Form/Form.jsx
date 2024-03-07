@@ -8,7 +8,6 @@ import useDebounceCallback from '@/components/hooks/useDebounce';
 import cn from 'clsx';
 
 function ContactForm(props) {
-    const contactFormRef = useRef();
     const [isPending, startTransition] = useTransition();
     const [industry, setIndustry] = useState('');
     const [formData, setFormData] = useState({
@@ -25,7 +24,6 @@ function ContactForm(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(new FormData(contactFormRef.current))
         startTransition(async () => {
             const response = await fetch("/api/email/newsletter", {
                 method: "POST",
