@@ -1,0 +1,85 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+.filled {
+    &~ label {
+        transform: var(--transform);
+        top: 3rem;
+    }
+}
+
+.open {
+    &~ span  {
+        &~ span {
+            transform: scaleX(1);
+        }
+    }
+    &~ label {
+        transform: var(--transform);
+        top: 3rem;
+    }
+}
+
+.selectToggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.selectToggleIc {
+    padding: 0 1rem;
+}
+.input {
+    // pointer-events: none;
+}
+.selectOption {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    z-index: 2;
+    background-color: var(--cl-bg);
+    opacity: 0;
+    transform: scale(.95) translateY(-0.5rem);
+    transition: all 0.4s ease;
+    transform-origin: center;
+    pointer-events: none;
+    &.active {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    padding-left: var(--offset-left);
+    padding-block: 4.2rem;
+}
+.option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-block: 2rem;
+    transition: color .2s ease;
+    cursor: pointer;
+    &::after {
+        content: "";
+        position: absolute;
+        left: -3.2rem;
+        display: block;
+        opacity: 0;
+        @include size(1.6rem);
+        background-color: var(--cl-orange);
+        transition: opacity .3s ease;
+    }
+
+    &.active,
+    &:hover {
+        color: var(--cl-orange);
+        &::after {
+            opacity: 1;
+        }
+    }
+}
