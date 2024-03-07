@@ -75,11 +75,21 @@
         transition: opacity .3s ease;
     }
 
-    &.active,
-    &:hover {
+    &.active{
         color: var(--cl-orange);
         &::after {
             opacity: 1;
+        }
+    }
+}
+
+@media (hover: hover) {
+    .option {
+        &:hover {
+            color: var(--cl-orange);
+            &::after {
+                opacity: 1;
+            }
         }
     }
 }

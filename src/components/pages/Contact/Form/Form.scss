@@ -2,9 +2,14 @@
 @use '@styles/mixins' as *;
 
 .contact-form {
+    &-line {
+        grid-column: 1/-1;
+        grid-row: 1/1;
+    }
     &-ic-wrapper {
         position: relative;
         grid-column: 1/7;
+        grid-row: 1/1;
         display: grid;
         justify-content: center;
         align-items: center;
@@ -96,5 +101,46 @@
         img {
             width: 3.2rem;
         }
+    }
+    &-success {
+        &-body {
+            padding: {
+                top: 8rem;
+                left: var(--offset-left);
+                bottom: 24.4rem;
+                right: 0;
+            };
+            &-regard {
+                margin-top: 6rem;
+            }
+        }
+        &-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: {
+                top: 4.4rem;
+                left: var(--offset-left);
+                bottom: 4.3rem;
+            };
+            @include transition(color .4s ease);
+
+            img {
+                width: 3.2rem;
+            }
+
+            .line {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+}
+
+@media (hover: hover) {
+    .contact-form-success-btn:hover {
+        color: var(--cl-orange);
     }
 }

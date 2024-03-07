@@ -1,15 +1,19 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
 .contact-hero {
     padding-top: 18rem;
     padding-bottom: 5rem;
 
     &-title {
-        grid-column: 1/13;
+        grid-column: 1/14;
     }
 }
 
 .contact-info {
     position: relative;
-    padding: 4rem 0;
+    padding-bottom: 4rem;
+    
     &-headquarters {
         grid-column: 1/7;
     }
@@ -20,8 +24,13 @@
         grid-column: 12/-1;
     }
 
-    .line {
-        position: absolute;
-        top: 0;
+    &-line {
+        grid-column: 1/-1;
+        grid-row: 1/1;
+        margin-bottom: 4rem;
     }
+}
+
+@include md {
+    
 }
