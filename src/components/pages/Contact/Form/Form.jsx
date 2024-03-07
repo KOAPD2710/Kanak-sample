@@ -87,7 +87,6 @@ function ContactForm(props) {
                         </div>
 
                         <form action=""
-                            ref={contactFormRef}
                             className='contact-form-inside'
                             onSubmit={onSubmit}
                             autoComplete="off">
@@ -129,7 +128,7 @@ function ContactForm(props) {
                             <FormField>
                                 <FormItem className='contact-form-field'>
                                     <Input
-                                        type="tel"
+                                        type="number"
                                         placeholder=" "
                                         defaultValue={formData.phone}
                                         onChange={(e) => debounceForm({ ...formData, phone: e.target.value })}
