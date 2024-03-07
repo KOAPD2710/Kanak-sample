@@ -1,0 +1,8 @@
+---
+import { Image } from 'astro:assets';
+import CaseHero from './Hero';
+---
+<CaseHero {...Astro.props}>
+   <Image slot='authorAvatar' class="img img-fill" src={Astro.props.client_avatar.url} alt={Astro.props.client_name} width={Astro.props.client_avatar.dimensions.width / 2} height={Astro.props.client_avatar.dimensions.height / 2}/> 
+   <Image slot='authorCompany' class="img img-h" src={Astro.props.client_company.url} alt={Astro.props.client_company.alt} width={Astro.props.client_company.dimensions.width / 2} height={Astro.props.client_company.dimensions.height / 2}/> 
+</CaseHero>

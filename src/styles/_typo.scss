@@ -25,7 +25,7 @@
 }
 html {
     // font-size: 0.6944444444vw;
-    font-size: calc(0.5787037037vw * .9);
+    font-size: calc(0.5787037037vw * 1);
     @media only screen and (min-width: 991px) {
         @media screen and (min-aspect-ratio: 1600 / 800) {
             font-size: 1.1vh;
@@ -161,12 +161,26 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 180;
         }
     }
 }
+.richtext {
+    @for $i from 0 through 6 {
+        h#{$i}, .h#{$i} {
+            text-transform: uppercase;
+            font-weight: 900
+        }
+    }
+    p {
+        @include text(20);
+    }
+}
 
 //Icon
 .ic {
     display: flex;
     align-items: center;
     justify-content: center;
+    &-16 {
+        @include size(1.6rem);
+    }
     &-20 {
         @include size(2rem);
     }

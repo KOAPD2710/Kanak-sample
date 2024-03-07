@@ -3,17 +3,17 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import SplitType from 'split-type';
 import { useGSAP } from '@gsap/react';
 import './HeroProduct.scss'
-import { useEffect, useRef } from 'react';
+import useSelector from '@/components/hooks/useSelector';
 
 function HomeHeroProduct({ ...props }) {
-    const ref = useRef();
+    const [q, ref] = useSelector(null);
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
         const text = new SplitType('.home-hero-prod-title', { types: 'words, chars'});
         gsap.from(text.chars, {
             scrollTrigger: {
-                trigger: '.home-hero-prod-title-wrap',
+                trigger: q('.home-hero-prod-title-wrap'),
                 start: 'top top+=65%',
                 end: 'bottom top+=45%',
                 scrub: true

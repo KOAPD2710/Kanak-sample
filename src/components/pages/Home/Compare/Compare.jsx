@@ -192,7 +192,10 @@ function HomeCompare(props) {
                                         {props.imgComparePlates}
                                     </div>
                                     <div className="home-comp-main-prog-dot">
-                                        {props.imgCompareDotDash}
+                                        {props.imgCompareDot}
+                                    </div>
+                                    <div className="home-comp-main-prog-dash">
+                                        {props.imgCompareDash}
                                     </div>
                                     <div className="home-comp-main-prog-line" style={{'--PI': Math.PI, '--prog': progressLine }}>
                                         {props.plateLine}

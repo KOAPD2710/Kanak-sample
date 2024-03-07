@@ -1,0 +1,38 @@
+.case-hero {
+    padding-top: 20.7rem;
+    &-title {
+        grid-column: 1/7;
+        max-width: 50.5rem;
+    }
+    &-content {
+        grid-column: 12/17;
+        &-sub {
+            margin-bottom: 3rem;
+        }
+        &-author {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &-info {
+                display: flex;
+                align-items: center;
+                column-gap: 1.2rem;
+            }
+            &-ava {
+                width: 4.4rem;
+                height: 4.4rem;
+                overflow: hidden;
+                border-radius: 50%;
+            }
+            &-name {
+                margin-bottom: .4rem;
+            }
+            &-company {
+                height: 5rem;
+            }
+        }
+
+    }
+}
