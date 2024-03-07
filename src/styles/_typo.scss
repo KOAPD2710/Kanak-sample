@@ -94,6 +94,14 @@ html {
         --fs-h6: 1.6rem;
         --lh-h6: 1.1em;
     }
+
+    @include sm {
+        --fs-h0: 5rem;
+        --lh-h0: 1em;
+
+        --fs-h3: 2.8rem;
+        --lh-h3: 1.1em;
+    }
 }
 .heading {
     font-family: 'HelveticaNowDisplay', sans-serif;
