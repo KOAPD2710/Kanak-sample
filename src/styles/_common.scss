@@ -3,7 +3,10 @@
     margin: 0;
     padding: 0;
 }
-
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 5s;
+}
 html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

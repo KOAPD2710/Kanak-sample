@@ -235,6 +235,7 @@
     .line {
         position: absolute;
         &-top {
+            grid-column: 1/-1;
             left: 0;
             top: 0;
         }

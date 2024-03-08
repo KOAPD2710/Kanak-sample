@@ -9,7 +9,7 @@ import icDropdown from '@assets/ic-arrow-down.svg';
 import {getAllByType} from '@/prismic.js';
 const list = await getAllByType('case_study');
 ---
-<CaseMain list={list} client:load>
+<CaseMain list={list} client:load path={Astro.url}>
     <Fragment slot='icViewList' set:html={icViewList}/>
     <Fragment slot='icViewGrid' set:html={icViewGrid}/>
     <Fragment slot='icArrowExt' set:html={icArrowExt}/>
