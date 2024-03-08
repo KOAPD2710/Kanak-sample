@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+
+import NotFoundBody from './Body.jsx';
+
+import Image1 from '@assets/404-img1.png';
+import Image2 from '@assets/404-img2.png';
+import Image3 from '@assets/404-img3.png';
+import Image4 from '@assets/404-img4.png';
+import Image5 from '@assets/404-img5.png';
+import ImageNumber4 from '@assets/404-4.png';
+import ImageMainBowl from '@assets/404-img6.png';
+---
+
+<NotFoundBody client:visible >
+    <Image src={Image1} alt='' slot='image1'/>
+    <Image src={Image2} alt='' slot='image2' />
+    <Image src={Image3} alt='' slot='image3' />
+    <Image src={Image4} alt='' slot='image4' />
+    <Image src={Image5} alt='' slot='image5' />
+    <Image src={ImageNumber4} alt='' slot='number4' />
+    <Image src={ImageMainBowl} alt='' slot='mainbowl' />
+</NotFoundBody>
