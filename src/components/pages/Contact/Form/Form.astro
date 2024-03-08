@@ -5,16 +5,28 @@ import { getAllByType } from '@/prismic.js';
 
 import icAvatar from "@assets/contact-form-avatar.svg";
 import icEmail from "@assets/contact-form-email.svg";
-import icSuccess from "@assets/contact-form-succ.svg";
+import icSubmit from "@assets/contact-form-submit.svg";
+import icPhone from "@assets/contact-form-phone.svg";
+import icIndustry from "@assets/contact-form-industry.svg";
+import icCompany from "@assets/contact-form-company.svg";
+import icChat from "@assets/contact-form-chat.svg";
+import icLoad from "@assets/contact-form-load.svg?raw";
+import icSuccess from "@assets/contact-form-success.svg";
 import icArrowUpRight from "@assets/arrow-up-right.svg"
 import icArrowDown from "@assets/arrow-down.svg"
 const industryList = await getAllByType('industry')
 ---
 
 
-<ContactForm list={industryList} client:visible>
+<ContactForm list={industryList} client:visible {...Astro.props}>
     <Image src={icAvatar} alt="" slot="icAvatar"/>
     <Image src={icEmail} alt="" slot="icEmail"/>
+    <Image src={icSubmit} alt="" slot="icSubmit"/>
+    <Image src={icPhone} alt="" slot="icPhone"/>
+    <Image src={icIndustry} alt="" slot="icIndustry"/>
+    <Image src={icCompany} alt="" slot="icCompany"/>
+    <Image src={icChat} alt="" slot="icChat"/>
+    <Fragment set:html={icLoad} alt="" slot="icLoad"/>
     <Image src={icSuccess} alt="" slot="icSuccess"/>
     <Image src={icArrowUpRight} alt="" slot="icArrowUpRight"/>
     <!-- <Image src={icArrowDown} alt="" slot="icArrowDown"/> -->
