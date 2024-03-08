@@ -1,4 +1,4 @@
-// Global
+    // Global
 @font-face {
     font-family: 'HelveticaNowDisplay';
     src: url('../fonts/HelveticaNowDisplay.woff') format('woff');
@@ -133,17 +133,6 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 180;
 
     --fs-180: 18rem;
     --lh-180: 1em;
-
-    @include md {
-        --fs-18: 1.4rem;
-        --lh-18: 1.3em;
-
-        --fs-20: 1.6rem;
-        --lh-20: 1.1em;
-    }
-    @include sm {
-
-    }
 }
 
 .txt {

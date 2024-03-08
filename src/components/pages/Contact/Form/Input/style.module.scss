@@ -12,6 +12,12 @@
         bottom: 3rem;
         right: 3rem;
     };
+    @include md {
+        padding: {
+            bottom: 2.1rem;
+            right: 2.1rem;
+        };
+    }
     &:not(:active), &:not(:focus){
         cursor: pointer;
     }
@@ -20,31 +26,20 @@
         outline: none;
     }
     &:active, &:focus {
-        &~ span  {
-            &~ span {
+        &+ label  {
+            &+ span > span {
                 transform: scaleX(1);
             }
         }
         &~ label {
             transform: var(--transform);
-            top: 3rem;
+            top: var(--top-transform);
         }
     }
     &:not(:placeholder-shown) {
         &~ label {
             transform: var(--transform);
-            top: 3rem;
+            top: var(--top-transform);
         }
-    }
-}
-
-@include md {
-    .input {
-        padding: {
-            top: var(--offset-top);
-            left: var(--offset-left);
-            bottom: 2.1rem;
-            right: 2.1rem;
-        };
     }
 }

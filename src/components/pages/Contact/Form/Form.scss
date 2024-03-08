@@ -2,6 +2,8 @@
 @use '@styles/mixins' as *;
 
 .contact-form {
+    position: relative;
+    z-index: 5;
     &-line {
         grid-column: 1/-1;
         grid-row: 1/1;
@@ -13,6 +15,13 @@
         display: grid;
         justify-content: center;
         align-items: center;
+        @include md {
+            justify-content: start;
+            align-items: start;
+            padding-left: .7rem;
+            padding-bottom: 4.7rem;
+            padding-top: 4.7rem;
+        }
     }
     &-ic {
         grid-column: 1/1;
@@ -22,13 +31,25 @@
         width: 40rem;
         opacity: 0;
         z-index: 1;
-        transform: translateY(calc(-50% + 5rem));
-        transition: opacity 0.3s ease, transform 0.3s ease;
+        transform: translateY(-50%) scale(0.8);
+        transform-origin: center;
+        transition: opacity 0.4s ease-in-out, transform 1.333s linear(
+            0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938, 1.077 20.4%, 1.121,
+            1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.017 43.1%, 0.991, 0.977 51%,
+            0.975 57.1%, 1.003 76.9%, 1
+        );
+        @include md {
+            top: calc((100vh - 20rem) / 2);
+            transform: none;
+        }
 
         &.active {
             opacity: 1;
-            transform: translateY(calc(-50%));
             z-index: 2;
+            transform: translateY(-50%) scale(1);
+            @include md {
+                transform: none;
+            }
         }
     }
     &-main {
@@ -48,14 +69,57 @@
         }
 
     }
-    &-quote {
+    &-head {
         position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
         padding: {
             top: 3rem;
             left: var(--offset-left);
             bottom: 3rem;
             right: 0;
         };
+        @include sm {
+            padding-block: 2.35rem;
+        }
+        &-wrap {
+            grid-area: 1/1/2/2;
+            transition: transform 0.4s ease, opacity 0.6s ease-in-out;
+            &:first-child {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+            &:nth-child(2) {
+                opacity: 0;
+                pointer-events: auto;
+                transform: translateY(1rem);
+            }
+        }
+        &.submitted {
+            @keyframes successColor {
+                0% {
+                    color: var(--cl-orange);
+                }
+                100% {
+                    color: var(--cl-txt);
+                }
+            }
+            .contact-form-head-wrap:first-child {
+                opacity: 0;
+                transform: translateY(-1rem);
+                pointer-events: none;
+            }
+            .contact-form-head-wrap:nth-child(2) {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+                .contact-form-head-title {
+                    animation: successColor 2s ease-in-out;
+                }
+            }
+        }
 
         &-title {
             margin-bottom: .4rem;
@@ -76,7 +140,7 @@
                 content: '';
                 position: absolute;
                 height: 100%;
-                width: .1rem;
+                width: .2rem;
                 top: 0;
                 right: -0.1rem;
                 background-color: var(--cl-txt);
@@ -97,7 +161,9 @@
         justify-content: space-between;
         align-items: center;
         grid-column: span 2;
-
+        @include sm {
+            padding-block: 2.35rem;
+        }
         img {
             width: 3.2rem;
         }
@@ -112,6 +178,9 @@
             };
             &-regard {
                 margin-top: 6rem;
+                @include sm {
+                    margin-top: 4rem;
+                }
             }
         }
         &-btn {
@@ -125,9 +194,14 @@
                 bottom: 4.3rem;
             };
             @include transition(color .4s ease);
-
+            @include sm {
+                padding-block: 2.35rem;
+            }
             img {
                 width: 3.2rem;
+                @include sm {
+                    width: 2.4rem;
+                }
             }
 
             .line {
@@ -193,6 +267,10 @@
             .line-ver {
                 display: none;
             }
+        }
+
+        &-success-body {
+            padding-block: 2rem;
         }
     }
 }
