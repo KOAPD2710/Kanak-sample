@@ -5,7 +5,8 @@
     padding-top: 18rem;
     padding-bottom: 5rem;
     &-title {
-        grid-column: 1/14;
+        grid-column: 1/-1;
+        max-width: 136.3rem;
     }
 }
 
@@ -59,5 +60,8 @@
 @include sm {
     .contact-hero {
         padding-top: 16rem;
+        &-title {
+            @include text(h1);
+        }
     }
 }

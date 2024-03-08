@@ -196,6 +196,7 @@
             @include transition(color .4s ease);
             @include sm {
                 padding-block: 2.35rem;
+                @include text(h4);
             }
             img {
                 width: 3.2rem;
@@ -235,7 +236,9 @@
         &-main {
             grid-column: 2/-1;
         }
-
+        &-head-subtitle {
+            @include text(16);
+        }
         &-main {
             --offset-top: 4.3rem;
             --offset-left: 3.2rem;
@@ -260,6 +263,9 @@
                 }
             }
         }
+        &-head-title {
+            @include text(h4);
+        }
         &-main {
             grid-column: 1/-1;
             --offset-left: 0;
@@ -268,7 +274,11 @@
                 display: none;
             }
         }
-
+        &-submit {
+            span {
+                @include text(h4);
+            }
+        }
         &-success-body {
             padding-block: 2rem;
         }
