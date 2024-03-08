@@ -26,7 +26,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
+    cursor: pointer;    
+    background-color: var(--cl-bg);
 }
 .selectToggleIc {
     padding: 0 1rem;
@@ -85,16 +86,9 @@
     cursor: pointer;
     @include md {
         padding-block: 1rem;
-        &::after {
-            left: -2rem;
-            @include size(.8rem);
-        }
     }
     @include sm {
         padding-block: 1.4rem;
-        &::after {
-            display: none;
-        }
     }
     &::after {
         content: "";
@@ -104,7 +98,19 @@
         opacity: 0;
         @include size(1.6rem);
         background-color: var(--cl-orange);
-        transition: opacity .3s ease;
+        transition: opacity 0.4s ease-in-out, transform 1.333s linear(
+            0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938, 1.077 20.4%, 1.121,
+            1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.017 43.1%, 0.991, 0.977 51%,
+            0.975 57.1%, 1.003 76.9%, 1
+        );
+        transform: scale(.8);
+        @include md {
+            left: -2rem;
+            @include size(.8rem);
+        }
+        @include sm {
+            display: none;
+        }
     }
 
     &.current{
@@ -120,6 +126,7 @@
         &:hover {
             color: var(--cl-orange);
             &::after {
+                transform: scale(1);
                 opacity: 1;
             }
         }

@@ -1,28 +1,27 @@
 import './Hero.scss'
 
-function ContactHero() {
+function ContactHero(props) {
     return (
         <>
             <section className="contact-hero">
                 <div className="container grid">
-                    <h1 className='heading h0 txt-black txt-up contact-hero-title'>Let's build something amazing together!</h1>
-                    </div>
+                    <h1 className='heading h0 txt-black txt-up contact-hero-title'>{props.title}</h1>
+                </div>
             </section>
             <section className="contact-info">
                 <div className="container">
                     <div className='contact-info-list grid'>
-                        <div className="contact-info-item info-headquarters">
-                            <p className="txt txt-18 txt-med">Headquarters</p>
-                            <p className="txt txt-20 txt-black txt-up">321 Hovan Drive, Fort Wayne, IN 46825, US</p>
-                        </div>
-                        <div className="contact-info-item info-getintouch">
-                            <p className="txt txt-18 txt-med">Get in touch</p>
-                            <p className="txt txt-20 txt-black txt-up">info@kanaknaturals.com</p>
-                        </div>
-                        <div className="contact-info-item info-contact">
-                            <p className="txt txt-18 txt-med">Contact</p>
-                            <p className="txt txt-20 txt-black txt-up">+1 (260) 490 4790</p>
-                        </div>
+                        {props.info_list.map((item,idx) => (
+                            <div className="contact-info-item" key={idx}>
+                                <div className="txt txt-18 txt-med">{item.label}</div>
+                                {item.link.url ? (
+                                    <a href={item.link.url} target={item.link.target} className="txt txt-20 txt-black txt-up txt-link">{item.content}</a>
+                                ) : (
+                                    <div className="txt txt-20 txt-black txt-up">{item.content}</div>
+                                )}
+                                
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

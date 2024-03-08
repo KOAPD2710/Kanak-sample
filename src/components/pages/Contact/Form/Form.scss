@@ -59,6 +59,9 @@
         --offset-bot: 3rem;
         grid-column: 7/-1;
         grid-row: 1/1;
+        &.disable {
+            pointer-events: none;
+        }
 
         .line-ver {
             position: absolute;
@@ -158,6 +161,11 @@
         grid-template-columns: repeat(2, 1fr);
     }
     &-field {
+        &-select {
+            label, .line {
+                z-index: 3;
+            }
+        }
         &:first-child {
             &:after {
                 content: '';
