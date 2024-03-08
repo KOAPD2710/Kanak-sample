@@ -80,8 +80,8 @@ function GlobalFooter(props) {
 
     return (
         <footer className="ft bg-light">
-            <div className="line line-top"></div>
             <div className="container grid">
+            <div className="line line-top"></div>
                 <div className="ft-left">
                     <div className="ft-head">
                         <div className="ft-logo">

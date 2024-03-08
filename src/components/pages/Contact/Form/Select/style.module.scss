@@ -4,7 +4,7 @@
 .filled {
     &~ label {
         transform: var(--transform);
-        top: 3rem;
+        top: var(--top-transform);
     }
 }
 
@@ -16,11 +16,13 @@
     }
     &~ label {
         transform: var(--transform);
-        top: 3rem;
+        top: var(--top-transform);
     }
 }
 
 .selectToggle {
+    position: relative;
+    z-index: 3;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,6 +30,10 @@
 }
 .selectToggleIc {
     padding: 0 1rem;
+    transition: transform 0.4s ease;
+    @include md {
+        padding: 0 .4rem;
+    }
 }
 .input {
     // pointer-events: none;
@@ -40,12 +46,22 @@
     z-index: 2;
     background-color: var(--cl-bg);
     opacity: 0;
-    transform: scale(.95) translateY(-0.5rem);
-    transition: all 0.4s ease;
+    transform: translateY(-1rem);
+    transition: all 0.4s ease-in-out;
     transform-origin: center;
     pointer-events: none;
+    border: 0.2rem solid var(--cl-txt);
+    border-left: none;
+    border-top: none;
+    @include sm {
+        margin-inline: -2rem;
+        width: calc(100% + 2rem * 2);
+        padding-inline: 2rem;
+        border-left: none;
+        border-right: none;
+    }
     &.active {
-        transform: scale(1) translateY(0);
+        transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
     }
@@ -56,14 +72,30 @@
     flex-direction: column;
     padding-left: var(--offset-left);
     padding-block: 4.2rem;
+    @include md {
+        padding-block: 2.2rem;
+    }
 }
 .option {
     position: relative;
     display: flex;
     align-items: center;
     padding-block: 2rem;
-    transition: color .2s ease;
+    transition: color .3s ease;
     cursor: pointer;
+    @include md {
+        padding-block: 1rem;
+        &::after {
+            left: -2rem;
+            @include size(.8rem);
+        }
+    }
+    @include sm {
+        padding-block: 1.4rem;
+        &::after {
+            display: none;
+        }
+    }
     &::after {
         content: "";
         position: absolute;
@@ -75,11 +107,21 @@
         transition: opacity .3s ease;
     }
 
-    &.active,
-    &:hover {
+    &.current{
         color: var(--cl-orange);
         &::after {
             opacity: 1;
+        }
+    }
+}
+
+@media (hover: hover) {
+    .option {
+        &:hover {
+            color: var(--cl-orange);
+            &::after {
+                opacity: 1;
+            }
         }
     }
 }
