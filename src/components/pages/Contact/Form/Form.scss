@@ -56,6 +56,7 @@
         position: relative;
         --offset-top: 5.8rem;
         --offset-left: 8rem;
+        --offset-bot: 3rem;
         grid-column: 7/-1;
         grid-row: 1/1;
         &.disable {
@@ -126,11 +127,33 @@
 
         &-title {
             margin-bottom: .4rem;
+            transition: transform .3s ease;
+        }
+        &-subtitle {
+            transition: transform .3s ease;
+        }
+        &-title-succ {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            pointer-events: none;
         }
         .line {
             position: absolute;
             bottom: 0;
             left: 0;
+        }
+
+        &.success {
+            .contact-form-quote-title, .contact-form-quote-subtitle{
+                opacity: 0;
+                pointer-events: none;
+            }
+            .contact-form-quote-title-succ {
+                opacity: 1;
+                pointer-events: auto;
+            }
         }
     }
     &-inside {
