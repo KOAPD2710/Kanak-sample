@@ -114,7 +114,6 @@
         &-item {
             position: relative;
             padding-block: 5.2rem;
-            height: 100%;
             > * {
                 @include transition(opacity 400ms ease);
             }
@@ -123,6 +122,7 @@
             }
             @include sm {
                 --width-slide: calc(100% - 4.3rem) !important;
+                height: 100%;
                 padding-block: 0;
                 min-width: var(--width-slide);
                 max-width: var(--width-slide);
