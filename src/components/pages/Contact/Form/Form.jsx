@@ -9,7 +9,6 @@ import cn from 'clsx';
 
 function ContactForm(props) {
     const [isPending, startTransition] = useTransition();
-    const [industry, setIndustry] = useState('');
     const [isSubmitted, setIsSubmitted] = useState()
     const [formData, setFormData] = useState({
         firstName: "",

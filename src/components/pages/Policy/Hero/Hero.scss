@@ -1,0 +1,11 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.policy-hero {
+    padding-top: 18rem;
+    padding-bottom: 5rem;
+
+    &-title {
+        grid-column: 1/-1;
+    }
+}
