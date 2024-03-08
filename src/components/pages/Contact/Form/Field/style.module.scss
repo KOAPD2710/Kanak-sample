@@ -3,7 +3,6 @@
 
 .field {
     position: relative;
-    
 }
 
 .fieldLine {
@@ -25,7 +24,9 @@
 }
 
 .label {
-    --transform: scale(0.625); // 2
+    --transform: scale(0.625);
+    --top-transform: 3rem;
+
     position: absolute;
     left: var(--offset-left);
     top: 5.2rem;
@@ -49,7 +50,15 @@
 
 @include md {
     .label {
-        --transform: translateY(-.4rem) scale(0.625); // 
-        top: 3.4rem;
+        --top-transform: 2.4rem;
+
+        top: 3.2rem;
     }
 }
+
+@include md {
+    .label {
+        --top-transform: 2rem;
+    }
+}
+

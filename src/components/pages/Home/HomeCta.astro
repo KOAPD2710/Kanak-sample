@@ -24,13 +24,14 @@ import homeCtaBg from '@assets/home-cta-bg2.jpg';
             </div>
         </div>
     </div>
+    <div class="line line-bot"></div>
 </section>
 
 <style lang="scss">
     @use '@styles/mixins' as *;
     .home-cta {
         position: relative;
-        z-index: 3;
+        z-index: 5;
         padding: {
             top: 39.6rem;
             bottom: 7.55rem;
@@ -92,6 +93,11 @@ import homeCtaBg from '@assets/home-cta-bg2.jpg';
             @include md {
                 @include text(h4);
             }
+        }
+        .line.line-bot {
+            position: absolute;
+            bottom: -.2rem;
+            left: 0;
         }
     }
 </style>

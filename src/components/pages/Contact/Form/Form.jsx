@@ -10,7 +10,7 @@ import cn from 'clsx';
 function ContactForm(props) {
     const [isPending, startTransition] = useTransition();
     const [industry, setIndustry] = useState('');
-    const [isSubmited, setisSubmited] = useState()
+    const [isSubmitted, setIsSubmitted] = useState()
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -81,16 +81,20 @@ function ContactForm(props) {
                     </div>
                     <div className="contact-form-main">
                         <div className="line line-ver"></div>
-                        <div className="txt-up contact-form-quote">
-                            <h3 className="heading h3 txt-black contact-form-quote-title">Request a quote</h3>
-                            <p className="txt txt-20 txt-black contact-form-quote-subtitle">By filling out the form below</p>
+                        <div className={cn('txt-up contact-form-head', { "submitted": isSubmitted })}>
+                            <div className='contact-form-head-wrap'>
+                                <h3 className="heading h3 txt-black contact-form-head-title">Request a quote</h3>
+                                <p className="txt txt-20 txt-black contact-form-head-subtitle">By filling out the form below</p>
+                            </div>
+                            <div className='contact-form-head-wrap'>
+                                <h3 className="heading h3 txt-black contact-form-head-title">SuccessfulLY sent!</h3>
+                            </div>
                             <div className="line"></div>
                         </div>
-                        
-                        { !isSubmited ? (
+
+                        { !isSubmitted ? (
                             <>
                                 <form action=""
-                                    // ref={contactFormRef}
                                     className='contact-form-inside'
                                     onSubmit={onSubmit}
                                     autoComplete="off">
@@ -155,7 +159,7 @@ function ContactForm(props) {
                                             <Select
                                                 value={formData.industry}
                                                 onChange={(val) => debounceForm({ ...formData, industry: val })}
-                                                options={["Retails", "Food service", "Food processors", "Education", "Medical"]}
+                                                options={props.list?.map((item) => item.data.title)}
                                             />
                                             <FormLabel>Industry</FormLabel>
                                         </FormItem>
@@ -176,7 +180,7 @@ function ContactForm(props) {
                                         onPointerEnter={() => setIcon('submit')}
                                         onPointerLeave={() => setIcon('')}
                                         disabled={isPending}
-                                        onClick={() => {setisSubmited(true)}}
+                                        onClick={() => { setIsSubmitted(true) }}
                                         className='contact-form-submit'>
                                         <span className='heading h3 txt-up txt-black txt-orange'>Submit</span>
                                         {props.icArrowUpRight}
@@ -194,7 +198,7 @@ function ContactForm(props) {
                                     </div>
                                     <div className='heading h3 txt-black txt-up contact-form-success-btn'>
                                         <div className="line"></div>
-                                        <a href="./" >Back to home</a>
+                                        <a href="/" >Back to home</a>
                                         {props.icArrowUpRight}
                                     </div>
                                 </div>

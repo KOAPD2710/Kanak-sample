@@ -4,7 +4,7 @@ import './Main.scss';
 
 function CaseItem({...props}) {
     return (
-        <a href={`./case-studies/${props.uid}`} className="case-list-item">
+        <a href={`/kase-studies/${props.uid}`} className="case-list-item">
             <p className="txt txt-20 txt-bold case-list-item-label">
             {props.data.category}
             </p>
@@ -43,9 +43,8 @@ function FilterItem({...props}) {
 }
 function CaseMain({...props}) {
     const allItem = props.list
-    console.log('render')
     const [layout, setLayout] = useState('grid');
-    const [filter, setFilter] = useState('*')
+    const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
     const cateList = [];
@@ -67,19 +66,23 @@ function CaseMain({...props}) {
     }, [cateList])
 
     function filterList(e) {
-        console.log(e.target)
         let type = e.target.dataset.filter;
         setFilter(type)
-        if (type == 'All') {
-            setItemList(allItem)
-        } else {
-            let filterList = allItem.filter((item) => item.data.category == type)
-            setItemList(filterList)
-        }
-        
     }
     useEffect(() => {
+        window.location.hash && setFilter(decodeURI(window.location.hash).replace('#',''))
     }, [])
+    useEffect(() => {
+        if (filter == 'All') {
+            setItemList(allItem)
+            history.replaceState({},'', window.location.pathname)
+        } else {
+            let filterList = allItem.filter((item) => item.data.category == filter)
+            setItemList(filterList)
+            history.replaceState({},'', window.location.pathname + `#${encodeURI(filter)}`)
+        }
+    }, [filter])
+    
     return (
         <section className="case-main">
             <div className="case-filter">
@@ -98,7 +101,7 @@ function CaseMain({...props}) {
                             <div className="case-filter-list-dropdown">
                                 <FilterItem name={'All'} 
                                 count={allItem.length}
-                                isActive={filter == '*'}
+                                isActive={filter == 'All'}
                                 onClick={(e) => filterList(e)} 
                                 />
                                 {cateUI}
