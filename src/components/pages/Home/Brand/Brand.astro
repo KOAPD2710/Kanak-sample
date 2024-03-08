@@ -18,7 +18,7 @@ const list = await Promise.all(
 )
 ---
 
-<HomeBrand list={list} client:idle>
+<HomeBrand list={list} client:load>
     <Fragment set:html={newTitle} slot="title"/>
     <Image src={arrIconDesk} alt='' slot='arrIconDesk'/>
     <Image src={arrIconMob} alt='' slot='arrIconMob'/>

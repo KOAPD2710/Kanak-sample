@@ -20,52 +20,52 @@ function PolicyRichTxt() {
 function PolicyBody() {
 
     useEffect(() => {
-        function changeHtml() {
-            function changeDate() {
-                let target = document.querySelector('.policy-update-txt')
-                let updateTarget = document.querySelector('[data-custom-class="subtitle"]')
-                console.log(target.textContent, updateTarget.textContent);
+        // function changeHtml() {
+        //     function changeDate() {
+        //         let target = document.querySelector('.policy-update-txt')
+        //         let updateTarget = document.querySelector('[data-custom-class="subtitle"]')
+        //         console.log(target.textContent, updateTarget.textContent);
                 
-                target.textContent = updateTarget.textContent
-            }
-            changeDate()
+        //         target.textContent = updateTarget.textContent
+        //     }
+        //     changeDate()
             
-            function changeToc() {
-                let parent = document.querySelector('.policy-nav-list')
-                let itemClone = parent.querySelector('.policy-nav-item')
-                parent.innerHTML = ''
-                console.log(itemClone);
+        //     function changeToc() {
+        //         let parent = document.querySelector('.policy-nav-list')
+        //         let itemClone = parent.querySelector('.policy-nav-item')
+        //         parent.innerHTML = ''
+        //         console.log(itemClone);
 
-                document.querySelectorAll('[data-custom-class="heading_1"]').forEach((el) => {
-                    if (el.textContent !== '') {
-                        let html = itemClone.cloneNode(true)
-                        html.querySelector('.policy-nav-item-link').textContent = el.textContent
+        //         document.querySelectorAll('[data-custom-class="heading_1"]').forEach((el) => {
+        //             if (el.textContent !== '') {
+        //                 let html = itemClone.cloneNode(true)
+        //                 html.querySelector('.policy-nav-item-link').textContent = el.textContent
 
-                        let datanav = el.textContent.replace(/^\d+\.\s*/, '').replace(/\s+/g, '-').toLowerCase()
-                        html.querySelector('.policy-nav-item-link').setAttribute('data-nav-scrollto', datanav)
-                        el.setAttribute('data-scrollto', datanav)
-                        parent.appendChild(html)
-                    }
-                })
+        //                 let datanav = el.textContent.replace(/^\d+\.\s*/, '').replace(/\s+/g, '-').toLowerCase()
+        //                 html.querySelector('.policy-nav-item-link').setAttribute('data-nav-scrollto', datanav)
+        //                 el.setAttribute('data-scrollto', datanav)
+        //                 parent.appendChild(html)
+        //             }
+        //         })
                 
-            }
-            changeToc()
-        }
-        changeHtml()
+        //     }
+        //     changeToc()
+        // }
+        // changeHtml()
 
-        function activeScroll() {
-            document.querySelectorAll('.policy-nav-item-link').forEach((link) => {
-                link.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    let targetScroll = document.querySelector(`[data-scrollto="${link.getAttribute('data-nav-scrollto')}"]`).offsetTop
-                    window.scrollTo({
-                        top: targetScroll,
-                        behavior: 'smooth'
-                    });
-                })
-            })
-        }
-        activeScroll()
+        // function activeScroll() {
+        //     document.querySelectorAll('.policy-nav-item-link').forEach((link) => {
+        //         link.addEventListener("click", function(e) {
+        //             e.preventDefault();
+        //             let targetScroll = document.querySelector(`[data-scrollto="${link.getAttribute('data-nav-scrollto')}"]`).offsetTop
+        //             window.scrollTo({
+        //                 top: targetScroll,
+        //                 behavior: 'smooth'
+        //             });
+        //         })
+        //     })
+        // }
+        // activeScroll()
     })
 
     return (
@@ -156,9 +156,6 @@ function PolicyBody() {
                                 <p>If we make any material changes to this Privacy Policy, we will notify you either through the email address you have provided us or by placing a prominent notice on our website.</p>
                                 <h2 data-scrollto="contact">Contact Us</h2>
                                 <p>If you have any questions about this Privacy Policy, please contact us at @info.kanaknaturals</p>
-                            </div>
-                            <div className="txt txt-20 txt-med policy-body-main-richtxt">
-                                <PolicyRichTxt />
                             </div>
                         </div>
                     </div>
