@@ -6,11 +6,11 @@ function CasedtlMain({...props}) {
                     Home
                 </a>
                 <div className="txt txt-14 txt-semi casedtl-bread-div">/</div>
-                <a href="/case-studies" className="txt txt-20 txt-bold casedtl-bread-link">
+                <a href="/kase-studies" className="txt txt-20 txt-bold casedtl-bread-link">
                     Kase studies
                 </a>
                 <div className="txt txt-14 txt-semi casedtl-bread-div">/</div>
-                <a href={`/case-studies#${encodeURI(props.data.category)}`} className="txt txt-20 txt-bold casedtl-bread-link">
+                <a href={`/kase-studies#${encodeURI(props.data.category)}`} className="txt txt-20 txt-bold casedtl-bread-link">
                     {props.data.category}
                 </a>
                 <div className="line"></div>

@@ -6,20 +6,27 @@ import {getAllByType} from '@/prismic.js';
 import CasedtlSlide from './CasedtlSlide'
 import CasedtlMain from './CasedtlMain'
 import CasedtlRel from './CasedtlRel'
+import icArrowExt from '@assets/ic-arrow-small.svg?raw'
 import arrIcon from '@assets/arr-right.svg?raw';
 const caseList = await getAllByType('case_study')
-const relList = caseList.filter((item: any) => item.data.category == Astro.props.data.category).length
+const relList = caseList.filter((item: any) => item.data.category == Astro.props.data.category);
+const removeDupList = relList.filter((item: any) => item.uid != Astro.props.uid)
 ---
 <section class="casedtl">
     <div class="container grid">
-        <CasedtlSlide {...Astro.props}/>
+        <CasedtlSlide {...Astro.props} client:visible>
+            <Fragment set:html={arrIcon} slot='arrIcon'/>
+        </CasedtlSlide>
         <div class="line line-ver"></div>
         <CasedtlMain {...Astro.props}> 
             <Image slot='clientLogo' src={Astro.props.data.client_logo.url} alt='' width={Astro.props.data.client_logo.dimensions.width} height={Astro.props.data.client_logo.dimensions.height}/>
             <Fragment slot='content' set:html={prismicH.asHTML(Astro.props.data.content)}/>
         </CasedtlMain>
-        <CasedtlRel {...Astro.props} list={relList}>
-            <Fragment set:html={arrIcon} slot='arrIcon'/>
-        </CasedtlRel>
+        {removeDupList.length !== 0 && 
+            <CasedtlRel {...Astro.props} list={removeDupList} client:visible>
+                <Fragment set:html={arrIcon} slot='arrIcon'/>
+                <Fragment set:html={icArrowExt} slot='icArrowExt'/>
+            </CasedtlRel>
+        }
     </div>
 </section>
