@@ -33,7 +33,10 @@ const Select = forwardRef(({ className, options, onChange, ...props }, ref) => {
                         readOnly
                         {...props}
                     />
-                    <div className={cn('ic ic-40', s.selectToggleIc)}>
+                    <div
+                        className={cn('ic ic-40', s.selectToggleIc)}
+                        style={{ transform: `rotate(${isOpen ? '180' : '0'}deg` }}
+                    >
                         <svg width="100%" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.35 0.316681L10 7.95001L17.65 0.316681L20 2.66668L10 12.6667L0 2.66668L2.35 0.316681Z" fill="currentColor"/>
                         </svg>
@@ -50,7 +53,7 @@ const Select = forwardRef(({ className, options, onChange, ...props }, ref) => {
                                 onMouseEnter={() => inputVal.length === 0 && setInputDemo(opt)}
                                 onMouseLeave={() => inputVal.length === 0 && setInputDemo('')}
                                 onClick={() => handleOptionClick(opt)}
-                                className={cn('heading h5 txt-black txt-up ', s.option)}>{opt}</span>
+                                className={cn('heading h5 txt-black txt-up ', s.option, { [s.current]: inputVal === opt })}>{opt}</span>
                         ))}
                     </div>
                 </div>

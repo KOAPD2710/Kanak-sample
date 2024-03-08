@@ -1,27 +1,67 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
 .contact-hero {
     padding-top: 18rem;
     padding-bottom: 5rem;
-
     &-title {
-        grid-column: 1/13;
+        grid-column: 1/-1;
+        max-width: 136.3rem;
     }
 }
 
 .contact-info {
     position: relative;
-    padding: 4rem 0;
-    &-headquarters {
-        grid-column: 1/7;
+    &-list {
+        padding-block: 4rem;
+        border-top: 0.2rem solid var(--cl-txt);
+        grid-template-columns: 6fr 5fr 5fr;
     }
-    &-getintouch {
-        grid-column: 7/12;
+    &-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem 0;
     }
-    &-contact {
-        grid-column: 12/-1;
+    &-line {
+        grid-column: 1/-1;
+        grid-row: 1/1;
+        margin-bottom: 4rem;
     }
+}
 
-    .line {
-        position: absolute;
-        top: 0;
+@include md {
+    .contact-hero {
+        padding-bottom: 4rem;
+        &-title {
+            grid-column: 1/-1;
+        }
+    }
+    .contact-info {
+        &-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem 0;
+            padding-block: 2.4rem
+        }
+        &-item {
+            .txt-18 {
+                @include text(14);
+            }
+            .txt-20 {
+                @include text(16);
+            }
+        }
+        &-line {
+            margin-bottom: 2.4rem;
+        }
+    }
+}
+
+@include sm {
+    .contact-hero {
+        padding-top: 16rem;
+        &-title {
+            @include text(h1);
+        }
     }
 }

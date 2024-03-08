@@ -1,4 +1,4 @@
-import { createContext, useContext, forwardRef, useId  } from "react"
+import { createContext, useContext, forwardRef, useId, cloneElement, Children  } from "react"
 import cn from 'clsx';
 import s from './style.module.scss'
 
@@ -13,8 +13,7 @@ const FormField = ({ name, ...props }) => {
 
 const useFormField = () => {
     const fieldContext = useContext(FormFieldContext)
-    const itemContext = useContext(FormItemContext)
-    const { id } = itemContext
+    const { id } = useContext(FormItemContext)
 
     return {
         id,
@@ -27,7 +26,7 @@ const useFormField = () => {
 
 const FormItemContext = createContext();
 
-const FormItem = forwardRef(({ className, ...props }, ref) => {
+const FormItem = forwardRef(({ className, children, ...props }, ref) => {
     const id = useId();
     return (
         <FormItemContext.Provider value={{ id }}>
@@ -36,7 +35,9 @@ const FormItem = forwardRef(({ className, ...props }, ref) => {
                 ref={ref}
                 {...props}
             >
-                {props.children}
+                {Children.map(children, child => {
+                    return cloneElement(child, { id: `${id}-form-item` });
+                })}
                 <span className={s.fieldLine}>
                     <span className={s.fieldLineInner}></span>
                 </span>

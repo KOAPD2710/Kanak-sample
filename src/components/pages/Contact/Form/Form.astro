@@ -1,16 +1,18 @@
 ---
 import ContactForm from "./Form.jsx";
 import { Image } from 'astro:assets';
+import { getAllByType } from '@/prismic.js';
 
 import icAvatar from "@assets/contact-form-avatar.svg";
 import icEmail from "@assets/contact-form-email.svg";
 import icSuccess from "@assets/contact-form-succ.svg";
 import icArrowUpRight from "@assets/arrow-up-right.svg"
 import icArrowDown from "@assets/arrow-down.svg"
+const industryList = await getAllByType('industry')
 ---
 
 
-<ContactForm client:visible>
+<ContactForm list={industryList} client:visible>
     <Image src={icAvatar} alt="" slot="icAvatar"/>
     <Image src={icEmail} alt="" slot="icEmail"/>
     <Image src={icSuccess} alt="" slot="icSuccess"/>

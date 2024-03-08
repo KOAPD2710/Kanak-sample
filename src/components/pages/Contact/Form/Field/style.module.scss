@@ -3,13 +3,6 @@
 
 .field {
     position: relative;
-    &:hover {
-        > span {
-            > span {
-                transform: scaleX(1);
-            }
-        }
-    }
 }
 
 .fieldLine {
@@ -31,7 +24,9 @@
 }
 
 .label {
-    --transform: scale(0.625); // 2
+    --transform: scale(0.625);
+    --top-transform: 3rem;
+
     position: absolute;
     left: var(--offset-left);
     top: 5.2rem;
@@ -40,3 +35,30 @@
     transform-origin: top left;
     transition: all .3s ease;
 }
+
+@media (hover: hover) {
+    .field {
+        &:hover {
+            > span {
+                > span {
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+}
+
+@include md {
+    .label {
+        --top-transform: 2.4rem;
+
+        top: 3.2rem;
+    }
+}
+
+@include md {
+    .label {
+        --top-transform: 2rem;
+    }
+}
+

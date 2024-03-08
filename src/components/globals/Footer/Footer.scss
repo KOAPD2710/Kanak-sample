@@ -10,6 +10,7 @@
         margin-right: calc(var(--grid-gap) * -1);
         @include md {
             grid-column: span 12;
+            margin-right: 0;
         }
         @include sm {
             grid-column: span 4;
@@ -59,6 +60,9 @@
                 margin-bottom: 1.8rem;
                 @include md {
                     margin-bottom: 3rem;
+                }
+                @include sm {
+                    margin-bottom: 2.4rem;
                 }
             }
             &-label {
