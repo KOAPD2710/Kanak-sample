@@ -1,4 +1,4 @@
-import './Hero.scss'
+import './PolicyHero.scss'
 
 function PolicyHero() {
     return (

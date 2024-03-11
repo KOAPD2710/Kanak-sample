@@ -71,29 +71,6 @@ html {
 
     --fs-h6: 2rem;
     --lh-h6: 1.2em;
-
-    @include md {
-        --fs-h0: 7.2rem;
-        --lh-h0: 1em;
-
-        --fs-h1: 5rem;
-        --lh-h1: 1em;
-
-        --fs-h2: 4.4rem;
-        --lh-h2: 1.1em;
-
-        --fs-h3: 3.6rem;
-        --lh-h3: 1.1em;
-
-        --fs-h4: 2.8rem;
-        --lh-h4: 1.1em;
-
-        --fs-h5: 2.4rem;
-        --lh-h5: 1.1em;
-
-        --fs-h6: 1.6rem;
-        --lh-h6: 1.1em;
-    }
 }
 .heading {
     font-family: 'HelveticaNowDisplay', sans-serif;
@@ -106,7 +83,7 @@ html {
 }
 
 // Body text
-$txtSizes: 10, 12, 14, 16, 18, 20, 180;
+$txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
 :root {
     --fs-10: 1rem;
     --lh-10: 1.2em;
@@ -125,6 +102,9 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 180;
 
     --fs-20: 2rem;
     --lh-20: 1.4em;
+    
+    --fs-36: 3.6rem;
+    --lh-36: 1.1em;
 
     --fs-180: 18rem;
     --lh-180: 1em;
