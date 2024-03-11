@@ -1,11 +1,10 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
-import { useEffect, useState, useCallback, Fragment } from 'react';
+import { useEffect, useState, useCallback, Fragment, useRef } from 'react';
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
-import useSelector from '@/components/hooks/useSelector';
-import useDevice from '@/components/hooks/useDevice';
+import useDevice from '@hooks/useDevice';
 import './Compare.scss';
 
 const MainItem = ({ data, type, image, title, content, currentIndex }) => {
@@ -27,7 +26,7 @@ const MainItem = ({ data, type, image, title, content, currentIndex }) => {
 }
 
 function HomeCompare(props) {
-    const [q, ref] = useSelector(null);
+    const ref = useRef();
     const [index, setIndex] = useState(0);
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0)

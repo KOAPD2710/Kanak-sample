@@ -1,5 +1,6 @@
 import './Header.scss'
 import { Fragment } from 'react';
+import bodyFlag from "@assets/body-flag.svg";
 
 function HeaderGlobal(props) {
     return (
@@ -34,11 +35,17 @@ function HeaderGlobal(props) {
                         From plant to product to compost and back again, Kanak is all about coming full circle.
                     </div>
                 </div>
-                <div className="header-flag">
-                    <div className="header-flag-head">
+                <a href="#" className="header-cta">
+                    <div className="header-cta-head">
                         {props.headFlag}
                     </div>
-                </div>
+                    <div className='txt txt-16 txt-up txt-black header-cta-body' style={{ backgroundImage: `url('${bodyFlag.src})'` }}>
+                        Request a quote
+                    </div>
+                    <div className="header-cta-tail">
+                        {props.tailFlag}
+                    </div>
+                </a>
             </div>
         </header>
     )

@@ -8,4 +8,4 @@ const main = () =>  {
     }
     requestAnimationFrame(raf)
 }
-export default main 
+export default main

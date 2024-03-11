@@ -4,10 +4,10 @@ import SplitType from 'split-type';
 import { useGSAP } from '@gsap/react';
 import './HeroProduct.scss'
 import useSelector from '@/components/hooks/useSelector';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
-function HomeHeroProduct({ ...props }) {
-    const [q, ref] = useSelector(null);
+function HomeHeroProduct(props) {
+    const ref = useRef();
     const [lines, setLines] = useState(1)
 
     useGSAP(() => {
@@ -18,7 +18,7 @@ function HomeHeroProduct({ ...props }) {
         requestAnimationFrame(() => {
             gsap.from(text.chars, {
                 scrollTrigger: {
-                    trigger: q('.home-hero-prod-title-wrap'),
+                    trigger: '.home-hero-prod-title-wrap',
                     start: 'top bottom',
                     end: 'bottom top+=45%',
                     scrub: true,

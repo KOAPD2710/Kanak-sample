@@ -1,9 +1,7 @@
-import { useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 
-function useSelector() {
-    const ref = useRef();
-    const q = useCallback((child, index = 0) => child && ref.current.querySelectorAll(child)[index], [ref]);
-    return [q, ref];
+function useSelector(ref) {
+    return useCallback((child, index = 0) => child && ref.current.querySelectorAll(child)[index], [ref]);
 }
 
 export default useSelector;
