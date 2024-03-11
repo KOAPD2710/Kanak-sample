@@ -5,6 +5,7 @@
     height: auto;
     @include sm {
         padding-top: 7rem;
+        overflow: hidden;
     }
     .container {
         height: 100%;
