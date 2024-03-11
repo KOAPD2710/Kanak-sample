@@ -10,7 +10,7 @@ import icArrowExt from '@assets/ic-arrow-small.svg?raw'
 import arrIcon from '@assets/arr-right.svg?raw';
 const caseList = await getAllByType('case_study')
 const relList = caseList.filter((item: any) => item.data.category == Astro.props.data.category);
-const removeDupList = relList.filter((item: any) => item.uid != Astro.props.uid)
+const removeDupList = relList.filter((item: any) => item.uid != Astro.props.uid);
 ---
 <section class="casedtl">
     <div class="container grid">
