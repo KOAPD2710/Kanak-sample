@@ -73,6 +73,10 @@
             &-link {
                 margin-left: .8rem;
             }
+
+            &.active {
+                color: var(--cl-orange);
+            }
         }
     }
     &-body {
