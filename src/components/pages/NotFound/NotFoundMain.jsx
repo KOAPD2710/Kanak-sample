@@ -1,14 +1,17 @@
-import './Body.scss';
+import './NotFoundMain.scss';
 import { Image } from 'astro:assets';
 import cn from 'clsx';
-import React, { useEffect ,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Item from "./Item"
 import Title from './Title';
 import Button from './Button';
 
 function NotFoundBody(props) {
+    console.log('Run Script');
+
     useEffect(() => {
+        console.log('Run Script');
         setTimeout(() => {
             window.location.pathname = '/404'
         })
@@ -25,7 +28,7 @@ function NotFoundBody(props) {
                         image3={props.image3}
                         image4={props.image4}
                         image5={props.image5}
-                        >
+                    >
                     </Item>
                     <Title
                         className="opps"
