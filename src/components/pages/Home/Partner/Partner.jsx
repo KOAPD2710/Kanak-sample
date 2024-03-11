@@ -78,32 +78,42 @@ function HomePartner(props) {
                                     <div className="home-part-line-content-ic bg-light">
                                         {props.partIc1}
                                     </div>
-                                    <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
-                                    Since the time of hunters and gatherers 12,000 years ago, humanity has evolved to become <span className="txt-green">the caretakers of the earth...</span>
-                                    </h3>
+                                    {isMobile ? (
+                                        <>
+                                            <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
+                                                Since the time of hunters and gatherers 12,000 years ago, humanity has evolved to <span className="txt-green">become the caretakers of the Earth...</span>
+                                            </h3>
+                                        </>
+                                    ): (
+                                            <>
+                                                <h3 className="heading h2 txt-up txt-black home-part-line-content-title">
+                                                    Since the time of hunters and gatherers 12,000 years ago...
+                                                </h3>
+                                                <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
+                                                    ...humanity has evolved to <span className="txt-green">become the caretakers of the Earth...</span>
+                                                </h3>
+                                            </>
+                                    )}
                                 </div>
                                 <div className="home-part-line-content-item item-2">
                                     <div className="home-part-line-content-ic bg-light">
                                         {props.partIc2}
                                     </div>
+                                    <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
+                                        It's essential that we embrace this role with a sense of adventure and strong commitment to <span className="txt-green">safeguard our precious planet...</span>
+                                    </h3>
+                                </div>
+                                <div className="home-part-line-content-item item-3">
                                     <div className="home-part-line-content-ic bg-light">
                                         {props.partIc3}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
-                                        It's essential that we embrace this role with a sense of adventure and <span className="txt-green">strong commitment to safeguard our precious planet...</span>
+                                        As guardians of the earth, it falls upon us to <span className="txt-green">advocate for conservation...</span>
                                     </h3>
                                 </div>
                                 <div className="home-part-line-content-item item-4">
                                     <div className="home-part-line-content-ic bg-light">
                                         {props.partIc4}
-                                    </div>
-                                    <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
-                                        As guardians of the earth, it falls upon us to advocate for <span className="txt-green">conservation...</span>
-                                    </h3>
-                                </div>
-                                <div className="home-part-line-content-item item-5">
-                                    <div className="home-part-line-content-ic bg-light">
-                                        {props.partIc5}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
                                         with the goal of passing on a world that is harmonious and flourishing with life to <span className="txt-green">future generations.</span>

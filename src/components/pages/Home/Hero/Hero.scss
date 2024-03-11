@@ -91,7 +91,6 @@
     }
     &-badge-wrap {
         height: 100vh;
-        display: flex;
         grid-column: -4/-1;
         grid-row: 1/3;
         display: flex;
@@ -118,7 +117,6 @@
         margin-right: -2rem;
         overflow: hidden;
         @include size(25rem);
-        overflow: hidden;
         @include md {
             margin-right: 0;
             @include size(17.6rem);
