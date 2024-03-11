@@ -7,67 +7,67 @@ import './Value.scss';
 import useDevice from "@/components/hooks/useDevice";
 
 function HomeValue(props) {
-    const { isMobile } = useDevice();
+    const { isDesktop, isMobile } = useDevice();
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
-        if (!isMobile) {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.home-val-stick',
-                    start: 'bottom bottom',
-                    endTrigger: '.home-val',
-                    end: `bottom-=${window.innerHeight} bottom`,
-                    scrub: true,
-                },
-                defaults: {
-                    ease: 'linear',
-                }
-            })
-            let allItems = ut.dom('.home-val-main-item');
-            let totalDis = 0;
-            allItems.forEach(el => totalDis += el.clientWidth)
-            let disWrap = ut.dom('.home-val-main-inner').clientWidth
-            let offset = disWrap - allItems[allItems.length - 1].clientWidth
-            let dis1 = allItems[0].clientWidth - (offset / 2);
-            let dis2 = totalDis - disWrap
-            tl
-            .to([allItems[1], allItems[2]], {x: -dis1})
-            .to([...allItems[1].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
-            .to(allItems[2], {x: -dis2})
-            .to([...allItems[2].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
+        if (isMobile) return;
 
-            const tl3 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.home-val-title-wrap',
-                    start: `top-=${window.innerHeight * .5} bottom`,
-                    end: 'bottom bottom',
-                    scrub: true,
-                },
-                defaults: {
-                    ease: 'linear'
-                }
-            })
-            requestAnimationFrame(() => {
-                tl3
-                .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .5), transformOrigin: 'center top' })
-            })
-        }
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.home-val-stick',
+                start: 'bottom bottom',
+                endTrigger: '.home-val',
+                end: `bottom-=${window.innerHeight} bottom`,
+                scrub: true,
+            },
+            defaults: {
+                ease: 'linear',
+            }
+        })
+        let allItems = ut.dom('.home-val-main-item');
+        let totalDis = 0;
+        allItems.forEach(el => totalDis += el.clientWidth)
+        let disWrap = ut.dom('.home-val-main-inner').clientWidth
+        let offset = disWrap - allItems[allItems.length - 1].clientWidth
+        let dis1 = allItems[0].clientWidth - (offset / 2);
+        let dis2 = totalDis - disWrap
+        tl
+        .to([allItems[1], allItems[2]], {x: -dis1})
+        .to([...allItems[1].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
+        .to(allItems[2], {x: -dis2})
+        .to([...allItems[2].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, '<=0')
 
         const tl2 = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-val-arr',
-                start: 'top-=200 bottom',
+                start: `top-=${isDesktop ? '200' : '100vh' } bottom`,
                 end: 'bottom bottom+=5%',
+                scrub: true
+            },
+            defaults: {
+                ease: 'linear'
+            }
+        })
+
+        tl2
+        .from('.home-val-arr-inner', {scale: .2, transformOrigin: 'center top' })
+
+        const tl3 = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.home-val-title-wrap',
+                start: `top-=${window.innerHeight * (isDesktop ? .5 : 1)} bottom`,
+                end: 'bottom bottom',
                 scrub: true,
             },
             defaults: {
                 ease: 'linear'
             }
         })
-        tl2
-        .from('.home-val-arr-inner', {scale: .2, transformOrigin: 'center top' })
-
-    }, [])
+        requestAnimationFrame(() => {
+            tl3
+            .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .5), transformOrigin: 'center top' })
+        })
+    }, [{ dependencies: isDesktop, isMobile }])
     return (
         <>
             <div className="home-val-wrap">
@@ -142,10 +142,10 @@ function HomeValue(props) {
                                             </div>
                                             <div className="home-val-main-item-body">
                                                 <h3 className="heading h1 txt-up txt-black home-val-main-item-title">
-                                                    Leading the Way in Eco-Friendly Practices
+                                                    Leading the Way in Carbon-Conscious Practices
                                                 </h3>
                                                 <p className="txt txt-18 txt-med home-val-main-item-sub">
-                                                    Leveraging the world's largest bamboo and sugarcane grower network, we ensure a continuous supply of sustainable materials. Our commitment extends to using recycled marine-grade plastics for a healthier planet.
+                                                    Leveraging the largest sugarcane network and recycled ocean plastics, we make all packaging from sustainable materials resulting in reduced marine waste, which contributes to a healthier planet by reducing marine waste, perfect for brands looking to make a positive environmental impact.
                                                 </p>
                                                 <a href="#" className="txt txt-18 txt-med txt-orange home-val-main-item-link">
                                                     Learn more

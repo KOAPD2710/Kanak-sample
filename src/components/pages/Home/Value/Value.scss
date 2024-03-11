@@ -14,6 +14,10 @@
     @include md {
         height: calc(400vh + var(--offsetMargin));
     }
+    @include sm {
+        height: auto;
+        margin-bottom: 0;
+    }
     &-arr{
         display: flex;
         align-items: end;
@@ -21,6 +25,9 @@
         overflow: hidden;
         position: relative;
         z-index: 2;
+        @include sm {
+            display: none;
+        }
         &-inner {
             width: 100%;
             margin-bottom: -18%;

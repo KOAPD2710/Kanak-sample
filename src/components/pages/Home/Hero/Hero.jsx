@@ -1,8 +1,37 @@
 import useDevice from '@/components/hooks/useDevice';
 import './Hero.scss'
+import * as ut from '@/js/utils.js';
+import useWindowSize from '@/components/hooks/useWindowSize';
+import { forwardRef, useRef, useEffect } from 'react';
+
+const Badge = forwardRef(function Badge(props, ref) {
+    return (
+        <div className='home-hero-badge' ref={ref}>
+            <div className='home-hero-badge-inside'>
+                {props.icBadgeInside}
+            </div>
+            <div className='home-hero-badge-outside'>
+                {props.icBadgeOutside}
+            </div>
+        </div>
+    )
+})
 
 function HomeHero(props) {
     const { isMobile } = useDevice();
+
+    const badgeRef = useRef();
+    const badgeCloneRef = useRef();
+    const { width, height } = useWindowSize();
+    useEffect(() => {
+        const elRect = ut.offset(badgeRef.current);
+        badgeCloneRef.current.style.cssText = `
+            position: absolute;
+            top: ${elRect.top}px;
+            left: ${elRect.left}px;
+            z-index: 999
+        `;
+    }, [width, height])
     return (
         <>
             <section className="home-hero">
@@ -26,17 +55,11 @@ function HomeHero(props) {
                         </div>
                     </div>
                     <div className='home-hero-badge-wrap'>
-                        <div className='home-hero-badge'>
-                            <div className='home-hero-badge-inside'>
-                                {props.icBadgeInside}
-                            </div>
-                            <div className='home-hero-badge-outside'>
-                                {props.icBadgeOutside}
-                            </div>
-                        </div>
+                        <Badge ref={badgeRef} {...props} />
                     </div>
                 </div>
             </section>
+            <Badge ref={badgeCloneRef} {...props} />
         </>
     )
 }

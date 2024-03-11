@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import kanakLogo from "@assets/kanak-logo.svg";
+import recycleIc from "@assets/recycle.svg";
+import headFlag from "@assets/head-flag.svg";
+import bodyFlag from "@assets/body-flag.svg";
+import HeaderGlobal from './Header';
+
+const pages = [
+    {name: 'Kustomers', link: './'},
+    {name: 'Katalog', link: './'},
+    {name: 'Solutions', link: './'},
+    {name: 'Fullfilment', link: './'},
+    {name: 'Resources', link: './'},
+    {name: 'About us', link: './contact'},
+]
+
+---
+<HeaderGlobal pages={pages} client:visible>
+    <Image src={kanakLogo} alt="Kanak Logo" slot='logo' class="img-h"/>
+    <Image src={recycleIc} alt="Recycle Icon" slot='recycleIc'/>
+    <Image src={headFlag} alt="" slot='headFlag'/>
+    <Image src={bodyFlag} alt="" slot='bodyFlag'/>
+</HeaderGlobal>

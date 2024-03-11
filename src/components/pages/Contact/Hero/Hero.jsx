@@ -19,7 +19,7 @@ function ContactHero(props) {
                                 ) : (
                                     <div className="txt txt-20 txt-black txt-up">{item.content}</div>
                                 )}
-                                
+
                             </div>
                         ))}
                     </div>
