@@ -9,6 +9,7 @@ function PolicyMain({ ...props }) {
     function activeScrollTo(e) {
         let el = document.querySelector(`.policy-body-main-richtxt h2[data-scrollTo="${e.target.getAttribute('data-nav-scroll')}"]`)
         let top = ut.offset(el).top
+
         window.scrollTo({
             top: top,
             behavior: "smooth",
@@ -27,7 +28,7 @@ function PolicyMain({ ...props }) {
         });
     }
     useEffect(() => {
-        ActiveTocFunc()
+        ActiveTocFunc();
     }, [])
 
     return (
