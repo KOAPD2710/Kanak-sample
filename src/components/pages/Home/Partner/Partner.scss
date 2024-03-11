@@ -2,11 +2,11 @@
 .home-part {
     --content-compare-height: 0;
 
-    margin-top: -10rem;
+    margin-top: -11rem;
     padding-top: 10rem;
     contain: paint;
     margin-bottom: -200vh;
-    height: calc(500vh + 200vh + 10rem);
+    height: calc(500vh + 200vh + 11rem);
     position: relative;
     @include md {
         margin-top: calc((var( --content-compare-height) + 4.3rem) * -1);
@@ -61,6 +61,7 @@
             margin-left: -12.9698338442%;
             margin-right: -12.9698338442%;
             position: relative;
+            pointer-events: none;
             path {
                 --totalOffset: calc(var(--totalL) * ((100 - var(--prog)) / 100));
                 @include md {

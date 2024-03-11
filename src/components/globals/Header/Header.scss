@@ -1,4 +1,6 @@
 @use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
 .header {
     z-index: 999;
     position: fixed;
@@ -82,8 +84,36 @@
             display: block;
         }
     }
-    &-flag {
-        grid-column: -1;
+    &-cta {
+        grid-column: 15/17;
+        grid-row: 1/4;
+        justify-self: self-end;
         width: 8rem;
+        display: flex;
+        flex-direction: column;
+        margin-right: -0.1rem;
+        &-head {
+            position: relative;
+            z-index: 2;
+        }
+        &-tail {
+            position: relative;
+            z-index: 2;
+        }
+        &-body {
+            position: relative;
+            z-index: 3;
+            margin: -1px 0;
+            background-repeat: repeat-y;
+            background-position: center;
+            background-size: 100%;
+            width: 100%;
+            writing-mode: vertical-rl;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.3rem 0 1.6rem;
+            color: var(--cl-white);
+        }
     }
 }
