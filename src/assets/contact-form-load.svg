@@ -1,0 +1,31 @@
+<svg width="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" id="icLoading">
+<path d="M350 186.286V200.086C349.981 232.432 339.507 263.906 320.14 289.813C300.772 315.72 273.549 334.673 242.53 343.844C211.511 353.016 178.359 351.914 148.017 340.705C117.675 329.495 91.7698 308.777 74.1644 281.642C56.559 254.506 48.1969 222.407 50.3252 190.131C52.4534 157.854 64.9581 127.131 85.9742 102.542C106.99 77.9531 135.392 60.8166 166.943 53.688C198.494 46.5595 231.504 49.8209 261.05 62.9859" stroke="#3D3D3D" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M131.5 213C138.404 213 144 207.404 144 200.5C144 193.596 138.404 188 131.5 188C124.596 188 119 193.596 119 200.5C119 207.404 124.596 213 131.5 213Z" fill="#789904"/>
+<path d="M200.25 213C207.154 213 212.75 207.404 212.75 200.5C212.75 193.596 207.154 188 200.25 188C193.346 188 187.75 193.596 187.75 200.5C187.75 207.404 193.346 213 200.25 213Z" fill="#789904"/>
+<path d="M269 213C275.904 213 281.5 207.404 281.5 200.5C281.5 193.596 275.904 188 269 188C262.096 188 256.5 193.596 256.5 200.5C256.5 207.404 262.096 213 269 213Z" fill="#789904"/>
+<style>
+    #icLoading path:nth-child(1) {
+        animation: rotate 1200ms infinite ease-in-out;
+        transform-origin: center;
+    }
+    #icLoading path:nth-child(2) {
+        animation: loading 1200ms infinite ease-in-out;
+    }
+    #icLoading path:nth-child(3) {
+        animation: loading 1200ms infinite ease-in-out;
+        animation-delay: 150ms;
+    }
+    #icLoading path:nth-child(4) {
+        animation: loading 1200ms infinite ease-in-out;
+        animation-delay: 300ms;
+    }
+    @keyframes loading {
+        0%,33.33% {transform: translateY(0);}
+        15.15% {transform: translateY(-2rem);}
+    }
+    @keyframes rotate {
+        0% {transform: rotate(0deg);}
+        100% {transform: rotate(360deg);}
+    }
+</style>
+</svg>

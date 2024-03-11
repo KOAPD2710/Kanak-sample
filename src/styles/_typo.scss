@@ -140,6 +140,12 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
             @include text(#{$size});
         }
     }
+    &-link {
+        transition: color 400ms ease;
+        &:hover {
+            color: var(--cl-orange);
+        }
+    }
 }
 .richtext {
     @for $i from 0 through 6 {

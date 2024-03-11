@@ -25,7 +25,7 @@ const Select = forwardRef(({ className, options, onChange, ...props }, ref) => {
                 [s.open]: isOpen,
                 [s.filled]: inputVal.length !== 0
             })} ref={selectRef} onClick={() => setIsOpen(!isOpen)}>
-                <div className={s.selectToggle}>
+                <div className={cn('bg-light', s.selectToggle)}>
                     <Input
                         ref={ref}
                         placeholder={inputDemo}

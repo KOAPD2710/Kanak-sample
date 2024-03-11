@@ -15,7 +15,7 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeProduct list={list} client:idle>
+<HomeProduct list={list} client:visible>
     <Fragment set:html={arrIcon} slot='arrIcon'/>
     <Image src={sampleQR} alt="" class="ic ic-80" width={sampleQR.width / 2} slot='sampleQR'/>
     <Image src={PDFIcon} alt="pdf icon" class="ic ic-32" slot='PDFIcon'/>

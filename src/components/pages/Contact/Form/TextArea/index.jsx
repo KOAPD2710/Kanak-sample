@@ -14,6 +14,7 @@ const TextArea = forwardRef(({ className, type, onChange, ...props }, ref) => {
 
         // Calculate the height
         const height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+                        + parseInt(computed.getPropertyValue('line-height'), 10) / 2
                         + textarea.scrollHeight
                         + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
