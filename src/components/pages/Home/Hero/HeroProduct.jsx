@@ -3,10 +3,12 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import SplitType from 'split-type';
 import { useGSAP } from '@gsap/react';
 import './HeroProduct.scss'
-import useSelector from '@/components/hooks/useSelector';
+import { useRef } from 'react';
+import useSelector from '@hooks/useSelector';
 
 function HomeHeroProduct({ ...props }) {
-    const [q, ref] = useSelector(null);
+    const ref = useRef();
+    const q = useSelector(ref);
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)

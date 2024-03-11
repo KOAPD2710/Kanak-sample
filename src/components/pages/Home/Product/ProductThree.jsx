@@ -80,7 +80,7 @@ function Content({...props}) {
         </>
     )
 }
-function HomeProductThree({...props}) {
+function HomeProductThree(props) {
     const { width, height } = useWindowSize();
     let perspective = height;
     let fov = ((Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI) / 2;

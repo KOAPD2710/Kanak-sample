@@ -1,4 +1,4 @@
-import useDevice from '@/components/hooks/useDevice';
+import useDevice from '@hooks/useDevice';
 import { useKeenSlider } from 'keen-slider/react'
 import { useState } from 'react';
 import "keen-slider/keen-slider.min.css"

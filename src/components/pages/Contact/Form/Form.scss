@@ -200,6 +200,7 @@
         }
     }
     &-success {
+        contain: paint;
         &-body {
             padding: {
                 top: 8rem;

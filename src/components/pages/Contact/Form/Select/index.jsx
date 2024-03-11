@@ -2,7 +2,7 @@ import { forwardRef, useRef, useState, useEffect } from "react"
 import cn from 'clsx';
 import s from './style.module.scss'
 import Input from "../Input";
-import useOutsideAlerter from "@/components/hooks/useOutsideAlerter";
+import useOutsideAlerter from "@hooks/useOutsideAlerter";
 
 const Select = forwardRef(({ className, options, onChange, ...props }, ref) => {
     const selectRef = useRef(null);

@@ -4,11 +4,12 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import * as ut from '@/js/utils.js';
 import './Partner.scss';
-import useDevice from "@/components/hooks/useDevice";
-import useSelector from "@/components/hooks/useSelector";
+import useDevice from "@hooks/useDevice";
+import useSelector from "@hooks/useSelector";
 
 function HomePartner(props) {
-    const [q, ref] = useSelector(null);
+    const ref = useRef();
+    const q = useSelector(ref);
     const { isTablet, isMobile } = useDevice();
 
     useGSAP(() => {

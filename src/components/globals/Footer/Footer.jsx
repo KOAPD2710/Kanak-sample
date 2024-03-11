@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 import { useEffect, useState, useRef } from 'react';
 import './Footer.scss';
-import useDevice from '@/components/hooks/useDevice';
+import useDevice from '@hooks/useDevice';
 
 const ContactItem = ({ label, content, link="#" }) => {
     return (

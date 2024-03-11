@@ -1,10 +1,10 @@
+import './Value.scss';
 import { useState } from "react";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
+import useDevice from "@hooks/useDevice";
 import * as ut from '@/js/utils.js';
-import './Value.scss';
-import useDevice from "@/components/hooks/useDevice";
 
 function HomeValue(props) {
     const { isDesktop, isMobile } = useDevice();

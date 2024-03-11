@@ -91,10 +91,14 @@ function Content({...props}) {
 
 function HomeHeroThree({...props}) {
     const { width, height } = useWindowSize();
+    const threeRef = useRef();
     let perspective = height;
     let fov = ((Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI) / 2;
+    useGSAP(() => {
+        gsap.from(threeRef.current, { ease: "power4.out", autoAlpha: 0, duration: 2, clearProps: 'all' }, .8)
+    }, { scope: threeRef })
     return (
-        <div className="home-hero-three">
+        <div className="home-hero-three" ref={threeRef}>
             <div className="home-hero-three-stick">
                 <div className="home-hero-three-stick-inner">
                     <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows="basic">

@@ -106,7 +106,7 @@ html {
 }
 
 // Body text
-$txtSizes: 10, 12, 14, 16, 18, 20, 180;
+$txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
 :root {
     --fs-10: 1rem;
     --lh-10: 1.2em;
@@ -125,6 +125,9 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 180;
 
     --fs-20: 2rem;
     --lh-20: 1.4em;
+
+    --fs-36: 3.6rem;
+    --lh-36: 1.1em;
 
     --fs-180: 18rem;
     --lh-180: 1em;
@@ -214,4 +217,7 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 180;
     &-150 {
         @include size(15rem);
     }
+}
+.split-line {
+    overflow: hidden;
 }

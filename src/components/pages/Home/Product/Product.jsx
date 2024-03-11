@@ -1,14 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import './Product.scss';
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import HomeProductThree from './ProductThree.jsx';
-import useDevice from '@/components/hooks/useDevice.js';
+import useDevice from '@hooks/useDevice.js';
+import useDebounceCallback from '@hooks/useDebounce';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
-function HomeProduct({...props}) {
+function HomeProduct(props) {
+    const sectionRef = useRef();
     const index = useStore(productIndex);
     const { isDesktop, isTablet, isMobile } = useDevice();
-
+    const debounceHover = useDebounceCallback(productIndex.set, 200);
     function onClickNavPrev(e) {
         e.preventDefault();
         productIndex.set(index - 1);
@@ -17,10 +22,33 @@ function HomeProduct({...props}) {
         e.preventDefault();
         productIndex.set(index + 1);
     }
-    useEffect(() => {
-    }, [index])
+
+    useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top top+=55%',
+            }
+        })
+
+        sectionRef.current.querySelectorAll('.home-prod-main-item').forEach((item, idx) => {
+            tl
+                .from(item.querySelector('.home-prod-main-item-title'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .15 }, 0)
+                .from(item.querySelector('.home-prod-main-item-label'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .2 }, 0)
+                .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: idx * .15 }, 0);
+        })
+        tl.from(sectionRef.current.querySelector('.line.line-bottom'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: props.list.length * .15 }, 0);
+
+
+        gsap.set('.home-prod-cards-middle', { clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)" })
+        tl
+            .to('.home-prod-cards-middle', { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1, ease: 'expo.out', overwrite: true }, .2)
+            .from('.home-prod-cards-top', { autoAlpha: 0, yPercent: 100, duration: 1.2, ease: 'expo.out', overwrite: true }, '>-0.2')
+            .from('.home-prod-cards-bottom', { autoAlpha: 0, yPercent: -100, duration: 1.2, ease: 'expo.out', overwrite: true }, '<= 0')
+    }, { scope: sectionRef })
     return (
-        <section className="home-prod">
+        <section className="home-prod" ref={sectionRef}>
             <div className="container grid">
                 {(isDesktop || isTablet) && (
                     <div className="home-prod-main">
@@ -29,7 +57,7 @@ function HomeProduct({...props}) {
                                 <div
                                     key={idx}
                                     className={`home-prod-main-item${idx == index ? ' active' : ''}`}
-                                    onPointerEnter={() => productIndex.set(idx)}
+                                    onPointerEnter={() => debounceHover(idx)}
                                 >
                                     <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
                                         {item.data.title}
