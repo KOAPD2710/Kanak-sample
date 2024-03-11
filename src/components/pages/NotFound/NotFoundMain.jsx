@@ -1,58 +1,45 @@
 import './NotFoundMain.scss';
-import { Image } from 'astro:assets';
-import cn from 'clsx';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import Item from "./Item"
-import Title from './Title';
-import Button from './Button';
+const currYear = new Date().getFullYear()
 
-function NotFoundBody(props) {
-    console.log('Run Script');
-
+function NotFoundMain(props) {
     useEffect(() => {
         console.log('Run Script');
-        setTimeout(() => {
-            window.location.pathname = '/404'
-        })
-    })
+    }, [])
 
     return (
-        <section title='NotFound' className='notfound'>
+        <section className='notfound'>
             <div className="container">
-                <div className="grid">
-                    <Item
-                        clone="15"
-                        image1={props.image1}
-                        image2={props.image2}
-                        image3={props.image3}
-                        image4={props.image4}
-                        image5={props.image5}
-                    >
-                    </Item>
-                    <Title
-                        className="opps"
-                    ></Title>
-                    <Button className="back"></Button>
-                    <Item
-                        clone="1"
-                        mainItem={props.number4}
-                        className="number-1"
-                    ></Item>
-                    <Item
-                        clone="1"
-                        mainItem={props.mainbowl}
-                        className="mainbowl"
-                    ></Item>
-                    <Item
-                        clone="1"
-                        mainItem={props.number4}
-                        className="number-2"
-                    ></Item>
+                <div className="grid notfound-grid">
+                    {props.gridItems}
+                    <div className="notfound-item notfound-item-title">
+                        <div className='notfound-item-title-inner'>
+                            <div className="heading h1 txt-black txt-up">oops...!</div>
+                            <h1 className='txt txt-20 txt-med'>Maybe you got a broken link, or maybe you made a misprint in the address bar.</h1>
+                        </div>
+                    </div>
+                    <div className='notfound-item notfound-item-btn-wrap'>
+                        <a href="/" className='btn notfound-item-btn'>
+                            <div className="txt txt-18 txt-med txt-up">Back to home</div>
+                        </a>
+                    </div>
+                    <div className="notfound-item notfound-item-large notfound-item-number-1">
+                        {props.number4}
+                    </div>
+                    <div className="notfound-item notfound-item-large notfound-item-mainbowl">
+                        {props.mainbowl}
+                    </div>
+                    <div className="notfound-item notfound-item-large notfound-item-number-2">
+                        {props.number4}
+                    </div>
+                    <div className="notfound-copy">
+                        <div className="txt txt-12 txt-bold notfound-copy-txt">⁠©⁠ {currYear} Kanak Naturals. All rights reserved.</div>
+                    </div>
                 </div>
             </div>
         </section>
     )
 }
 
-export default NotFoundBody;
+export default NotFoundMain;

@@ -32,7 +32,7 @@
             &-label {
                 color: rgba($cl-txt, .3);
             }
-            &.active {
+            &.active, &:hover {
                 .home-prod-main-item-title {
                     color: var(--cl-orange);
                 }

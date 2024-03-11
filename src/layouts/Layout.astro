@@ -10,17 +10,17 @@ import Footer from '@components/globals/Footer/Footer.astro';
 
 const OpBgTexture = await getImage({src: bgTexture, format: 'webp', width: bgTexture.width / 2})
 const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width})
-const { title } = Astro.props;
+const { title, hideNav = false } = Astro.props;
 ---
 <html lang="en">
 	<BaseHead title={title}/>
 
 	<body style={`--bg-txt: url(${OpBgTexture.src}); --bg-txt-dark: url(${OpBgTextureDark.src});`}>
-		<Header />
+		{!hideNav && <Header />}
 			<div class="main">
 				<slot />
 			</div>
-		<Footer />
+		{!hideNav && <Footer />}
 	</body>
 </html>
 
