@@ -34,7 +34,7 @@ function Content({...props}) {
                 start: 'top top',
                 endTrigger: '.home-hero-prod',
                 end: 'bottom bottom',
-                scrub: true
+                scrub: true,
             },
             defaults: {
                 ease: 'linear'
@@ -49,16 +49,16 @@ function Content({...props}) {
         .to(foodWrap.current.rotation, {duration: .75, y: Math.PI * .15, z: - Math.PI * .05}, 0)
 
         .to(forkWrap.current.scale, {duration: .75, x: 1200, y: 1200, z: 1200}, 0)
-        .to(forkWrap.current.position, {duration: .75, x: -props.width * .125, y: props.height * .1}, 0)
+        .to(forkWrap.current.position, {duration: .75, x: props.width * .25, y: props.height * .5}, 0)
         .to(forkWrap.current.rotation, {duration: .75, x: Math.PI * .75, y: -Math.PI * .2, z: -Math.PI * .4}, 0)
 
         .to(foodWrap.current.scale, {duration: 1, x: 1100, y: 1100, z: 1100})
         .to(foodWrap.current.position, {duration: 1, x: props.width * .125, y: -props.height * .375}, '<=0')
         .to(foodWrap.current.rotation, {duration: 1, x: -Math.PI * .25, y: Math.PI * .45, z: 0}, '<=0')
 
-        .to(forkWrap.current.scale, {duration: 1, x: 1500, y: 1500, z: 1500}, '<=0')
-        .to(forkWrap.current.position, {duration: 1, x: -props.width * .375, y: props.height * .025}, '<=0')
-        .to(forkWrap.current.rotation, {duration: 1, x: Math.PI * 1, y: -Math.PI * .3, z: -Math.PI * .6}, '<=0')
+        // .to(forkWrap.current.scale, {duration: 1, x: 1500, y: 1500, z: 1500}, '<=0')
+        // .to(forkWrap.current.position, {duration: 1, x: -props.width * .375, y: props.height * .025}, '<=0')
+        // .to(forkWrap.current.rotation, {duration: 1, x: Math.PI * 1, y: -Math.PI * .3, z: -Math.PI * .6}, '<=0')
 
     }, [])
     return (

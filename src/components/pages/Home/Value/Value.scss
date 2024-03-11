@@ -8,11 +8,11 @@
     display: flex;
     flex-direction: column;
     justify-content: end;
-    height: calc((53vw * 3) + var(--offsetMargin));
+    height: calc((53vw * 3 * 1.5) + var(--offsetMargin));
     margin-bottom: calc(var(--offsetMargin) * -1);
     z-index: 3;
     @include md {
-        height: calc(400vh + var(--offsetMargin));
+        height: calc(200vh + var(--offsetMargin));
     }
     @include sm {
         height: auto;

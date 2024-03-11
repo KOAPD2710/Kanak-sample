@@ -29,7 +29,7 @@ function HomeProduct({...props}) {
                                 <div
                                     key={idx}
                                     className={`home-prod-main-item${idx == index ? ' active' : ''}`}
-                                    onPointerEnter={() => productIndex.set(idx)}
+                                    onClick={() => productIndex.set(idx)}
                                 >
                                     <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
                                         {item.data.title}
