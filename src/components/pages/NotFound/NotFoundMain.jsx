@@ -1,5 +1,4 @@
 import './NotFoundMain.scss';
-import { Image } from 'astro:assets';
 import cn from 'clsx';
 import React, { useEffect, useState } from 'react';
 
@@ -12,10 +11,10 @@ function NotFoundBody(props) {
 
     useEffect(() => {
         console.log('Run Script');
-        setTimeout(() => {
-            window.location.pathname = '/404'
-        })
-    })
+        // setTimeout(() => {
+        //     window.location.pathname = '/404'
+        // })
+    }, [])
 
     return (
         <section title='NotFound' className='notfound'>
