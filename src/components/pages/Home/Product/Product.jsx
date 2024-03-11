@@ -26,7 +26,7 @@ function HomeProduct(props) {
         let tl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionRef.current,
-                start: 'top top+=55%',
+                start: 'top top+=60%',
             }
         })
 

@@ -6,7 +6,7 @@ import './HeroProduct.scss'
 import useSelector from '@/components/hooks/useSelector';
 import { useState, useRef } from 'react';
 
-function HomeHeroProduct({ ...props }) {
+function HomeHeroProduct(props) {
     const ref = useRef();
     const [lines, setLines] = useState(1)
 
