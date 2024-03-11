@@ -1,11 +1,14 @@
 import './Form.scss';
-import React, { useEffect ,useRef,useState, useTransition } from 'react';
+import { useEffect ,useState, useTransition } from 'react';
 import { FormItem, FormField, FormLabel } from './Field';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import Input from './Input'
 import TextArea from './TextArea';
 import Select from './Select';
 import useDebounceCallback from '@hooks/useDebounce';
 import cn from 'clsx';
+import SplitType from 'split-type';
 
 function ContactForm(props) {
     const [isPending, startTransition] = useTransition();
@@ -63,7 +66,11 @@ function ContactForm(props) {
             form.reset()
         }, 2000);
     }
+    useGSAP(() => {
+        const title = new SplitType('.contact-hero-title', {types: 'lines, words', lineClass: 'split-line'})
+        gsap.from(title.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
 
+    }, [])
     useEffect(() => {
         console.log(formData);
     }, [JSON.stringify(formData)]);

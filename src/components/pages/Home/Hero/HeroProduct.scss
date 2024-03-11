@@ -12,8 +12,12 @@
             margin-right: 0;
             margin-bottom: 13rem;
         }
+        position: relative;
+        height: calc((var(--lines) * 1em) * 2);
     }
     &-title {
+        position: sticky;
+        top: calc((100vh - (var(--lines) * 1em)) / 2);
         font-kerning: none;
         max-width: 90rem;
         @include sm {

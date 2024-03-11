@@ -4,7 +4,6 @@ import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import HomeProductThree from './ProductThree.jsx';
 import useDevice from '@hooks/useDevice.js';
-import useDebounceCallback from '@hooks/useDebounce';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
@@ -13,7 +12,6 @@ function HomeProduct(props) {
     const sectionRef = useRef();
     const index = useStore(productIndex);
     const { isDesktop, isTablet, isMobile } = useDevice();
-    const debounceHover = useDebounceCallback(productIndex.set, 200);
     function onClickNavPrev(e) {
         e.preventDefault();
         productIndex.set(index - 1);
@@ -57,7 +55,7 @@ function HomeProduct(props) {
                                 <div
                                     key={idx}
                                     className={`home-prod-main-item${idx == index ? ' active' : ''}`}
-                                    onPointerEnter={() => debounceHover(idx)}
+                                    onClick={() => productIndex.set(idx)}
                                 >
                                     <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
                                         {item.data.title}

@@ -17,7 +17,7 @@ function HomeValue(props) {
                 trigger: '.home-val-stick',
                 start: 'bottom bottom',
                 endTrigger: '.home-val',
-                end: `bottom-=${window.innerHeight} bottom`,
+                end: `bottom-=${isDesktop ? window.innerHeight : '0'} bottom`,
                 scrub: true,
             },
             defaults: {
@@ -93,7 +93,7 @@ function HomeValue(props) {
                         </svg>
                     </div>
                 </div>
-                <section className="home-val bg-dark" style={{'--offsetMargin': '100vh'}}>
+                <section className="home-val bg-dark" style={{'--offsetMargin': isDesktop ? '100vh' : '0px'}}>
                     <div className="home-val-stick">
                         <div className="container">
                             <div className="home-val-title-wrap">

@@ -169,6 +169,12 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
             color: var(--cl-orange);
         }
     }
+    &-bg-link {
+        transition: background-color 400ms ease;
+        &:hover {
+            background-color: var(--cl-orange);
+        }
+    }
 }
 .richtext {
     @for $i from 0 through 6 {
@@ -219,5 +225,5 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
     }
 }
 .split-line {
-    overflow: hidden;
+    contain: paint;
 }

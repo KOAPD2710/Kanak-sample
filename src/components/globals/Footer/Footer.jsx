@@ -7,13 +7,13 @@ const ContactItem = ({ label, content, link="#" }) => {
     return (
         <div className="ft-left-body-list-item">
             <div className="txt txt-18 txt-med ft-left-body-label">{label}</div>
-            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt">{content}</a>
+            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt txt-link">{content}</a>
         </div>
     )
 }
 const MenuItem = ({ link = "#", children }) => {
     return (
-        <a href={link} className="ft-right-body-link">
+        <a href={link} className="ft-right-body-link txt-link">
             <div className="dot"></div>
             <div className="txt txt-18 txt-med ft-right-body-link-txt">{children}</div>
         </a>
@@ -52,7 +52,7 @@ const MenuColumn = ({ title, children, tail, tail_link = "#", isOpen, onClick })
             }
             <div className="ft-tail">
                 <div className="line line-top"></div>
-                <a href={tail_link} className="txt txt-12 txt-bold txt-up ft-right-tail-link">
+                <a href={tail_link} className="txt txt-12 txt-bold txt-up ft-right-tail-link txt-link">
                     {tail}
                 </a>
             </div>
@@ -96,11 +96,11 @@ function GlobalFooter(props) {
                             <ContactItem label="Headquarters" content="321 Hovan Drive, Fort Wayne, IN 46825, US" />
                         </div>
                         <div className="ft-left-body-social">
-                            <a href="#" className="ft-left-body-social-item">
+                            <a href="#" className="ft-left-body-social-item txt-bg-link">
                                 {props.imgLinkedIn}
                             </a>
                         </div>
-                        <a href="#" className="heading h1 txt-up txt-black ft-left-body-title">
+                        <a href="/contact" className="heading h1 txt-up txt-black ft-left-body-title txt-link">
                             Let's talk!
                         </a>
                     </div>
@@ -111,6 +111,7 @@ function GlobalFooter(props) {
                 <div className="ft-right">
                     <MenuColumn
                         title="Products & Services"
+                        tail_link="/policy"
                         tail="Terms & Conditions"
                         isOpen={activeIndex === 0}
                         onClick={() => accordionClick(0)}
@@ -122,6 +123,7 @@ function GlobalFooter(props) {
                     </MenuColumn>
                     <MenuColumn
                         title="Kustomers"
+                        tail_link="/policy"
                         tail="Privacy Policy"
                         isOpen={activeIndex === 1}
                         onClick={() => accordionClick(1)}

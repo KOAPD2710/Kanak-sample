@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+
+import NotFoundMain from "./NotFoundMain.jsx";
+
+import Image1 from "@assets/404-img1.png";
+import Image2 from "@assets/404-img2.png";
+import Image3 from "@assets/404-img3.png";
+import Image4 from "@assets/404-img4.png";
+import Image5 from "@assets/404-img5.png";
+import ImageNumber4 from "@assets/404-4.svg";
+import ImageMainBowl from "@assets/404-img6.png";
+let imgList = [Image1, Image2, Image3, Image4, Image5];
+---
+<NotFoundMain client:visible>
+    <Fragment slot="gridItems">
+        {[...Array(15)].map((item, idx) => (
+            <div class="notfound-item notfound-item-small">
+                <Image src={imgList[Math.floor(Math.random() * imgList.length)]} alt="" class="img"/>
+            </div>
+        ))}
+    </Fragment>
+    <Image src={ImageNumber4} alt="" slot="number4" class="img"/>
+    <Image src={ImageMainBowl} alt="" slot="mainbowl" class="img"/>
+</NotFoundMain>
