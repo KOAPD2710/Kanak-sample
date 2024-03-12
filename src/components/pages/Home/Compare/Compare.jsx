@@ -59,7 +59,6 @@ function HomeCompare(props) {
         const numberOfBreakPoints = props.list.length;
         const step = 1 / numberOfBreakPoints;
         const breakPoints = Array.from({ length: numberOfBreakPoints + 1 }, (_, index) => parseFloat((index * step).toPrecision(2)));
-        let idx;
 
         for (let i = 0; i < breakPoints.length - 1; i++) {
             const startPoint = breakPoints[i];
