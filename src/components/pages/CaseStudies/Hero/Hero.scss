@@ -42,7 +42,7 @@
 
 @include md {
     .case-hero {
-        padding-top: 10.3rem;
+        padding-top: 19.3rem;
         &-content {
             grid-column: 7/13;
 
@@ -63,6 +63,8 @@
         &-title {
             grid-column: 1/-1;
             margin-bottom: 4rem;
+            max-width: 30.4rem;
+            @include text(h1);
         }
         &-content {
             grid-column: 1/-1;

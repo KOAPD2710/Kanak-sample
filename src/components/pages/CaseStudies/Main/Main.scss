@@ -235,7 +235,7 @@
         .case {
             &-filter {
                 position: relative;
-                z-index: 1000;
+                z-index: 3;
 
                 &-inner {
                     position: relative;
@@ -244,6 +244,7 @@
 
                 &-list {
                     &-toggle {
+                        z-index: 3;
                         display: flex;
                         align-items: center;
                         padding: {
@@ -262,6 +263,7 @@
                         }
                     }
                     &-dropdown {
+                        z-index: 2;
                         position: absolute;
                         top: 100%;
                         flex-direction: column;
@@ -271,6 +273,7 @@
                         width: 25.7rem;
                         pointer-events: none;
                         opacity: 0;
+                        transform: translateY(-2rem);
                         border-top: .2rem solid var(--cl-txt);
                         overflow: hidden;
                         transition: all .4s ease-out;
@@ -279,24 +282,12 @@
                         .case-filter-item {
                             border-left: .2rem solid var(--cl-txt);
                             border-right: .2rem solid var(--cl-txt);
-                            opacity: 0;
-                            transform: translateY(-100%);
-
-                            @for $i from 1 through 10 {
-                                &:nth-child(#{$i}) {
-                                    transition: all .5s ease calc(#{$i} * .04s);
-                                }
-                            }
                         }
 
                         &.active {
                             opacity: 1;
                             pointer-events: auto;
-
-                            .case-filter-item {
-                                opacity: 1;
-                                transform: translateY(0);
-                            }
+                            transform: none;
                         }
                     }
                 }
