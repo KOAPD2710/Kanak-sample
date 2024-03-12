@@ -33,4 +33,31 @@ const offset = (el) => {
 const parseRem = (input) => {
     return input / 10 * parseFloat(window.getComputedStyle(dom('html')).getPropertyValue("font-size"));
 }
-export { dom, addEvent, addEventAll, getIndex, offset, parseRem }
+function generateHtmlFromJson(jsonData) {
+    let htmlString = "";
+
+    function processElement(element) {
+        switch (element.type) {
+            case "h2":
+                htmlString += `<h2 data-scrollTo=${encodeURI(element.content)} >${element.content}</h2>`;
+                break;
+            case "paragraph":
+                htmlString += `<p>${element.content}</p>`;
+                break;
+            case "ul":
+                htmlString += "<ul>";
+                element.content.forEach((li) => {
+                    htmlString += `<li>${li.content}</li>`;
+                });
+                htmlString += "</ul>";
+                break;
+            default:
+                break;
+        }
+    }
+
+    jsonData.forEach((el) => processElement(el));
+
+    return htmlString;
+}
+export { dom, addEvent, addEventAll, getIndex, offset, parseRem, generateHtmlFromJson }
