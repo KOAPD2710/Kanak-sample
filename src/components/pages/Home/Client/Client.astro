@@ -21,13 +21,13 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeClient subTitle={sub_title} client:visible>
+<HomeClient subTitle={sub_title} list={list} client:visible>
     <Fragment set:html={newTitle} slot="title"/>
     <Image src={quality} class="home-client-title-quality" alt="quality" width={quality.width / 2} slot="imgQuality"/>
     <Image src={map} alt="world map" slot="imgMap"/>
-    <Fragment slot="newList">
+    <Fragment slot="listLogo">
         {list.map((item, idx) => (
-            <div class="home-client-item" data-key={idx}>
+            <div class="home-client-item home-client-box">
                 <Image src={item.data.client_logo.url} alt="McDonald" width={item.data.client_logo.dimensions.width} height={item.data.client_logo.dimensions.height}/>
             </div>
         ))}
