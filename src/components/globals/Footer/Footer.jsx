@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { useEffect, useState, useRef } from 'react';
 import './Footer.scss';
 import useDevice from '@hooks/useDevice';
+import { getLenis } from '@/components/core/lenis';
 
 const ContactItem = ({ label, content, link="#" }) => {
     return (
@@ -19,7 +20,7 @@ const MenuItem = ({ link = "#", children }) => {
         </a>
     )
 }
-const MenuColumn = ({ title, children, tail, tail_link = "#", isOpen, onClick }) => {
+const MenuColumn = ({ title, children, tail, tail_link, isOpen, onClick, onClickTail }) => {
     const contentHeight = useRef();
     const { isMobile } = useDevice();
     return (
@@ -52,9 +53,16 @@ const MenuColumn = ({ title, children, tail, tail_link = "#", isOpen, onClick })
             }
             <div className="ft-tail">
                 <div className="line line-top"></div>
-                <a href={tail_link} className="txt txt-12 txt-bold txt-up ft-right-tail-link txt-link">
-                    {tail}
-                </a>
+                {tail_link ? (
+                    <a href={tail_link} className="txt txt-12 txt-bold txt-up ft-right-tail-link txt-link">
+                        {tail}
+                    </a>
+                ) : (
+                    <button onClick={() => onClickTail && onClickTail()}className="txt txt-12 txt-bold txt-up ft-right-tail-link txt-link">
+                        {tail}
+                    </button>
+                )}
+                
             </div>
         </div>
     )
@@ -111,7 +119,7 @@ function GlobalFooter(props) {
                 <div className="ft-right">
                     <MenuColumn
                         title="Products & Services"
-                        tail_link="/policy"
+                        tail_link="/terms-and-conditions"
                         tail="Terms & Conditions"
                         isOpen={activeIndex === 0}
                         onClick={() => accordionClick(0)}
@@ -123,7 +131,7 @@ function GlobalFooter(props) {
                     </MenuColumn>
                     <MenuColumn
                         title="Kustomers"
-                        tail_link="/policy"
+                        tail_link="/privacy-policy"
                         tail="Privacy Policy"
                         isOpen={activeIndex === 1}
                         onClick={() => accordionClick(1)}
@@ -139,6 +147,7 @@ function GlobalFooter(props) {
                         tail="Back to top"
                         isOpen={activeIndex === 2}
                         onClick={() => accordionClick(2)}
+                        onClickTail={() => {getLenis().scrollTo(0)}}
                     >
                         <MenuItem>Our story</MenuItem>
                         <MenuItem>Awards and Endorsements</MenuItem>
