@@ -76,6 +76,7 @@ function HomeCompare(props) {
     useGSAP(() => {
         if (isMobile) return;
         gsap.registerPlugin(ScrollTrigger)
+        console.log("run")
         ScrollTrigger.create({
             trigger: ref.current,
             start: 'top top',
