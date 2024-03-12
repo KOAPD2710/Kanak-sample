@@ -25,12 +25,12 @@ const list = await Promise.all(
     <Image src={comparePlates} alt="Compare plates" class="img" slot='imgComparePlates' />
     <Fragment slot="imgCompareDot">
         {[...Array(list.length * 14)].map((el,idx) => (
-            <Image src={compareDot} alt="" class="img" style={`--angle: ${360/(list.length * 14) * idx}deg`}/>
+            <Image src={compareDot} alt="" class="img"/>
         ))}
     </Fragment>
     <Fragment slot="imgCompareDash">
         {list.map((el,idx) => (
-            <Image src={compareDash} alt="" class="img" style={`--angle: ${360/list.length * idx}deg`}/>
+            <Image src={compareDash} alt="" class="img"/>
         ))}
     </Fragment>
 </HomeCompare>

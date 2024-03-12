@@ -36,8 +36,8 @@ function HomeBrand(props) {
         gsap
             .timeline({ trigger: sectionRef.current, start: 'top top' })
             .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() })
-            .from('.line.line-ver', { scaleY: 0, transformOrigin: 'top', duration: 1.5, ease: 'expo.inOut', clearProps: 'all' }, '>-.8')
-            .from('.line.line-bot', { scaleX: 0, duration: 1.2, ease: 'expo.inOut', clearProps: 'all' }, '>-0.55')
+            .from('.line.line-ver', { scaleY: 0, transformOrigin: 'top', duration: 1.5, ease: 'expo.inOut', clearProps: 'all' }, '>=-.8')
+            .from('.line.line-bot', { scaleX: 0, duration: 1.2, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.55')
 
         sectionRef.current.querySelectorAll('.home-brand-main-item').forEach((item) => {
             gsap.set(item, { autoAlpha: 0 });
@@ -52,10 +52,10 @@ function HomeBrand(props) {
                     gsap
                         .timeline()
                         .to(item, { autoAlpha: 1, duration: .5, ease: 'power2.out' })
-                        .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'expo.inOut', clearProps: 'all' }, '>-0.1')
-                        .from(item.querySelector('.home-brand-main-item-ic [name="arrIconDesk"]'), { x: -15, autoAlpha: 0, duration: 1.5, ease: 'expo.out', clearProps: 'all' }, '>-1')
-                        .from(itemTitle.chars, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemTitle.revert() }, '>-1.2')
-                        .from(itemSub.words, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemSub.revert() }, '>-0.6')
+                        .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.1')
+                        .from(item.querySelector('.home-brand-main-item-ic [name="arrIconDesk"]'), { x: -15, autoAlpha: 0, duration: 1.5, ease: 'expo.out', clearProps: 'all' }, '>=-1')
+                        .from(itemTitle.chars, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemTitle.revert() }, '>=-1.2')
+                        .from(itemSub.words, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemSub.revert() }, '>=-0.6')
                 }
             })
         })
