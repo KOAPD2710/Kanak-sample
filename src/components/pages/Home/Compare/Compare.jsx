@@ -106,9 +106,6 @@ function HomeCompare(props) {
             .from(titleItem.words, { yPercent: 100, duration: 1.2, stagger: .05, ease: 'expo.out', onComplete: () => titleItem.revert() }, '<=0')
             .from(subItemGood.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemGood.revert() }, '<=0.1')
             .from(subItemBad.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemBad.revert() }, '<=0')
-
-
-
             .to('.home-comp-main-prog-dot img', { rotate: (idx) => (360/(props.list.length * 14)) * idx, duration: 2, ease: 'expo.inOut' }, 0)
             .to('.home-comp-main-prog-dash img', { rotate: (idx) => (360/props.list.length) * idx,  stagger: .02, duration: 2, ease: 'expo.inOut' }, '<=0')
     }, { scope: ref })
