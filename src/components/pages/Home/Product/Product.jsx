@@ -115,7 +115,7 @@ function HomeProduct(props) {
                         </div>
                         <div className="home-prod-cards-middle">
                             <div className="home-prod-cards-middle-inner">
-                                {/* <HomeProductThree list={props.list} /> */}
+                                <HomeProductThree list={props.list} />
                                 {props.three}
                             </div>
                         </div>

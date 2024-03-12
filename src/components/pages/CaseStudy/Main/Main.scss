@@ -311,14 +311,14 @@
         padding-top: 7.8rem;
         .container {
             & > .line-ver {
-                grid-column: 6/7;
+                grid-column: 7/8;
                 grid-row: 1/4;
                 left: calc(var(--grid-gap) / 2 * -1);
             }
         }
         
         &-slide {
-            grid-column: 1/6;
+            grid-column: 1/7;
             margin-right: calc(var(--grid-gap) /2 * -1);
             padding-top: 7.49rem;
 
@@ -332,9 +332,8 @@
             }
 
             &-main {
-                max-height: calc(100vh - 22rem - 6rem);
                 margin-right: 4rem;
-                height: 51.6rem;
+                height: 45.7rem;
 
                 &-control {
                     height: 5.6rem
@@ -360,7 +359,7 @@
             }
         }
         &-main {
-            grid-column: 6/13;
+            grid-column: 7/13;
             margin-left: calc(var(--grid-gap) /2 * -1);
         }
         &-content {
@@ -370,7 +369,7 @@
             };
 
             &-title {
-                @include text(h2);
+                @include text(h4);
 
                 &-wrap {
                     margin-bottom: 4rem;
@@ -497,14 +496,13 @@
             &-main {
                 margin-right: 0;
                 width: 100%;
-                height: auto;
-                aspect-ratio: 343/472;
+                height: 60.2rem;
                 max-height: none;
             }
         }
         &-content {
             padding: 0;
-            margin-top: 83rem;
+            margin-top: 67.3rem;
 
             &-client {
                 &-img {
@@ -577,15 +575,15 @@
                 transition: all 400ms ease;
 
                 &-ic {
-                    width: 6.2rem;
-                    height: 6rem;
+                    width: 5.2rem;
+                    height: 5rem;
                     border-right: solid .2rem currentColor;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
                 &-txt {
-                    padding: 1.6rem 1.8rem;
+                    padding: 1.2rem 1.6rem;
                 }
                 &:hover {
                     border-color: var(--cl-orange);
@@ -599,8 +597,13 @@
 
 @include xs {
     .casedtl {
+        &-slide {
+            &-main {
+                height: 47.2rem;
+            }
+        }
         &-content {
-            margin-top: 59.3rem;
+            margin-top: 53.6rem;
         }
     }
 }

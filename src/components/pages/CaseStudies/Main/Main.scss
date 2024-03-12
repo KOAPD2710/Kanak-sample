@@ -235,19 +235,22 @@
         .case {
             &-filter {
                 position: relative;
-                z-index: 1000;
+                z-index: 3;
 
                 &-inner {
                     position: relative;
-                    padding: {
-                        top: 2.4rem;
-                        bottom: 2.4rem;
-                    }
+                    padding: 0;
                 }
 
                 &-list {
                     &-toggle {
+                        z-index: 3;
                         display: flex;
+                        align-items: center;
+                        padding: {
+                            top: 2.4rem;
+                            bottom: 2.4rem;
+                        };
                         column-gap: .8rem;
 
                         &-ic {
@@ -260,6 +263,7 @@
                         }
                     }
                     &-dropdown {
+                        z-index: 2;
                         position: absolute;
                         top: 100%;
                         flex-direction: column;
@@ -269,6 +273,8 @@
                         width: 25.7rem;
                         pointer-events: none;
                         opacity: 0;
+                        transform: translateY(-2rem);
+                        border-top: .2rem solid var(--cl-txt);
                         overflow: hidden;
                         transition: all .4s ease-out;
 
@@ -276,24 +282,12 @@
                         .case-filter-item {
                             border-left: .2rem solid var(--cl-txt);
                             border-right: .2rem solid var(--cl-txt);
-                            opacity: 0;
-                            transform: translateY(-100%);
-
-                            @for $i from 1 through 10 {
-                                &:nth-child(#{$i}) {
-                                    transition: all .5s ease calc(#{$i} * .04s);
-                                }
-                            }
                         }
 
                         &.active {
                             opacity: 1;
                             pointer-events: auto;
-
-                            .case-filter-item {
-                                opacity: 1;
-                                transform: translateY(0);
-                            }
+                            transform: none;
                         }
                     }
                 }
@@ -303,7 +297,6 @@
                     padding: 2rem;
                     justify-content: space-between;
                     align-items: center;
-                    // border-bottom: .2rem solid var(--cl-txt);
 
                     .line {
                         display: block;
@@ -350,6 +343,9 @@
                             @include text(16);
                         }
                     }
+                    &-img {
+                        height: 8.8rem;
+                    }
 
                     &:nth-child(odd) {
                         padding-right: 2.4rem;
@@ -376,6 +372,7 @@
                                         grid-column: 4/-1;
                                         margin-left: 0;
                                         margin-bottom: 3.2rem;
+                                        min-height: auto;
                                     }
                                     &-bot {
                                         display: none;
@@ -399,10 +396,6 @@
         .case {
             &-filter {
                 &-inner {
-                    padding: {
-                        top: 2rem;
-                        bottom: 2rem;
-                    };
                 }
                 &-view {
                     display: none;
@@ -416,7 +409,6 @@
                     }
                     &-dropdown {
                         width: 100%;
-                        border-top: .2rem solid var(--cl-txt);
                     }
                 }
             }
@@ -425,6 +417,14 @@
                 &-inner {
                     grid-template-columns: 1fr;
                     padding-bottom: 4rem;
+
+                    &.all-loaded {
+                        .case-list-item:last-child {
+                            .line {
+                                display: none;
+                            }
+                        }
+                    }
                 }
                 &-load {
                     margin-bottom: 4rem;

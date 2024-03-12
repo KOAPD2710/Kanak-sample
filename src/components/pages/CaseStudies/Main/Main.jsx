@@ -60,7 +60,7 @@ function CaseMain({ ...props }) {
                     <FilterItem name={el}
                         count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => filterList(e)}
+                        onClick={(e) => { filterList(e); setcategoryToggle(!categoryToggle) }}
                         key={idx} />
                 ))}
             </>
@@ -71,6 +71,9 @@ function CaseMain({ ...props }) {
         let type = e.target.dataset.filter;
         setFilter(type)
     }
+    useEffect(() => {
+        console.log(categoryToggle);
+    }, [categoryToggle])
     useEffect(() => {
         window.location.hash && setFilter(decodeURI(window.location.hash).replace('#', ''))
     }, [])
@@ -94,7 +97,7 @@ function CaseMain({ ...props }) {
                         <div className="case-filter-list">
                             <button className="case-filter-list-toggle" onClick={() => { setcategoryToggle(!categoryToggle) }}>
                                 <div className="txt txt-18 txt-bold case-filter-list-toggle-txt">
-                                    Category
+                                    {filter == 'All' ? 'All Categories' : filter}
                                 </div>
                                 <div className={`ic ic-20 case-filter-list-toggle-ic ${categoryToggle ? 'open' : ''}`}>
                                     {props.icDropdown}
@@ -104,7 +107,7 @@ function CaseMain({ ...props }) {
                                 <FilterItem name={'All'}
                                     count={allItem.length}
                                     isActive={filter == 'All'}
-                                    onClick={(e) => filterList(e)}
+                                    onClick={(e) => { filterList(e), setcategoryToggle(!categoryToggle) }}
                                 />
                                 {cateUI}
                             </div>
@@ -127,7 +130,7 @@ function CaseMain({ ...props }) {
             </div>
             <div className="case-list">
                 <div className="container">
-                    <motion.div layout transition={{ duration: 0.3 }} className={`case-list-inner ${layout == 'list' ? 'layout-list' : ''}`}>
+                    <motion.div layout transition={{ duration: 0.3 }} className={`case-list-inner ${layout == 'list' ? 'layout-list' : ''} ${limit >= itemList.length ? 'all-loaded' : ''}`}>
                         {itemList.map((item, idx) => (
                             idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} /> : ''
                         ))}
