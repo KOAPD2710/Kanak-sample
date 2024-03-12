@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Hero from '@pages/Home/Hero/Hero.astro';
 import Product from '@pages/Home/Product/Product.astro';
-import HomeIndustry from '@pages/Home/HomeIndustry.astro';
+import Industry from '@pages/Home/Industry/Industry.astro';
 import Brand from "@pages/Home/Brand/Brand.astro";
 import Client from "@pages/Home/Client/Client.astro";
 import Compare from '@pages/Home/Compare/Compare.astro';
@@ -23,7 +23,7 @@ const { data } = await getPage('home');
 	</div>
 	<Product product_list={data.product_list}/>
 	<Client	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/>
-	<HomeIndustry label={data.industry_label[0].text} title={data.industry_title[0].text} industry_list={data.industry_list}/>
+	<Industry label={data.industry_label[0].text} title={data.industry_title[0].text} industry_list={data.industry_list}/>
 	<Brand title={data.brand_title[0].text} brand_list={data.brand_list}/>
 	<Compare title={data.compare_title[0].text} compare_list={data.compare_list}/>
 	<Partner />
