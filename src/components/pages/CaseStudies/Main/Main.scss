@@ -239,15 +239,17 @@
 
                 &-inner {
                     position: relative;
-                    padding: {
-                        top: 2.4rem;
-                        bottom: 2.4rem;
-                    }
+                    padding: 0;
                 }
 
                 &-list {
                     &-toggle {
                         display: flex;
+                        align-items: center;
+                        padding: {
+                            top: 2.4rem;
+                            bottom: 2.4rem;
+                        };
                         column-gap: .8rem;
 
                         &-ic {
@@ -269,6 +271,7 @@
                         width: 25.7rem;
                         pointer-events: none;
                         opacity: 0;
+                        border-top: .2rem solid var(--cl-txt);
                         overflow: hidden;
                         transition: all .4s ease-out;
 
@@ -303,7 +306,6 @@
                     padding: 2rem;
                     justify-content: space-between;
                     align-items: center;
-                    // border-bottom: .2rem solid var(--cl-txt);
 
                     .line {
                         display: block;
@@ -350,6 +352,9 @@
                             @include text(16);
                         }
                     }
+                    &-img {
+                        height: 8.8rem;
+                    }
 
                     &:nth-child(odd) {
                         padding-right: 2.4rem;
@@ -376,6 +381,7 @@
                                         grid-column: 4/-1;
                                         margin-left: 0;
                                         margin-bottom: 3.2rem;
+                                        min-height: auto;
                                     }
                                     &-bot {
                                         display: none;
@@ -399,10 +405,6 @@
         .case {
             &-filter {
                 &-inner {
-                    padding: {
-                        top: 2rem;
-                        bottom: 2rem;
-                    };
                 }
                 &-view {
                     display: none;
@@ -416,7 +418,6 @@
                     }
                     &-dropdown {
                         width: 100%;
-                        border-top: .2rem solid var(--cl-txt);
                     }
                 }
             }
@@ -425,6 +426,14 @@
                 &-inner {
                     grid-template-columns: 1fr;
                     padding-bottom: 4rem;
+
+                    &.all-loaded {
+                        .case-list-item:last-child {
+                            .line {
+                                display: none;
+                            }
+                        }
+                    }
                 }
                 &-load {
                     margin-bottom: 4rem;
