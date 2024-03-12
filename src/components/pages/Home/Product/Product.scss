@@ -238,10 +238,13 @@
             }
         }
         &-pagination {
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             padding-block: 1.6rem;
+            @include sm {
+                display: flex;
+            }
             &-dot {
                 padding: .3rem;
                 span {

@@ -1,11 +1,13 @@
+import './Compare.scss';
+import "keen-slider/keen-slider.min.css"
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
 import { useEffect, useState, useCallback, Fragment, useRef } from 'react';
 import { useKeenSlider } from 'keen-slider/react'
-import "keen-slider/keen-slider.min.css"
 import useDevice from '@hooks/useDevice';
-import './Compare.scss';
+import useSelector from '@/components/hooks/useSelector';
+import SplitType from 'split-type';
 
 const MainItem = ({ data, type, image, title, content, currentIndex }) => {
     return (
@@ -27,6 +29,7 @@ const MainItem = ({ data, type, image, title, content, currentIndex }) => {
 
 function HomeCompare(props) {
     const ref = useRef();
+    const q = useSelector(ref);
     const [index, setIndex] = useState(0);
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0)
@@ -72,8 +75,8 @@ function HomeCompare(props) {
 
     useGSAP(() => {
         if (isMobile) return;
-
         gsap.registerPlugin(ScrollTrigger)
+        console.log("run")
         ScrollTrigger.create({
             trigger: ref.current,
             start: 'top top',
@@ -87,7 +90,26 @@ function HomeCompare(props) {
                 setProgressLine(progress * 100);
             }
         })
-    }, [{ scope: ref, dependencies: isMobile, ref }]);
+
+    }, { scope: ref, dependencies: [isMobile] });
+
+    useGSAP(() => {
+        const title = new SplitType(q('.home-comp-title'), { types: 'lines, words', lineClass: 'split-line' });
+        const titleItem = new SplitType('.home-comp-main-item-title', { types: 'lines, words', lineClass: 'split-line' });
+        const subItemGood = new SplitType(q('.home-comp-main-item.good')?.querySelector('.home-comp-main-item-list-item'), { types: 'lines, words', lineClass: 'split-line' });
+        const subItemBad = new SplitType(q('.home-comp-main-item.bad')?.querySelector('.home-comp-main-item-list-item'), { types: 'lines, words', lineClass: 'split-line' });
+        let tl = gsap.timeline({
+            scrollTrigger: { trigger: ref.current, start: 'top top+=20%', markers: true }
+        })
+        tl
+            .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() })
+            .from('.home-comp-main-item img', { y: 5, autoAlpha: 0, duration: 1, ease: 'power4.out', clearProps: 'all' }, '>-.5')
+            .from(titleItem.words, { yPercent: 100, duration: 1.2, stagger: .05, ease: 'expo.out', onComplete: () => titleItem.revert() }, '<=0')
+            .from(subItemGood.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemGood.revert() }, '<=0.1')
+            .from(subItemBad.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemBad.revert() }, '<=0')
+            .from('.home-comp-main-prog-dot img', { rotate: 360, autoAlpha: 0, duration: 2, ease: 'expo.inOut' }, '>-1')
+            .from('.home-comp-main-prog-dash img', { rotate: 0, transformOrigin: "center center", autoAlpha: 0, stagger: .02, duration: 2, ease: 'expo.inOut' }, '<=0')
+    }, { scope: ref })
 
     useEffect(() => {
         const updateHeights = () => {
@@ -125,7 +147,49 @@ function HomeCompare(props) {
                             {props.title}
                         </h2>
                     </div>
-                    {isMobile ? (
+                    {(isDesktop || isTablet) ? (
+                        <div className="home-comp-main grid">
+                            <MainItem
+                                data={props.list}
+                                image={props.imgCompareGood}
+                                title={"Kanak Naturals Dinnerware"}
+                                currentIndex={index}
+                                content={"kanak"}
+                                type={"good"}
+                            />
+                            <div className="home-comp-main-prog">
+                                <div className="home-comp-main-prog-inner" style={{ '--content-height': `${itemCompareHeight.hasHeader}rem` }}>
+                                    <div className="home-comp-main-prog-plates">
+                                        {props.imgComparePlates}
+                                    </div>
+                                    <div className="home-comp-main-prog-dot">
+                                        {props.imgCompareDot}
+                                    </div>
+                                    <div className="home-comp-main-prog-dash">
+                                        {props.imgCompareDash}
+                                    </div>
+                                    <div className="home-comp-main-prog-line" style={{'--PI': Math.PI, '--prog': progressLine }}>
+                                        {props.plateLine}
+                                    </div>
+                                    <div className="home-comp-main-prog-list">
+                                        {props.list.map(({ data }, idx) => (
+                                            <h4 className={`heading h3 txt-up txt-black home-comp-main-prog-list-item${idx == index ? " active" : ""}`} key={idx}>
+                                                {data.title}
+                                            </h4>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <MainItem
+                                data={props.list}
+                                image={props.imgCompareBad}
+                                title={"Traditional Dinnerware"}
+                                currentIndex={index}
+                                content={"other"}
+                                type={"bad"}
+                            />
+                        </div>
+                    ) : (
                         <div className='home-comp-main' >
                             <div className='keen-slider home-comp-main-slide' ref={sliderRef}>
                                 {props.list.map(({ data }, idx) => (
@@ -174,48 +238,6 @@ function HomeCompare(props) {
                                     </div>
                                 )}
                             </div>
-                        </div>
-                    ) : (
-                        <div className="home-comp-main grid">
-                            <MainItem
-                                data={props.list}
-                                image={props.imgCompareGood}
-                                title={"Kanak Naturals Dinnerware"}
-                                currentIndex={index}
-                                content={"kanak"}
-                                type={"good"}
-                            />
-                            <div className="home-comp-main-prog">
-                                <div className="home-comp-main-prog-inner" style={{ '--content-height': `${itemCompareHeight.hasHeader}rem` }}>
-                                    <div className="home-comp-main-prog-plates">
-                                        {props.imgComparePlates}
-                                    </div>
-                                    <div className="home-comp-main-prog-dot">
-                                        {props.imgCompareDot}
-                                    </div>
-                                    <div className="home-comp-main-prog-dash">
-                                        {props.imgCompareDash}
-                                    </div>
-                                    <div className="home-comp-main-prog-line" style={{'--PI': Math.PI, '--prog': progressLine }}>
-                                        {props.plateLine}
-                                    </div>
-                                    <div className="home-comp-main-prog-list">
-                                        {props.list.map(({ data }, idx) => (
-                                            <h4 className={`heading h3 txt-up txt-black home-comp-main-prog-list-item${idx == index ? " active" : ""}`} key={idx}>
-                                                {data.title}
-                                            </h4>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                            <MainItem
-                                data={props.list}
-                                image={props.imgCompareBad}
-                                title={"Traditional Dinnerware"}
-                                currentIndex={index}
-                                content={"other"}
-                                type={"bad"}
-                            />
                         </div>
                     )}
                 </div>

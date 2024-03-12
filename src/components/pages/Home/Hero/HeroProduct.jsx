@@ -12,7 +12,7 @@ function HomeHeroProduct(props) {
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
-        const text = new SplitType('.home-hero-prod-title', { types: 'lines, words, chars', lineClass: 'type-line'});
+        const text = new SplitType('.home-hero-prod-title', { types: 'lines, words, chars', lineClass: 'split-line'});
         setLines(text.lines.length);
 
         requestAnimationFrame(() => {
@@ -24,6 +24,11 @@ function HomeHeroProduct(props) {
                     scrub: true,
                 },
                 opacity: .2, stagger: .06, ease: 'linear'
+            })
+
+            gsap.from(text.words, {
+                scrollTrigger: { trigger: '.home-hero-prod-title-wrap', start: 'top top+=80%', once: true },
+                yPercent: 60, autoAlpha: 0, duration: .5, stagger: .03
             })
         })
     }, { scope: ref })

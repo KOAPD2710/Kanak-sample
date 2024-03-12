@@ -14,8 +14,7 @@ industry_list.map(async (industry: any) => {
     })
 )
 ---
-
-<HomeIndustry label={label} title={title} list={industry_list}>
+<HomeIndustry label={label} title={title} client:visible>
     <Image src={arrIcon} alt="arr icon" class="ic ic-36" slot="arrIcon"/>
     <Image src={ctaTxt} alt="arr icon" class="ic" slot="ctaTxt"/>
     <Fragment slot="listServices">

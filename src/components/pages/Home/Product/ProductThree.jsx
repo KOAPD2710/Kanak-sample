@@ -52,19 +52,33 @@ function Content({...props}) {
     return (
         <>
             <group ref={wrap}>
-                <group ref={productsWrap} scale={[1000,1000,1000]} position={[0,-props.height * .025,0]} rotation={[Math.PI * .08, 0,0]}>
+                <group ref={productsWrap} scale={[7,7,7]} position={[0,-props.height * .00015,0]} rotation={[Math.PI * .09, 0,0]}>
                         <group ref={products}>
                             {props.list.map((item, idx) => {
                                 if (item.data.file.url) {
                                     return (
                                         <mesh key={idx}
                                             scale={idx == 0 ? [1,1,1] : [0,0,0]}
-                                            position={item.uid == 'kups' ? [0,-.02,0] : [0,0,0]}
-                                            rotation={item.uid == 'trays'? [0, Math.PI * .5, 0] : [0, 0, 0]}
+                                            position={item.uid == 'kups' ? [0,-.04,0] : item.uid == 'klamshells' ? [0,-.01,0] : [0,0,0]}
                                         >
-                                            <GetModel file={item.data.file.url}
-                                                material={<CustomMaterial color='#EAD6B3' needsUpdate={true} isActive={idx == index}
-                                            />} />
+                                            {item.uid == 'bowls' ? (
+                                                <GetModel file='/glb/bowls-65-transformed.glb'/>
+                                            ) : item.uid == 'plates-platters' ? (
+                                                <GetModel file='/glb/plates-80-transformed.glb'/>
+                                            ) : item.uid == 'soup-containers' ? (
+                                                <GetModel file='/glb/soup-6-transformed.glb'/>
+                                            ) : item.uid == 'kutlery' ? (
+                                                <GetModel file='/glb/kutlery-spoon-transformed.glb'/>
+                                            ) : item.uid == 'kups' ? (
+                                                <GetModel file='/glb/kup-5-transformed.glb'/>
+                                            ) : item.uid == 'klamshells' ? (
+                                                <GetModel file='/glb/klamshell-79-transformed.glb'/>
+                                            ) : (
+                                                <GetModel file={item.data.file.url}
+                                                    material={<CustomMaterial color='#EAD6B3' needsUpdate={true} isActive={idx == index}
+                                                />} />
+                                            )}
+                                            
                                         </mesh>
                                     )
                                 }
@@ -82,8 +96,8 @@ function Content({...props}) {
 }
 function HomeProductThree(props) {
     const { width, height } = useWindowSize();
-    let perspective = height;
-    let fov = ((Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI) / 2;
+    let perspective = height / 100;
+    let fov = ((Math.atan(height / 10 / perspective) * 2) * 180 / Math.PI) / 10;
     return (
         <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows="soft">
             <Content width={width} height={height} list={props.list}/>
