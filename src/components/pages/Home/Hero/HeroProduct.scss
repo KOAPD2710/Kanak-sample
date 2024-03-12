@@ -18,7 +18,6 @@
     &-title {
         position: sticky;
         top: calc((100vh - (var(--lines) * 1em)) / 2);
-        font-kerning: none;
         max-width: 90rem;
         @include sm {
             @include text(h3);

@@ -75,6 +75,7 @@
     &-title {
         margin-bottom: 5.2rem;
         max-width: 61.8rem;
+        display: none;
         @include md {
             @include text(h1);
             max-width: 31rem;
@@ -83,6 +84,7 @@
         @include sm {
             width: 100%;
             grid-area: 1/1/2/5;
+            display: block;
         }
     }
     &-main {
@@ -92,6 +94,12 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        .home-brand-title {
+            display: block;
+            @include sm {
+                display: none;
+            }
+        }
         @include md {
             grid-column: 8/13;
             padding-top: 5.6rem;

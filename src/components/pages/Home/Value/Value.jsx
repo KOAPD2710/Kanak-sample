@@ -67,7 +67,7 @@ function HomeValue(props) {
             tl3
             .from('.home-val-title-wrap', {scale: .5, y: -1 * (window.innerHeight * .5), transformOrigin: 'center top' })
         })
-    }, [{ dependencies: isDesktop, isMobile }])
+    }, { dependencies: [isDesktop, isMobile] })
     return (
         <>
             <div className="home-val-wrap">

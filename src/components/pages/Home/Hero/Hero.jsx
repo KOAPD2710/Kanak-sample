@@ -45,7 +45,8 @@ function HomeHero(props) {
 
         let tl = gsap.timeline({
             trigger: sectionRef.current,
-            start: 'top top'
+            start: 'top top',
+            once: true
         })
         tl
             .from(title.words, { ease: "power4.out", yPercent: 100, duration: 1, stagger: .05, onComplete: () => title.revert() })
