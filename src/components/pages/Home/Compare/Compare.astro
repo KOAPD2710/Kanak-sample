@@ -31,7 +31,6 @@ const list = await Promise.all(
     <Fragment slot="imgCompareDash">
         {list.map((el,idx) => (
             <Image src={compareDash} alt="" class="img" style={`--angle: ${360/list.length * idx}deg`}/>
-            // <Image src={compareDash} alt="" class="img" />
         ))}
     </Fragment>
 </HomeCompare>
