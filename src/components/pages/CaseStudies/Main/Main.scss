@@ -5,8 +5,10 @@
     .case {
         &-filter {
             &-inner {
-                margin-top: 3rem;
-                margin-bottom: 3rem;
+                padding: {
+                    top: 3rem;
+                    bottom: 3rem;
+                };
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -29,6 +31,10 @@
                     padding-top: .4rem;
                     padding-bottom: .4rem;
                     transition: color 400ms ease;
+                }
+
+                .line {
+                    display: none;
                 }
                 &:hover,&.active {
                     .case-filter-item-txt {
@@ -108,6 +114,7 @@
                         &-bot {
                             position: absolute;
                             inset: 0;
+                            pointer-events: none;
                         }
                         &-img {
                             position: absolute;
@@ -215,6 +222,235 @@
                     &:hover {
                         border-color: var(--cl-orange);
                         color: var(--cl-orange);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@include md {
+    .case-main {
+        .case {
+            &-filter {
+                position: relative;
+                z-index: 1000;
+
+                &-inner {
+                    position: relative;
+                    padding: {
+                        top: 2.4rem;
+                        bottom: 2.4rem;
+                    }
+                }
+
+                &-list {
+                    &-toggle {
+                        display: flex;
+                        column-gap: .8rem;
+
+                        &-ic {
+                            transform: rotate(0deg);
+                            @include transition(transform .5s ease);
+
+                            &.open {
+                                transform: rotate(180deg);
+                            }
+                        }
+                    }
+                    &-dropdown {
+                        position: absolute;
+                        top: 100%;
+                        flex-direction: column;
+                        align-items: start;
+                        background: var(--bg-txt) repeat;
+                        background-color: var(--cl-bg);
+                        width: 25.7rem;
+                        pointer-events: none;
+                        opacity: 0;
+                        overflow: hidden;
+                        transition: all .4s ease-out;
+
+
+                        .case-filter-item {
+                            border-left: .2rem solid var(--cl-txt);
+                            border-right: .2rem solid var(--cl-txt);
+                            opacity: 0;
+                            transform: translateY(-100%);
+
+                            @for $i from 1 through 10 {
+                                &:nth-child(#{$i}) {
+                                    transition: all .5s ease calc(#{$i} * .04s);
+                                }
+                            }
+                        }
+
+                        &.active {
+                            opacity: 1;
+                            pointer-events: auto;
+
+                            .case-filter-item {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+                    }
+                }
+                &-item {
+                    position: relative;
+                    width: 100%;
+                    padding: 2rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    // border-bottom: .2rem solid var(--cl-txt);
+
+                    .line {
+                        display: block;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                    }
+                    &-txt {
+                        @include text(18);
+                        padding: 0;
+                    }
+                }
+            }
+
+            &-list {
+                &-inner {
+                    padding-bottom: 6rem;
+                }
+                &-load {
+                    margin-bottom: 8rem;
+                }
+                &-item {
+                    padding-top: 2.4rem;
+
+                    .line-ver {
+                        height: calc(100% - 4.8rem);
+                        top: 2.4rem;
+                    }
+
+                    &-label {
+                        @include text(16);
+                    }
+                    &-title {
+                        margin-top: 1.2rem;
+                        margin-bottom: 2.7rem;
+                        @include text(h4);
+                        min-height: calc(4* var(--lh-h4));
+                    }
+                    &-bot {
+                        padding-bottom: 2.4rem;
+                    }
+                    &-link {
+                        &-txt {
+                            @include text(16);
+                        }
+                    }
+
+                    &:nth-child(odd) {
+                        padding-right: 2.4rem;
+                    }
+                    &:nth-child(even) {
+                        padding-left: 2.4rem;
+                    }
+                }
+
+                &-inner {
+                    &.layout-list {
+                        & .case {
+                            &-list {
+                                &-item {
+                                    grid-template-columns: repeat(12, 1fr);
+                                    padding: {
+                                        top: 3.2rem;
+                                    };
+
+                                    &-label {
+                                        grid-column: 1/3;
+                                    }
+                                    &-title {
+                                        grid-column: 4/-1;
+                                        margin-left: 0;
+                                        margin-bottom: 3.2rem;
+                                    }
+                                    &-bot {
+                                        display: none;
+                                    }
+                                    .line-bot {
+                                        grid-column: 1/-1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@include sm {
+    .case-main {
+        .case {
+            &-filter {
+                &-inner {
+                    padding: {
+                        top: 2rem;
+                        bottom: 2rem;
+                    };
+                }
+                &-view {
+                    display: none;
+                }
+                &-list {
+                    width: 100%;
+
+                    &-toggle {
+                        width: 100%;
+                        justify-content: space-between;
+                    }
+                    &-dropdown {
+                        width: 100%;
+                        border-top: .2rem solid var(--cl-txt);
+                    }
+                }
+            }
+
+            &-list {
+                &-inner {
+                    grid-template-columns: 1fr;
+                    padding-bottom: 4rem;
+                }
+                &-load {
+                    margin-bottom: 4rem;
+                }
+
+                &-item {
+                    &-label {
+                        @include text(14);
+                    }
+                    &-title {
+                        @include text(h5);
+                        min-height: calc(3* var(--lh-h5));
+                    }
+                    &-img {
+                        height: 8.8rem;
+                    }
+
+                    .line-ver {
+                        display: none;
+                    }
+
+                    &:nth-child(odd) {
+                        padding-right: 0;
+                    }
+                    &:nth-child(even) {
+                        padding-left: 0;
                     }
                 }
             }

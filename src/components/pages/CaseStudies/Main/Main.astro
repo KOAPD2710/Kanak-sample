@@ -1,18 +1,19 @@
 ---
-import { Image } from 'astro:assets';
-import CaseMain from './Main.jsx';
-import icViewList from '@assets/icList.svg?raw'
-import icViewGrid from '@assets/icGrid.svg?raw'
-import icArrowExt from '@assets/ic-arrow-small.svg?raw'
-import icArrowDown from '@assets/ic-arr-down.svg?raw'
-import icDropdown from '@assets/ic-arrow-down.svg';
-import {getAllByType} from '@/prismic.js';
-const list = await getAllByType('case_study');
+import { Image } from "astro:assets";
+import CaseMain from "./Main.jsx";
+import icViewList from "@assets/icList.svg?raw";
+import icViewGrid from "@assets/icGrid.svg?raw";
+import icArrowExt from "@assets/ic-arrow-small.svg?raw";
+import icArrowDown from "@assets/ic-arr-down.svg?raw";
+import icDropdown from "@assets/ic-arrow-down.svg";
+import { getAllByType } from "@/prismic.js";
+const list = await getAllByType("case_study");
 ---
+
 <CaseMain list={list} client:load path={Astro.url}>
-    <Fragment slot='icViewList' set:html={icViewList}/>
-    <Fragment slot='icViewGrid' set:html={icViewGrid}/>
-    <Fragment slot='icArrowExt' set:html={icArrowExt}/>
-    <Fragment slot='icArrowDown' set:html={icArrowDown}/>
-    <Image slot='icDropdown' src={icDropdown} alt="" class='ic ic-20'/>
+    <Fragment slot="icViewList" set:html={icViewList} />
+    <Fragment slot="icViewGrid" set:html={icViewGrid} />
+    <Fragment slot="icArrowExt" set:html={icArrowExt} />
+    <Fragment slot="icArrowDown" set:html={icArrowDown} />
+    <Image slot="icDropdown" src={icDropdown} alt="" class="ic ic-20" />
 </CaseMain>
