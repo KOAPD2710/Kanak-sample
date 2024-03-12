@@ -85,11 +85,11 @@ function CasedtlRel({ ...props }) {
                 </div>
                 <button className="casedtl-rel-load-btn">
                     <div className="casedtl-rel-load-btn-ic">
-                        <div className="ic ic-24">
+                        <div className="ic ic-16">
                             {props.icArrowDown}
                         </div>
                     </div>
-                    <div className="txt txt-20 txt-med casedtl-rel-load-btn-txt">
+                    <div className="txt txt-16 txt-med casedtl-rel-load-btn-txt">
                         Load more
                     </div>
                 </button>
