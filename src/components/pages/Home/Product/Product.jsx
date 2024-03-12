@@ -7,10 +7,12 @@ import useDevice from '@hooks/useDevice.js';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import useSelector from '@/components/hooks/useSelector.js';
 
 function HomeProduct(props) {
     const sectionRef = useRef();
     const index = useStore(productIndex);
+    const q = useSelector(sectionRef);
     const { isDesktop, isTablet, isMobile } = useDevice();
     function onClickNavPrev(e) {
         e.preventDefault();
@@ -23,28 +25,44 @@ function HomeProduct(props) {
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
-        let tl = gsap.timeline({
+
+        let tlListProduct = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionRef.current,
-                start: 'top top+=60%',
+                start: 'top top+=60%'
             }
         })
 
         sectionRef.current.querySelectorAll('.home-prod-main-item').forEach((item, idx) => {
-            tl
-                .from(item.querySelector('.home-prod-main-item-title'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .15 }, 0)
-                .from(item.querySelector('.home-prod-main-item-label'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .2 }, 0)
-                .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: idx * .15 }, 0);
+            tlListProduct
+                .from(item.querySelector('.home-prod-main-item-title'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .15, clearProps: 'all' }, 0)
+                .from(item.querySelector('.home-prod-main-item-label'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .2, clearProps: 'all' }, 0)
+                .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: idx * .15, clearProps: 'all' }, 0);
         })
-        tl.from(sectionRef.current.querySelector('.line.line-bottom'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: props.list.length * .15 }, 0);
+        tlListProduct.from(sectionRef.current.querySelector('.line.line-bottom'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: props.list.length * .15, clearProps: 'all' }, 0);
 
+        let tlCardProduct = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top top+=45%'
+            }
+        })
 
-        gsap.set('.home-prod-cards-middle', { clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)" })
-        tl
-            .to('.home-prod-cards-middle', { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1, ease: 'expo.out', overwrite: true }, .2)
-            .from('.home-prod-cards-top', { autoAlpha: 0, yPercent: 100, duration: 1.2, ease: 'expo.out', overwrite: true }, '>-0.2')
-            .from('.home-prod-cards-bottom', { autoAlpha: 0, yPercent: -100, duration: 1.2, ease: 'expo.out', overwrite: true }, '<= 0')
+        let distanceBarTransform = q('.home-prod-cards-middle').offsetHeight / 2;
+        tlCardProduct
+            .from('.home-prod-cards-top', { y: distanceBarTransform + 1, duration: 1.2, ease: 'expo.out', clearProps: 'all' })
+            .from('.home-prod-cards-bottom', { y: -distanceBarTransform, duration: 1.2, ease: 'expo.out', clearProps: 'all' }, '<= 0')
+            .from('.home-prod-cards-middle', { height: "0%", duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0")
+            .from('.home-prod-cards-middle-inner', { autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0.1")
+
+        gsap.from('.home-prod-pdf-link', {
+            scrollTrigger: {
+                trigger: '.home-prod-pdf-link',
+                start: 'top top+=90%'
+            }, autoAlpha: 0, y: 8,  duration: 1.2, ease: 'expo.out', clearProps: 'all'
+        })
     }, { scope: sectionRef })
+
     return (
         <section className="home-prod" ref={sectionRef}>
             <div className="container grid">
