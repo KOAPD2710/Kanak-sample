@@ -13,6 +13,7 @@ html {
     -webkit-text-rendering: optimizeSpeed;
     text-rendering: optimizeSpeed;
     background-color: var(--cl-bg);
+    font-kerning: none;
     &.lenis {
         height: auto;
     }

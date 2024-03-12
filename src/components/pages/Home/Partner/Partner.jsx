@@ -55,7 +55,7 @@ function HomePartner(props) {
         })
         tl2
         .to(DOM.line, {'--prog': 100, ease: 'linear'})
-    }, [{ scope: ref, dependencies: ref }])
+    }, { scope: ref, dependencies: [ref] })
 
     useEffect(() => {
         let sectionCompare = document.querySelector('.home-comp')
