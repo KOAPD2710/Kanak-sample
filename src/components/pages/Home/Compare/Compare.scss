@@ -150,6 +150,12 @@
                 z-index: 2;
                 position: absolute;
                 inset: 0;
+                display: grid;
+                img {
+                    grid-column: 1/2;
+                    grid-row: 1/2;
+                    transform: rotate(var(--angle));
+                }
             }
             &-dash {
                 z-index: 2;
