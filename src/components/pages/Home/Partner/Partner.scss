@@ -150,15 +150,6 @@
                         .home-part-line-content-title {
                             // left: calc(((var(--half) * -1) + 50% + 7.6rem));
                             &:first-of-type {
-                                left: calc(((var(--half) * -1) + 50%));
-                                top: 18.1323662738vh;
-                                max-width: 46rem;
-                                @include md {
-                                    max-width: 24.7rem;
-                                    top: calc(100% + 2.8818443804vh);
-                                }
-                            }
-                            &:last-of-type {
                                 left: calc(100% +  12.9646418858vh);
                                 top: -11.8766999093vh;
                                 max-width: 44rem;
@@ -168,10 +159,22 @@
                                     max-width: 32rem;
                                 }
                             }
+                            &:last-of-type {
+                                left: calc(((var(--half) * -1) + 50%));
+                                top: 18.1323662738vh;
+                                max-width: 46rem;
+                                @include md {
+                                    max-width: 24.7rem;
+                                    top: calc(100% + 2.8818443804vh);
+                                }
+                            }
                             @include sm {
                                 left: 0 !important;
                                 top: 0 !important;
                                 max-width: inherit !important;
+                                .hide-mb {
+                                    display: none;
+                                }
                             }
                         }
                         }

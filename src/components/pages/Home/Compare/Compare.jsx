@@ -98,16 +98,19 @@ function HomeCompare(props) {
         const subItemGood = new SplitType(q('.home-comp-main-item.good')?.querySelector('.home-comp-main-item-list-item'), { types: 'lines, words', lineClass: 'split-line' });
         const subItemBad = new SplitType(q('.home-comp-main-item.bad')?.querySelector('.home-comp-main-item-list-item'), { types: 'lines, words', lineClass: 'split-line' });
         let tl = gsap.timeline({
-            scrollTrigger: { trigger: ref.current, start: 'top top+=20%', markers: true }
+            scrollTrigger: { trigger: ref.current, start: 'top top+=20%' }
         })
         tl
             .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() })
-            .from('.home-comp-main-item img', { y: 5, autoAlpha: 0, duration: 1, ease: 'power4.out', clearProps: 'all' }, '>-.5')
+            .from('.home-comp-main-item img', { y: 5, autoAlpha: 0, duration: 1, ease: 'power4.out', clearProps: 'all' }, '>=-.5')
             .from(titleItem.words, { yPercent: 100, duration: 1.2, stagger: .05, ease: 'expo.out', onComplete: () => titleItem.revert() }, '<=0')
             .from(subItemGood.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemGood.revert() }, '<=0.1')
             .from(subItemBad.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemBad.revert() }, '<=0')
-            .from('.home-comp-main-prog-dot img', { rotate: 360, autoAlpha: 0, duration: 2, ease: 'expo.inOut' }, '>-1')
-            .from('.home-comp-main-prog-dash img', { rotate: 0, transformOrigin: "center center", autoAlpha: 0, stagger: .02, duration: 2, ease: 'expo.inOut' }, '<=0')
+
+
+
+            .to('.home-comp-main-prog-dot img', { rotate: (idx) => (360/(props.list.length * 14)) * idx, duration: 2, ease: 'expo.inOut' }, 0)
+            .to('.home-comp-main-prog-dash img', { rotate: (idx) => (360/props.list.length) * idx,  stagger: .02, duration: 2, ease: 'expo.inOut' }, '<=0')
     }, { scope: ref })
 
     useEffect(() => {

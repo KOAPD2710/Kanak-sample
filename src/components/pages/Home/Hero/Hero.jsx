@@ -50,11 +50,11 @@ function HomeHero(props) {
         })
         tl
             .from(title.words, { ease: "power4.out", yPercent: 100, duration: 1, stagger: .05, onComplete: () => title.revert() })
-            .from('.home-hero-sub', { ease: "power4.out", autoAlpha: 0, y: 12, duration: 1, clearProps: 'all' }, '>-.5')
-            .from(subTitle.words, { ease: "power4.out", yPercent: 100, duration: 1, stagger: .01, onComplete: () => subTitle.revert() }, '>-1')
-            .from('.home-hero-sub-btn-wrap .btn', { ease: 'swing', y: 10, autoAlpha: 0, duration: .8, clearProps: 'all' }, '>-0.8')
-            .from('.home-hero-sub-cta-wrap .txt', { ease: 'swing', y: 10, autoAlpha: 0, duration: .8, clearProps: 'all' }, '>-0.5')
-            .from(badgeCloneRef.current, { ease: "power2.out", autoAlpha: 0, scale: 0.8, rotate: -15, duration: 1.5 }, '>-1.2')
+            .from('.home-hero-sub', { ease: "power4.out", autoAlpha: 0, y: 12, duration: 1, clearProps: 'all' }, '>=-.5')
+            .from(subTitle.words, { ease: "power4.out", yPercent: 100, duration: 1, stagger: .01, onComplete: () => subTitle.revert() }, '>=-1')
+            .from('.home-hero-sub-btn-wrap .btn', { ease: 'swing', y: 10, autoAlpha: 0, duration: .8, clearProps: 'all' }, '>=-0.8')
+            .from('.home-hero-sub-cta-wrap .txt', { ease: 'swing', y: 10, autoAlpha: 0, duration: .8, clearProps: 'all' }, '>=-0.5')
+            .from(badgeCloneRef.current, { ease: "power2.out", autoAlpha: 0, scale: 0.8, rotate: -15, duration: 1.5 }, '>=-1.2')
             .from(badgeRef.current, { autoAlpha: 0, clearProps: 'all' });
     }, { scope: sectionRef })
 

@@ -41,7 +41,7 @@ function HomeProduct(props) {
         })
         tlListProduct
             .from(sectionRef.current.querySelector('.line.line-bottom'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: props.list.length * .15, clearProps: 'all' }, 0)
-            .from('.home-prod-pdf-link', { autoAlpha: 0, x: -10, duration: 2, ease: 'expo.out', clearProps: 'all' }, '>-0.5')
+            .from('.home-prod-pdf-link', { autoAlpha: 0, x: -10, duration: 2, ease: 'expo.out', clearProps: 'all' }, '>=-0.5')
 
         let tlCardProduct = gsap.timeline({
             scrollTrigger: {

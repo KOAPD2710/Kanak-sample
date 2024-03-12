@@ -55,12 +55,12 @@ function HomePartner(props) {
         })
         tl2
         .to(DOM.line, {'--prog': 100, ease: 'linear'})
-    }, { scope: ref, dependencies: [ref] })
+    }, { dependencies: [isMobile]  })
 
     useEffect(() => {
         let sectionCompare = document.querySelector('.home-comp')
         gsap.set(ref.current, { '--content-compare-height': getComputedStyle(sectionCompare).getPropertyValue('--content-compare-height') })
-    }, [ref])
+    }, [])
 
     return (
         <section className="home-part" ref={ref}>
@@ -79,22 +79,12 @@ function HomePartner(props) {
                                     <div className="home-part-line-content-ic bg-light">
                                         {props.partIc1}
                                     </div>
-                                    {isMobile ? (
-                                        <>
-                                            <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
-                                                Since the time of hunters and gatherers 12,000 years ago, humanity has evolved to <span className="txt-green">become the caretakers of the Earth...</span>
-                                            </h3>
-                                        </>
-                                    ): (
-                                            <>
-                                                <h3 className="heading h2 txt-up txt-black home-part-line-content-title">
-                                                    Since the time of hunters and gatherers 12,000 years ago...
-                                                </h3>
-                                                <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
-                                                    ...humanity has evolved to <span className="txt-green">become the caretakers of the Earth...</span>
-                                                </h3>
-                                            </>
-                                    )}
+                                    <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
+                                        <span className="hide-mb">....</span>humanity has evolved to <div className="txt-green">become the caretakers of the Earth...</div>
+                                    </h3>
+                                    <h3 className="heading h2 txt-up txt-black home-part-line-content-title">
+                                        Since the time of hunters and gatherers 12,000 years ago<span className="hide-mb">...</span>
+                                    </h3>
                                 </div>
                                 <div className="home-part-line-content-item item-2">
                                     <div className="home-part-line-content-ic bg-light">
