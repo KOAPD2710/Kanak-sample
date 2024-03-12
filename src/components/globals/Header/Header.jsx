@@ -35,7 +35,7 @@ function HeaderGlobal(props) {
                         From plant to product to compost and back again, Kanak is all about coming full circle.
                     </div>
                 </div>
-                <a href="#" className="header-cta">
+                <a href="/contact" className="header-cta">
                     <div className="header-cta-head">
                         {props.headFlag}
                     </div>

@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import './Main.scss';
 
-function CaseItem({...props}) {
+function CaseItem({ ...props }) {
     return (
         <a href={`/kase-studies/${props.uid}`} className="case-list-item">
             <p className="txt txt-20 txt-bold case-list-item-label">
-            {props.data.category}
+                {props.data.category}
             </p>
             <h2 className="heading h3 txt-up txt-black case-list-item-title">
                 {props.data.title[0].text}
@@ -14,7 +14,7 @@ function CaseItem({...props}) {
             <div className="case-list-item-bot">
                 <div className="case-list-item-img">
                     <div className="case-list-item-img-inner">
-                        <img className='img img-h' src={props.data.images[0].image_item.url} alt='' width={props.data.images[0].image_item.dimensions.width} height={props.data.images[0].image_item.dimensions.height}/>
+                        <img className='img img-h' src={props.data.images[0].image_item.url} alt='' width={props.data.images[0].image_item.dimensions.width} height={props.data.images[0].image_item.dimensions.height} />
                     </div>
                 </div>
                 <div className="case-list-item-link">
@@ -29,24 +29,26 @@ function CaseItem({...props}) {
         </a>
     )
 }
-function FilterItem({...props}) {
+function FilterItem({ ...props }) {
     return (
-        <button className={`case-filter-item ${props.isActive ? 'active':''}`} onClick={props.onClick} data-filter={props.name}>
+        <button className={`case-filter-item ${props.isActive ? 'active' : ''}`} onClick={props.onClick} data-filter={props.name}>
             <div className="txt txt-20 txt-bold case-filter-item-txt">
                 {props.name}
             </div>
             <div className="txt txt-12 txt-medium case-filter-item-count">
                 [{props.count}]
             </div>
+            <div className="line"></div>
         </button>
     )
 }
-function CaseMain({...props}) {
+function CaseMain({ ...props }) {
     const allItem = props.list
     const [layout, setLayout] = useState('grid');
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
+    const [categoryToggle, setcategoryToggle] = useState(false)
     const cateList = [];
     allItem.map((el, idx) => {
         !cateList.includes(el.data.category) && cateList.push(el.data.category)
@@ -54,12 +56,12 @@ function CaseMain({...props}) {
     const cateUI = useMemo(() => {
         return (
             <>
-                {cateList.map((el,idx) => (
-                    <FilterItem name={el} 
-                    count={allItem.filter((item) => item.data.category == el).length}
-                    isActive={filter == el}
-                    onClick={(e) => filterList(e)} 
-                    key={idx}/>
+                {cateList.map((el, idx) => (
+                    <FilterItem name={el}
+                        count={allItem.filter((item) => item.data.category == el).length}
+                        isActive={filter == el}
+                        onClick={(e) => filterList(e)}
+                        key={idx} />
                 ))}
             </>
         )
@@ -70,19 +72,19 @@ function CaseMain({...props}) {
         setFilter(type)
     }
     useEffect(() => {
-        window.location.hash && setFilter(decodeURI(window.location.hash).replace('#',''))
+        window.location.hash && setFilter(decodeURI(window.location.hash).replace('#', ''))
     }, [])
     useEffect(() => {
         if (filter == 'All') {
             setItemList(allItem)
-            history.replaceState({},'', window.location.pathname)
+            history.replaceState({}, '', window.location.pathname)
         } else {
             let filterList = allItem.filter((item) => item.data.category == filter)
             setItemList(filterList)
-            history.replaceState({},'', window.location.pathname + `#${encodeURI(filter)}`)
+            history.replaceState({}, '', window.location.pathname + `#${encodeURI(filter)}`)
         }
     }, [filter])
-    
+
     return (
         <section className="case-main">
             <div className="case-filter">
@@ -90,19 +92,19 @@ function CaseMain({...props}) {
                     <div className="line line-top"></div>
                     <div className="case-filter-inner">
                         <div className="case-filter-list">
-                            <button className="case-filter-list-toggle">
+                            <button className="case-filter-list-toggle" onClick={() => { setcategoryToggle(!categoryToggle) }}>
                                 <div className="txt txt-18 txt-bold case-filter-list-toggle-txt">
                                     Category
                                 </div>
-                                <div className="case-filter-list-toggle-ic">
+                                <div className={`ic ic-20 case-filter-list-toggle-ic ${categoryToggle ? 'open' : ''}`}>
                                     {props.icDropdown}
                                 </div>
                             </button>
-                            <div className="case-filter-list-dropdown">
-                                <FilterItem name={'All'} 
-                                count={allItem.length}
-                                isActive={filter == 'All'}
-                                onClick={(e) => filterList(e)} 
+                            <div className={`case-filter-list-dropdown ${categoryToggle ? 'active' : ''}`}>
+                                <FilterItem name={'All'}
+                                    count={allItem.length}
+                                    isActive={filter == 'All'}
+                                    onClick={(e) => filterList(e)}
                                 />
                                 {cateUI}
                             </div>
@@ -127,10 +129,10 @@ function CaseMain({...props}) {
                 <div className="container">
                     <motion.div layout transition={{ duration: 0.3 }} className={`case-list-inner ${layout == 'list' ? 'layout-list' : ''}`}>
                         {itemList.map((item, idx) => (
-                            idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt}/> : '' 
+                            idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} /> : ''
                         ))}
                     </motion.div>
-                    <div className={`case-list-load ${limit >= itemList.length ? 'hidden':''}`}>
+                    <div className={`case-list-load ${limit >= itemList.length ? 'hidden' : ''}`}>
                         <button className="case-list-load-btn" onClick={() => setLimit(limit + 4)}>
                             <div className="case-list-load-btn-ic">
                                 <div className="ic ic-24">

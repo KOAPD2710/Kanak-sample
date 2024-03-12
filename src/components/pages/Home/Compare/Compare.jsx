@@ -75,7 +75,6 @@ function HomeCompare(props) {
 
     useGSAP(() => {
         if (isMobile) return;
-
         gsap.registerPlugin(ScrollTrigger)
         ScrollTrigger.create({
             trigger: ref.current,
@@ -94,9 +93,6 @@ function HomeCompare(props) {
     }, { scope: ref, dependencies: [isMobile] });
 
     useGSAP(() => {
-        console.log(ref.current?.querySelector('.home-comp-main-prog-dot'))
-        console.log("ref 👉️", ref.current?.querySelector('.home-comp-main-prog'))
-
         const title = new SplitType(q('.home-comp-title'), { types: 'lines, words', lineClass: 'split-line' });
         const titleItem = new SplitType('.home-comp-main-item-title', { types: 'lines, words', lineClass: 'split-line' });
         const subItemGood = new SplitType(q('.home-comp-main-item.good')?.querySelector('.home-comp-main-item-list-item'), { types: 'lines, words', lineClass: 'split-line' });
@@ -150,7 +146,49 @@ function HomeCompare(props) {
                             {props.title}
                         </h2>
                     </div>
-                    {isMobile ? (
+                    {(isDesktop || isTablet) ? (
+                        <div className="home-comp-main grid">
+                            <MainItem
+                                data={props.list}
+                                image={props.imgCompareGood}
+                                title={"Kanak Naturals Dinnerware"}
+                                currentIndex={index}
+                                content={"kanak"}
+                                type={"good"}
+                            />
+                            <div className="home-comp-main-prog">
+                                <div className="home-comp-main-prog-inner" style={{ '--content-height': `${itemCompareHeight.hasHeader}rem` }}>
+                                    <div className="home-comp-main-prog-plates">
+                                        {props.imgComparePlates}
+                                    </div>
+                                    <div className="home-comp-main-prog-dot">
+                                        {props.imgCompareDot}
+                                    </div>
+                                    <div className="home-comp-main-prog-dash">
+                                        {props.imgCompareDash}
+                                    </div>
+                                    <div className="home-comp-main-prog-line" style={{'--PI': Math.PI, '--prog': progressLine }}>
+                                        {props.plateLine}
+                                    </div>
+                                    <div className="home-comp-main-prog-list">
+                                        {props.list.map(({ data }, idx) => (
+                                            <h4 className={`heading h3 txt-up txt-black home-comp-main-prog-list-item${idx == index ? " active" : ""}`} key={idx}>
+                                                {data.title}
+                                            </h4>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <MainItem
+                                data={props.list}
+                                image={props.imgCompareBad}
+                                title={"Traditional Dinnerware"}
+                                currentIndex={index}
+                                content={"other"}
+                                type={"bad"}
+                            />
+                        </div>
+                    ) : (
                         <div className='home-comp-main' >
                             <div className='keen-slider home-comp-main-slide' ref={sliderRef}>
                                 {props.list.map(({ data }, idx) => (
@@ -199,48 +237,6 @@ function HomeCompare(props) {
                                     </div>
                                 )}
                             </div>
-                        </div>
-                    ) : (
-                        <div className="home-comp-main grid">
-                            <MainItem
-                                data={props.list}
-                                image={props.imgCompareGood}
-                                title={"Kanak Naturals Dinnerware"}
-                                currentIndex={index}
-                                content={"kanak"}
-                                type={"good"}
-                            />
-                            <div className="home-comp-main-prog">
-                                <div className="home-comp-main-prog-inner" style={{ '--content-height': `${itemCompareHeight.hasHeader}rem` }}>
-                                    <div className="home-comp-main-prog-plates">
-                                        {props.imgComparePlates}
-                                    </div>
-                                    <div className="home-comp-main-prog-dot">
-                                        {props.imgCompareDot}
-                                    </div>
-                                    <div className="home-comp-main-prog-dash">
-                                        {props.imgCompareDash}
-                                    </div>
-                                    <div className="home-comp-main-prog-line" style={{'--PI': Math.PI, '--prog': progressLine }}>
-                                        {props.plateLine}
-                                    </div>
-                                    <div className="home-comp-main-prog-list">
-                                        {props.list.map(({ data }, idx) => (
-                                            <h4 className={`heading h3 txt-up txt-black home-comp-main-prog-list-item${idx == index ? " active" : ""}`} key={idx}>
-                                                {data.title}
-                                            </h4>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                            <MainItem
-                                data={props.list}
-                                image={props.imgCompareBad}
-                                title={"Traditional Dinnerware"}
-                                currentIndex={index}
-                                content={"other"}
-                                type={"bad"}
-                            />
                         </div>
                     )}
                 </div>

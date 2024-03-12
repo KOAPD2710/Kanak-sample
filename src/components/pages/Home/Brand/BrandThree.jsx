@@ -55,7 +55,7 @@ function Content({...props}) {
     return (
         <>
             <group ref={wrap}>
-                <group ref={brandsWrap} scale={[550,550,550]}>
+                <group ref={brandsWrap} scale={[8,8,8]}>
                         <group ref={brands} 
                         position={[-.025, 0, 0]}
                         rotation={[Math.PI * .1,-Math.PI * .45, 0]}
@@ -82,16 +82,16 @@ function Content({...props}) {
                 </group>
             </group>            
             <ambientLight intensity={1.25} />
-            <directionalLight intensity={2} position={[-props.width * .125, 0,0]}/>
-            <directionalLight intensity={.5} position={[props.width * .125, 0,0]}/>
+            <directionalLight intensity={2} position={[-props.width * .00125, 0,0]}/>
+            <directionalLight intensity={.5} position={[props.width * .00125, 0,0]}/>
         </>
     )
 }
 
 function HomeBrandThree({...props}) {
     const { width, height } = useWindowSize();
-    let perspective = height / 2;
-    let fov = ((Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI) / 4;
+    let perspective = height / 100;
+    let fov = ((Math.atan(height / 10 / perspective) * 2) * 180 / Math.PI) / 10;
 
     return (
         <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows="basic">

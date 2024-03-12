@@ -28,6 +28,7 @@ function HomeClient(props) {
         gsap.set('.home-client-box', { autoAlpha: 0 });
         ScrollTrigger.batch('.home-client-box', {
             start: `top top+=82%`,
+            once: true,
             onEnter: batch => {
                 batch.forEach((item, index) => {
                     let delayItem = (initDelay) => index != 0 ? initDelay * (index + 1) : initDelay;

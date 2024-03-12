@@ -11,9 +11,11 @@ export function GetModel({...props}) {
   const { nodes } = useGLTF(props.file) 
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.Scene.children[0].geometry} material={!props.material && nodes.Scene.children[0].material}>
-        {props.material && props.material}
-      </mesh>
+      {nodes.Scene.children.map((item, idx) => (
+        <mesh geometry={item.geometry} material={!props.material && item.material} key={idx}>
+          {props.material && props.material}
+        </mesh>
+      ))}
     </group>
   )
 }
