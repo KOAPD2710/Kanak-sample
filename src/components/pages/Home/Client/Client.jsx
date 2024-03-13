@@ -10,32 +10,32 @@ function HomeClient(props) {
     const q = useSelector(sectionRef);
 
     useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger);
-        const title = new SplitType(q('.home-client-title [name="title"]'), { types: 'lines, words', lineClass: "split-line" });
-        const subTitle = new SplitType(q('.home-client-sub'), { types: 'lines, words', lineClass: "split-line" });
+        // gsap.registerPlugin(ScrollTrigger);
+        // const title = new SplitType(q('.home-client-title [name="title"]'), { types: 'lines, words', lineClass: "split-line" });
+        // const subTitle = new SplitType(q('.home-client-sub'), { types: 'lines, words', lineClass: "split-line" });
 
-        gsap
-            .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=40%', once: true } })
-            .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() }, 0)
-            .from('[name="imgQuality"] img', { scale: .8, autoAlpha: 0, duration: 2, ease: 'expo.out', clearProps: 'all' }, ">-0.8")
+        // gsap
+        //     .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=40%', once: true } })
+        //     .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() }, 0)
+        //     .from('[name="imgQuality"] img', { scale: .8, autoAlpha: 0, duration: 2, ease: 'expo.out', clearProps: 'all' }, ">-0.8")
 
-        gsap
-            .from(subTitle.words, {
-                scrollTrigger: { trigger: sectionRef.current, start: 'top top+=40%', once: true },
-                yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => subTitle.revert()
-            })
+        // gsap
+        //     .from(subTitle.words, {
+        //         scrollTrigger: { trigger: sectionRef.current, start: 'top top+=40%', once: true },
+        //         yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => subTitle.revert()
+        //     })
 
-        gsap.set('.home-client-box', { autoAlpha: 0 });
-        ScrollTrigger.batch('.home-client-box', {
-            start: `top top+=82%`,
-            once: true,
-            onEnter: batch => {
-                batch.forEach((item, index) => {
-                    let delayItem = (initDelay) => index != 0 ? initDelay * (index + 1) : initDelay;
-                    gsap.to(item, { autoAlpha: 1, duration: 2, ease: 'expo.out', delay: delayItem(.1), clearProps: 'all' })
-                })
-            }
-        })
+        // gsap.set('.home-client-box', { autoAlpha: 0 });
+        // ScrollTrigger.batch('.home-client-box', {
+        //     start: `top top+=82%`,
+        //     once: true,
+        //     onEnter: batch => {
+        //         batch.forEach((item, index) => {
+        //             let delayItem = (initDelay) => index != 0 ? initDelay * (index + 1) : initDelay;
+        //             gsap.to(item, { autoAlpha: 1, duration: 2, ease: 'expo.out', delay: delayItem(.1), clearProps: 'all' })
+        //         })
+        //     }
+        // })
     }, { scope: sectionRef })
     return (
         <section className="home-client" ref={sectionRef}>

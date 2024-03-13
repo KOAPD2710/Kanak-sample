@@ -32,19 +32,19 @@ function HomeHeroAbout({...props}) {
     }, [width, height])
 
     useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger);
+        // gsap.registerPlugin(ScrollTrigger);
 
-        const titleTop = new SplitType('.home-hero-abt-title-top', { types: 'lines, words', lineClass: "split-line" });
-        const titleBot = new SplitType(cloneEl.current, { types: 'lines, words', lineClass: "split-line" });
-        let tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top top+=38%'
-            }
-        })
-        gsap.set(el.current, { autoAlpha: 0, pointerEvents: 'none' });
-        tl.from(titleTop.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
-            .from(titleBot.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 }, 0)
+        // const titleTop = new SplitType('.home-hero-abt-title-top', { types: 'lines, words', lineClass: "split-line" });
+        // const titleBot = new SplitType(cloneEl.current, { types: 'lines, words', lineClass: "split-line" });
+        // let tl = gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: sectionRef.current,
+        //         start: 'top top+=38%'
+        //     }
+        // })
+        // gsap.set(el.current, { autoAlpha: 0, pointerEvents: 'none' });
+        // tl.from(titleTop.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
+        //     .from(titleBot.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 }, 0)
 
     }, { scope: sectionRef })
     return (

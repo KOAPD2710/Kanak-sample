@@ -24,45 +24,45 @@ function HomeProduct(props) {
     }
 
     useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger);
+        // gsap.registerPlugin(ScrollTrigger);
 
-        let tlListProduct = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top top+=60%'
-            }
-        })
-
-        sectionRef.current.querySelectorAll('.home-prod-main-item').forEach((item, idx) => {
-            tlListProduct
-                .from(item.querySelector('.home-prod-main-item-title'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .15, clearProps: 'all' }, 0)
-                .from(item.querySelector('.home-prod-main-item-label'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .2, clearProps: 'all' }, 0)
-                .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: idx * .15, clearProps: 'all' }, 0);
-        })
-        tlListProduct
-            .from(sectionRef.current.querySelector('.line.line-bottom'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: props.list.length * .15, clearProps: 'all' }, 0)
-            .from('.home-prod-pdf-link', { autoAlpha: 0, x: -10, duration: 2, ease: 'expo.out', clearProps: 'all' }, '>=-0.5')
-
-        let tlCardProduct = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top top+=45%'
-            }
-        })
-
-        let distanceBarTransform = q('.home-prod-cards-middle').offsetHeight / 2;
-        tlCardProduct
-            .from('.home-prod-cards-top', { y: distanceBarTransform + 1, duration: 1.2, ease: 'expo.out', clearProps: 'all' })
-            .from('.home-prod-cards-bottom', { y: -distanceBarTransform, duration: 1.2, ease: 'expo.out', clearProps: 'all' }, '<= 0')
-            .from('.home-prod-cards-middle', { height: "0%", duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0")
-            .from('.home-prod-cards-middle-inner', { autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0.1")
-
-        // gsap.from('.home-prod-pdf-link', {
+        // let tlListProduct = gsap.timeline({
         //     scrollTrigger: {
-        //         trigger: '.home-prod-pdf-link',
-        //         start: 'top top+=90%'
-        //     }, autoAlpha: 0, y: 8,  duration: 1.2, ease: 'expo.out', clearProps: 'all'
+        //         trigger: sectionRef.current,
+        //         start: 'top top+=60%'
+        //     }
         // })
+
+        // sectionRef.current.querySelectorAll('.home-prod-main-item').forEach((item, idx) => {
+        //     tlListProduct
+        //         .from(item.querySelector('.home-prod-main-item-title'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .15, clearProps: 'all' }, 0)
+        //         .from(item.querySelector('.home-prod-main-item-label'), { autoAlpha: 0, x: -10, duration: 1.2, ease: "power4", delay: idx * .2, clearProps: 'all' }, 0)
+        //         .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: idx * .15, clearProps: 'all' }, 0);
+        // })
+        // tlListProduct
+        //     .from(sectionRef.current.querySelector('.line.line-bottom'), { scaleX: 0, transformOrigin: 'left', autoAlpha: 0, duration: .6, ease: 'power4.out', delay: props.list.length * .15, clearProps: 'all' }, 0)
+        //     .from('.home-prod-pdf-link', { autoAlpha: 0, x: -10, duration: 2, ease: 'expo.out', clearProps: 'all' }, '>=-0.5')
+
+        // let tlCardProduct = gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: sectionRef.current,
+        //         start: 'top top+=45%'
+        //     }
+        // })
+
+        // let distanceBarTransform = q('.home-prod-cards-middle').offsetHeight / 2;
+        // tlCardProduct
+        //     .from('.home-prod-cards-top', { y: distanceBarTransform + 1, duration: 1.2, ease: 'expo.out', clearProps: 'all' })
+        //     .from('.home-prod-cards-bottom', { y: -distanceBarTransform, duration: 1.2, ease: 'expo.out', clearProps: 'all' }, '<= 0')
+        //     .from('.home-prod-cards-middle', { height: "0%", duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0")
+        //     .from('.home-prod-cards-middle-inner', { autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0.1")
+
+        // // gsap.from('.home-prod-pdf-link', {
+        // //     scrollTrigger: {
+        // //         trigger: '.home-prod-pdf-link',
+        // //         start: 'top top+=90%'
+        // //     }, autoAlpha: 0, y: 8,  duration: 1.2, ease: 'expo.out', clearProps: 'all'
+        // // })
     }, { scope: sectionRef })
 
     return (
