@@ -66,11 +66,11 @@ function ContactForm(props) {
             form.reset()
         }, 2000);
     }
-    useGSAP(() => {
-        const title = new SplitType('.contact-hero-title', {types: 'lines, words', lineClass: 'split-line'})
-        gsap.from(title.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
+    // useGSAP(() => {
+    //     const title = new SplitType('.contact-hero-title', {types: 'lines, words', lineClass: 'split-line'})
+    //     gsap.from(title.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
 
-    }, [])
+    // }, [])
     useEffect(() => {
         console.log(formData);
     }, [JSON.stringify(formData)]);
