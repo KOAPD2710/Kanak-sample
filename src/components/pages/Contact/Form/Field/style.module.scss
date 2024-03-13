@@ -3,6 +3,11 @@
 
 .field {
     position: relative;
+    &:hover {
+        .label {
+            opacity: 1;
+        }
+    }
 }
 
 .fieldLine {
@@ -26,7 +31,7 @@
 .label {
     --transform: scale(0.625);
     --top-transform: 3rem;
-
+    opacity: .6;
     position: absolute;
     left: var(--offset-left);
     top: 5.2rem;
