@@ -18,7 +18,7 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeCompare title={title} list={list} client:visible={{rootMargin: "50%"}}>
+<HomeCompare title={title} list={list} client:visible>
     <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
     <Image src={compareGood} alt="" class='ic ic-80' slot='imgCompareGood' />
     <Image src={compareBad} alt="" class='ic ic-80' slot='imgCompareBad' />
