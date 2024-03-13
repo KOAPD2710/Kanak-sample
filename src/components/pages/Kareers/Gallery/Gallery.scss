@@ -1,0 +1,61 @@
+.kareer-gall {
+    position: relative;
+    z-index: 1;
+    margin-top: -100vh;
+    height: 400vh;
+    &-stick {
+        width: 100%;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        background-color: var(--cl-bg-dark);
+        contain: paint;
+    }
+    &-content-wrap {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &-content-inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        .kareer-gall-title {
+            position: absolute;
+            text-wrap: nowrap;
+            color: var(--cl-txt-light);
+            &-top {
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+            }
+            &-bot {
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+            }
+            &-left {
+                right: 100%;
+                top: 50%;
+                transform: translateY(-50%);
+                text-align: right;
+                margin-right: 1.2rem;
+            }
+            &-right {
+                left: 100%;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 1.2rem;
+            }
+        }
+    }
+    &-content-img {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;   
+    }
+}

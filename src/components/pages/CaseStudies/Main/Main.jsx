@@ -49,14 +49,10 @@ function CaseMain({ ...props }) {
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
     const [categoryToggle, setcategoryToggle] = useState(false)
-    const cateList = [];
-    allItem.map((el, idx) => {
-        !cateList.includes(el.data.category) && cateList.push(el.data.category)
-    })
     const cateUI = useMemo(() => {
         return (
             <>
-                {cateList.map((el, idx) => (
+                {props.cateList.map((el, idx) => (
                     <FilterItem name={el}
                         count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
@@ -65,7 +61,7 @@ function CaseMain({ ...props }) {
                 ))}
             </>
         )
-    }, [cateList])
+    }, [props.cateList])
 
     function filterList(e) {
         let type = e.target.dataset.filter;
@@ -75,16 +71,11 @@ function CaseMain({ ...props }) {
         console.log(categoryToggle);
     }, [categoryToggle])
     useEffect(() => {
-        window.location.hash && setFilter(decodeURI(window.location.hash).replace('#', ''))
-    }, [])
-    useEffect(() => {
         if (filter == 'All') {
             setItemList(allItem)
-            history.replaceState({}, '', window.location.pathname)
         } else {
             let filterList = allItem.filter((item) => item.data.category == filter)
             setItemList(filterList)
-            history.replaceState({}, '', window.location.pathname + `#${encodeURI(filter)}`)
         }
     }, [filter])
 

@@ -1,0 +1,61 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.case-cate-hero {
+    padding-top: 20.7rem;
+    padding-bottom: 8rem;
+    &-title-wrap {
+        grid-column: 1/7;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+    &-bread {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        column-gap: .8rem;
+        margin-bottom: .8rem;
+        position: relative;
+        &-link {
+            transition: color 400ms ease;
+            &:hover {
+                color: var(--cl-orange);
+            }
+        }
+    }
+    &-content {
+        grid-column: 12/17;
+        display: flex;
+        align-items: end;
+    }
+}
+
+@include md {
+    .case-cate-hero {
+        padding-top: 19.3rem;
+        padding-bottom: 6rem;
+        &-content {
+            grid-column: 7/13;
+            &-sub {
+                @include text(16);
+            }
+        }
+    }
+}
+
+@include sm {
+    .case-cate-hero {
+        padding-top: 16.8rem;
+        padding-bottom: 3.2rem;
+        &-title-wrap {
+            grid-column: 1/-1;
+            margin-bottom: 4rem;
+            max-width: 30.4rem;
+            @include text(h1);
+        }
+        &-content {
+            grid-column: 1/-1;
+        }
+    }
+}

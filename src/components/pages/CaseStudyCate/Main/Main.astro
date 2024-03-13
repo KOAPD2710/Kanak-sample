@@ -14,7 +14,7 @@ list.map((el, idx) => {
 })
 ---
 
-<CaseMain list={list} cateList={cateList} client:load>
+<CaseMain list={list} cateList={cateList} {...Astro.props} client:load>
     <Fragment slot="icViewList" set:html={icViewList} />
     <Fragment slot="icViewGrid" set:html={icViewGrid} />
     <Fragment slot="icArrowExt" set:html={icArrowExt} />

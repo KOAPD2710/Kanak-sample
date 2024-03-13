@@ -1,0 +1,8 @@
+---
+import Image from 'astro/components/Image.astro'
+import KareersCta from './Cta.jsx'
+import itemIcon from '@assets/ic-insurance.svg';
+---
+<KareersCta {...Astro.props}>
+    <Image src={itemIcon} alt='' slot='itemIc' class='img'/>
+</KareersCta>

@@ -80,7 +80,7 @@ function HomePartner(props) {
                                         {props.partIc1}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
-                                        <span className="hide-mb">....</span>humanity has evolved to <div className="txt-green">become the caretakers of the Earth...</div>
+                                        <span className="hide-mb">....</span>humanity has evolved to <span className="txt-green">become the caretakers of the Earth...</span>
                                     </h3>
                                     <h3 className="heading h2 txt-up txt-black home-part-line-content-title">
                                         Since the time of hunters and gatherers 12,000 years ago<span className="hide-mb">...</span>
@@ -91,7 +91,7 @@ function HomePartner(props) {
                                         {props.partIc2}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
-                                        It's essential that we embrace this role with a sense of adventure and strong commitment to <span className="txt-green">safeguard our precious planet...</span>
+                                        It's essential that we embrace this role with a sense of adventure and strong <span className="txt-green">commitment to safeguard our precious planet...</span>
                                     </h3>
                                 </div>
                                 <div className="home-part-line-content-item item-3">

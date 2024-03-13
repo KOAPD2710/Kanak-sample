@@ -1,0 +1,8 @@
+---
+import Image from 'astro/components/Image.astro'
+import KareerGallery from './Gallery.jsx'
+import kareerGallBg from '@assets/kareer-gall-bg.jpg';
+---
+<KareerGallery {...Astro.props} client:load>
+    <Image src={kareerGallBg} alt='' slot="gallBg" class='img img-fill' />
+</KareerGallery>

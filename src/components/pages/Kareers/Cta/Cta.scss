@@ -1,0 +1,17 @@
+.kareer-cta {
+    padding-top: 17rem;
+    padding-bottom: 18.8rem;
+    &-title {
+        grid-column: 1/10;
+        max-width: 90rem;
+    }
+    &-sub-wrap {
+        grid-column: 11/17;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+    }
+    &-sub {
+        margin-bottom: 5.2rem;
+    }
+}

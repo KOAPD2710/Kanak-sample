@@ -1,0 +1,76 @@
+.kareer-cult {
+    margin-top: -100vh;
+    padding-top: 16.4rem;
+    padding-bottom: 13.2rem;
+    background-color: var(--cl-bg);
+    position: relative;
+    z-index: 3;
+    & > .line-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &-title {
+        grid-column: 1/10;
+        max-width: 82rem;
+    }
+    &-sub-wrap {
+        grid-column: 12/17;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+    }
+    &-sub {
+        margin-bottom: 5.2rem;
+    }
+    &-main {
+        grid-column: 1/-1;
+        margin-top: 10rem;
+        position: relative;
+        &-item {
+            background-color: var(--cl-bg);
+            position: sticky;
+            top: var(--top);
+            padding-bottom: var(--pBot);
+            margin-top: var(--mTop);
+            &-inner {
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+                display: flex;
+                align-items: end;
+                justify-content: space-between;
+                column-gap: 4rem;
+            }
+            .line {
+                position: absolute;
+                left: 0;
+                &-top {
+                    top: 0;
+                }
+                &-bot {
+                    bottom: 0;
+                }
+            }
+            &-title {
+                display: flex;
+                align-items: start;
+                column-gap: 4rem;
+                margin-bottom: 4rem;
+                &-dot {
+                    margin-top: 2rem;
+                    width: 2.8rem;
+                    height: 2.8rem;
+                    border-radius: 50%;
+                    background-color: var(--cl-txt);
+                }
+            }
+            &-sub {
+                margin-left: 6.8rem;
+                max-width: 64.4rem;
+            }
+            &-img {
+                height: 18rem;
+            }
+        }
+    }
+}

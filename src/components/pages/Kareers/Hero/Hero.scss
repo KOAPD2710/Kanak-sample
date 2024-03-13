@@ -1,0 +1,30 @@
+.kareer-hero {
+    &-title {
+        padding-top: 22rem;
+        padding-bottom: 13rem;
+        grid-column: 1/-1;
+        max-width: 99rem;
+        margin: 0 auto;
+        text-align: center;
+    }
+    &-bg {
+        height: calc(100rem + 100vh);
+        display: flex;
+        align-items: end;
+        position: relative;
+        background-color: var(--cl-bg);
+        &-inner {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            height: 100rem;
+            .line {
+                position: absolute;
+                left: 0;
+                &-top {
+                    top: 0;
+                }
+            }
+        }
+    }
+}
