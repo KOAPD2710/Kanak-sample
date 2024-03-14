@@ -336,7 +336,66 @@
                 display: none;
             }
 
-            
+            &-main {
+                position: relative;
+
+                &-inner {
+                    &-item {
+                        display: flex;
+                        padding: {
+                            top: 3.2rem;
+                            right: 0;
+                        };
+                        &-img, &-content {
+                            width: 50%;
+                        }
+                        &-img {
+                            height: 25.8rem;
+                        }
+                        &-content {
+                            padding: {
+                                left: 2.4rem;
+                            };
+                        }
+                        &-cate {
+                            margin-top: 0;
+
+                            .ic {
+                                display: none;
+                            }
+                            &-txt {
+                                font-weight: 700;
+                                @include text(18);
+                            }
+                        }
+                        &-title {
+                            @include text(h4);
+                            margin-bottom: 1.6rem;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            -webkit-box-orient: vertical;  
+                            overflow: hidden;
+                        }
+                    }
+                }
+                &-pagi {
+                    display: none;
+                }
+                &-control {
+                    position: absolute;
+                    bottom: 0;
+                }
+                &-nav {
+
+                    &-item {
+                        @include size(3.6rem);
+
+                        .ic {
+                            @include size(1.6rem);
+                        }
+                    }
+                }
+            }
         }
         &-pop {
             grid-column: 1/-1;
