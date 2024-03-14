@@ -10,6 +10,7 @@ import featureImg from "@assets/resource-img1.jpeg";
 import arrIcon from "@assets/arr-right.svg?raw";
 import folderIcon from "@assets/ic-folder.svg?raw";
 import icArrowDown from "@assets/ic-arr-down.svg?raw";
+import icDropdown from "@assets/ic-arrow-down.svg?raw";
 
 let featureList = Astro.props.list
     .filter((item) => item.class == "feature")
@@ -42,6 +43,7 @@ let popularList = Astro.props.list
             />
             <Fragment set:html={folderIcon} slot="folderIcon" />
             <Fragment set:html={icArrowDown} slot="icArrowDown" />
+            <Fragment set:html={icDropdown} slot="icDropDown" />
         </ResourceMainList>
     </div>
 </section>

@@ -1,0 +1,206 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.resource-dtl {
+    padding-top: 20.4rem;
+
+    &-bread {
+        grid-column: 1/-1;
+        display: flex;
+        column-gap: .8rem;
+        align-items: center;
+    }
+
+    &-title {
+        grid-column: 1/-1;
+
+        margin: {
+            top: 1.8rem;
+            bottom: 8rem;
+        }
+
+        ;
+    }
+
+    &-line {
+        grid-column: 1/-1;
+    }
+
+    &-info {
+        position: relative;
+        grid-column: 1/5;
+        padding-top: 8.5rem;
+
+        &-stick {
+            position: sticky;
+            top: 18rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: 2.4rem;
+        }
+
+        &-item {
+            &-head {
+                margin-bottom: .4rem;
+            }
+
+            &-link {
+                color: var(--cl-txt);
+                @include size(4.2rem);
+                transition: color .4s ease;
+
+                @media (hover: hover) {
+                    &:hover {
+                        color: var(--cl-orange);
+                    }
+                }
+            }
+
+            &.link {
+                display: flex;
+                column-gap: 1.6rem;
+            }
+        }
+    }
+
+    &-richtxt {
+        position: relative;
+        grid-column: 5/-1;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: var(--grid-gap);
+
+        & .line-ver {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: .2rem;
+            height: 100%;
+        }
+
+        &-main {
+            grid-column: 2/12;
+
+            padding: {
+                top: 8.5rem;
+                bottom: 9rem;
+            }
+
+            h2 {
+                font-family: "HelveticaNowDisplay", sans-serif;
+                @include text(h5);
+                font-weight: 900;
+                text-transform: uppercase;
+
+                padding: {
+                    top: 6rem;
+                    bottom: 1.2rem;
+                }
+            }
+
+            h3 {
+                font-family: "HelveticaNowDisplay", sans-serif;
+                @include text(h6);
+                font-weight: 900;
+                text-transform: uppercase;
+
+                padding: {
+                    top: 1.6rem;
+                    bottom: 1.2rem;
+                }
+            }
+
+            ul {
+                list-style-type: none;
+                display: flex;
+                flex-direction: column;
+                row-gap: 2.4rem;
+
+                padding: {
+                    top: 1.2rem;
+                    bottom: 1.2rem;
+                }
+
+                li {
+                    display: flex;
+
+                    &::before {
+                        content: "";
+                        display: block;
+                        position: relative;
+                        @include size(1rem);
+                        background-color: var(--cl-txt);
+                        border-radius: 100vmax;
+                        flex-shrink: 0;
+
+                        margin: {
+                            top: .9rem;
+                            right: 2rem;
+                        }
+                    }
+                }
+            }
+
+            figure {
+                figcaption {
+                    margin: {
+                        top: 1.6rem;
+                        bottom: 1.2rem;
+                    }
+
+                    ;
+                }
+            }
+
+            blockquote {
+                padding: {
+                    top: 3.6rem;
+                    bottom: 1.2rem;
+                }
+
+                p {
+                    position: relative;
+                    font-family: "HelveticaNowDisplay", sans-serif;
+                    @include text(h5);
+                    font-weight: 900;
+                    text-transform: uppercase;
+
+                    padding: {
+                        left: 4.4rem;
+                        top: 0;
+                        bottom: 0;
+                    }
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        display: block;
+                        top: 0;
+                        left: 0;
+                        width: .2rem;
+                        height: 100%;
+                        background-color: var(--cl-txt);
+                    }
+                }
+
+                footer {
+                    font-family: "Inter Variable", sans-serif;
+                    @include text(18);
+                    margin-top: 1.6rem;
+                    padding-left: 4.4rem;
+                }
+            }
+
+            p {
+                padding: {
+                    top: 1.2rem;
+                    bottom: 1.2rem;
+                }
+            }
+        }
+    }
+
+    &-rel {
+        grid-column: 1/-1;
+    }
+}

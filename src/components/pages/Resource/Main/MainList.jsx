@@ -92,7 +92,6 @@ function ResourceMainList({ ...props }) {
             history.replaceState({}, '', window.location.pathname + `#${encodeURI(filter)}`)
         }
     }, [filter])
-    console.log(itemList);
 
     return (
         <div className="resource-main-list">
@@ -104,7 +103,7 @@ function ResourceMainList({ ...props }) {
                             {filter == 'All' ? 'All Categories' : filter}
                         </div>
                         <div className={`ic ic-20 resource-main-list-head-filter-toggle-ic ${categoryToggle ? 'open' : ''}`}>
-                            {props.icDropdown}
+                            {props.icDropDown}
                         </div>
                     </button>
                     <div className={`resource-main-list-head-filter-dropdown ${categoryToggle ? 'active' : ''}`}>
@@ -119,7 +118,7 @@ function ResourceMainList({ ...props }) {
             </div>
             <div className="line"></div>
             <div className="resource-main-list-main">
-                <motion.div transition={{ duration: 0.3 }} className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+                <motion.div layout transition={{ duration: 0.3 }} className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
                     {itemList.map((item, idx) => (
                         idx < limit ? <ArticleItem key={idx} {...item} idx={idx} icArrowExt={props.icArrowExt} /> : ""
                     ))}

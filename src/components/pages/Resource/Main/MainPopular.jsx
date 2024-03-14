@@ -2,6 +2,7 @@ function ResourceMainPopular({ ...props }) {
     return (
         <div className="resource-main-pop">
             <h3 className="heading h4 txt-black txt-up resource-main-pop-title">popular news</h3>
+            <div className="line resource-main-pop-line"></div>
             <div className="resource-main-pop-list">
                 {props.popList.map((item, idx) => (
                     <div className="resource-main-pop-list-item" key={idx}>

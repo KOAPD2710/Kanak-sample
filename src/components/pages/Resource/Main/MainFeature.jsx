@@ -7,12 +7,17 @@ function ResourceMainFeature({ ...props }) {
 
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [opacities, setOpacities] = useState([])
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)
         },
+        // detailsChanged(s) {
+        //     const new_opacities = s.track.details.slides.map((slide) => slide.portion)
+        //     setOpacities(new_opacities)
+        // },
         created() {
             setLoaded(true)
         },
@@ -23,7 +28,7 @@ function ResourceMainFeature({ ...props }) {
             <div className="resource-main-fea-main">
                 <div className="keen-slider resource-main-fea-main-inner" ref={sliderRef}>
                     {props.feaList.map((item, idx) => (
-                        <a href="#" className="keen-slider__slide resource-main-fea-main-inner-item" key={idx}>
+                        <a href="#" className="keen-slider__slide resource-main-fea-main-inner-item" key={idx} style={{ opacity: opacities[idx] }}>
                             <div className="resource-main-fea-main-inner-item-img">
                                 <img className='img img-fill' src={item.imageUrl} alt="" />
                             </div>
@@ -79,6 +84,7 @@ function ResourceMainFeature({ ...props }) {
                     </div>
                 </div>
                 <div className="line line-ver"></div>
+                <div className="line resource-main-fea-main-line-bot"></div>
             </div>
         </div>
     )

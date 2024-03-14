@@ -30,3 +30,16 @@
     }
 }
 
+@include sm {
+    .resource-hero {
+        padding-top: 15.8rem;
+
+        &-title {
+            @include text(h1);
+        }
+        &-subtitle {
+            grid-column: 1/-1;
+            margin-right: 0;
+        }
+    }
+}
