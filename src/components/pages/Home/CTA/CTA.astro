@@ -1,0 +1,8 @@
+---
+import { Image } from "astro:assets"
+import homeCtaBg from '@assets/home-cta-bg2.jpg';
+import HomeCTA from './CTA';
+---
+<HomeCTA { ...Astro.props } client:visible={{rootMargin: "50%"}}>
+    <Image src={homeCtaBg} alt="" slot="background" class="img img-fill" />
+</HomeCTA>

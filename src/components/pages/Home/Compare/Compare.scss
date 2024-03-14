@@ -8,6 +8,17 @@
     @include sm {
         height: auto;
     }
+    &.desk-ver {
+        @include sm {
+            display: none;
+        }
+    }
+    &.mb-ver {
+        display: none;
+        @include sm {
+            display: block;
+        }
+    }
     .container {
         display: flex;
         flex-direction: column;

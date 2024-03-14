@@ -25,6 +25,7 @@
         overflow: hidden;
         position: relative;
         z-index: 2;
+        margin-bottom: -1px;
         @include sm {
             display: none;
         }
@@ -103,6 +104,7 @@
             top: -.2rem;
             left: 0;
             background-color: var(--cl-txt);
+            width: 100%;
         }
         &-item {
             flex: none;
@@ -175,7 +177,7 @@
                 }
             }
             &-sub {
-                max-width: 79.4rem;
+                max-width: 80rem;
                 margin-bottom: 4rem;
                 color: rgba($cl-txt-light, .6);
                 @include md {

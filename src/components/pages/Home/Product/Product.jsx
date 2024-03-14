@@ -24,7 +24,8 @@ function HomeProduct(props) {
     }
 
     useGSAP(() => {
-        // gsap.registerPlugin(ScrollTrigger);
+        if (isMobile) return;
+        gsap.registerPlugin(ScrollTrigger);
 
         // let tlListProduct = gsap.timeline({
         //     scrollTrigger: {
@@ -57,13 +58,7 @@ function HomeProduct(props) {
         //     .from('.home-prod-cards-middle', { height: "0%", duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0")
         //     .from('.home-prod-cards-middle-inner', { autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all' }, "<=0.1")
 
-        // // gsap.from('.home-prod-pdf-link', {
-        // //     scrollTrigger: {
-        // //         trigger: '.home-prod-pdf-link',
-        // //         start: 'top top+=90%'
-        // //     }, autoAlpha: 0, y: 8,  duration: 1.2, ease: 'expo.out', clearProps: 'all'
-        // // })
-    }, { scope: sectionRef })
+    }, { scope: sectionRef, dependencies: [isMobile] })
 
     return (
         <section className="home-prod" ref={sectionRef}>

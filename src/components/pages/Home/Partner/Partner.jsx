@@ -6,6 +6,7 @@ import * as ut from '@/js/utils.js';
 import './Partner.scss';
 import useDevice from "@hooks/useDevice";
 import useSelector from "@hooks/useSelector";
+import SplitType from 'split-type';
 
 function HomePartner(props) {
     const ref = useRef();
@@ -40,7 +41,16 @@ function HomePartner(props) {
 
         const totalPathL = parseFloat(DOM.linePath.getTotalLength());
         console.log(totalPathL)
-        gsap.set(DOM.line, {'--totalL': totalPathL, '--prog': 0})
+
+        let listTitle = [...ref.current.querySelectorAll('.home-part-line-content-title')].map((item) => {
+            let title = new SplitType(item, { types: 'lines, words', lineClass: 'split-line' });
+            gsap.set(title.words, { yPercent: 100 });
+            return title;
+        })
+        let activeIndex = -1;
+        let activeIc = -1;
+        gsap.set(DOM.line, { '--totalL': totalPathL, '--prog': 0 });
+        gsap.set('.home-part-line-content-ic', { autoAlpha: 0, scale: .8 });
         const tl2 = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-comp',
@@ -49,13 +59,59 @@ function HomePartner(props) {
                 end: `bottom-=${(sectionBotOffset)} bottom`,
                 scrub: true,
                 onUpdate: (self) => {
-                    // console.log(self.progress)
-                }
+                    if (self.progress > 0.07 && self.progress < .12) {
+                        activeIc = 0
+                    }
+                    else if (self.progress > 0.44 && self.progress < .5) {
+                        activeIc = 1
+                    }
+                    else if (self.progress > 0.7 && self.progress < .75) {
+                        activeIc = 2
+                    }
+                    else if (self.progress > 0.1 && self.progress < 0.15) {
+                        activeIndex = 0;
+                    }
+                    else if (self.progress > 0.22 && self.progress < 0.4) {
+                        activeIndex = 1;
+                    }
+                    else if (self.progress > 0.4 && self.progress < 0.5) {
+                        activeIndex = 2;
+                    }
+                    else if (self.progress > 0.7 && self.progress < 0.9) {
+                        activeIndex = 3;
+                    }
+                    else if (self.progress > 0.99) {
+                        activeIndex = 4;
+                        activeIc = 3
+                    }
+                    if (listTitle.length !== 0 && activeIndex >= 0) {
+                        gsap.to(listTitle[activeIndex].words, { yPercent: 0, stagger: .05, duration: .8, ease: 'power4.out' })
+                    }
+                    if (activeIc >= 0) {
+                        if (!ref.current.querySelectorAll('.home-part-line-content-ic')[activeIc].classList.contains('done')) {
+                            gsap.to(ref.current.querySelectorAll('.home-part-line-content-ic')[activeIc], {
+                                autoAlpha: 1, scale: 1, overwrite: true, duration: .8, ease: 'expo.out',
+                                onComplete: () => ref.current.querySelectorAll('.home-part-line-content-ic')[activeIc].classList.add('done')
+                            })
+                        }
+                    }
+                },
             }
         })
         tl2
-        .to(DOM.line, {'--prog': 100, ease: 'linear'})
-    }, { dependencies: [isMobile]  })
+            .to(DOM.line, {
+                '--prog': 100, ease: 'linear',
+                onComplete: () => {
+                    setTimeout(() => {
+                        listTitle.forEach((item) => {
+                            item.revert();
+                        })
+                        listTitle.length = 0;
+                    }, 1200)
+                }
+            })
+
+    }, { dependencies: [isMobile] })
 
     useEffect(() => {
         let sectionCompare = document.querySelector('.home-comp')
@@ -79,11 +135,11 @@ function HomePartner(props) {
                                     <div className="home-part-line-content-ic bg-light">
                                         {props.partIc1}
                                     </div>
-                                    <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
-                                        <span className="hide-mb">....</span>humanity has evolved to <span className="txt-green">become the caretakers of the Earth...</span>
-                                    </h3>
                                     <h3 className="heading h2 txt-up txt-black home-part-line-content-title">
                                         Since the time of hunters and gatherers 12,000 years ago<span className="hide-mb">...</span>
+                                    </h3>
+                                    <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
+                                        <span className="show-mb">Since the time of hunters and gatherers 12,000 years ago</span><span className="hide-mb">....</span>humanity has evolved to become the <span className="txt-green">caretakers </span><span className="txt-green">of the Earth...</span>
                                     </h3>
                                 </div>
                                 <div className="home-part-line-content-item item-2">
@@ -91,7 +147,7 @@ function HomePartner(props) {
                                         {props.partIc2}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
-                                        It's essential that we embrace this role with a sense of adventure and strong <span className="txt-green">commitment to safeguard our precious planet...</span>
+                                        It's essential that we embrace this role with a sense of adventure and strong <span className="txt-green">commitment to safeguard our </span><span className="txt-green">precious planet...</span>
                                     </h3>
                                 </div>
                                 <div className="home-part-line-content-item item-3">
@@ -99,7 +155,7 @@ function HomePartner(props) {
                                         {props.partIc3}
                                     </div>
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
-                                        As guardians of the earth, it falls upon us to <span className="txt-green">advocate for conservation...</span>
+                                        As guardians of the earth, it falls upon us to <span className="txt-green">advocate for </span><span className="txt-green">conservation...</span>
                                     </h3>
                                 </div>
                                 <div className="home-part-line-content-item item-4">

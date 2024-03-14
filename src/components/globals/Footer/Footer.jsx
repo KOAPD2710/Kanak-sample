@@ -62,7 +62,7 @@ const MenuColumn = ({ title, children, tail, tail_link, isOpen, onClick, onClick
                         {tail}
                     </button>
                 )}
-                
+
             </div>
         </div>
     )
