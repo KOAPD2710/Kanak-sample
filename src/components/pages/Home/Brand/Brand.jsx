@@ -30,9 +30,9 @@ function HomeBrand(props) {
     })
 
     useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger);
+        // gsap.registerPlugin(ScrollTrigger);
 
-        let title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
+        // let title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
         // gsap
         //     .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=50%' } })
         //     .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() })

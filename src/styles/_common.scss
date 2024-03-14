@@ -142,7 +142,7 @@ body, .bg-light {
     display: none;
 }
 .show-mb {
-    display: none;
+    display: none !important;
     @include sm {
         display: block;
     }

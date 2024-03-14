@@ -138,7 +138,6 @@ function HomePartner(props) {
                                     <h3 className="heading h2 txt-up txt-black home-part-line-content-title">
                                         Since the time of hunters and gatherers 12,000 years ago<span className="hide-mb">...</span>
                                     </h3>
-                                        {/* <span className="hide-mb">....</span>humanity has evolved to become the caretakers of the Earth... */}
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title">
                                         <span className="show-mb">Since the time of hunters and gatherers 12,000 years ago</span><span className="hide-mb">....</span>humanity has evolved to become the <span className="txt-green">caretakers </span><span className="txt-green">of the Earth...</span>
                                     </h3>

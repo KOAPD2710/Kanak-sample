@@ -71,25 +71,25 @@ function HomeValue(props) {
         })
 
         let mainTitle = new SplitType('.home-val-title', { types: 'lines, words', lineClass: 'split-line' })
-        let itemNumber = new SplitType('.home-val-main-item-num', { types: 'lines, words', lineClass: 'split-line' })
-        let itemTitle = new SplitType('.home-val-main-item-title', { types: 'lines, words', lineClass: 'split-line' })
-        let itemSub = new SplitType('.home-val-main-item-sub', { types: 'lines, words', lineClass: 'split-line' })
-        let itemLink = new SplitType('.home-val-main-item-link', { types: 'lines, chars', lineClass: 'split-line' })
+        // let itemNumber = new SplitType('.home-val-main-item-num', { types: 'lines, words', lineClass: 'split-line' })
+        // let itemTitle = new SplitType('.home-val-main-item-title', { types: 'lines, words', lineClass: 'split-line' })
+        // let itemSub = new SplitType('.home-val-main-item-sub', { types: 'lines, words', lineClass: 'split-line' })
+        // let itemLink = new SplitType('.home-val-main-item-link', { types: 'lines, chars', lineClass: 'split-line' })
 
         gsap
             .from(mainTitle.words, {
                 scrollTrigger: { trigger: '.home-val-stick', start: `top-=${window.innerHeight * (isDesktop ? .6 : 1)} top`, once: true },
                 yPercent: 100, stagger: .05, duration: 1, ease: 'power4.out', onComplete: () => mainTitle.revert() })
 
-        gsap
-            .timeline({ scrollTrigger: { trigger: '.home-val-main', start: 'top top+=50%', once: true } })
-            .from('.line.line-top', { scaleX: 0, transformOrigin: 'left', duration: 1.2, ease: 'expo.inOut', clearProps: 'all' })
-            .from(itemNumber.words, { yPercent: 100, stagger: .01, duration: .8, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemNumber.revert() }, '>=-1.2')
-            .from('.home-val-main-item-ic', { autoAlpha: 0, scale: .9, duration: 3, delay: (idx) => idx * 0.01, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.5')
-            .from(itemTitle.words, { yPercent: 100, stagger: .01, duration: .8, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemTitle.revert() }, '<=0.2')
-            .from(itemSub.words, { yPercent: 100, stagger: .01, duration: .8, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemSub.revert() }, '>=-0.6')
-            .from(itemLink.chars, { yPercent: 100, duration: 1.2, stagger: .005, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemLink.revert() }, '>=-1')
-            .from('.line.line-left', { scaleY: 0, transformOrigin: 'top', duration: 2, ease: 'expo.inOut', clearProps: 'all' }, .4)
+        // gsap
+        //     .timeline({ scrollTrigger: { trigger: '.home-val-main', start: 'top top+=50%', once: true } })
+        //     .from('.line.line-top', { scaleX: 0, transformOrigin: 'left', duration: 1.2, ease: 'expo.inOut', clearProps: 'all' })
+        //     .from(itemNumber.words, { yPercent: 100, stagger: .01, duration: .8, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemNumber.revert() }, '>=-1.2')
+        //     .from('.home-val-main-item-ic', { autoAlpha: 0, scale: .9, duration: 3, delay: (idx) => idx * 0.01, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.5')
+        //     .from(itemTitle.words, { yPercent: 100, stagger: .01, duration: .8, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemTitle.revert() }, '<=0.2')
+        //     .from(itemSub.words, { yPercent: 100, stagger: .01, duration: .8, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemSub.revert() }, '>=-0.6')
+        //     .from(itemLink.chars, { yPercent: 100, duration: 1.2, stagger: .005, delay: (idx) => idx * 0.01, ease: 'power2.out', onComplete: () => itemLink.revert() }, '>=-1')
+        //     .from('.line.line-left', { scaleY: 0, transformOrigin: 'top', duration: 2, ease: 'expo.inOut', clearProps: 'all' }, .4)
 
     }, { dependencies: [isDesktop, isMobile] })
 
