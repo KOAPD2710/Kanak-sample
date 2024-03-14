@@ -1,0 +1,8 @@
+---
+import { Image } from "astro:assets";
+import KareersHero from './Hero.jsx'
+import kareerHeroBg from '@assets/kareer-hero-bg.jpg';
+---
+<KareersHero {...Astro.props}>
+    <Image src={kareerHeroBg} alt="" slot="heroBg" class="img img-fill"/>
+</KareersHero>

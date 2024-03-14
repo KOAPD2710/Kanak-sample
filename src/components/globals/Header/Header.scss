@@ -23,7 +23,7 @@
         }
     }
     &-main {
-        grid-column: 1/10;
+        grid-column: 1/11;
         @include md {
             grid-column: span 12;
         }

@@ -147,7 +147,6 @@ function HomePartner(props) {
                                     <div className="home-part-line-content-ic bg-light">
                                         {props.partIc2}
                                     </div>
-                                        {/* It's essential that we embrace this role with a sense of adventure and strong commitment to safeguard our precious planet... */}
                                     <h3 className="heading h3 txt-up txt-black home-part-line-content-title home-part-line-content-title-center">
                                         It's essential that we embrace this role with a sense of adventure and strong <span className="txt-green">commitment to safeguard our </span><span className="txt-green">precious planet...</span>
                                     </h3>

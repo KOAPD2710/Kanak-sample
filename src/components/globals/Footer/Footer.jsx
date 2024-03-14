@@ -4,11 +4,11 @@ import './Footer.scss';
 import useDevice from '@hooks/useDevice';
 import { getLenis } from '@/components/core/lenis';
 
-const ContactItem = ({ label, content, link="#" }) => {
+const ContactItem = ({ label, content, link="#", target }) => {
     return (
         <div className="ft-left-body-list-item">
             <div className="txt txt-18 txt-med ft-left-body-label">{label}</div>
-            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt txt-link">{content}</a>
+            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt txt-link" target={target}>{content}</a>
         </div>
     )
 }
@@ -99,9 +99,9 @@ function GlobalFooter(props) {
                     </div>
                     <div className="ft-left-body">
                         <div className="ft-left-body-list">
-                            <ContactItem label="Get in touch" content="info@kanaknaturals.com" type="email" />
-                            <ContactItem label="Contact" content="+1 (260) 490 4790" type="phone"/>
-                            <ContactItem label="Headquarters" content="321 Hovan Drive, Fort Wayne, IN 46825, US" />
+                            <ContactItem label="Get in touch" content="info@kanaknaturals.com" link="mailto:info@kanaknaturals.com"/>
+                            <ContactItem label="Contact" content="+1 (260) 490 4790" link="tel:+1 (260) 490 4790"/>
+                            <ContactItem label="Headquarters" content="321 Hovan Drive, Fort Wayne, IN 46825, US" link="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target="_blank"/>
                         </div>
                         <div className="ft-left-body-social">
                             <a href="#" className="ft-left-body-social-item txt-bg-link">

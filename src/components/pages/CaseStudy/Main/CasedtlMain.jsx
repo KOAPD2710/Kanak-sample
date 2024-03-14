@@ -10,7 +10,7 @@ function CasedtlMain({...props}) {
                     Kase studies
                 </a>
                 <div className="txt txt-14 txt-semi casedtl-bread-div">/</div>
-                <a href={`/kase-studies#${encodeURI(props.data.category)}`} className="txt txt-20 txt-bold casedtl-bread-link">
+                <a href={`/kase-studies/${props.data.category.toLowerCase().replaceAll(' ', '-')}`} className="txt txt-20 txt-bold casedtl-bread-link">
                     {props.data.category}
                 </a>
                 <div className="line"></div>

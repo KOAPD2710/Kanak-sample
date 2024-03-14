@@ -1,0 +1,29 @@
+---
+import {getAllByType} from '@/prismic.js';
+import Layout from "@/layouts/Layout.astro";
+import Hero from '@pages/CaseStudyCate/Hero/Hero.astro';
+import Main from '@pages/CaseStudyCate/Main/Main.astro'
+import {getPage} from '@/prismic.js';
+export async function getStaticPaths() {
+    const list = await getAllByType('case_study')
+    const cateList = [];
+    list.map((el, idx) => {
+        !cateList.includes(el.data.category) && cateList.push(el.data.category)
+    })
+    console.log(cateList)
+    return cateList.map((item: any) => {
+        console.log(item)
+        return {
+            params: {kaseStudyCate: item.toLowerCase().replaceAll(' ', '-')},
+            props: {item}
+        }
+    })
+}
+const { data } = await getPage('case_studies');
+const { kaseStudyCate } = Astro.params;
+const { item } = Astro.props;
+---
+<Layout title={item}>
+    <Hero currentCate={item} title={item} client_quote={data.hero_client_quote} client_name={data.hero_client_name} client_job={data.hero_client_job} client_avatar={data.hero_client_avatar} client_company={data.hero_client_company}/>
+    <Main currentCate={item}/>
+</Layout>

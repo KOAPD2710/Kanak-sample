@@ -26,10 +26,10 @@ function HomeHeroProduct(props) {
                 opacity: .2, stagger: .06, ease: 'linear'
             })
 
-            gsap.from(text.words, {
-                scrollTrigger: { trigger: '.home-hero-prod-title-wrap', start: 'top top+=80%', once: true },
-                yPercent: 60, autoAlpha: 0, duration: .5, stagger: .03
-            })
+            // gsap.from(text.words, {
+            //     scrollTrigger: { trigger: '.home-hero-prod-title-wrap', start: 'top top+=80%', once: true },
+            //     yPercent: 60, autoAlpha: 0, duration: .5, stagger: .03
+            // })
         })
     }, { scope: ref })
     return (
