@@ -1,8 +1,15 @@
 @use '@styles/colors' as *;
+@use '@styles/mixins' as *;
 .kareer-perk {
     background-color: var(--cl-bg-dark);
     padding-top: 16rem;
     padding-bottom: 21rem;
+    @include md {
+        padding: 18rem 0;
+    }
+    @include sm {
+        padding: 10rem 0;
+    }
     &-title-wrap {
         display: flex;
         flex-direction: column;
@@ -10,17 +17,35 @@
         text-align: center;
         color: var(--cl-txt-light);
         margin-bottom: 12rem;
+        @include sm {
+            margin-bottom: 10rem;
+        }
     }
     &-sub {
         margin-bottom: 1.2rem;
+        @include sm {
+            @include text(h5);
+        }
     }
     &-title {
         max-width: 94rem;
+        @include md {
+            max-width: 75.4rem;
+        }
+        @include sm {
+            @include text(h1);
+        }
     }
     &-main {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         position: relative;
+        @include md {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @include sm {
+            grid-template-columns: 1fr;
+        }
         & > .line {
             position: absolute;
             background-color: rgba($cl-border, .3);
@@ -40,12 +65,31 @@
                 display: flex;
                 flex-direction: column;
                 align-items: start;
+                @include md {
+                    padding: 6rem 4.8rem;
+                }
+                @include sm {
+                    align-items: center;
+                    text-align: center;
+                    padding: 6rem 3.2rem;
+                }
                 .ic {
                     margin-bottom: 6rem;
+                    @include md {
+                        margin-bottom: 4rem;
+                    }
                 }
             }
             &-title {
                 margin-bottom: 4rem;
+                @include md {
+                    margin-bottom: 2.4rem;
+                }
+            }
+            &-sub {
+                @include md {
+                    @include text(16);
+                }
             }
             & > .line {
                 background-color: rgba($cl-border, .3);
@@ -55,13 +99,23 @@
                     height: calc(100% - .2rem);
                     top: 0;
                     right: 0;
+                    @include sm {
+                        display: none;
+                    }
                 }
                 &-bot {
                     bottom: 0;
                     left: 0;
                 }
             }
-            @media screen and (min-width: 991px) {
+            @include md {
+                &:nth-child(2n) {
+                    & > .line-right {
+                        display: none;
+                    }
+                }
+            }
+            @include md-up {
                 &:nth-child(n+4) {
                     & > .line-bot {
                         display: none;

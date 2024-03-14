@@ -1,3 +1,4 @@
+@use '@styles/mixins' as *;
 .kareer-cult {
     margin-top: -100vh;
     padding-top: 16.4rem;
@@ -5,6 +6,13 @@
     background-color: var(--cl-bg);
     position: relative;
     z-index: 3;
+    @include md {
+        padding-top: 8.4rem;
+    }
+    @include sm {
+        padding-top: 6rem;
+        padding-bottom: 0;
+    }
     & > .line-top {
         position: absolute;
         top: 0;
@@ -13,26 +21,61 @@
     &-title {
         grid-column: 1/10;
         max-width: 82rem;
+        @include md {
+            grid-column: 1/11;
+            max-width: 57.3rem;
+            margin-bottom: 4.8rem;
+        }
+        @include sm {
+            @include text(h1);
+            grid-column: 1/-1;
+            margin-bottom: 4rem;
+        }
     }
     &-sub-wrap {
         grid-column: 12/17;
         display: flex;
         flex-direction: column;
         justify-content: end;
+        @include md {
+            grid-column: 6/13;
+        }
+        @include sm {
+            grid-column: 1/-1;
+        }
     }
     &-sub {
         margin-bottom: 5.2rem;
+        @include md {
+            @include text(16);
+            margin-bottom: 4rem;
+        }
     }
     &-main {
         grid-column: 1/-1;
         margin-top: 10rem;
         position: relative;
+        @include md {
+            margin-top: 7.6rem;
+        }
+        @include sm {
+            margin-top: 6rem;
+        }
         &-item {
+            --height-overlap: 10rem;
+            --top-distance: 14rem;
+            @include md {
+                --height-overlap: 14rem;
+                --top-distance: 6rem;
+            }
+            @include sm {
+                --top-distance: 4rem;
+            }
             background-color: var(--cl-bg);
             position: sticky;
-            top: var(--top);
-            padding-bottom: var(--pBot);
-            margin-top: var(--mTop);
+            top: calc(var(--top-distance) + var(--height-overlap) * var(--idx));
+            padding-bottom: calc(var(--height-overlap) * var(--idx-bot));
+            margin-top: calc(var(--height-overlap) * var(--idx-top) * -1);
             &-inner {
                 padding-top: 6rem;
                 padding-bottom: 6rem;
@@ -40,6 +83,14 @@
                 align-items: end;
                 justify-content: space-between;
                 column-gap: 4rem;
+                @include md {
+                    column-gap: 2.8rem;
+                    align-items: start;
+                }
+                @include sm {
+                    flex-direction: column;
+                    padding: 4rem 2rem 4rem 0;
+                }
             }
             .line {
                 position: absolute;
@@ -56,20 +107,57 @@
                 align-items: start;
                 column-gap: 4rem;
                 margin-bottom: 4rem;
+                @include md {
+                    column-gap: 2.8rem;
+                    margin-bottom: 2.4rem;
+                }
+                &-txt {
+                    @include md {
+                        @include text(h3);
+                    }
+                }
                 &-dot {
                     margin-top: 2rem;
-                    width: 2.8rem;
-                    height: 2.8rem;
+                    @include size(2.8rem);
                     border-radius: 50%;
+                    flex: none;
                     background-color: var(--cl-txt);
+                    @include md {
+                        @include size(2rem);
+                        margin-top: .9rem;
+                    }
+                    @include sm {
+                        display: none;
+                    }
                 }
             }
             &-sub {
                 margin-left: 6.8rem;
                 max-width: 64.4rem;
+                @include md {
+                    margin-left: 4.8rem;
+                    max-width: 37rem;
+                    @include text(16);
+                }
+                @include sm {
+                    margin-left: 0;
+                    margin-bottom: 2.4rem;
+                }
             }
             &-img {
+                flex: none;
                 height: 18rem;
+                @include sm {
+                    width: 14.7rem;
+                    height: auto;
+                }
+                img {
+                    @include sm {
+                        object-fit: cover;
+                        width: 100% !important;
+                        height: auto !important;
+                    }
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 import './Hero.scss';
 
-function KareersHero({...props}) {
+function KareersHero({ heroBg, ...props }) {
     return (
         <section className="kareer-hero">
             <div className="container grid">
@@ -11,7 +11,7 @@ function KareersHero({...props}) {
             <div className="kareer-hero-bg bg-light">
                 <div className="kareer-hero-bg-inner">
                     <div className="line line-top"></div>
-                    {props.heroBg}
+                    {heroBg}
                 </div>
             </div>
         </section>

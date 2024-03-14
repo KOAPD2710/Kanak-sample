@@ -10,9 +10,7 @@ export async function getStaticPaths() {
     list.map((el, idx) => {
         !cateList.includes(el.data.category) && cateList.push(el.data.category)
     })
-    console.log(cateList)
     return cateList.map((item: any) => {
-        console.log(item)
         return {
             params: {kaseStudyCate: item.toLowerCase().replaceAll(' ', '-')},
             props: {item}

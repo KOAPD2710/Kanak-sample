@@ -22,9 +22,9 @@ function KareerCulture({...props}) {
                 <div className="kareer-cult-main">
                     {[...Array(4)].map((item, idx) => (
                         <div className="kareer-cult-main-item bg-light" key={idx} style={
-                            {'--top': `calc(14rem + 10rem * ${idx + 1})`,
-                            '--pBot': `calc(10rem * ${4 - idx - 1})`,
-                            '--mTop': `calc(10rem * ${idx == 0 ? 0 : 4 - idx} * -1)`}
+                            {'--idx': idx + 1,
+                            '--idx-bot': 4 - idx - 1,
+                            '--idx-top': idx == 0 ? 0 : 4 - idx}
                             }>
                             <div className="kareer-cult-main-item-inner">
                                 <div className="line line-top"></div>

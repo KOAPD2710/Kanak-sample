@@ -158,7 +158,7 @@
                 margin-top: 6rem;
                 margin-bottom: 3.2rem;
             }
-            p {
+            p, ul, li {
                 margin-top: 1em;
                 margin-bottom: 1em;
             }
@@ -252,7 +252,7 @@
                     position: absolute;
                     top: 0;
                     right: 0;
-                    
+
                     width: .2rem;
                     height: 100%;
                 }
@@ -316,7 +316,7 @@
                 left: calc(var(--grid-gap) / 2 * -1);
             }
         }
-        
+
         &-slide {
             grid-column: 1/7;
             margin-right: calc(var(--grid-gap) /2 * -1);
@@ -487,7 +487,7 @@
             &-stick {
                 position: static;
                 pointer-events: auto;
-                
+
                 & > .line {
                     margin-bottom: 2.4rem;
                 }

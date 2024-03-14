@@ -119,6 +119,9 @@ button {
     color: var(--cl-white);
     &-lg {
         padding: 2.8rem 2.4rem;
+        @include md {
+            padding: 1.8rem 2.4rem;
+        }
     }
     &-wide {
         width: 100%;

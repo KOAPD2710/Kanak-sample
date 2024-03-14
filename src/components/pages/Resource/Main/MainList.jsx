@@ -92,7 +92,6 @@ function ResourceMainList({ ...props }) {
             history.replaceState({}, '', window.location.pathname + `#${encodeURI(filter)}`)
         }
     }, [filter])
-    console.log(itemList);
 
     return (
         <div className="resource-main-list">
