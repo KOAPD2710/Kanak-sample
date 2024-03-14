@@ -7,7 +7,7 @@ import bgTextureDark from "@assets/bg-texture-dark-sm.png";
 import HomeValue from "./Value";
 const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width})
 ---
-<HomeValue client:visible bgText={OpBgTextureDark}>
+<HomeValue client:visible={{rootMargin: "50%"}} bgText={OpBgTextureDark}>
     <Image src={icNetwork} alt="" class="ic ic-150" slot="icNetwork" />
     <Image src={icTree} alt="" class="ic ic-150" slot="icTree" />
     <Image src={icAward} alt="" class="ic ic-150" slot="icAward" />

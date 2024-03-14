@@ -15,8 +15,8 @@ function HomeIndustry(props) {
         const title = new SplitType(q('.home-indus-title'), { types: 'lines, words', lineClass: 'split-line' })
         gsap
             .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=40%' } })
-            .from(label.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'power4.out', onComplete: () => label.revert }, 0)
-            .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'power4.out', onComplete: () => title.revert }, 0.15)
+            .from(label.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'power4.out', onComplete: () => label.revert() }, 0)
+            .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'power4.out', onComplete: () => title.revert() }, 0.15)
             .from('.home-indus-cta-wrap', { autoAlpha: 0, scale: .9, duration: 1.5, ease: 'expo.out', clearProps: 'all' }, '>=-0.8')
 
         sectionRef.current.querySelectorAll('.home-indus-main-item').forEach((item) => {

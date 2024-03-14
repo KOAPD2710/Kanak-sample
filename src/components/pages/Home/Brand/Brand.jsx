@@ -34,7 +34,7 @@ function HomeBrand(props) {
 
         let title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
         gsap
-            .timeline({ trigger: sectionRef.current, start: 'top top' })
+            .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=50%' } })
             .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() })
             .from('.line.line-ver', { scaleY: 0, transformOrigin: 'top', duration: 1.5, ease: 'expo.inOut', clearProps: 'all' }, '>=-.8')
             .from('.line.line-bot', { scaleX: 0, duration: 1.2, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.55')
@@ -63,7 +63,7 @@ function HomeBrand(props) {
     return (
         <section className="home-brand" ref={sectionRef}>
             <div className="container grid">
-                <h2 className="heading h0 txt-up txt-black home-brand-title">{props.title}</h2>
+                <h2 className="heading h0 txt-up txt-black home-brand-title mb-ver">{props.title}</h2>
                 <div className="home-brand-canvas">
                     <div className="home-brand-canvas-inner">
                         <HomeBrandThree list={props.list}/>

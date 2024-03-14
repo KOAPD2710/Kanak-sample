@@ -154,6 +154,7 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
     }
     &-green {
         color: var(--cl-green);
+        display: inline-block;
     }
     &-orange {
         color: var(--cl-orange);
@@ -226,4 +227,20 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
 }
 .split-line {
     contain: paint;
+    display: block;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+.inline-block {
+    display: inline-block;
 }
