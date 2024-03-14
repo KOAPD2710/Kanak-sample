@@ -1,0 +1,30 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.resource-hero {
+    padding-top: 20.7rem;
+
+    &-title {
+        grid-column: 1/8;
+    }
+    &-subtitle {
+        grid-column: 12/-1;
+        margin-bottom: 7rem;
+    }
+}
+
+@include md {
+    .resource-hero {
+        padding-top: 17.5rem;
+    
+        &-title {
+            grid-column: 1/-1;
+            margin-bottom: 1.6rem;
+        }
+        &-subtitle {
+            grid-column: 1/-1;
+            margin-bottom: 4rem;
+        }
+    }
+}
+

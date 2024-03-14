@@ -1,0 +1,47 @@
+---
+import "./Main.scss";
+
+import Image from "astro/components/Image.astro";
+import ResourceMainFeature from "./MainFeature";
+import ResourceMainPopular from "./MainPopular";
+import ResourceMainList from "./MainList";
+
+import featureImg from "@assets/resource-img1.jpeg";
+import arrIcon from "@assets/arr-right.svg?raw";
+import folderIcon from "@assets/ic-folder.svg?raw";
+import icArrowDown from "@assets/ic-arr-down.svg?raw";
+
+let featureList = Astro.props.list
+    .filter((item) => item.class == "feature")
+    .slice(0, 4);
+
+let popularList = Astro.props.list
+    .filter((item) => item.class == "popular")
+    .slice(0, 3);
+---
+
+<section class="resource-main">
+    <div class="container grid">
+        <div class="line resource-main-line"></div>
+        <ResourceMainFeature {...Astro.props} feaList={featureList} client:load>
+            <Fragment set:html={arrIcon} slot="arrIcon" />
+            <Fragment set:html={folderIcon} slot="folderIcon" />
+            <Image src={featureImg} alt="" slot="featureImg" />
+        </ResourceMainFeature>
+        <ResourceMainPopular {...Astro.props} popList={popularList}>
+            <Fragment set:html={folderIcon} slot="folderIcon" />
+            <Image src={featureImg} alt="" slot="featureImg" />
+        </ResourceMainPopular>
+        <div class="line resource-main-line"></div>
+        <ResourceMainList {...Astro.props} client:visible>
+            <Image
+                src={featureImg}
+                alt=""
+                slot="featureImg"
+                class="img img-fill"
+            />
+            <Fragment set:html={folderIcon} slot="folderIcon" />
+            <Fragment set:html={icArrowDown} slot="icArrowDown" />
+        </ResourceMainList>
+    </div>
+</section>
