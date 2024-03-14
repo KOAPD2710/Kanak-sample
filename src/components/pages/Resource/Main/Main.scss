@@ -154,7 +154,6 @@
     }
     &-list {
         grid-column: 1/-1;
-        
     }
     &-list {
         &-head {
@@ -204,9 +203,16 @@
             }
         }
         &-main {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            &-inner {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
 
+                &.all-loaded {
+                    & + .line {
+                        display: none;
+                    }
+                }
+            }
             
             &-item {
                 position: relative;
@@ -270,10 +276,71 @@
                     bottom: 0;
                     left: 0;
                 }
+
+                &:nth-last-child(2), &:last-child {
+                    .line:not(.line-ver) {
+                        display: none;
+                    }
+                }
+                &:nth-child(even):nth-last-child(2) {
+                    .line:not(.line-ver) {
+                        display: block;
+                    }
+                }
             }
         }
         &-load {
+            display: flex;
+            justify-content: center;
+            margin: {
+                top: 6rem;
+                bottom: 8rem;
+            };
+            &.hidden {
+                display: none;
+            }
+            &-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: solid .2rem var(--cl-txt);
+                transition: all 400ms ease;
+                &-ic {
+                    width: 6.2rem;
+                    height: 6rem;
+                    border-right: solid .2rem currentColor;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                &-txt {
+                    padding: 1.6rem 1.8rem;
+                }
+                @media (hover: hover ) {
+                    &:hover {
+                        border-color: var(--cl-orange);
+                        color: var(--cl-orange);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include md {
+    .resource-main {
+        &-fea {
+            grid-column: 1/-1;
+            margin-right: 0;
+            .line-ver {
+                display: none;
+            }
+
             
+        }
+        &-pop {
+            grid-column: 1/-1;
+            margin-left: 0;
         }
     }
 }

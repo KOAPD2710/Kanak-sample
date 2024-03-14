@@ -25,21 +25,22 @@ function ResourceMainFeature({ ...props }) {
                     {props.feaList.map((item, idx) => (
                         <a href="#" className="keen-slider__slide resource-main-fea-main-inner-item" key={idx}>
                             <div className="resource-main-fea-main-inner-item-img">
-                                {props.featureImg}
-                                {/* <img src={item.image.src} alt={item.image.alt} /> */}
+                                <img className='img img-fill' src={item.imageUrl} alt="" />
                             </div>
-                            <div className="resource-main-fea-main-inner-item-cate">
-                                <div className='ic ic-20'>
-                                    {props.folderIcon}
+                            <div className="resource-main-fea-main-inner-item-content">
+                                <div className="resource-main-fea-main-inner-item-cate">
+                                    <div className='ic ic-20'>
+                                        {props.folderIcon}
+                                    </div>
+                                    <div className="txt txt-20 txt-black resource-main-fea-main-inner-item-cate-txt">
+                                        {item.category}
+                                    </div>
                                 </div>
-                                <div className="txt txt-20 txt-black resource-main-fea-main-inner-item-cate-txt">
-                                    {item.category}
-                                </div>
+                                <h2 className='heading h4 txt-black txt-up resource-main-fea-main-inner-item-title'>
+                                    {item.title}
+                                </h2>
+                                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{item.date}</span>
                             </div>
-                            <h2 className='heading h4 txt-black txt-up resource-main-fea-main-inner-item-title'>
-                                {item.title}
-                            </h2>
-                            <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{item.date}</span>
                         </a>
                     ))}
                 </div>

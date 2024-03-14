@@ -1,8 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
+import { getImage } from "astro:assets";
 import Main from "@pages/Resource/Main/Main.astro";
 import Hero from "@pages/Resource/Hero/Hero.astro";
+import featureImg from "@assets/resource-img2.jpg";
+
+const image = await getImage({ src: featureImg, format: "webp" });
 
 const data = [
     {
@@ -11,7 +15,7 @@ const data = [
             "Our strategically located warehouses ensure swift response to fluctuating demands, keeping your supply chain robust and reliable with the environment",
         category: "Industry Reports",
         date: "May 23, 2024",
-        imageUrl: "./resource-img2.jpg",
+        imageUrl: image.src,
         class: "feature",
     },
     {
@@ -20,7 +24,61 @@ const data = [
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
         category: "Industry News",
         date: "May 23, 2024",
-        imageUrl: "./resource-img2.jpg",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
         class: "feature",
     },
     {
@@ -29,7 +87,7 @@ const data = [
             "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
         category: "Industry News",
         date: "May 23, 2024",
-        imageUrl: "./resource-img2.jpg",
+        imageUrl: image.src,
         class: "feature",
     },
     {
@@ -38,7 +96,7 @@ const data = [
             "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
         category: "Industry Reports",
         date: "May 23, 2024",
-        imageUrl: "./resource-img2.jpg",
+        imageUrl: image.src,
         class: "popular",
     },
     {
@@ -47,7 +105,7 @@ const data = [
             "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
         category: "Industry News",
         date: "May 23, 2024",
-        imageUrl: "./resource-img2.jpg",
+        imageUrl: image.src,
         class: "popular",
     },
     {
@@ -56,7 +114,7 @@ const data = [
             "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
         category: "Industry Reports",
         date: "May 23, 2024",
-        imageUrl: "./resource-img2.jpg",
+        imageUrl: image.src,
         class: "popular",
     },
     {
@@ -65,7 +123,7 @@ const data = [
             "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
         category: "Industry News",
         date: "May 23, 2024",
-        imageUrl: "./resource-img2.jpg",
+        imageUrl: image.src,
         class: "",
     },
 ];

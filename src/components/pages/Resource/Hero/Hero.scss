@@ -22,8 +22,10 @@
             margin-bottom: 1.6rem;
         }
         &-subtitle {
-            grid-column: 1/-1;
+            grid-column: 1/7;
             margin-bottom: 4rem;
+            margin-right: calc(var(--grid-gap)/2 * -1);
+            @include text(16);
         }
     }
 }
