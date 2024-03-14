@@ -34,7 +34,7 @@ let popularList = Astro.props.list
             <Image src={featureImg} alt="" slot="featureImg" />
         </ResourceMainPopular>
         <div class="line resource-main-line"></div>
-        <ResourceMainList {...Astro.props} client:visible>
+        <ResourceMainList {...Astro.props} client:load>
             <Image
                 src={featureImg}
                 alt=""

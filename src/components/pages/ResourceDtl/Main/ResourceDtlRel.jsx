@@ -3,30 +3,28 @@ import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
 
 function ResDtlRel({ ...props }) {
-    // const [loaded, setLoaded] = useState(false);
-    // const [currentSlide, setCurrentSlide] = useState(0);
-    // let perView = 2;
-    // let newList = props.list.reduce((accumulator, currentValue, currentIndex, array) => {
-    //     if (currentIndex % perView === 0) {
-    //         accumulator.push(array.slice(currentIndex, currentIndex + 2));
-    //     }
-    //     return accumulator;
-    // }, [])
-    // const [sliderRef, instanceRef] = useKeenSlider({
-    //     initial: 0,
-    //     defaultAnimation: {
-    //         duration: 800
-    //     },
-    //     slideChanged(slider) {
-    //         setCurrentSlide(slider.track.details.rel)
-    //     },
-    //     created() {
-    //         setLoaded(true)
-    //     },
-    // })
-    props.list.map((item, idx) => {
-        console.log(item);
+    const [loaded, setLoaded] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    let perView = 2;
+    let newList = props.list.reduce((accumulator, currentValue, currentIndex, array) => {
+        if (currentIndex % perView === 0) {
+            accumulator.push(array.slice(currentIndex, currentIndex + 2));
+        }
+        return accumulator;
+    }, [])
+    const [sliderRef, instanceRef] = useKeenSlider({
+        initial: 0,
+        defaultAnimation: {
+            duration: 800
+        },
+        slideChanged(slider) {
+            setCurrentSlide(slider.track.details.rel)
+        },
+        created() {
+            setLoaded(true)
+        },
     })
+    console.log(newList);
     return (
         <div className="resource-dtl-rel">
             <div className="resource-dtl-rel-head">
@@ -69,16 +67,32 @@ function ResDtlRel({ ...props }) {
                 </div>
             </div>
             <div className="resource-dtl-rel-main">
-                <div className="resource-dtl-rel-main-inner">
-                    {/* ref={sliderRef} style={{ '--perView': perView }} */}
-                    {props.list.map((item, idx) => {
-                        < div className="resource-dtl-rel-main-inner-item" key={idx} >
-                            <div className="resource-dtl-rel-main-inner-item-img">
-                                <img src={item.imageUrl} alt="" />
-                            </div>
-                            <div className="resource-dtl-rel-main-inner-item-content"></div>
+                <div className="keen-slider  resource-dtl-rel-main-inner" ref={sliderRef} style={{ '--perView': perView }}>
+                    {newList.map((chunk, idx) => (
+                        <div className="keen-slider__slide resource-dtl-rel-main-inner-group" key={idx}>
+                            {chunk.map((item, itemIdx) => (
+                                <a href="#" className="resource-dtl-rel-main-inner-group-item" key={itemIdx} >
+                                    <div className="resource-dtl-rel-main-inner-group-item-img">
+                                        <img src={item.imageUrl} alt="" />
+                                    </div>
+                                    <div className="resource-dtl-rel-main-inner-group-item-content">
+                                        <div className="resource-dtl-rel-main-inner-group-item-content-cate">
+                                            {item.category}
+                                        </div>
+                                        <h3 className='heading h4 resource-dtl-rel-main-inner-group-item-content-title'>
+                                            {item.title}
+                                        </h3>
+                                        <p className='heading h4 resource-dtl-rel-main-inner-group-item-content-subtitle'>
+                                            {item.content}
+                                        </p>
+                                        <span className='heading h4 resource-dtl-rel-main-inner-group-item-content-date'>
+                                            {item.date}
+                                        </span>
+                                    </div>
+                                </a>
+                            ))}
                         </div>
-                    })}
+                    ))}
                 </div>
             </div>
         </div >

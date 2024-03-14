@@ -202,5 +202,11 @@
 
     &-rel {
         grid-column: 1/-1;
+
+        &-main {
+            &-inner {
+                display: flex;
+            }
+        }
     }
 }
