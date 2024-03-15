@@ -140,13 +140,13 @@ body, .bg-light {
     background-color: var(--cl-bg-dark);
     background-size: 40rem auto;
 }
-
 .hide-mb {
-    display: none;
-}
-.show-mb {
-    display: none !important;
     @include sm {
-        display: block;
+        display: none !important; 
+    }
+}
+.hide-dk {
+    @include sm-up {
+        display: none !important;
     }
 }

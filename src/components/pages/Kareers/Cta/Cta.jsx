@@ -1,4 +1,4 @@
-import './Cta.scss';
+import './CTA.scss'
 
 function KareersCta({...props}) {
     return (

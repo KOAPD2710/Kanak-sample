@@ -4,16 +4,19 @@
     min-height: 100vh;
     @include md {
         position: relative;
-        z-index: 99;
-        height: 100vh;
-        padding-top: 13.5rem;
+        z-index: 999;
+        padding-top: 23.8rem;
+        min-height: 0;
     }
     @include sm {
-        padding-top: 11.8rem;
+        padding-top: 16.9rem;
     }
     .container {
-        height: 100%;
+        min-height: 100vh;
         grid-template-rows: 1fr auto;
+        @include md {
+            min-height: 0;
+        }
     }
     &-title {
         grid-column: 1/10;
@@ -24,15 +27,14 @@
         @include md {
             grid-column: 2/12;
             text-align: center;
-            margin-bottom: 0;
-            padding-bottom: 4.8rem;
-            padding-top: 3.2rem;
+            margin-bottom: 4.8rem;
+            padding-top: 0;
         }
         @include sm {
             grid-column: span 4;
             @include text(h1);
             text-align: start;
-            padding-bottom: 4rem;
+            margin-bottom: 4rem;
         }
     }
     &-sub {
@@ -45,12 +47,12 @@
         margin-bottom: 8rem;
         @include md {
             grid-column: 3/11;
-            margin-bottom: 0;
-            padding-bottom: 3.5dvh;
+            margin-bottom: 5rem;
             max-width: none;
         }
         @include sm {
             grid-column: span 4;
+            margin-bottom: 11rem;
         }
         &-top {
             grid-column: 1/3;
@@ -58,6 +60,9 @@
             border: solid .2rem var(--cl-txt);
             @include md {
                 padding: 2rem 1.6rem;
+                .txt-16 {
+                    @include text(14)
+                }
             }
         }
         &-btn-wrap {
@@ -67,7 +72,7 @@
             @include md {
                 padding: 1.2rem;
                 .btn-main {
-                    padding: 1.85rem 6.2rem;
+                    padding: 1.85rem 1.4rem;
                 }
             }
             @include sm {
@@ -87,56 +92,6 @@
             @include md {
                 padding: 1.2rem;
             }
-        }
-    }
-    &-badge-wrap {
-        height: 100vh;
-        grid-column: -4/-1;
-        grid-row: 1/3;
-        display: flex;
-        justify-content: end;
-        align-items: end;
-        padding-bottom: 4rem;
-        @include md {
-            height: auto;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-            grid-column: span 12;
-            transform: translateY(100%);
-        }
-        @include sm {
-            transform: translateY(calc(100% + 5dvh));
-        }
-    }
-    &-badge {
-        display: grid;
-        grid-template-columns: 1fr;
-        margin-right: -2rem;
-        overflow: hidden;
-        @include size(25rem);
-        @include md {
-            margin-right: 0;
-            @include size(17.6rem);
-        }
-        @include sm {
-            @include size(16.3rem);
-        }
-        > * {
-            grid-area: 1/1/2/2;
-        }
-        @keyframes rot {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(-360deg);
-            }
-        }
-        &-outside {
-            animation: rot 20s linear infinite;
         }
     }
 }

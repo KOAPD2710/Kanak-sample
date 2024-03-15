@@ -32,7 +32,7 @@ function Content({...props}) {
             scrollTrigger: {
                 trigger: '.home-hero',
                 start: 'top top',
-                endTrigger: '.home-hero-prod',
+                endTrigger: '.home-prod-title-wrap',
                 end: 'bottom bottom',
                 scrub: true,
             },
