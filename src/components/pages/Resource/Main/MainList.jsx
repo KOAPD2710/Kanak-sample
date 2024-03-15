@@ -1,6 +1,5 @@
 import "./Main.scss"
 import { useEffect, useMemo, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
 
 
@@ -120,11 +119,11 @@ function ResourceMainList({ ...props }) {
             </div>
             <div className="line"></div>
             <div className="resource-main-list-main">
-                <motion.div layout transition={{ duration: 0.3 }} className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+                <div className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
                     {itemList.map((item, idx) => (
                         idx < limit ? <ArticleItem key={idx} {...item} idx={idx} icArrowExt={props.icArrowExt} /> : ""
                     ))}
-                </motion.div>
+                </div>
                 <div className="line"></div>
             </div>
             <div className={`resource-main-list-load ${limit >= itemList.length ? 'hidden' : ''}`}>

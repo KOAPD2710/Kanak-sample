@@ -1,0 +1,78 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.resource-cate-hero {
+    padding-top: 20.7rem;
+
+    &-bread {
+        grid-column: 1/-1;
+        display: flex;
+        align-items: center;
+        column-gap: .8rem;
+        margin-bottom: 3.4rem;
+    }
+
+    &-head {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-column), 1fr);
+        column-gap: var(--grid-gap);
+        padding-bottom: 7rem;
+
+        &-title {
+            grid-column: 1/8;
+            max-width: 60rem;
+        }
+
+        &-quote {
+            grid-column: 8/-1;
+            max-width: 43.6rem;
+            align-self: end;
+            justify-self: end;
+            margin-bottom: 1.4rem;
+        }
+    }
+}
+
+@include md {
+    .resource-cate-hero {
+        padding-top: 17.5rem;
+
+        &-bread {
+            @include text(16);
+            margin-bottom: 1.6rem;
+        }
+
+        &-head {
+            padding-bottom: 4rem;
+
+            &-title {
+                grid-column: 1/-1;
+                max-width: none;
+                margin-bottom: 1.6rem;
+            }
+
+            &-quote {
+                grid-column: 1/7;
+                justify-self: start;
+                max-width: none;
+                @include text(16);
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+@include sm {
+    .resource-cate-hero {
+        padding-top: 15.8rem;
+
+        &-bread {}
+
+        &-head {
+            &-title {
+                @include text(h1)
+            }
+        }
+    }
+}

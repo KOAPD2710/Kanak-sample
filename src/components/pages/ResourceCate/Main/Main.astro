@@ -1,20 +1,14 @@
 ---
 import "./Main.scss";
-import ResDtlRichTxt from "./ResourceDtlRichTxt";
-import ResDtlRel from "./ResourceDtlRel";
 import { getImage } from "astro:assets";
-import Image from "astro/components/Image.astro";
 
+import ResourceCateList from "./Main";
 import featureImg from "@assets/resource-img2.jpg";
-import icLinked from "@assets/ic-linkedin.svg?raw";
-import icFacebook from "@assets/ic-facebook.svg?raw";
-import icShare from "@assets/ic-copyUrl.svg?raw";
-import arrIcon from "@assets/arr-right.svg?raw";
-
-const data = Astro.props;
+import icArrowDown from "@assets/ic-arr-down.svg?raw";
 
 const image = await getImage({ src: featureImg, format: "webp" });
-const listItem = [
+
+const data = [
     {
         uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
         title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
@@ -146,81 +140,20 @@ const listItem = [
         class: "",
     },
 ];
-const relList = listItem.filter(
-    (item: any) => item.category == Astro.props.category,
-);
-const removeDupList = relList.filter(
-    (item: any) => item.uid != Astro.props.uid,
+const cateList = [];
+data.map((el, idx) => {
+    !cateList.includes(el.category) && cateList.push(el.category);
+});
+const filterList = data.filter(
+    (item) => item.category == Astro.props.currentCate,
 );
 ---
 
-<section class="resource-dtl">
+<section class="resource-cate-main">
     <div class="container grid">
-        <div class="txt txt-20 txt-bold resource-dtl-bread">
-            <a href="/">Home</a>
-            <div class="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-            <a href="/resources">Resource</a>
-            <div class="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-            <a
-                href={`/resources/${data.category.toLowerCase().replace(" ", "-")}`}
-                >{data.category}</a
-            >
-        </div>
-        <h1 class="heading h0 txt-black txt-up resource-dtl-title">
-            {data.title}
-        </h1>
-        <div class="line resource-dtl-line"></div>
-        <div class="resource-dtl-info">
-            <div class="line"></div>
-            <div class="resource-dtl-info-stick">
-                <div class="resource-dtl-info-item">
-                    <div class="txt txt-18 txt-med resource-dtl-info-item-head">
-                        Category
-                    </div>
-                    <div
-                        class="txt txt-20 txt-bold resource-dtl-info-item-content"
-                    >
-                        {data.category}
-                    </div>
-                </div>
-                <div class="resource-dtl-info-item">
-                    <div class="txt txt-18 txt-med resource-dtl-info-item-head">
-                        Updated date
-                    </div>
-                    <div
-                        class="txt txt-20 txt-bold resource-dtl-info-item-content"
-                    >
-                        {data.date}
-                    </div>
-                </div>
-                <div class="resource-dtl-info-item">
-                    <div class="txt txt-18 txt-med resource-dtl-info-item-head">
-                        Read time
-                    </div>
-                    <div
-                        class="txt txt-20 txt-bold resource-dtl-info-item-content"
-                    >
-                        5 minutes
-                    </div>
-                </div>
-                <div class="resource-dtl-info-item link">
-                    <a href="" class="resource-dtl-info-item-link">
-                        <Fragment set:html={icShare} slot="icShare" />
-                    </a>
-                    <a href="" class="resource-dtl-info-item-link">
-                        <Fragment set:html={icFacebook} slot="icFacebook" />
-                    </a>
-                    <a href="" class="resource-dtl-info-item-link">
-                        <Fragment set:html={icLinked} slot="icLinked" />
-                    </a>
-                </div>
-            </div>
-        </div>
-        <ResDtlRichTxt item={data} image={featureImg} />
-        <div class="line resource-dtl-line"></div>
-        <ResDtlRel list={removeDupList} client:load>
-            <Fragment set:html={arrIcon} slot="arrIcon" />
-            <Image src={featureImg} alt="" slot="featureImg" />
-        </ResDtlRel>
+        <div class="line resource-cate-main-line"></div>
+        <ResourceCateList list={filterList} client:visible>
+            <Fragment set:html={icArrowDown} slot="icArrowDown" />
+        </ResourceCateList>
     </div>
 </section>
