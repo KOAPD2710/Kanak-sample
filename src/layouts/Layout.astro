@@ -23,8 +23,9 @@ const { title, hideNav = false } = Astro.props;
 		{!hideNav && <Footer />}
 	</body>
 </html>
-
 <script>
 	import main from '@/js/main'
-	main()
+	document.addEventListener('astro:page-load', () => {
+    	main()
+  	}, { once: true });
 </script>

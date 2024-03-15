@@ -38,7 +38,7 @@ function Content({...props}) {
         gsap.registerPlugin(ScrollTrigger)
         const triggerTl = gsap.timeline({
             scrollTrigger: {
-                trigger: '.home-hero-prod',
+                trigger: '.home-prod-title-wrap',
                 start: 'bottom bottom',
                 onEnter: () => {
                     productIndex.set(0)

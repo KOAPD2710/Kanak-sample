@@ -1,6 +1,8 @@
-import { initLenis } from "@/components/core/lenis"
+import { initLenis, getLenis } from "@/components/core/lenis"
 
 const main = () =>  {
-    initLenis()
+    if (!getLenis()) {
+        initLenis()
+    }
 }
 export default main
