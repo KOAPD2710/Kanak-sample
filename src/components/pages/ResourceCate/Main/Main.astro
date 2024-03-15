@@ -1,0 +1,159 @@
+---
+import "./Main.scss";
+import { getImage } from "astro:assets";
+
+import ResourceCateList from "./Main";
+import featureImg from "@assets/resource-img2.jpg";
+import icArrowDown from "@assets/ic-arr-down.svg?raw";
+
+const image = await getImage({ src: featureImg, format: "webp" });
+
+const data = [
+    {
+        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
+        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
+        content:
+            "Our strategically located warehouses ensure swift response to fluctuating demands, keeping your supply chain robust and reliable with the environment",
+        category: "Industry Reports",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
+        title: "Sustainable Food Storage: A Solution for Nature and You",
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
+        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
+        content:
+            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "feature",
+    },
+    {
+        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
+        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
+        content:
+            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+        category: "Industry Reports",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "popular",
+    },
+    {
+        uid: "plastic-free-pantry:-transitioning-to-zero-waste-food-packaging",
+        title: "Plastic-Free Pantry: Transitioning to Zero-Waste Food Packaging",
+        content:
+            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "popular",
+    },
+    {
+        uid: "navigating-the-impact-on-global-food-systems",
+        title: "Navigating the Impact on Global Food Systems",
+        content:
+            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+        category: "Industry Reports",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "popular",
+    },
+    {
+        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
+        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
+        content:
+            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+        category: "Industry News",
+        date: "May 23, 2024",
+        imageUrl: image.src,
+        class: "",
+    },
+];
+const cateList = [];
+data.map((el, idx) => {
+    !cateList.includes(el.category) && cateList.push(el.category);
+});
+const filterList = data.filter(
+    (item) => item.category == Astro.props.currentCate,
+);
+---
+
+<section class="resource-cate-main">
+    <div class="container grid">
+        <div class="line resource-cate-main-line"></div>
+        <ResourceCateList list={filterList} client:visible>
+            <Fragment set:html={icArrowDown} slot="icArrowDown" />
+        </ResourceCateList>
+    </div>
+</section>
