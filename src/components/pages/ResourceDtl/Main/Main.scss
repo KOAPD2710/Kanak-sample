@@ -5,10 +5,25 @@
     padding-top: 20.4rem;
 
     &-bread {
+        z-index: 5;
         grid-column: 1/-1;
         display: flex;
         column-gap: .8rem;
         align-items: center;
+
+        div {
+            pointer-events: none;
+        }
+
+        a {
+            transition: color .4s ease;
+
+            @media (hover: hover) {
+                &:hover {
+                    color: var(--cl-orange);
+                }
+            }
+        }
     }
 
     &-title {
@@ -30,6 +45,7 @@
         position: relative;
         grid-column: 1/5;
         padding-top: 8.5rem;
+        padding-bottom: 9rem;
 
         &-stick {
             position: sticky;
@@ -37,6 +53,10 @@
             display: flex;
             flex-direction: column;
             row-gap: 2.4rem;
+        }
+
+        .line {
+            display: none;
         }
 
         &-item {
@@ -80,22 +100,16 @@
 
         &-main {
             grid-column: 2/12;
-
-            padding: {
-                top: 8.5rem;
-                bottom: 9rem;
-            }
+            margin-top: 4.5rem;
+            padding-bottom: 9rem;
 
             h2 {
                 font-family: "HelveticaNowDisplay", sans-serif;
                 @include text(h5);
                 font-weight: 900;
                 text-transform: uppercase;
-
-                padding: {
-                    top: 6rem;
-                    bottom: 1.2rem;
-                }
+                margin-top: 6rem;
+                margin-bottom: 2.4rem;
             }
 
             h3 {
@@ -103,11 +117,13 @@
                 @include text(h6);
                 font-weight: 900;
                 text-transform: uppercase;
+                margin-top: 2.8rem;
+                margin-bottom: 2.4rem;
+            }
 
-                padding: {
-                    top: 1.6rem;
-                    bottom: 1.2rem;
-                }
+            h4 {
+                @include text(20);
+                font-weight: 700;
             }
 
             ul {
@@ -115,11 +131,8 @@
                 display: flex;
                 flex-direction: column;
                 row-gap: 2.4rem;
-
-                padding: {
-                    top: 1.2rem;
-                    bottom: 1.2rem;
-                }
+                margin-top: 2.4rem;
+                margin-bottom: 2.8rem;
 
                 li {
                     display: flex;
@@ -142,21 +155,17 @@
             }
 
             figure {
-                figcaption {
-                    margin: {
-                        top: 1.6rem;
-                        bottom: 1.2rem;
-                    }
+                margin-top: 4rem;
+                margin-bottom: 7.2rem;
 
-                    ;
+                figcaption {
+                    margin-top: 1.6rem;
                 }
             }
 
             blockquote {
-                padding: {
-                    top: 3.6rem;
-                    bottom: 1.2rem;
-                }
+                margin-top: 4.8rem;
+                margin-bottom: 2.4rem;
 
                 p {
                     position: relative;
@@ -164,12 +173,7 @@
                     @include text(h5);
                     font-weight: 900;
                     text-transform: uppercase;
-
-                    padding: {
-                        left: 4.4rem;
-                        top: 0;
-                        bottom: 0;
-                    }
+                    padding-left: 4.4rem;
 
                     &::before {
                         content: "";
@@ -192,16 +196,61 @@
             }
 
             p {
-                padding: {
-                    top: 1.2rem;
-                    bottom: 1.2rem;
-                }
+                margin-top: 1.2rem;
+                margin-bottom: 1.2rem;
             }
         }
     }
 
     &-rel {
         grid-column: 1/-1;
+
+        &-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: {
+                top: 5rem;
+                bottom: 5rem;
+            }
+
+            &-nav {
+                display: flex;
+                flex-shrink: 0;
+
+                &-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: solid 0.2rem var(--cl-txt);
+                    @include size(3.6rem);
+                    transition: color .4s ease;
+
+                    .ic {
+                        transition: opacity .4s ease;
+                    }
+
+                    &-prev {
+                        border-right: none;
+
+                        .ic {
+                            transform: rotate(180deg);
+                        }
+                    }
+
+                    &[disabled] .ic {
+                        opacity: .2;
+                    }
+
+                    @media (hover: hover) {
+                        &:hover {
+                            color: var(--cl-orange);
+                        }
+                    }
+                }
+            }
+        }
 
         &-main {
             &-inner {
@@ -221,6 +270,7 @@
                         &-img {
                             flex-shrink: 0;
                             @include size(23.4rem, 27.4rem);
+                            overflow: hidden;
                         }
 
                         &-content {
@@ -241,7 +291,7 @@
                                 }
                             }
 
-                            &-subtitle {
+                            &-des {
                                 display: -webkit-box;
                                 -webkit-line-clamp: 3;
                                 -webkit-box-orient: vertical;
@@ -262,12 +312,297 @@
                             height: 100%;
                         }
 
+                        .line:not(.line-ver) {
+                            display: none;
+                        }
+
                         &:nth-child(odd) {
                             padding-right: 4.6rem;
                         }
 
                         &:nth-child(even) {
                             padding-left: 4.6rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@include md {
+    .resource-dtl {
+        padding-top: 17.5rem;
+
+        &-bread {
+            @include text(16);
+        }
+
+        &-title {
+            margin-top: 1.6rem;
+            margin-bottom: 4rem;
+        }
+
+        &-info {
+            grid-column: 1/4;
+            padding-top: 4rem;
+
+            &-stick {
+                row-gap: 2rem;
+            }
+
+            &-item {
+                &.link {
+                    column-gap: 1.2rem;
+                }
+
+                &-link {
+                    @include size(3.6rem);
+                }
+            }
+
+            .txt-18 {
+                @include text(16);
+            }
+
+            .txt-20 {
+                @include text(18);
+            }
+        }
+
+        &-richtxt {
+            grid-column: 4/-1;
+            grid-template-columns: repeat(9, 1fr);
+
+            &-main {
+                grid-column: 2/-1;
+                margin-left: calc(var(--grid-gap) * -1);
+                margin-top: .4rem;
+                padding-bottom: 4.8rem;
+                @include text(16);
+
+                figure {
+                    margin-top: 3.6rem;
+                    margin-bottom: 4rem;
+                }
+
+                h2 {
+                    margin-top: 3.6rem;
+                    margin-bottom: 2rem;
+                }
+
+                h3 {
+                    margin-top: 1.6rem;
+                    margin-bottom: 1rem;
+                }
+
+                ul {
+                    li {
+                        &:before {
+                            margin-top: 0.64rem;
+                            margin-right: 1.6rem;
+                            @include size(.8rem);
+                        }
+                    }
+                }
+
+                p {
+                    margin-top: 1.6rem;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+
+        &-rel {
+            &-head {
+                padding: {
+                    top: 2.8rem;
+                    bottom: 2.8rem;
+                }
+            }
+
+            &-main {
+                &-inner {
+                    &-group {
+                        flex-direction: column;
+
+                        &-item {
+                            width: 100%;
+
+                            padding: {
+                                top: 3.2rem;
+                                bottom: 3.2rem;
+                            }
+
+                            &-img {
+                                @include size(21.5rem, 25.1rem);
+                            }
+
+                            &-content {
+                                &-cate {
+                                    @include text(16);
+                                }
+
+                                &-title {
+                                    @include text(h5);
+                                }
+
+                                &-des {
+                                    @include text(16);
+                                }
+
+                                &-date {
+                                    @include text(16);
+                                }
+                            }
+
+                            &:nth-child(odd) {
+                                padding-right: 0;
+                            }
+
+                            &:nth-child(even) {
+                                padding-left: 0;
+                            }
+
+                            .line-ver {
+                                display: none;
+                            }
+
+                            .line:not(.line-ver) {
+                                display: block;
+                                position: absolute;
+                                top: -.1rem;
+                                left: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include sm {
+    .resource-dtl {
+        padding-top: 15.8rem;
+
+        &-title {
+            @include text(h1);
+            word-wrap: break-word;
+        }
+
+        &-info {
+            grid-column: 1/-1;
+
+            padding: {
+                top: 3.2rem;
+                bottom: 3.2rem;
+            }
+
+            &-stick {
+                position: static;
+            }
+
+            .line {
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+        }
+
+        &-richtxt {
+            grid-column: 1/-1;
+
+            .line-ver {
+                display: none;
+            }
+
+            &-main {
+                grid-column: 1/-1;
+                padding-bottom: 4rem;
+
+                margin: {
+                    left: 0;
+                    top: 0;
+                }
+
+                figure {
+                    margin-top: 3.2rem;
+                }
+
+                h2 {}
+
+                h3 {
+                    margin: {
+                        top: 2rem;
+                        bottom: 1.6rem;
+                    }
+                }
+
+                ul {
+                    margin: {
+                        top: 1.6rem;
+                        bottom: 2rem;
+                    }
+                }
+
+                p {
+                    margin: {
+                        top: 2rem;
+                        bottom: 2rem;
+                    }
+                }
+
+                blockquote {
+                    p {
+                        padding-left: 2.4rem;
+                    }
+
+                    footer {
+                        padding-left: 3.2rem;
+                    }
+                }
+            }
+        }
+
+        &-rel {
+            &-head {
+                padding: {
+                    top: 2.4rem;
+                    bottom: 2.4rem;
+                }
+
+                &-title {
+                    @include text(h5);
+                }
+            }
+
+            &-main {
+                &-inner {
+                    &-group {
+                        &-item {
+                            flex-direction: column;
+
+                            &-img {
+                                width: 100%;
+                                height: 24.9968rem;
+                                margin-bottom: 3.2rem;
+                            }
+
+                            &-content {
+                                margin-left: 0;
+
+                                &-des {
+                                    -webkit-line-clamp: 2;
+                                    min-height: calc(2 * var(--lh-16));
+                                }
+
+                                &-date {
+                                    margin-top: 2rem;
+                                }
+                            }
                         }
                     }
                 }

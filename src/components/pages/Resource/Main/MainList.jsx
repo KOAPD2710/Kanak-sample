@@ -1,6 +1,7 @@
 import "./Main.scss"
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import useOutsideAlerter from "@hooks/useOutsideAlerter";
 
 
 function FilterItem({ ...props }) {
@@ -20,7 +21,7 @@ function FilterItem({ ...props }) {
 
 function ArticleItem({ ...props }) {
     return (
-        <a href={`./resource/${props.uid}`} className="resource-main-list-main-item">
+        <a href={`./resources/${props.uid}`} className="resource-main-list-main-item">
             <div className="resource-main-list-main-item-img">
                 <div className="resource-main-list-main-item-img-inner">
                     <img className='img img-fill' src={props.imageUrl} alt="" />
@@ -50,9 +51,11 @@ function ResourceMainList({ ...props }) {
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(6);
-    const [categoryToggle, setcategoryToggle] = useState(false)
-
+    const [categoryToggle, setCategoryToggle] = useState(false)
+    const toggleRef = useRef();
     const cateList = []
+
+    useOutsideAlerter(toggleRef, () => { setCategoryToggle(false) })
 
     allItem.map((el, idx) => {
         !cateList.includes(el.category) && cateList.push(el.category)
@@ -65,7 +68,7 @@ function ResourceMainList({ ...props }) {
                     <FilterItem name={el}
                         count={allItem.filter((item) => item.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterList(e); setcategoryToggle(!categoryToggle) }}
+                        onClick={(e) => { filterList(e); setCategoryToggle(!categoryToggle) }}
                         key={idx} />
                 ))}
             </>
@@ -97,7 +100,7 @@ function ResourceMainList({ ...props }) {
             <div className="resource-main-list-head">
                 <h3 className="heading h4 txt-black txt-up resource-main-list-head-title">articles</h3>
                 <div className="resource-main-list-head-filter">
-                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setcategoryToggle(!categoryToggle) }}>
+                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }} ref={toggleRef}>
                         <div className="txt txt-18 txt-bold resource-main-list-head-filter-toggle-txt">
                             {filter == 'All' ? 'All Categories' : filter}
                         </div>
@@ -109,7 +112,7 @@ function ResourceMainList({ ...props }) {
                         <FilterItem name={'All'}
                             count={allItem.length}
                             isActive={filter == 'All'}
-                            onClick={(e) => { filterList(e), setcategoryToggle(!categoryToggle) }}
+                            onClick={(e) => { filterList(e), setCategoryToggle(!categoryToggle) }}
                         />
                         {cateUI}
                     </div>

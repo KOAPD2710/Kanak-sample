@@ -1,5 +1,4 @@
 function ResDtlRichTxt({ ...props }) {
-    // console.log(props);
     return (
         <div class="resource-dtl-richtxt">
             <div class="line line-ver"></div>
