@@ -8,9 +8,13 @@ import icArrowDown from "@assets/ic-arr-down.svg?raw";
 import icDropdown from "@assets/ic-arrow-down.svg";
 import { getAllByType } from "@/prismic.js";
 const list = await getAllByType("case_study");
+const cateList = [];
+list.map((el, idx) => {
+    !cateList.includes(el.data.category) && cateList.push(el.data.category)
+})
 ---
 
-<CaseMain list={list} client:load path={Astro.url}>
+<CaseMain list={list} cateList={cateList} client:load>
     <Fragment slot="icViewList" set:html={icViewList} />
     <Fragment slot="icViewGrid" set:html={icViewGrid} />
     <Fragment slot="icArrowExt" set:html={icArrowExt} />

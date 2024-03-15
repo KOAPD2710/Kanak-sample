@@ -6,7 +6,9 @@ import arrIcon from '@assets/arr-right.svg?raw';
 import sampleQR from '@assets/image 11.png';
 import PDFIcon from '@assets/ic-pdf.svg';
 import { getByUID } from '@/prismic.js';
+import HomeProductTitle from './ProductTitle';
 import HomeProduct from './Product';
+import HomeProductList from './ProductList'
 
 const list = await Promise.all(
     product_list.map(async (product: any) => {
@@ -15,8 +17,15 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeProduct list={list} client:idle>
-    <Fragment set:html={arrIcon} slot='arrIcon'/>
-    <Image src={sampleQR} alt="" class="ic ic-80" width={sampleQR.width / 2} slot='sampleQR'/>
-    <Image src={PDFIcon} alt="pdf icon" class="ic ic-32" slot='PDFIcon'/>
-</HomeProduct>
+<section class="home-prod">
+    <div class="container grid">
+        <HomeProductTitle prod_sub_title={Astro.props.prod_sub_title} client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
+        <HomeProductList list={list} client:media="(min-width: 767px)" client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
+
+        <HomeProduct list={list} client:idle>
+            <Fragment set:html={arrIcon} slot='arrIcon'/>
+            <Image src={sampleQR} alt="" class="ic ic-80" width={sampleQR.width / 2} slot='sampleQR'/>
+            <Image src={PDFIcon} alt="pdf icon" class="ic ic-32" slot='PDFIcon'/>
+        </HomeProduct>
+    </div>
+</section>

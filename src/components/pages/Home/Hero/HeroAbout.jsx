@@ -1,25 +1,21 @@
 import * as ut from '@/js/utils.js';
 import './HeroAbout.scss'
-import { Children, forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
+import { stagger, inView, animate } from "motion"
 import useWindowSize from '@hooks/useWindowSize';
-import { useGSAP } from '@gsap/react';
 import SplitType from 'split-type';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
 const TextEl = forwardRef(function TextEl({...props}, ref) {
     return (
-        <span ref={ref} className="heading txt-up txt-black home-hero-abt-title-top" style={props.abs && { position: 'absolute'}}>
+        <div ref={ref} className={`home-hero-abt-title-grp title-bot ${props.abs ? 'clone-el' : ''}`} style={props.abs && { position: 'absolute'}}>
             {props.children}
-        </span>
+        </div>
     )
 })
 
 function HomeHeroAbout({...props}) {
     const el = useRef()
     const cloneEl = useRef();
-    const sectionRef = useRef();
-
     const { width, height } = useWindowSize();
     useEffect(() => {
         const elRect = ut.offset(el.current);
@@ -30,46 +26,40 @@ function HomeHeroAbout({...props}) {
             z-index: 999
         `;
     }, [width, height])
-
-    useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const titleTop = new SplitType('.home-hero-abt-title-top', { types: 'lines, words', lineClass: "split-line" });
-        const titleBot = new SplitType(cloneEl.current, { types: 'lines, words', lineClass: "split-line" });
-        let tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top top+=38%'
-            }
-        })
-        gsap.set(el.current, { autoAlpha: 0, pointerEvents: 'none' });
-        tl.from(titleTop.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
-            .from(titleBot.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 }, 0)
-
-    }, { scope: sectionRef })
+    useEffect(() => {
+        console.log('ninit about')
+        const titleTop = new SplitType('.home-hero-abt-title-grp:not(.title-bot)', { types: 'lines, words', lineClass: "split-line" });
+        const titleBot = new SplitType('.home-hero-abt-title-grp.title-bot.clone-el', { types: 'lines, words', lineClass: "split-line" });
+        animate([...titleTop.words, ...titleBot.words], {opacity: 0}, {duration: 0})
+        inView(".home-hero-abt-title", () => {
+            animate([...titleTop.words, ...titleBot.words], {opacity: 1, transform: ['translateY(100%)', 'none']}, {duration: .6, delay: stagger(.06)}).finished.then(() => {
+                titleTop.revert()
+                titleBot.revert()
+            })
+          }, { margin: "-40% 0px -40% 0px" });
+    }, [])
     return (
         <>
-            <section className="home-hero-abt" ref={sectionRef}>
+            <section className="home-hero-abt">
                 <div className="container">
-                    <h2 className="heading h0 txt-up txt-black home-hero-abt-title">
-                        <div className='home-hero-abt-title-top'>
+                    <h2 className="home-hero-abt-title">
+                        <div className='home-hero-abt-title-grp'>
                             <span className='heading h0 txt-up txt-black'>Your</span>
-                            <br />
-                            <span className='txt txt-180 txt-up txt-black'>Reputation</span>
-                            <br />
+                            <br/>
+                            <span className='heading txt-180 txt-up txt-black'>Reputation</span>
                         </div>
                         <TextEl ref={el}>
-                            <span className='heading h0'>Is our</span>
+                            <span className='heading h0 txt-up txt-black'>Is our</span>
                             <br/>
-                            <span className='txt txt-180'>Pride</span>
+                            <span className='heading txt-180 txt-up txt-black'>Pride</span>
                         </TextEl>
                     </h2>
                 </div>
             </section>
             <TextEl ref={cloneEl} abs={true}>
-                <span className='heading h0'>Is our</span>
+                <span className='heading h0 txt-up txt-black'>Is our</span>
                 <br/>
-                <span className='txt txt-180'>Pride</span>
+                <span className='heading txt txt-180 txt-up txt-black'>Pride</span>
             </TextEl >
         </>
     )

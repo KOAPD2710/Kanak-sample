@@ -26,6 +26,9 @@
         outline: none;
     }
     &:active, &:focus {
+        &+ label {
+            opacity: 1;
+        }
         &+ label  {
             &+ span > span {
                 transform: scaleX(1);

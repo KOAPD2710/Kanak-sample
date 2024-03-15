@@ -17,7 +17,7 @@ function HomeClient(props) {
         gsap
             .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=40%', once: true } })
             .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() }, 0)
-            .from('[name="imgQuality"] img', { scale: .8, autoAlpha: 0, duration: 2, ease: 'expo.out', clearProps: 'all' }, ">-0.8")
+            .from('[name="imgQuality"] img', { scale: .8, autoAlpha: 0, duration: 2, ease: 'expo.out', clearProps: 'all' }, ">=-0.8")
 
         gsap
             .from(subTitle.words, {

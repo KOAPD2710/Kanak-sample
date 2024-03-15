@@ -5,7 +5,7 @@
 }
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 5s;
+  animation-duration: .6s;
 }
 html {
     -webkit-font-smoothing: antialiased;
@@ -136,4 +136,14 @@ body, .bg-light {
     background: var(--bg-txt-dark);
     background-color: var(--cl-bg-dark);
     background-size: 40rem auto;
+}
+.hide-mb {
+    @include sm {
+        display: none !important; 
+    }
+}
+.hide-dk {
+    @include sm-up {
+        display: none !important;
+    }
 }

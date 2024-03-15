@@ -66,11 +66,11 @@ function ContactForm(props) {
             form.reset()
         }, 2000);
     }
-    useGSAP(() => {
-        const title = new SplitType('.contact-hero-title', {types: 'lines, words', lineClass: 'split-line'})
-        gsap.from(title.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
+    // useGSAP(() => {
+    //     const title = new SplitType('.contact-hero-title', {types: 'lines, words', lineClass: 'split-line'})
+    //     gsap.from(title.words, { ease: "power4.out", yPercent: 100, duration: 2, stagger: .1 })
 
-    }, [])
+    // }, [])
     useEffect(() => {
         console.log(formData);
     }, [JSON.stringify(formData)]);
@@ -131,8 +131,8 @@ function ContactForm(props) {
                                     <FormField>
                                         <FormItem
                                             className='contact-form-field'
-                                            onMouseEnter={() => setIcon('avatar')}
-                                            onMouseLeave={() => setIcon('submit')}
+                                            onFocus={() => setIcon('avatar')}
+                                            onBlur={() => setIcon('submit')}
                                         >
                                             <Input
                                                 placeholder=" "
@@ -145,8 +145,8 @@ function ContactForm(props) {
                                     <FormField>
                                         <FormItem
                                             className='contact-form-field'
-                                            onMouseEnter={() => setIcon('avatar')}
-                                            onMouseLeave={() => setIcon('submit')}
+                                            onFocus={() => setIcon('avatar')}
+                                            onBlur={() => setIcon('submit')}
                                         >
                                             <Input
                                                 placeholder=" "
@@ -159,8 +159,8 @@ function ContactForm(props) {
                                     <FormField>
                                         <FormItem
                                             className='contact-form-field'
-                                            onMouseEnter={() => setIcon('email')}
-                                            onMouseLeave={() => setIcon('submit')}
+                                            onFocus={() => setIcon('email')}
+                                            onBlur={() => setIcon('submit')}
                                         >
                                             <Input
                                                 type="email"
@@ -174,8 +174,8 @@ function ContactForm(props) {
                                     <FormField>
                                         <FormItem
                                             className='contact-form-field'
-                                            onMouseEnter={() => setIcon('phone')}
-                                            onMouseLeave={() => setIcon('submit')}
+                                            onFocus={() => setIcon('phone')}
+                                            onBlur={() => setIcon('submit')}
                                         >
                                             <Input
                                                 type="tel"
@@ -189,8 +189,8 @@ function ContactForm(props) {
                                     <FormField>
                                         <FormItem
                                             className='contact-form-field'
-                                            onMouseEnter={() => setIcon('company')}
-                                            onMouseLeave={() => setIcon('submit')}
+                                            onFocus={() => setIcon('company')}
+                                            onBlur={() => setIcon('submit')}
                                         >
                                             <Input
                                                 placeholder=" "
@@ -203,8 +203,8 @@ function ContactForm(props) {
                                     <FormField>
                                         <FormItem
                                             className='contact-form-field contact-form-field-select'
-                                            onMouseEnter={() => setIcon('industry')}
-                                            onMouseLeave={() => setIcon('submit')}
+                                            onFocus={() => setIcon('industry')}
+                                            onBlur={() => setIcon('submit')}
                                         >
                                             <Select
                                                 value={formData.industry}
@@ -217,8 +217,8 @@ function ContactForm(props) {
                                     <FormField>
                                         <FormItem
                                             className='contact-form-field'
-                                            onMouseEnter={() => setIcon('chat')}
-                                            onMouseLeave={() => setIcon('submit')}
+                                            onFocus={() => setIcon('chat')}
+                                            onBlur={() => setIcon('submit')}
                                         >
                                             <TextArea
                                                 placeholder=" "

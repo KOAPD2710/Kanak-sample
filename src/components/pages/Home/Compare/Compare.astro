@@ -1,7 +1,8 @@
 ---
 const { title, compare_list } = Astro.props;
 
-import HomeCompare from './Compare';
+import HomeCompareDesktop from './CompareDesktop';
+import HomeCompareMobile from './CompareMobile';
 import { Image } from 'astro:assets';
 import { getByUID } from '@/prismic.js';
 import comparePlates from '@assets/compare.png';
@@ -18,19 +19,24 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeCompare title={title} list={list} client:visible={{rootMargin: "50%"}}>
+<HomeCompareDesktop title={title} list={list} client:media="(min-width: 768px)">
     <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
     <Image src={compareGood} alt="" class='ic ic-80' slot='imgCompareGood' />
     <Image src={compareBad} alt="" class='ic ic-80' slot='imgCompareBad' />
     <Image src={comparePlates} alt="Compare plates" class="img" slot='imgComparePlates' />
     <Fragment slot="imgCompareDot">
         {[...Array(list.length * 14)].map((el,idx) => (
-            <Image src={compareDot} alt="" class="img" style={`--angle: ${360/(list.length * 14) * idx}deg`}/>
+            <Image src={compareDot} alt="" class="img"/>
         ))}
     </Fragment>
     <Fragment slot="imgCompareDash">
         {list.map((el,idx) => (
-            <Image src={compareDash} alt="" class="img" style={`--angle: ${360/list.length * idx}deg`}/>
+            <Image src={compareDash} alt="" class="img"/>
         ))}
     </Fragment>
-</HomeCompare>
+</HomeCompareDesktop>
+
+<HomeCompareMobile title={title} list={list} client:media="(max-width: 767px)">
+    <Image src={compareGood} alt="" class='ic ic-80' slot='imgCompareGood' />
+    <Image src={compareBad} alt="" class='ic ic-80' slot='imgCompareBad' />
+</HomeCompareMobile>

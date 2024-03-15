@@ -1,6 +1,5 @@
 import './Header.scss'
 import { Fragment } from 'react';
-import bodyFlag from "@assets/body-flag.svg";
 
 function HeaderGlobal(props) {
     return (
@@ -39,7 +38,7 @@ function HeaderGlobal(props) {
                     <div className="header-cta-head">
                         {props.headFlag}
                     </div>
-                    <div className='txt txt-16 txt-up txt-black header-cta-body' style={{ backgroundImage: `url('${bodyFlag.src})'` }}>
+                    <div className='txt txt-16 txt-up txt-black header-cta-body' style={{ backgroundImage: `url('${props.bodyFlag}')` }}>
                         Request a quote
                     </div>
                     <div className="header-cta-tail">

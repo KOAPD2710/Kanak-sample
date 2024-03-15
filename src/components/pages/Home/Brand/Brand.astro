@@ -1,6 +1,5 @@
 ---
 const { title, brand_list } = Astro.props;
-
 import {getByUID} from '@/prismic.js';
 import { Image } from 'astro:assets';
 import arrIconDesk from '@assets/arr-ext-21.svg';
@@ -8,7 +7,10 @@ import arrIconMob from '@assets/arrow-small.svg';
 import HomeBrand from './Brand';
 
 let replaceWord = title.split(',')[title.split(',').length - 1]
-let newTitle = title.replace(replaceWord, `<div class="txt-green">${replaceWord}</div>`)
+const renderWords = replaceWord.trim().split(" ").map(word => (
+    `<span class="txt-green">${word}</span>`
+)).join('');
+let newTitle = title.replace(replaceWord, renderWords)
 
 const list = await Promise.all(
     brand_list.map(async (brand: any) => {
@@ -18,7 +20,7 @@ const list = await Promise.all(
 )
 ---
 
-<HomeBrand list={list} client:visible={{rootMargin: "50%"}}>
+<HomeBrand list={list} client:idle>
     <Fragment set:html={newTitle} slot="title"/>
     <Image src={arrIconDesk} alt='' slot='arrIconDesk'/>
     <Image src={arrIconMob} alt='' slot='arrIconMob'/>

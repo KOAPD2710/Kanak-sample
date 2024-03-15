@@ -1,0 +1,8 @@
+---
+import Image from 'astro/components/Image.astro'
+import KareerCulture from './Culture.jsx'
+import kareerCultItem from '@assets/kareer-cult-item.jpg';
+---
+<KareerCulture {...Astro.props}>
+    <Image src={kareerCultItem} alt='' slot='itemImg' class='img img-h' />
+</KareerCulture>

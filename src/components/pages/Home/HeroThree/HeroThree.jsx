@@ -32,7 +32,7 @@ function Content({...props}) {
             scrollTrigger: {
                 trigger: '.home-hero',
                 start: 'top top',
-                endTrigger: '.home-hero-prod',
+                endTrigger: '.home-prod-title-wrap',
                 end: 'bottom bottom',
                 scrub: true,
             },
@@ -94,9 +94,9 @@ function HomeHeroThree({...props}) {
     const threeRef = useRef();
     let perspective = height;
     let fov = ((Math.atan(height / 2 / perspective) * 2) * 180 / Math.PI) / 2;
-    useGSAP(() => {
-        gsap.from(threeRef.current, { ease: "power4.out", autoAlpha: 0, duration: 2, clearProps: 'all' }, .8)
-    }, { scope: threeRef })
+    // useGSAP(() => {
+    //     gsap.from(threeRef.current, { ease: "power4.out", autoAlpha: 0, duration: 2, clearProps: 'all' }, .8)
+    // }, { scope: threeRef })
     return (
         <div className="home-hero-three" ref={threeRef}>
             <div className="home-hero-three-stick">

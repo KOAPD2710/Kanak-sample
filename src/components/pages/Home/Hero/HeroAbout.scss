@@ -1,13 +1,14 @@
 @use '@styles/mixins' as *;
 .home-hero-abt {
-    padding-top: 13.8rem;
-    padding-bottom: 35.2rem;
+    padding-top: 26rem;
+    padding-bottom: 26.7rem;
     @include md {
-        padding-top: 22.3rem;
-        padding-bottom: 28.8rem;
+        padding-top: 17.4rem;
+        padding-bottom: 20.6rem;
     }
     @include sm {
-        padding-top: calc(22.3rem + 5vh);
+        padding-top: 13.2rem;
+        padding-bottom: 11.3rem;
     }
     .container {
         height: 100%;
@@ -18,51 +19,38 @@
         text-align: center;
         margin: 0 auto;
         width: 100%;
-        > span:first-child {
-            margin-bottom: -2.4rem;
-        }
-        @include md {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &-grp {
             span {
-                @include text(h0);
-            }
-        }
-        @include sm {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            > span:first-child {
-                margin-bottom: 0;
-            }
-            span {
-                @include text(h2);
+                width: 100%;
                 display: inline-block;
+                text-align: center;
             }
-            br {
-                display: none;
-            }
-        }
-        &-top {
-            text-align: center;
-            display: inline-block;
-            span {
-                display: inline-block;
+            .h0 {
                 @include md {
-                    @include text(h0);
+                    @include text(h1);
                 }
                 @include sm {
-                    @include text(h2);
-                }
-                &:last-child {
-                    margin-top: -1.4rem;
-                    @include md {
-                        margin-top: 0;
-                    }
+                    @include text(h4);
                 }
             }
-            @include md {
-                br {
-                    display: none
+            .txt-180 {
+                margin-top: -1.4rem;
+                @include md {
+                    margin-top: 0;
                 }
+                @include sm {
+                    @include text(h1);
+                }
+            }
+            &.title-bot:not(.clone-el) {
+                opacity: 0 !important;
+            }
+            &.clone-el {
+                top: 100vh;
+                z-index: -1;
             }
         }
     }
