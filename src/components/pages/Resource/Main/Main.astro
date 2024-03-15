@@ -7,7 +7,6 @@ import ResourceMainList from "./MainList";
 import { getAllByType } from "@/prismic.js";
 
 import arrIcon from "@assets/arr-right.svg?raw";
-import folderIcon from "@assets/ic-folder.svg?raw";
 import icArrowDown from "@assets/ic-arr-down.svg?raw";
 import icDropdown from "@assets/ic-arrow-down.svg?raw";
 
@@ -23,14 +22,10 @@ const popularList = data.filter(({ data }) => data.show_on_popular).slice(0, 4);
         <div class="line resource-main-line"></div>
         <ResourceMainFeature data={featureList} client:load>
             <Fragment set:html={arrIcon} slot="arrIcon" />
-            <Fragment set:html={folderIcon} slot="folderIcon" />
         </ResourceMainFeature>
-        <ResourceMainPopular data={popularList}>
-            <Fragment set:html={folderIcon} slot="folderIcon" />
-        </ResourceMainPopular>
+        <ResourceMainPopular data={popularList}/>
         <div class="line resource-main-line"></div>
         <ResourceMainList data={data} client:visible>
-            <Fragment set:html={folderIcon} slot="folderIcon" />
             <Fragment set:html={icArrowDown} slot="icArrowDown" />
             <Fragment set:html={icDropdown} slot="icDropDown" />
         </ResourceMainList>

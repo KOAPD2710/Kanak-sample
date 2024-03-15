@@ -19,7 +19,7 @@ function FilterItem(props) {
 
 function ArticleItem({ data, idx }) {
     return (
-        <a href={`./resources/${props.uid}`} className="resource-main-list-main-item">
+        <a href={`/resources/${data.uid}`} className="resource-main-list-main-item">
             <div className="resource-main-list-main-item-img">
                 <div className="resource-main-list-main-item-img-inner">
                     <img

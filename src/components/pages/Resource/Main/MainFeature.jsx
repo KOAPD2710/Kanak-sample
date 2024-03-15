@@ -37,9 +37,6 @@ function ResourceMainFeature(props) {
                             </div>
                             <div className="resource-main-fea-main-inner-item-content">
                                 <div className="resource-main-fea-main-inner-item-cate">
-                                    <div className='ic ic-20'>
-                                        {props.folderIcon}
-                                    </div>
                                     <div className="txt txt-20 txt-black resource-main-fea-main-inner-item-cate-txt">
                                         {item.data.category}
                                     </div>

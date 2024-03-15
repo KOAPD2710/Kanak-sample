@@ -1,5 +1,6 @@
 ---
 import { getAllByType, getPage } from '@/prismic';
+import Layout from "@/layouts/Layout.astro";
 
 export async function getStaticPaths() {
     const list = await getAllByType('resource');
@@ -15,8 +16,13 @@ export async function getStaticPaths() {
     })
 }
 
-const { data } = await getPage('resources_page');
 const { resourceCate } = Astro.params;
 const { item } = Astro.props;
 ---
+<Layout title={item.title}>
+    <h1>{resourceCate}</h1>
+</Layout>
+
+
+
 
