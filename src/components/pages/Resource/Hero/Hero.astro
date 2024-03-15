@@ -1,5 +1,8 @@
 ---
+const { title, subTitle } = Astro.props;
 import ResourceHero from "./Hero";
 ---
 
-<ResourceHero />
+<ResourceHero title={title} client:load>
+    <Fragment set:html={subTitle} slot="subTitle"/>
+</ResourceHero>

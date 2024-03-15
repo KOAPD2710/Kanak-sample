@@ -1,0 +1,21 @@
+---
+import { getAllByType, getPage } from '@/prismic';
+
+export async function getStaticPaths() {
+    const list = await getAllByType('resource');
+    const cateList = [];
+    list.map(({ data }, idx) => {
+        !cateList.includes(data.category) && cateList.push(data.category)
+    })
+    return cateList.map((item: any) => {
+        return {
+            params: {resourceCate: item.toLowerCase().replaceAll(' ', '-')},
+            props: {item}
+        }
+    })
+}
+
+const { data } = await getPage('resources_page');
+const { resourceCate } = Astro.params;
+const { item } = Astro.props;
+---

@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Main from "@pages/Resource/Main/Main.astro";
+import Hero from "@pages/Resource/Hero/Hero.astro";
+import { convertHighlight } from '@utils/text.js';
+import { getPage, getAllByType } from '@/prismic.js';
+
+const { data } = await getPage('resources_page');
+let subTitle = convertHighlight(data.hero_demo);
+const list = await getAllByType('resource')
+---
+<Layout title="Resources">
+    <Hero title={data.hero_title[0].text} subTitle={subTitle}/>
+    <Main />
+</Layout>

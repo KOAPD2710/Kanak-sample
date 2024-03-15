@@ -1,8 +1,9 @@
 ---
 import "./Main.scss";
+import * as prismicH from "@prismicio/client";
 import ResDtlRichTxt from "./ResourceDtlRichTxt";
 import ResDtlRel from "./ResourceDtlRel";
-import { getImage } from "astro:assets";
+import { getAllByType } from "@/prismic.js";
 
 import featureImg from "@assets/resource-img1.jpeg";
 import icLinked from "@assets/ic-linkedin.svg?raw";
@@ -10,157 +11,24 @@ import icFacebook from "@assets/ic-facebook.svg?raw";
 import icShare from "@assets/ic-copyUrl.svg?raw";
 import arrIcon from "@assets/arr-right.svg?raw";
 
-const data = Astro.props;
-
-const image = await getImage({ src: featureImg, format: "webp" });
-const listItem = [
-    {
-        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
-        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
-        content:
-            "Our strategically located warehouses ensure swift response to fluctuating demands, keeping your supply chain robust and reliable with the environment",
-        category: "Industry Reports",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
-        title: "Sustainable Food Storage: A Solution for Nature and You",
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
-        title: "Sustainable Food Storage: A Solution for Nature and You",
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
-        title: "Sustainable Food Storage: A Solution for Nature and You",
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
-        title: "Sustainable Food Storage: A Solution for Nature and You",
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
-        title: "Sustainable Food Storage: A Solution for Nature and You",
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
-        title: "Sustainable Food Storage: A Solution for Nature and You",
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "sustainable-food-storage:-a-solution-for-nature-and-you",
-        title: "Sustainable Food Storage: A Solution for Nature and You",
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
-        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
-        content:
-            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "feature",
-    },
-    {
-        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
-        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
-        content:
-            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
-        category: "Industry Reports",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "popular",
-    },
-    {
-        uid: "plastic-free-pantry:-transitioning-to-zero-waste-food-packaging",
-        title: "Plastic-Free Pantry: Transitioning to Zero-Waste Food Packaging",
-        content:
-            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "popular",
-    },
-    {
-        uid: "navigating-the-impact-on-global-food-systems",
-        title: "Navigating the Impact on Global Food Systems",
-        content:
-            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
-        category: "Industry Reports",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "popular",
-    },
-    {
-        uid: "merging-sustainability-with-innovation-to-deliver-eco-conscious-products",
-        title: "merging sustainability with innovation to deliver eco-CONSCIOUS PRODUCTS",
-        content:
-            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
-        category: "Industry News",
-        date: "May 23, 2024",
-        imageUrl: image.src,
-        class: "",
-    },
-];
-const relList = listItem.filter(
-    (item: any) => item.category == Astro.props.category,
+const { data, last_publication_date, uid } = Astro.props;
+const caseList = await getAllByType("resource");
+const relList = caseList.filter(
+    (item: any) => item.data.category == data.category,
 );
 const removeDupList = relList.filter(
-    (item: any) => item.uid != Astro.props.uid,
+    (item: any) => item.uid != uid,
 );
----
 
+---
 <section class="resource-dtl">
     <div class="container grid">
         <div class="txt txt-20 txt-bold resource-dtl-bread">
             <a href="/">Home</a>
             <div class="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-            <a href="./resource">Resource</a>
+            <a href="/resources">Resource</a>
             <div class="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-            <a href={`./#${data.category.replace(" ", "%20")}`}
+            <a href={`/resources/${data.category.toLowerCase().replaceAll(' ', '-')}`}
                 >{data.category}</a
             >
         </div>
@@ -187,7 +55,7 @@ const removeDupList = relList.filter(
                     <div
                         class="txt txt-20 txt-bold resource-dtl-info-item-content"
                     >
-                        {data.date}
+                        {last_publication_date}
                     </div>
                 </div>
                 <div class="resource-dtl-info-item">
@@ -197,7 +65,7 @@ const removeDupList = relList.filter(
                     <div
                         class="txt txt-20 txt-bold resource-dtl-info-item-content"
                     >
-                        5
+                        {data.read_time} {data.read_time <= 1 ? 'minute' : 'minutes'}
                     </div>
                 </div>
                 <div class="resource-dtl-info-item link">
@@ -213,9 +81,11 @@ const removeDupList = relList.filter(
                 </div>
             </div>
         </div>
-        <ResDtlRichTxt item={data} image={featureImg} />
+        <ResDtlRichTxt>
+            <Fragment set:html={prismicH.asHTML(data.content)} />
+        </ResDtlRichTxt>
         <div class="line resource-dtl-line"></div>
-        <ResDtlRel list={removeDupList} client:load>
+        <ResDtlRel list={removeDupList} client:visible>
             <Fragment set:html={arrIcon} slot="arrIcon" />
         </ResDtlRel>
     </div>

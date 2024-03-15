@@ -72,7 +72,7 @@ function ResDtlRel({ ...props }) {
                 <div className="resource-dtl-rel-main-inner">
                     {/* ref={sliderRef} style={{ '--perView': perView }} */}
                     {props.list.map((item, idx) => {
-                        < div className="resource-dtl-rel-main-inner-item" key={idx} >
+                        <div className="resource-dtl-rel-main-inner-item" key={idx} >
                             <div className="resource-dtl-rel-main-inner-item-img">
                                 <img src={item.imageUrl} alt="" />
                             </div>

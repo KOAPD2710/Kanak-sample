@@ -1,0 +1,21 @@
+---
+import { getAllByType } from "@/prismic.js";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@pages/ResourceDtl/Main/Main.astro";
+
+export async function getStaticPaths() {
+    const list = await getAllByType('resource')
+    return list.map((item: any) => {
+        return {
+            params: {resource: item.uid},
+            props: {item}
+        }
+    })
+}
+const { resource } = Astro.params;
+const { item } = Astro.props;
+---
+
+<Layout title={item.title}>
+    <Main {...item} />
+</Layout>

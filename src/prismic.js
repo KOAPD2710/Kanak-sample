@@ -19,3 +19,7 @@ export function getAllByType(customType) {
   return client.getAllByType(customType)
 }
 
+export const htmlSerializer = {
+  highlight: ({children}) => `<span class="txt-green">${children}</span>`
+}
+

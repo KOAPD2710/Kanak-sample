@@ -1,9 +1,7 @@
 import "./Main.scss"
 import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 
-
-function FilterItem({ ...props }) {
+function FilterItem(props) {
     return (
         <button className={`resource-main-list-head-filter-item ${props.isActive ? 'active' : ''}`} onClick={props.onClick} data-filter={props.name}>
             <div className="txt txt-20 txt-bold resource-main-list-head-filter-item-txt">
@@ -18,60 +16,76 @@ function FilterItem({ ...props }) {
 }
 
 
-function ArticleItem({ ...props }) {
+function ArticleItem({ data, idx }) {
     return (
         <a href="#" className="resource-main-list-main-item">
             <div className="resource-main-list-main-item-img">
                 <div className="resource-main-list-main-item-img-inner">
-                    <img className='img img-fill' src={props.imageUrl} alt="" />
+                    <img
+                        className='img img-fill'
+                        src={data.data.feature_image.url}
+                        alt={data.data.feature_image.alt}
+                        width={data.data.feature_image.dimensions.width}
+                        height={data.data.feature_image.dimensions.height}/>
                 </div>
             </div>
             <div className="resource-main-list-main-item-content">
                 <div href="#" className="txt txt-20 txt-bold resource-main-list-main-item-cate">
-                    {props.category}
+                    {data.data.category}
                 </div>
                 <h4 href="#" className="heading h5 txt-black txt-up resource-main-list-main-item-title">
-                    {props.title}
+                    {data.data.title}
                 </h4>
                 <p className="txt txt-18 txt-med resource-main-list-main-item-subtitle">
-                    {props.content}
+                    {data.data.sapo}
                 </p>
-                <span className="txt txt-18 txt-med resource-main-list-main-item-date">{props.date}</span>
+                <span className="txt txt-18 txt-med resource-main-list-main-item-date">{data.last_publication_date}</span>
             </div>
             <div className="line"></div>
-            {props.idx % 2 == 0 ? (
+            {idx % 2 == 0 ? (
                 <div className="line line-ver"></div>
             ) : ""}
         </a>
     )
 }
-function ResourceMainList({ ...props }) {
-    const allItem = props.list
+function ResourceMainList(props) {
+    const { data: allItem } = props
 
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(6);
-    const [categoryToggle, setcategoryToggle] = useState(false)
+    const [categoryToggle, setCategoryToggle] = useState(false)
 
     const cateList = []
 
     allItem.map((el, idx) => {
-        !cateList.includes(el.category) && cateList.push(el.category)
+        !cateList.includes(el.data.category) && cateList.push(el.data.category)
     })
 
-    const cateUI = useMemo(() => {
+    const renderFilter = useMemo(() => {
         return (
             <>
+                <FilterItem name={'All'}
+                    count={allItem.length}
+                    isActive={filter == 'All'}
+                    onClick={(e) => { filterList(e), setCategoryToggle(!categoryToggle) }}
+                />
                 {cateList.map((el, idx) => (
                     <FilterItem name={el}
-                        count={allItem.filter((item) => item.category == el).length}
+                        count={allItem.filter(({ data }) => data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterList(e); setcategoryToggle(!categoryToggle) }}
+                        onClick={(e) => { filterList(e); setCategoryToggle(!categoryToggle) }}
                         key={idx} />
                 ))}
             </>
         )
     }, [cateList])
+
+    const renderArticles = useMemo(() => (
+        itemList.map((data, idx) => (
+            (idx < limit) && <ArticleItem key={idx} data={data} idx={idx} />
+        ))
+    ), [itemList, limit])
 
 
     function filterList(e) {
@@ -80,49 +94,37 @@ function ResourceMainList({ ...props }) {
     }
 
     useEffect(() => {
-        window.location.hash && setFilter(decodeURI(window.location.hash).replace('#', ''))
-    }, [])
-    useEffect(() => {
         if (filter == 'All') {
             setItemList(allItem)
-            history.replaceState({}, '', window.location.pathname)
         } else {
-            let filterList = allItem.filter((item) => item.category == filter)
+            let filterList = allItem.filter(({ data }) => data.category == filter)
             setItemList(filterList)
-            history.replaceState({}, '', window.location.pathname + `#${encodeURI(filter)}`)
         }
     }, [filter])
 
     return (
         <div className="resource-main-list">
             <div className="resource-main-list-head">
-                <h3 className="heading h4 txt-black txt-up resource-main-list-head-title">articles</h3>
+                <h3 className="heading h4 txt-black txt-up resource-main-list-head-title">Articles</h3>
                 <div className="resource-main-list-head-filter">
-                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setcategoryToggle(!categoryToggle) }}>
+                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }}>
                         <div className="txt txt-18 txt-bold resource-main-list-head-filter-toggle-txt">
-                            {filter == 'All' ? 'All Categories' : filter}
+                            {filter == 'All' ? 'Categories' : filter}
                         </div>
                         <div className={`ic ic-20 resource-main-list-head-filter-toggle-ic ${categoryToggle ? 'open' : ''}`}>
                             {props.icDropDown}
                         </div>
                     </button>
                     <div className={`resource-main-list-head-filter-dropdown ${categoryToggle ? 'active' : ''}`}>
-                        <FilterItem name={'All'}
-                            count={allItem.length}
-                            isActive={filter == 'All'}
-                            onClick={(e) => { filterList(e), setcategoryToggle(!categoryToggle) }}
-                        />
-                        {cateUI}
+                        {renderFilter}
                     </div>
                 </div>
             </div>
             <div className="line"></div>
             <div className="resource-main-list-main">
-                <motion.div layout transition={{ duration: 0.3 }} className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
-                    {itemList.map((item, idx) => (
-                        idx < limit ? <ArticleItem key={idx} {...item} idx={idx} icArrowExt={props.icArrowExt} /> : ""
-                    ))}
-                </motion.div>
+                <div className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+                    {renderArticles}
+                </div>
                 <div className="line"></div>
             </div>
             <div className={`resource-main-list-load ${limit >= itemList.length ? 'hidden' : ''}`}>

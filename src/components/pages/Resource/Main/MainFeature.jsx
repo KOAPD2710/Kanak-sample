@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
 
-function ResourceMainFeature({ ...props }) {
+function ResourceMainFeature(props) {
 
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -27,10 +27,15 @@ function ResourceMainFeature({ ...props }) {
         <div className="resource-main-fea">
             <div className="resource-main-fea-main">
                 <div className="keen-slider resource-main-fea-main-inner" ref={sliderRef}>
-                    {props.feaList.map((item, idx) => (
-                        <a href="#" className="keen-slider__slide resource-main-fea-main-inner-item" key={idx} style={{ opacity: opacities[idx] }}>
+                    {props.data.map((item, idx) => (
+                        <a href="#" className="keen-slider__slide resource-main-fea-main-inner-item" key={item.uid} style={{ opacity: opacities[idx] }}>
                             <div className="resource-main-fea-main-inner-item-img">
-                                <img className='img img-fill' src={item.imageUrl} alt="" />
+                                <img
+                                    className='img img-fill'
+                                    src={item.data.feature_image.url}
+                                    alt={item.data.feature_image.alt}
+                                    width={item.data.feature_image.dimensions.width}
+                                    height={item.data.feature_image.dimensions.height}/>
                             </div>
                             <div className="resource-main-fea-main-inner-item-content">
                                 <div className="resource-main-fea-main-inner-item-cate">
@@ -38,22 +43,22 @@ function ResourceMainFeature({ ...props }) {
                                         {props.folderIcon}
                                     </div>
                                     <div className="txt txt-20 txt-black resource-main-fea-main-inner-item-cate-txt">
-                                        {item.category}
+                                        {item.data.category}
                                     </div>
                                 </div>
                                 <h2 className='heading h4 txt-black txt-up resource-main-fea-main-inner-item-title'>
-                                    {item.title}
+                                    {item.data.title}
                                 </h2>
-                                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{item.date}</span>
+                                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{item.last_publication_date}</span>
                             </div>
                         </a>
                     ))}
                 </div>
-                <div className="resource-main-fea-main-control">
+                {/* <div className="resource-main-fea-main-control">
                     <div className="line"></div>
                     <div className="resource-main-fea-main-pagi">
                         {loaded && instanceRef && (
-                            props.feaList.map((item, idx) => (
+                            props.data.map((item, idx) => (
                                 <button className={"resource-main-fea-main-pagi-item" + (currentSlide === idx ? " active" : "")} key={idx}
                                     onClick={() => {
                                         instanceRef.current?.moveToIdx(idx)
@@ -82,7 +87,7 @@ function ResourceMainFeature({ ...props }) {
                             </>
                         )}
                     </div>
-                </div>
+                </div> */}
                 <div className="line line-ver"></div>
                 <div className="line resource-main-fea-main-line-bot"></div>
             </div>
