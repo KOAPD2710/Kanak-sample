@@ -28,7 +28,7 @@ function ResourceMainFeature({ ...props }) {
             <div className="resource-main-fea-main">
                 <div className="keen-slider resource-main-fea-main-inner" ref={sliderRef}>
                     {props.feaList.map((item, idx) => (
-                        <a href="#" className="keen-slider__slide resource-main-fea-main-inner-item" key={idx} style={{ opacity: opacities[idx] }}>
+                        <a href={`/resource/${item.uid}`} className="keen-slider__slide resource-main-fea-main-inner-item" key={idx} style={{ opacity: opacities[idx] }}>
                             <div className="resource-main-fea-main-inner-item-img">
                                 <img className='img img-fill' src={item.imageUrl} alt="" />
                             </div>

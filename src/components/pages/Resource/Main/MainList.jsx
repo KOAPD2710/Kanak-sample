@@ -20,7 +20,7 @@ function FilterItem({ ...props }) {
 
 function ArticleItem({ ...props }) {
     return (
-        <a href="#" className="resource-main-list-main-item">
+        <a href={`./resource/${props.uid}`} className="resource-main-list-main-item">
             <div className="resource-main-list-main-item-img">
                 <div className="resource-main-list-main-item-img-inner">
                     <img className='img img-fill' src={props.imageUrl} alt="" />
@@ -47,7 +47,6 @@ function ArticleItem({ ...props }) {
 }
 function ResourceMainList({ ...props }) {
     const allItem = props.list
-
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(6);
