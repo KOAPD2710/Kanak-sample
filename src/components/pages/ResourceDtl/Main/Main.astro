@@ -5,7 +5,6 @@ import ResDtlRichTxt from "./ResourceDtlRichTxt";
 import ResDtlRel from "./ResourceDtlRel";
 import { getAllByType } from "@/prismic.js";
 
-import featureImg from "@assets/resource-img1.jpeg";
 import icLinked from "@assets/ic-linkedin.svg?raw";
 import icFacebook from "@assets/ic-facebook.svg?raw";
 import icShare from "@assets/ic-copyUrl.svg?raw";
@@ -19,7 +18,6 @@ const relList = caseList.filter(
 const removeDupList = relList.filter(
     (item: any) => item.uid != uid,
 );
-
 ---
 <section class="resource-dtl">
     <div class="container grid">
@@ -37,6 +35,7 @@ const removeDupList = relList.filter(
         </h1>
         <div class="line resource-dtl-line"></div>
         <div class="resource-dtl-info">
+            <div class="line"></div>
             <div class="resource-dtl-info-stick">
                 <div class="resource-dtl-info-item">
                     <div class="txt txt-18 txt-med resource-dtl-info-item-head">

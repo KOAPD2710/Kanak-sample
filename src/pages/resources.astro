@@ -7,7 +7,6 @@ import { getPage, getAllByType } from '@/prismic.js';
 
 const { data } = await getPage('resources_page');
 let subTitle = convertHighlight(data.hero_demo);
-const list = await getAllByType('resource')
 ---
 <Layout title="Resources">
     <Hero title={data.hero_title[0].text} subTitle={subTitle}/>

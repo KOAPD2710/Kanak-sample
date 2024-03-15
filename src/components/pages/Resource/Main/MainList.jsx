@@ -1,5 +1,6 @@
 import "./Main.scss"
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
+import useOutsideAlerter from "@hooks/useOutsideAlerter";
 
 function FilterItem(props) {
     return (
@@ -18,7 +19,7 @@ function FilterItem(props) {
 
 function ArticleItem({ data, idx }) {
     return (
-        <a href="#" className="resource-main-list-main-item">
+        <a href={`./resources/${props.uid}`} className="resource-main-list-main-item">
             <div className="resource-main-list-main-item-img">
                 <div className="resource-main-list-main-item-img-inner">
                     <img
@@ -55,8 +56,10 @@ function ResourceMainList(props) {
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(6);
     const [categoryToggle, setCategoryToggle] = useState(false)
-
+    const toggleRef = useRef();
     const cateList = []
+
+    useOutsideAlerter(toggleRef, () => { setCategoryToggle(false) })
 
     allItem.map((el, idx) => {
         !cateList.includes(el.data.category) && cateList.push(el.data.category)
@@ -107,7 +110,7 @@ function ResourceMainList(props) {
             <div className="resource-main-list-head">
                 <h3 className="heading h4 txt-black txt-up resource-main-list-head-title">Articles</h3>
                 <div className="resource-main-list-head-filter">
-                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }}>
+                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }} ref={toggleRef}>
                         <div className="txt txt-18 txt-bold resource-main-list-head-filter-toggle-txt">
                             {filter == 'All' ? 'Categories' : filter}
                         </div>

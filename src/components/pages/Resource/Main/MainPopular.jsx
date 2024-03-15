@@ -14,8 +14,8 @@ function ResourceMainPopular(props) {
                                 {item.data.category}
                             </div>
                         </a>
-                        <a href='#' className="heading h5 txt-black txt-up resource-main-pop-list-item-title">
-                            {item.data.title}
+                        <a href={`/resources/${item.uid}`} className="heading h5 txt-black txt-up resource-main-pop-list-item-title">
+                            {item.title}
                         </a>
                         <span className='txt txt-18 txt-med resource-main-pop-list-item-date'>{item.last_publication_date}</span>
                         <div className="line"></div>

@@ -1,10 +1,8 @@
 import { useState } from 'react';
-
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
 
 function ResourceMainFeature(props) {
-
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [opacities, setOpacities] = useState([])
@@ -28,7 +26,7 @@ function ResourceMainFeature(props) {
             <div className="resource-main-fea-main">
                 <div className="keen-slider resource-main-fea-main-inner" ref={sliderRef}>
                     {props.data.map((item, idx) => (
-                        <a href="#" className="keen-slider__slide resource-main-fea-main-inner-item" key={item.uid} style={{ opacity: opacities[idx] }}>
+                        <a href={`/resources/${item.uid}`} className="keen-slider__slide resource-main-fea-main-inner-item" key={idx} style={{ opacity: opacities[idx] }}>
                             <div className="resource-main-fea-main-inner-item-img">
                                 <img
                                     className='img img-fill'
