@@ -1,0 +1,26 @@
+---
+import { getAllByType } from '@/prismic';
+import Layout from "@/layouts/Layout.astro";
+import Hero from "@pages/ResourceCate/Hero/Hero.astro";
+import Main from "@pages/ResourceCate/Main/Main.astro";
+
+export async function getStaticPaths() {
+    const list = await getAllByType('resource');
+    const cateList = [];
+    list.map(({ data }, idx) => {
+        !cateList.includes(data.category) && cateList.push(data.category)
+    })
+    return cateList.map((item: any) => {
+        return {
+            params: {resourceCate: item.toLowerCase().replaceAll(' ', '-')},
+            props: {item}
+        }
+    })
+}
+const { resourceCate } = Astro.params;
+const { item } = Astro.props;
+---
+<Layout title={item}>
+    <Hero currentCate={resourceCate} title={item} />
+    <Main currentCate={item} />
+</Layout>

@@ -24,6 +24,7 @@ function CasedtlRel({ ...props }) {
             setLoaded(true)
         },
     })
+    console.log(newList);
     return (
         <div className="casedtl-rel">
             <div className="casedtl-rel-head">

@@ -10,8 +10,8 @@ import { getAllByType } from "@/prismic.js";
 const list = await getAllByType("case_study");
 const cateList = [];
 list.map((el, idx) => {
-    !cateList.includes(el.data.category) && cateList.push(el.data.category)
-})
+    !cateList.includes(el.data.category) && cateList.push(el.data.category);
+});
 ---
 
 <CaseMain list={list} cateList={cateList} {...Astro.props} client:load>

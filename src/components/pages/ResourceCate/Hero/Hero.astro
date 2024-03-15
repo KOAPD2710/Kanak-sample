@@ -1,0 +1,10 @@
+---
+import "./Hero.scss";
+import ResourceCateHero from "./Hero";
+---
+
+<section class="resource-cate-hero">
+    <div class="container grid">
+        <ResourceCateHero {...Astro.props} client:visible />
+    </div>
+</section>

@@ -1,4 +1,4 @@
-function CasedtlMain({...props}) {
+function CasedtlMain(props) {
     return (
         <div className="casedtl-main">
             <div className="casedtl-bread">
@@ -21,9 +21,11 @@ function CasedtlMain({...props}) {
                         <h1 className="heading h3 txt-up txt-black casedtl-content-title">
                             {props.data.title[0].text}
                         </h1>
-                        <h2 className="heading h6 txt-up txt-black casedtl-content-sub txt-green">
-                            {props.data.sub_title}
-                        </h2>
+                        {props.data.sub_title && (
+                            <h2 className="heading h6 txt-up txt-black casedtl-content-sub txt-green">
+                                {props.data.sub_title}
+                            </h2>
+                        )}
                     </div>
                     <div className="casedtl-content-client-img">
                         {props.clientLogo}

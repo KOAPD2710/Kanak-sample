@@ -2,11 +2,13 @@ import './Gallery.scss'
 import gsap from 'gsap'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react'
+import useDevice from '@/components/hooks/useDevice';
 
-function KareerGallery({...props}) {
+function KareerGallery(props) {
+    const { isDesktop, isTablet, isMobile } = useDevice();
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
-        gsap.timeline({
+        let tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.kareer-gall',
                 start: 'top top-=55%',
@@ -14,11 +16,25 @@ function KareerGallery({...props}) {
                 scrub: true
             }
         })
-        .from('.kareer-gall-content-inner', {width: '0%', height: '11rem', ease: 'none'})
-        .from('.kareer-gall-content-inner img', {scale: '1.2', ease: 'none'}, 0)
-        .from('.kareer-gall-title kareer-gall-title-left', {marginRight: '2.4rem', ease: 'none'}, 0)
-        .from('.kareer-gall-title kareer-gall-title-right', {marginLeft: '2.4rem', ease: 'none'}, 0)
-    })
+        tl
+            .from('.kareer-gall-content-inner', { width: '0%', height: `${isDesktop ? 11 : isTablet ? 7.2 : 39.6}rem`, ease: 'none' })
+            .from('.kareer-gall-content-inner img', { scale: '1.2', ease: 'none' }, 0)
+            .to('.kareer-gall-content-inner .kareer-gall-title-left', {marginRight: '2.4rem', ease: 'none'}, 0)
+            .to('.kareer-gall-content-inner .kareer-gall-title-right', {marginLeft: '2.4rem', ease: 'none'}, 0)
+
+        isTablet && (
+            tl
+                .from('.kareer-gall-content-img', { height: '30%', ease: 'none' }, 0)
+                .to('.kareer-gall-content-inner .kareer-gall-title-top', { yPercent: 100, ease: 'none'}, 0)
+                .to('.kareer-gall-content-inner .kareer-gall-title-bot', { yPercent: -100, ease: 'none'}, 0)
+        )
+        isMobile && (
+            tl
+            .from('.kareer-gall-content-img', { height: '0%', ease: 'none' }, 0)
+            .to('.kareer-gall-content-inner .kareer-gall-title-top', { bottom: "100%", yPercent: 100, ease: 'none'}, 0)
+            .to('.kareer-gall-content-inner .kareer-gall-title-bot', { top: "100%", yPercent: -100, ease: 'none'}, 0)
+        )
+    }, { dependencies: [isDesktop, isTablet, isMobile] })
     return (
         <section className="kareer-gall">
             <div className="kareer-gall-stick bg-dark">

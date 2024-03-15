@@ -3,6 +3,6 @@ import Image from 'astro/components/Image.astro'
 import KareerGallery from './Gallery.jsx'
 import kareerGallBg from '@assets/kareer-gall-bg.jpg';
 ---
-<KareerGallery {...Astro.props} client:load>
+<KareerGallery {...Astro.props} client:visible={{rootMargin: "50% 0% 50% 0%"}}>
     <Image src={kareerGallBg} alt='' slot="gallBg" class='img img-fill' />
 </KareerGallery>

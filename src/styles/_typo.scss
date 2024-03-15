@@ -214,8 +214,35 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
             font-weight: 900
         }
     }
-    p {
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+    p, ul, li {
         @include text(20);
+    }
+    ul {
+        margin-left: 0px;
+        list-style: none;
+        padding-left: 1.8rem;
+        li {
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                display: block;
+                @include size(1rem);
+                top: .45em;
+                left: -1.8rem;
+                border-radius: 50%;
+                background-color: var(--cl-txt);
+            }
+            &:first-child {
+                margin-top: 0;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 }
 

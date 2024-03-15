@@ -1,47 +1,33 @@
 ---
 import "./Main.scss";
 
-import Image from "astro/components/Image.astro";
 import ResourceMainFeature from "./MainFeature";
 import ResourceMainPopular from "./MainPopular";
 import ResourceMainList from "./MainList";
+import { getAllByType } from "@/prismic.js";
 
-import featureImg from "@assets/resource-img1.jpeg";
 import arrIcon from "@assets/arr-right.svg?raw";
-import folderIcon from "@assets/ic-folder.svg?raw";
 import icArrowDown from "@assets/ic-arr-down.svg?raw";
+import icDropdown from "@assets/ic-arrow-down.svg?raw";
 
-let featureList = Astro.props.list
-    .filter((item) => item.class == "feature")
-    .slice(0, 4);
+const data = await getAllByType("resource");
 
-let popularList = Astro.props.list
-    .filter((item) => item.class == "popular")
-    .slice(0, 3);
+const featureList = data.filter(({ data }) => data.show_on_feature) .slice(0, 5);
+const popularList = data.filter(({ data }) => data.show_on_popular).slice(0, 4);
+
 ---
 
 <section class="resource-main">
     <div class="container grid">
         <div class="line resource-main-line"></div>
-        <ResourceMainFeature {...Astro.props} feaList={featureList} client:load>
+        <ResourceMainFeature data={featureList} client:load>
             <Fragment set:html={arrIcon} slot="arrIcon" />
-            <Fragment set:html={folderIcon} slot="folderIcon" />
-            <Image src={featureImg} alt="" slot="featureImg" />
         </ResourceMainFeature>
-        <ResourceMainPopular {...Astro.props} popList={popularList}>
-            <Fragment set:html={folderIcon} slot="folderIcon" />
-            <Image src={featureImg} alt="" slot="featureImg" />
-        </ResourceMainPopular>
+        <ResourceMainPopular data={popularList}/>
         <div class="line resource-main-line"></div>
-        <ResourceMainList {...Astro.props} client:visible>
-            <Image
-                src={featureImg}
-                alt=""
-                slot="featureImg"
-                class="img img-fill"
-            />
-            <Fragment set:html={folderIcon} slot="folderIcon" />
+        <ResourceMainList data={data} client:visible>
             <Fragment set:html={icArrowDown} slot="icArrowDown" />
+            <Fragment set:html={icDropdown} slot="icDropDown" />
         </ResourceMainList>
     </div>
 </section>

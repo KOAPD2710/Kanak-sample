@@ -43,33 +43,40 @@ function FilterItem({ ...props }) {
     )
 }
 function CaseMain({ ...props }) {
-    const allItem = props.list
+    const { list: allItem } = props;
     const [layout, setLayout] = useState('grid');
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
-    const [categoryToggle, setcategoryToggle] = useState(false)
-    const cateUI = useMemo(() => {
+    const [categoryToggle, setCategoryToggle] = useState(false)
+    const renderFilter = useMemo(() => {
         return (
             <>
+                <FilterItem name={'All'}
+                    count={allItem.length}
+                    isActive={filter == 'All'}
+                    onClick={(e) => { filterList(e), setCategoryToggle(!categoryToggle) }}
+                />
                 {props.cateList.map((el, idx) => (
                     <FilterItem name={el}
                         count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterList(e); setcategoryToggle(!categoryToggle) }}
+                        onClick={(e) => { filterList(e); setCategoryToggle(!categoryToggle) }}
                         key={idx} />
                 ))}
             </>
         )
     }, [props.cateList])
+    const renderCases = useMemo(() => (
+        itemList.map((item, idx) => (
+            idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} /> : ''
+        ))
+    ), [itemList, limit])
 
     function filterList(e) {
         let type = e.target.dataset.filter;
         setFilter(type)
     }
-    useEffect(() => {
-        console.log(categoryToggle);
-    }, [categoryToggle])
     useEffect(() => {
         if (filter == 'All') {
             setItemList(allItem)
@@ -86,7 +93,7 @@ function CaseMain({ ...props }) {
                     <div className="line line-top"></div>
                     <div className="case-filter-inner">
                         <div className="case-filter-list">
-                            <button className="case-filter-list-toggle" onClick={() => { setcategoryToggle(!categoryToggle) }}>
+                            <button className="case-filter-list-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }}>
                                 <div className="txt txt-18 txt-bold case-filter-list-toggle-txt">
                                     {filter == 'All' ? 'All Categories' : filter}
                                 </div>
@@ -95,12 +102,7 @@ function CaseMain({ ...props }) {
                                 </div>
                             </button>
                             <div className={`case-filter-list-dropdown ${categoryToggle ? 'active' : ''}`}>
-                                <FilterItem name={'All'}
-                                    count={allItem.length}
-                                    isActive={filter == 'All'}
-                                    onClick={(e) => { filterList(e), setcategoryToggle(!categoryToggle) }}
-                                />
-                                {cateUI}
+                                {renderFilter}
                             </div>
                         </div>
                         <div className="case-filter-view">
@@ -122,9 +124,7 @@ function CaseMain({ ...props }) {
             <div className="case-list">
                 <div className="container">
                     <motion.div layout transition={{ duration: 0.3 }} className={`case-list-inner ${layout == 'list' ? 'layout-list' : ''} ${limit >= itemList.length ? 'all-loaded' : ''}`}>
-                        {itemList.map((item, idx) => (
-                            idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} /> : ''
-                        ))}
+                        {renderCases}
                     </motion.div>
                     <div className={`case-list-load ${limit >= itemList.length ? 'hidden' : ''}`}>
                         <button className="case-list-load-btn" onClick={() => setLimit(limit + 4)}>
