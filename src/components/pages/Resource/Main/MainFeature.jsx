@@ -49,7 +49,7 @@ function ResourceMainFeature(props) {
                         </a>
                     ))}
                 </div>
-                {/* <div className="resource-main-fea-main-control">
+                <div className="resource-main-fea-main-control">
                     <div className="line"></div>
                     <div className="resource-main-fea-main-pagi">
                         {loaded && instanceRef && (
@@ -82,7 +82,7 @@ function ResourceMainFeature(props) {
                             </>
                         )}
                     </div>
-                </div> */}
+                </div>
                 <div className="line line-ver"></div>
                 <div className="line resource-main-fea-main-line-bot"></div>
             </div>

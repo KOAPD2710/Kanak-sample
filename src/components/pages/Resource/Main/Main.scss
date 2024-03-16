@@ -12,6 +12,9 @@
 
         &-main {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
 
             &-inner {
                 &-item {
@@ -20,8 +23,6 @@
                         right: 4.6rem;
                         bottom: 3.2rem;
                     }
-
-                    ;
 
                     &-img {
                         height: 47.5rem;
@@ -38,6 +39,7 @@
                     &-title {
                         margin-bottom: 2.4rem;
                         @include transition(color .4s ease);
+                        min-height: calc(3 * var(--lh-h4));
 
                         @media (hover: hover) {
                             &:hover {
@@ -64,6 +66,7 @@
                 height: 10rem;
                 position: relative;
                 display: flex;
+                margin-top: auto;
 
                 &>.line {
                     position: absolute;
@@ -703,6 +706,7 @@
                 &-inner {
                     &-item {
                         flex-direction: column;
+                        padding-bottom: 0;
 
                         &-img,
                         &-content {
@@ -710,7 +714,7 @@
                         }
 
                         &-img {
-                            height: 33.5rem;
+                            height: 22.9rem;
                         }
 
                         &-content {
@@ -729,8 +733,14 @@
                 &-control {
                     position: relative;
                     display: inline-flex;
-                    left: auto;
+                    left: 0;
+                    top: 0;
                     margin-top: 2.4rem;
+                    margin-bottom: 3.2rem;
+
+                    .line {
+                        width: 6.8rem;
+                    }
                 }
             }
         }

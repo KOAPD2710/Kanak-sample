@@ -9,7 +9,7 @@ function ResourceCateList(props) {
             <div className={`resource-cate-main-grid ${limit >= allItem.length ? 'all-loaded' : ''}`}>
                 {allItem.map((item, idx) => (
                     idx < limit ? <>
-                        <a href="#" className={`resource-cate-main-item ${idx == "0" ? "first-item" : ""}`} key={idx}>
+                        <a href={`/resources/${item.uid}`} className={`resource-cate-main-item ${idx == "0" ? "first-item" : ""}`} key={idx}>
                             <div className="resource-cate-main-item-img">
                                 <img
                                     className='img img-fill'

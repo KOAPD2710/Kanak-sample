@@ -1,8 +1,7 @@
 ---
-import "./Main.scss";
 import * as prismicH from "@prismicio/client";
-import ResDtlRichTxt from "./ResourceDtlRichTxt";
-import ResDtlRel from "./ResourceDtlRel";
+
+import ResourceMain from "./Main";
 import { getAllByType } from "@/prismic.js";
 
 import icLinked from "@assets/ic-linkedin.svg?raw";
@@ -11,81 +10,19 @@ import icShare from "@assets/ic-copyUrl.svg?raw";
 import arrIcon from "@assets/arr-right.svg?raw";
 
 const { data, last_publication_date, uid } = Astro.props;
-const caseList = await getAllByType("resource");
-const relList = caseList.filter(
-    (item: any) => item.data.category == data.category,
+const resourceList = await getAllByType("resource");
+const relList = resourceList.filter(
+  (item: any) => item.data.category == data.category
 );
-const removeDupList = relList.filter(
-    (item: any) => item.uid != uid,
-);
+const removeDupList = relList.filter((item: any) => item.uid != uid);
+
+console.log(last_publication_date);
 ---
-<section class="resource-dtl">
-    <div class="container grid">
-        <div class="txt txt-20 txt-bold resource-dtl-bread">
-            <a href="/">Home</a>
-            <div class="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-            <a href="/resources">Resource</a>
-            <div class="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-            <a href={`/resources/${data.category.toLowerCase().replaceAll(' ', '-')}`}
-                >{data.category}</a
-            >
-        </div>
-        <h1 class="heading h0 txt-black txt-up resource-dtl-title">
-            {data.title}
-        </h1>
-        <div class="line resource-dtl-line"></div>
-        <div class="resource-dtl-info">
-            <div class="line"></div>
-            <div class="resource-dtl-info-stick">
-                <div class="resource-dtl-info-item">
-                    <div class="txt txt-18 txt-med resource-dtl-info-item-head">
-                        Category
-                    </div>
-                    <div
-                        class="txt txt-20 txt-bold resource-dtl-info-item-content"
-                    >
-                        {data.category}
-                    </div>
-                </div>
-                <div class="resource-dtl-info-item">
-                    <div class="txt txt-18 txt-med resource-dtl-info-item-head">
-                        Updated date
-                    </div>
-                    <div
-                        class="txt txt-20 txt-bold resource-dtl-info-item-content"
-                    >
-                        {last_publication_date}
-                    </div>
-                </div>
-                <div class="resource-dtl-info-item">
-                    <div class="txt txt-18 txt-med resource-dtl-info-item-head">
-                        Read time
-                    </div>
-                    <div
-                        class="txt txt-20 txt-bold resource-dtl-info-item-content"
-                    >
-                        {data.read_time} {data.read_time <= 1 ? 'minute' : 'minutes'}
-                    </div>
-                </div>
-                <div class="resource-dtl-info-item link">
-                    <a href="" class="resource-dtl-info-item-link">
-                        <Fragment set:html={icShare} slot="icShare" />
-                    </a>
-                    <a href="" class="resource-dtl-info-item-link">
-                        <Fragment set:html={icFacebook} slot="icFacebook" />
-                    </a>
-                    <a href="" class="resource-dtl-info-item-link">
-                        <Fragment set:html={icLinked} slot="icLinked" />
-                    </a>
-                </div>
-            </div>
-        </div>
-        <ResDtlRichTxt>
-            <Fragment set:html={prismicH.asHTML(data.content)} />
-        </ResDtlRichTxt>
-        <div class="line resource-dtl-line"></div>
-        <ResDtlRel list={removeDupList} client:visible>
-            <Fragment set:html={arrIcon} slot="arrIcon" />
-        </ResDtlRel>
-    </div>
-</section>
+
+<ResourceMain relList={relList} {...Astro.props} client:load>
+  <Fragment set:html={prismicH.asHTML(data.content)} />
+  <Fragment set:html={arrIcon} slot="arrIcon" />
+  <Fragment set:html={icLinked} slot="icLinked" />
+  <Fragment set:html={icFacebook} slot="icFacebook" />
+  <Fragment set:html={icShare} slot="icShare" />
+</ResourceMain>

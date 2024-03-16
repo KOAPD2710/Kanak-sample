@@ -100,8 +100,16 @@
 
         &-main {
             grid-column: 2/12;
-            margin-top: 4.5rem;
+            margin-top: 8.5rem;
             padding-bottom: 9rem;
+
+            &-premble {
+                &-img {
+                    width: 100%;
+                    height: 55.285rem;
+                    // 32.023rem
+                }
+            }
 
             h2 {
                 font-family: "HelveticaNowDisplay", sans-serif;
@@ -347,6 +355,7 @@
         &-info {
             grid-column: 1/4;
             padding-top: 4rem;
+            padding-bottom: 5rem;
 
             &-stick {
                 row-gap: 2rem;
@@ -378,9 +387,15 @@
             &-main {
                 grid-column: 2/-1;
                 margin-left: calc(var(--grid-gap) * -1);
-                margin-top: .4rem;
-                padding-bottom: 4.8rem;
+                margin-top: 4rem;
+                padding-bottom: 4rem;
                 @include text(16);
+
+                &-premble {
+                    &-img {
+                        height: 32.023rem;
+                    }
+                }
 
                 figure {
                     margin-top: 3.6rem;
@@ -522,17 +537,20 @@
             &-main {
                 grid-column: 1/-1;
                 padding-bottom: 4rem;
-
                 margin: {
                     left: 0;
-                    top: 0;
+                    top: 3.2rem;
+                }
+
+                &-premble {
+                    &-img {
+                        height: 21.464rem;
+                    }
                 }
 
                 figure {
                     margin-top: 3.2rem;
                 }
-
-                h2 {}
 
                 h3 {
                     margin: {
