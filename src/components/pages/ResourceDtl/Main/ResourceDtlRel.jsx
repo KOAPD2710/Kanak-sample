@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
+import { convertDate } from "@utils/text.js"
+
 
 function ResDtlRel(props) {
     const [loaded, setLoaded] = useState(false);
@@ -69,7 +71,7 @@ function ResDtlRel(props) {
                                             {item.data.sapo}
                                         </p>
                                         <span className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-date'>
-                                            {item.last_publication_date}
+                                            {convertDate(item.last_publication_date)}
                                         </span>
                                         {itemIdx % 2 !== 0 && (
                                             <>

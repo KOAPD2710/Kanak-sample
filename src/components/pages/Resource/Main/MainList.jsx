@@ -1,6 +1,7 @@
 import "./Main.scss"
 import { useEffect, useMemo, useState, useRef } from 'react';
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
+import { convertDate } from "@utils/text.js"
 
 function FilterItem(props) {
     return (
@@ -40,7 +41,7 @@ function ArticleItem({ data, idx }) {
                 <p className="txt txt-18 txt-med resource-main-list-main-item-subtitle">
                     {data.data.sapo}
                 </p>
-                <span className="txt txt-18 txt-med resource-main-list-main-item-date">{data.last_publication_date}</span>
+                <span className="txt txt-18 txt-med resource-main-list-main-item-date">{convertDate(data.last_publication_date)}</span>
             </div>
             <div className="line"></div>
             {idx % 2 == 0 ? (

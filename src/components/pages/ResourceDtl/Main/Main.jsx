@@ -1,5 +1,6 @@
 import "./Main.scss";
 
+import { convertDate } from "@utils/text.js"
 import ResDtlRichTxt from "./ResourceDtlRichTxt";
 import ResDtlRel from "./ResourceDtlRel";
 
@@ -34,7 +35,7 @@ function ResourceMain({...props}) {
                                 Updated date
                             </div>
                             <div className="txt txt-20 txt-bold resource-dtl-info-item-content">
-                                {props.last_publication_date}
+                            {convertDate(props.last_publication_date)}
                             </div>
                         </div>
                         <div className="resource-dtl-info-item">

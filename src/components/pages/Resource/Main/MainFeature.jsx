@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
+import { convertDate } from "@utils/text.js"
 
 function ResourceMainFeature(props) {
     const [loaded, setLoaded] = useState(false);
@@ -44,7 +45,7 @@ function ResourceMainFeature(props) {
                                 <h2 className='heading h4 txt-black txt-up resource-main-fea-main-inner-item-title'>
                                     {item.data.title}
                                 </h2>
-                                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{item.last_publication_date}</span>
+                                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{convertDate(item.last_publication_date)}</span>
                             </div>
                         </a>
                     ))}

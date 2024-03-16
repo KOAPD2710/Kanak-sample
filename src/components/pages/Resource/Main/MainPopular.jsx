@@ -1,3 +1,5 @@
+import { convertDate } from "@utils/text.js"
+
 function ResourceMainPopular(props) {
     return (
         <div className="resource-main-pop">
@@ -14,7 +16,7 @@ function ResourceMainPopular(props) {
                         <a href={`/resources/${item.uid}`} className="heading h5 txt-black txt-up resource-main-pop-list-item-title">
                             {item.data.title}
                         </a>
-                        <span className='txt txt-18 txt-med resource-main-pop-list-item-date'>{item.last_publication_date}</span>
+                        <span className='txt txt-18 txt-med resource-main-pop-list-item-date'>{convertDate(item.last_publication_date)}</span>
                         <div className="line"></div>
                     </div>
                 ))}
