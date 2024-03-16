@@ -2,90 +2,102 @@ import './Brand.scss';
 import useDevice from '@hooks/useDevice';
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
-import { useRef, useState } from 'react';
-import HomeBrandThree from './BrandThree';
+import { useEffect, useRef } from 'react';
 import { brandIndex } from '@contexts/StoreGlobal';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import SplitType from 'split-type';
 import useSelector from '@/components/hooks/useSelector';
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
+import { parseRem } from '@/js/utils';
 
 function HomeBrand(props) {
-    const { isDesktop, isMobile } = useDevice();
+    const { isMobile } = useDevice();
     const sectionRef = useRef();
     const q = useSelector(sectionRef);
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
-        loop: false,
         mode: "snap",
-        rtl: false,
+        disabled: true,
         slides: {
             perView: "auto",
-            spacing: 36,
+            spacing: parseRem(36),
         },
+        breakpoints: {
+            '(max-width: 767px)': {
+              disabled: false
+            },
+          },
         slideChanged(slider) {
             brandIndex.set(slider.track.details.rel)
         },
     })
 
-    useGSAP(() => {
-        // gsap.registerPlugin(ScrollTrigger);
+    useEffect(() => {
+        const title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
+        animate(title.words, {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+        animate('.home-brand .line-ver', {scaleY: 0, transformOrigin: 'top'}, {duration: 0})
+        animate('.home-brand .line-bot', {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
+        const sequence = [
+            [title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05)}],
+            ['.home-brand .line-ver', {scaleY: 1}, {duration: 1.2, at: '<'}],
+            ['.home-brand .line-bot', {scaleX: 1}, {duration: 1, at: .2}],
+        ]
+        inView('.home-brand-title', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                q('.line-ver').removeAttribute('style')
+                q('.line-bot').removeAttribute('style')
+            })
+        }, { margin: "-30% 0px -30% 0px" })
 
-        // let title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
-        // gsap
-        //     .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=50%' } })
-        //     .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() })
-        //     .from('.line.line-ver', { scaleY: 0, transformOrigin: 'top', duration: 1.5, ease: 'expo.inOut', clearProps: 'all' }, '>=-.8')
-        //     .from('.line.line-bot', { scaleX: 0, duration: 1.2, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.55')
-
-        // sectionRef.current.querySelectorAll('.home-brand-main-item').forEach((item) => {
-        //     gsap.set(item, { autoAlpha: 0 });
-        //     ScrollTrigger.create({
-        //         trigger: item,
-        //         start: `top top+=82%`,
-        //         once: true,
-        //         onEnter: () => {
-        //             let itemTitle = new SplitType(item.querySelector('.home-brand-main-item-title'), { types: 'lines, chars', lineClass: 'split-line' })
-        //             let itemSub = new SplitType(item.querySelector('.home-brand-main-item-sub'), { types: 'lines, words', lineClass: 'split-line' })
-
-        //             gsap
-        //                 .timeline()
-        //                 .to(item, { autoAlpha: 1, duration: .5, ease: 'power2.out' })
-        //                 .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.1')
-        //                 .from(item.querySelector('.home-brand-main-item-ic [name="arrIconDesk"]'), { x: -15, autoAlpha: 0, duration: 1.5, ease: 'expo.out', clearProps: 'all' }, '>=-1')
-        //                 .from(itemTitle.chars, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemTitle.revert() }, '>=-1.2')
-        //                 .from(itemSub.words, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemSub.revert() }, '>=-0.6')
-        //         }
-        //     })
-        // })
-    }, { scope: sectionRef })
+        const allItems = document.querySelectorAll('.home-brand-main-item')
+        allItems.forEach((el,idx) => {
+            const itemTitle = new SplitType(el.querySelector('.home-brand-main-item-title'), { types: 'lines, chars', lineClass: 'split-line' })
+            const itemSub = new SplitType(el.querySelector('.home-brand-main-item-sub'), { types: 'lines, words', lineClass: 'split-line' })
+            
+            animate(el.querySelector('.line'), {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
+            animate(el.querySelector('.home-brand-main-item-ic'), {opacity: 0, transform: 'scale(.8) translateY(20%)'}, {duraion: 0})
+            animate([...itemTitle.chars, ...itemSub.words], {opacity: 0, transform: 'translateY(100%)'}, {duraion: 0})
+            const sequence = [
+                [el.querySelector('.line'), {scaleX: 1}, {duration: 1}],
+                [el.querySelector('.home-brand-main-item-ic'), {opacity: .8, transform: 'none'}, {duraion: .8, at: .1}],
+                [itemTitle.chars, {opacity: 1, transform: 'none'}, {duraion: .7, delay: stagger(.008), at: .2}],
+                [itemSub.words, {opacity: 1, transform: 'none'}, {duraion: .6, delay: stagger(.006), at: .3}],
+            ]
+            inView(el, () => {
+                timeline(sequence).finished.then(() => {
+                    itemTitle.revert()
+                    itemSub.revert()
+                    el.querySelector('.line').removeAttribute('style')
+                    el.querySelector('.home-brand-main-item-ic').removeAttribute('style')
+                })
+            }, { margin: "-30% 0px -30% 0px" });
+        });
+    }, [])
     return (
         <section className="home-brand" ref={sectionRef}>
             <div className="container grid">
-                <h2 className="heading h0 txt-up txt-black home-brand-title mb-ver">{props.title}</h2>
+                <h2 className="heading h0 txt-up txt-black home-brand-title">{props.title}</h2>
                 <div className="home-brand-canvas">
                     <div className="home-brand-canvas-inner">
-                        <HomeBrandThree list={props.list}/>
+                        {props.brandThree}
                     </div>
                 </div>
                 <div className="line line-ver"></div>
                 <div className="home-brand-main">
-                    <h2 className="heading h0 txt-up txt-black home-brand-title">{props.title}</h2>
-                    <div className={`home-brand-main-list${isMobile ? ' keen-slider' : ''}`} ref={isMobile ? sliderRef : null}>
+                    <div className='home-brand-main-list keen_slider' ref={sliderRef}>
                         {props.list.map(({ data }, idx) => (
                             <a
                                 key={idx}
                                 href="#"
-                                className={`home-brand-main-item${isMobile ? ' keen-slider__slide' : ''}`}
-                                onPointerOver={() => {brandIndex.set(idx)}}
+                                className='home-brand-main-item keen-slider__slide'
+                                onMouseOver={() => {brandIndex.set(idx)}}
                             >
                                 <div className="home-brand-main-item-head">
                                     <h3 className="heading h4 txt-up txt-black home-brand-main-item-title">
                                         {data.title[0].text}
                                     </h3>
-                                    <div className={`ic${isDesktop ? ' ic-20' : ' ic-16'} home-brand-main-item-ic`}>
-                                        { isDesktop ? props.arrIconDesk : props.arrIconMob }
+                                    <div className='ic ic-20 home-brand-main-item-ic'>
+                                        {props.arrIconDesk}
                                     </div>
                                 </div>
                                 <div className="home-brand-main-item-body">

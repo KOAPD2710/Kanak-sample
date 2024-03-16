@@ -176,6 +176,7 @@
                 top: 0;
                 left: 0;
                 background-color: rgba($cl-border, .3);
+                transform-origin: left;
                 &-bottom {
                     top: auto;
                     bottom: 0;

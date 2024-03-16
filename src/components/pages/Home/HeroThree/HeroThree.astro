@@ -1,4 +1,12 @@
 ---
+const { product_list } = Astro.props;
+import { getByUID } from '@/prismic.js';
 import HomeHeroThree from "./HeroThree.jsx";
+const list = await Promise.all(
+    product_list.map(async (product: any) => {
+        let item = getByUID('product', product.item.uid)
+        return item
+    })
+)
 ---
-<HomeHeroThree client:load />
+<HomeHeroThree list={list} client:load />

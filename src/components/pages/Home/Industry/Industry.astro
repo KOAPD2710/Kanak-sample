@@ -14,7 +14,7 @@ industry_list.map(async (industry: any) => {
     })
 )
 ---
-<HomeIndustry label={label} title={title} client:visible={{rootMargin: "50% 0% 50% 0%"}}>
+<HomeIndustry label={label} title={title} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
     <Image src={arrIcon} alt="arr icon" class="ic ic-36" slot="arrIcon"/>
     <Image src={ctaTxt} alt="arr icon" class="ic" slot="ctaTxt"/>
     <Fragment slot="listServices">
@@ -30,12 +30,12 @@ industry_list.map(async (industry: any) => {
                     <p class="txt txt-18 txt-med home-indus-main-item-sub">
                         {item.data.sub_title}
                     </p>
-                    <a href={'/kustomer/' + item.uid} class="txt txt-18 txt-med txt-orange home-indus-main-item-link">
+                    <a href={'/kustomer/' + item.uid} class="txt txt-18 txt-med txt-orange home-indus-main-item-link txt-link txt-link-white">
                         Learn more
                     </a>
                 </div>
                 <div class="line"></div>
-                {idx == list.length && <div class="line line-bottom"></div>}
+                {idx == list.length - 1 && <div class="line line-bottom"></div>}
             </div>
         ))}
     </Fragment>
