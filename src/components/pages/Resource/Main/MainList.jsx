@@ -55,7 +55,7 @@ function ResourceMainList(props) {
 
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
-    const [limit, setLimit] = useState(6);
+    const [limit, setLimit] = useState(4);
     const [categoryToggle, setCategoryToggle] = useState(false)
     const toggleRef = useRef();
     const cateList = []
