@@ -40,7 +40,7 @@ function HomeCompareMobile(props) {
                         <div className='keen-slider home-comp-main-slide' ref={sliderRef}>
                             {props.list.map(({ data }, idx) => (
                                 <Fragment key={idx}>
-                                    <div className='keen-slider__slide home-comp-main-slide-item'>
+                                    <div className={`keen-slider__slide home-comp-main-slide-item ${currentSlide == idx ? 'active': ''}`}>
                                         <div className='home-comp-main-slide-title'>
                                             <h3 className='heading h5 txt-up txt-black'>{data.title}</h3>
                                         </div>
@@ -67,9 +67,7 @@ function HomeCompareMobile(props) {
                         <div className='home-comp-main-slide-pagination'>
                             {loaded && instanceRef.current && (
                                 <div className="dots">
-                                {[
-                                    ...Array(instanceRef.current.track.details.slides.length).keys(),
-                                ].map((idx) => {
+                                {[...Array(instanceRef.current.track.details.slides.length).keys(),].map((idx) => {
                                     return (
                                     <button
                                         key={idx}

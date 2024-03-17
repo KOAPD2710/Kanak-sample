@@ -1,8 +1,7 @@
 import './Brand.scss';
-import useDevice from '@hooks/useDevice';
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { brandIndex } from '@contexts/StoreGlobal';
 import useSelector from '@/components/hooks/useSelector';
 import { animate, timeline, stagger, inView } from "motion";
@@ -10,28 +9,34 @@ import SplitType from 'split-type';
 import { parseRem } from '@/js/utils';
 
 function HomeBrand(props) {
-    const { isMobile } = useDevice();
     const sectionRef = useRef();
+    const [currentSlide, setCurrentSlide] = useState(0)
     const q = useSelector(sectionRef);
-    const [sliderRef, instanceRef] = useKeenSlider({
-        initial: 0,
-        mode: "snap",
-        disabled: true,
-        slides: {
-            perView: "auto",
-            spacing: parseRem(36),
-        },
-        breakpoints: {
-            '(max-width: 767px)': {
-              disabled: false
-            },
-          },
-        slideChanged(slider) {
-            brandIndex.set(slider.track.details.rel)
-        },
-    })
-
+    const [options, setOptions] = useState({});
+    const [sliderRef, instanceRef] = useKeenSlider(options)
+    
     useEffect(() => {
+        if (window.innerWidth < 767) {
+            setOptions({
+                initial: 0,
+                mode: "snap",
+                disabled: true,
+                slides: {
+                    perView: "auto",
+                    spacing: parseRem(36),
+                },
+                breakpoints: {
+                    '(max-width: 767px)': {
+                      disabled: false
+                    },
+                },
+                slideChanged(slider) {
+                    brandIndex.set(slider.track.details.rel)
+                    setCurrentSlide(slider.track.details.rel)
+                },
+            })
+        }
+        
         const title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
         animate(title.words, {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
         animate('.home-brand .line-ver', {scaleY: 0, transformOrigin: 'top'}, {duration: 0})
@@ -89,7 +94,7 @@ function HomeBrand(props) {
                             <a
                                 key={idx}
                                 href="#"
-                                className='home-brand-main-item keen-slider__slide'
+                                className={`home-brand-main-item keen-slider__slide ${currentSlide == idx ? 'active' : ''}`}
                                 onMouseOver={() => {brandIndex.set(idx)}}
                             >
                                 <div className="home-brand-main-item-head">

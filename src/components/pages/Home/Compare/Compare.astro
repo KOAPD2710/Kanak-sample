@@ -19,24 +19,24 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeCompareDesktop title={title} list={list} client:media="(min-width: 768px)">
+<HomeCompareDesktop title={title} list={list} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
     <Fragment set:html={compareLine} alt="" class="img" slot="plateLine"/>
     <Image src={compareGood} alt="" class='ic ic-80' slot='imgCompareGood' />
     <Image src={compareBad} alt="" class='ic ic-80' slot='imgCompareBad' />
     <Image src={comparePlates} alt="Compare plates" class="img" slot='imgComparePlates' />
     <Fragment slot="imgCompareDot">
         {[...Array(list.length * 14)].map((el,idx) => (
-            <Image src={compareDot} alt="" class="img"/>
+            <Image src={compareDot} alt="" class="img" style={`--angle: ${(360/(list.length * 14)) * idx}deg`}/>
         ))}
     </Fragment>
     <Fragment slot="imgCompareDash">
         {list.map((el,idx) => (
-            <Image src={compareDash} alt="" class="img"/>
+            <Image src={compareDash} alt="" class="img" style={`--angle: ${(360/list.length) * idx}deg`}/>
         ))}
     </Fragment>
 </HomeCompareDesktop>
 
-<HomeCompareMobile title={title} list={list} client:media="(max-width: 767px)">
+<HomeCompareMobile title={title} list={list} client:media="(max-width: 767px)" client:visible={{rootMargin: "100% 0px 100% 0px"}}>
     <Image src={compareGood} alt="" class='ic ic-80' slot='imgCompareGood' />
     <Image src={compareBad} alt="" class='ic ic-80' slot='imgCompareBad' />
 </HomeCompareMobile>
