@@ -263,12 +263,16 @@
         &-main {
             &-inner {
                 &-group {
+                    --perView: 2;
                     display: flex;
+                    width: 100%;
+                    flex-shrink: 0;
 
                     &-item {
                         position: relative;
                         width: calc(100% / var(--perView));
                         display: flex;
+                        flex-shrink: 0;
 
                         padding: {
                             top: 4rem;
@@ -292,6 +296,7 @@
                                 -webkit-box-orient: vertical;
                                 overflow: hidden;
                                 min-height: calc(2 * var(--lh-h4));
+                                transition: color .4s ease;
 
                                 margin: {
                                     top: 1.2rem;
@@ -330,6 +335,13 @@
 
                         &:nth-child(even) {
                             padding-left: 4.6rem;
+                        }
+                        @media (hover: hover) {
+                            &:hover {
+                                .resource-dtl-rel-main-inner-group-item-content-title {
+                                    color: var(--cl-orange);
+                                }
+                            }
                         }
                     }
                 }

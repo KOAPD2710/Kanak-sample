@@ -19,7 +19,7 @@ const removeDupList = relList.filter((item: any) => item.uid != uid);
 console.log(last_publication_date);
 ---
 
-<ResourceMain relList={relList} {...Astro.props} client:load>
+<ResourceMain relList={removeDupList} {...Astro.props} client:load>
   <Fragment set:html={prismicH.asHTML(data.content)} />
   <Fragment set:html={arrIcon} slot="arrIcon" />
   <Fragment set:html={icLinked} slot="icLinked" />
