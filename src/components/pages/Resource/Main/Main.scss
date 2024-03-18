@@ -751,7 +751,8 @@
                         }
 
                         &-img {
-                            height: 22.9rem;
+                            height: auto;
+                            aspect-ratio: 1.6;
                         }
 
                         &-content {
@@ -824,10 +825,23 @@
                     margin-top: 2.4rem;
                     margin-bottom: 2.4rem;
                 }
+
+                &-filter {
+                    &-dropdown {
+                        width: 20rem;
+                    }
+
+                    &-item {
+                        padding: 1.6rem;
+
+                        .txt-20 {
+                            @include text(16);
+                        }
+                    }
+                }
             }
 
             &-main {
-
                 &.all-loaded {
                     padding-bottom: 0;
 
@@ -841,7 +855,8 @@
 
                     &-img {
                         width: 100%;
-                        height: 24.95rem;
+                        height: auto;
+                        aspect-ratio: 1.372;
                         margin-bottom: 3.2rem;
                     }
 

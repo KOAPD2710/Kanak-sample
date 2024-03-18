@@ -70,14 +70,14 @@ function ResourceMain({ ...props }) {
                             </div>
                             <div className="txt txt-20 txt-bold resource-dtl-info-item-content">
                                 {props.data.read_time}
-                                {props.data.read_time <= 1 ? " Minute" : " Minutes"}
+                                {props.data.read_time <= 1 ? " minute" : " minutes"}
                             </div>
                         </div>
                         <div className="resource-dtl-info-item link">
                             <a href="" className="resource-dtl-info-item-link" onClick={(e) => { copyClipboard(e) }}>{props.icShare}</a>
                             <a href="" className="resource-dtl-info-item-link" >{props.icFacebook}</a>
                             <a href="" className="resource-dtl-info-item-link" >{props.icLinked}</a>
-                            <div className={`txt txt-16 txt-bold resource-dtl-info-item-link-tooltip ${openTooltip ? 'active' : ""}`}>
+                            <div className={`txt txt-16 txt-semi resource-dtl-info-item-link-tooltip ${openTooltip ? 'active' : ""}`}>
                                 Copied to clipboard
                             </div>
                         </div>

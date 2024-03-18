@@ -7,7 +7,7 @@ import { convertDate } from "@utils/text.js"
 function ResDtlRel(props) {
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [limit, setLimit] = useState(9);
+    const [limit, setLimit] = useState(999);
     let perView = 2;
     let newList = props.list.reduce((accumulator, currentValue, currentIndex, array) => {
         if (currentIndex % perView === 0) {

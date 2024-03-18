@@ -110,8 +110,8 @@ function ResourceMainList(props) {
         <div className="resource-main-list">
             <div className="resource-main-list-head">
                 <h3 className="heading h4 txt-black txt-up resource-main-list-head-title">Articles</h3>
-                <div className="resource-main-list-head-filter">
-                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }} ref={toggleRef}>
+                <div className="resource-main-list-head-filter" ref={toggleRef}>
+                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }}>
                         <div className="txt txt-18 txt-bold resource-main-list-head-filter-toggle-txt">
                             {filter == 'All' ? 'Categories' : filter}
                         </div>
