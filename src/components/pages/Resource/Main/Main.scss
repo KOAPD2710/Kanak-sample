@@ -269,12 +269,6 @@
             &-inner {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-
-                // &.all-loaded {
-                //     &+.line {
-                //         display: none;
-                //     }
-                // }
             }
 
             &-item {
@@ -554,6 +548,10 @@
                         overflow: hidden;
                     }
 
+                    &-date {
+                        @include text(16);
+                    }
+
                     &:nth-child(odd) {
                         padding-right: 2.4rem;
                     }
@@ -689,6 +687,10 @@
                         @include text(16);
                     }
 
+                    &-date {
+                        @include text(16);
+                    }
+
                     &:nth-last-child(2) {
                         .line:not(.line-ver) {
                             display: block;
@@ -712,6 +714,21 @@
             &-load {
                 margin-top: 0;
                 margin-bottom: 6rem;
+
+                &-btn {
+                    &-ic {
+                        @include size(5.2rem);
+
+                        .ic {
+                            @include size(1.6rem);
+                        }
+                    }
+
+                    .txt-20 {
+                        @include text(16);
+                        padding: 1rem 1.6rem;
+                    }
+                }
             }
         }
     }
@@ -770,23 +787,17 @@
 
             &-title {
                 margin-bottom: 2.4rem;
+                @include text(h5);
             }
 
             &-list {
                 grid-template-columns: repeat(1, 1fr);
-
-                padding: {
-                    top: .8rem;
-                    bottom: .8rem;
-                }
-
-                ;
+                padding-top: .8rem;
+                padding-bottom: .8rem;
 
                 &-item {
-                    padding: {
-                        top: 2.4rem;
-                        bottom: 2.4rem;
-                    }
+                    padding-top: 2.4rem;
+                    padding-bottom: 2.4rem;
 
                     &:nth-child(odd) {
                         border-right: none;
@@ -809,16 +820,22 @@
         &-list {
             &-head {
                 &-title {
-                    margin: {
-                        top: 2.4rem;
-                        bottom: 2.4rem;
-                    }
-
-                    ;
+                    @include text(h5);
+                    margin-top: 2.4rem;
+                    margin-bottom: 2.4rem;
                 }
             }
 
             &-main {
+
+                &.all-loaded {
+                    padding-bottom: 0;
+
+                    &>.line {
+                        display: none;
+                    }
+                }
+
                 &-item {
                     flex-direction: column;
 
@@ -830,7 +847,6 @@
 
                     &-subtitle {
                         -webkit-line-clamp: 2;
-
                         margin-bottom: 2rem;
                     }
 

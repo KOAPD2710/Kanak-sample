@@ -1,17 +1,21 @@
 ---
-import {getAllByType} from '@/prismic.js';
+import { getAllByType } from "@/prismic.js";
+import Layout from "@/layouts/Layout.astro";
 
 export async function getStaticPaths() {
-    const list = await getAllByType('industry')
+    const list = await getAllByType("industry");
     return list.map((item) => {
         return {
-            params: {kustomer: item.uid},
-            props: {item}
-        }
-    })
+            params: { kustomer: item.uid },
+            props: { item },
+        };
+    });
 }
 
 const { kustomer } = Astro.params;
 const { item } = Astro.props;
 ---
+
 <div>Good kustomer, {kustomer}!</div>
+
+<Layout title={item.data.title[0].text} />

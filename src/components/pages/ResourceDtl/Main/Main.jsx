@@ -1,10 +1,11 @@
 import "./Main.scss";
 import * as prismicH from "@prismicio/client";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { convertDate } from "@utils/text.js"
 import ResDtlRel from "./ResourceDtlRel";
 
 function ResourceMain({ ...props }) {
+    // const [openPopup, setOpenPopup] = useState(false)
     useEffect(() => {
         document.querySelectorAll(".resource-dtl-richtxt-main.richtext .block-img").forEach((el, idx) => {
             if (el.querySelector('img').getAttribute('alt') !== "") {
@@ -14,7 +15,13 @@ function ResourceMain({ ...props }) {
                 el.appendChild(caption)
             }
         })
+
     }, [])
+
+    function copyClipboard() {
+        // let asdasds = navigator.clipboard.writeText(window.location.href)
+        // console.log(asdasds);
+    }
     return (
         <section className="resource-dtl">
             <div className="container grid">
@@ -58,9 +65,10 @@ function ResourceMain({ ...props }) {
                             </div>
                         </div>
                         <div className="resource-dtl-info-item link">
-                            <a href="" className="resource-dtl-info-item-link">{props.icShare}</a>
-                            <a href="" className="resource-dtl-info-item-link">{props.icFacebook}</a>
-                            <a href="" className="resource-dtl-info-item-link">{props.icLinked}</a>
+                            <a href="" className="resource-dtl-info-item-link" onClick={copyClipboard()}>{props.icShare}</a>
+                            <a href="" className="resource-dtl-info-item-link" >{props.icFacebook}</a>
+                            <a href="" className="resource-dtl-info-item-link" >{props.icLinked}</a>
+                            {/* <div className={`resource-dtl-info-item-link-popup ${openPopup ? 'active' : ""}`}></div> */}
                         </div>
                     </div>
                 </div>

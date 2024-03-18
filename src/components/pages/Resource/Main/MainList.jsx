@@ -28,7 +28,7 @@ function ArticleItem({ data, idx }) {
                         src={data.data.feature_image.url}
                         alt={data.data.feature_image.alt}
                         width={data.data.feature_image.dimensions.width}
-                        height={data.data.feature_image.dimensions.height}/>
+                        height={data.data.feature_image.dimensions.height} />
                 </div>
             </div>
             <div className="resource-main-list-main-item-content">
@@ -125,8 +125,8 @@ function ResourceMainList(props) {
                 </div>
             </div>
             <div className="line"></div>
-            <div className="resource-main-list-main">
-                <div className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+            <div className={`resource-main-list-main ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+                <div className={`resource-main-list-main-inner`}>
                     {renderArticles}
                 </div>
                 <div className="line"></div>
