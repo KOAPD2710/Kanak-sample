@@ -22,6 +22,11 @@ function ResDtlRel(props) {
         defaultAnimation: {
             duration: 800
         },
+        breakpoints: {
+            "max-width < 767p": {
+
+            }
+        },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)
         },

@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
 import { convertDate } from "@utils/text.js"
 import './Main.scss';
+import { useState } from 'react';
 
 function ResourceCateList(props) {
-    const allItem = props.list
+    const allItem = props?.list
     const [limit, setLimit] = useState(5);
 
     return (
