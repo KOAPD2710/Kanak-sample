@@ -37,8 +37,9 @@ function ResDtlRel(props) {
         },
     })
     useEffect(() => {
-
-        setLimit(1)
+        if (window.innerWidth < 992) {
+            setLimit(1)
+        }
     }, [])
     return (
         <div className="resource-dtl-rel">
@@ -65,7 +66,7 @@ function ResDtlRel(props) {
             </div>
             <div className="resource-dtl-rel-main">
                 <div className="line"></div>
-                <div className="keen-slider  resource-dtl-rel-main-inner" ref={sliderRef} style={{ '--perView': perView }}>
+                <div className={`keen-slider  resource-dtl-rel-main-inner ${limit >= newList.length ? 'all-loaded' : ''}`} ref={sliderRef} style={{ '--perView': perView }}>
                     {newList.map((chunk, idx) =>
                         idx < limit && (
                             <div className="keen-slider__slide resource-dtl-rel-main-inner-group" key={idx}>
@@ -87,12 +88,8 @@ function ResDtlRel(props) {
                                             <span className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-date'>
                                                 {convertDate(item.last_publication_date)}
                                             </span>
-                                            {itemIdx % 2 !== 0 && (
-                                                <>
-                                                    <div className="line line-ver"></div>
-                                                    <div className="line"></div>
-                                                </>
-                                            )}
+                                            <div className="line line-ver"></div>
+                                            <div className="line"></div>
                                         </div>
                                     </a>
                                 ))}
@@ -102,13 +99,13 @@ function ResDtlRel(props) {
                 </div>
             </div>
             <div className={`resource-dtl-rel-load ${limit >= newList.length ? 'hidden' : ''}`}>
-                <button className="resource-dtl-rel-load-btn" onClick={() => setLimit(limit + 4)}>
+                <button className="resource-dtl-rel-load-btn" onClick={() => setLimit(limit + 1)}>
                     <div className="resource-dtl-rel-load-btn-ic">
                         <div className="ic ic-24">
-                            {props.icArrowDown}
+                            {props.icDropdown}
                         </div>
                     </div>
-                    <div className="txt txt-20 txt-med resource-dtl-rel-load-btn-txt">
+                    <div className="txt txt-16 txt-med resource-dtl-rel-load-btn-txt">
                         Load more
                     </div>
                 </button>

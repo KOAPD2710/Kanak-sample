@@ -6,6 +6,7 @@ import icLinked from "@assets/ic-linkedin.svg?raw";
 import icFacebook from "@assets/ic-facebook.svg?raw";
 import icShare from "@assets/ic-copyUrl.svg?raw";
 import arrIcon from "@assets/arr-right.svg?raw";
+import icArrowDown from "@assets/ic-arr-down.svg?raw";
 
 const { data, last_publication_date, uid } = Astro.props;
 const resourceList = await getAllByType("resource");
@@ -20,4 +21,5 @@ const removeDupList = relList.filter((item: any) => item.uid != uid);
   <Fragment set:html={icLinked} slot="icLinked" />
   <Fragment set:html={icFacebook} slot="icFacebook" />
   <Fragment set:html={icShare} slot="icShare" />
+  <Fragment set:html={icArrowDown} slot="icDropDown" />
 </ResourceMain>

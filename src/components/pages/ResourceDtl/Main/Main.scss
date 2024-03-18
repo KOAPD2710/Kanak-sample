@@ -69,6 +69,18 @@
                 @include size(4.2rem);
                 transition: color .4s ease;
 
+                &-tooltip {
+                    position: absolute;
+                    bottom: -5rem;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity .6s ease;
+
+                    &.active {
+                        opacity: 1;
+                    }
+                }
+
                 @media (hover: hover) {
                     &:hover {
                         color: var(--cl-orange);
@@ -77,6 +89,7 @@
             }
 
             &.link {
+                position: relative;
                 display: flex;
                 column-gap: 1.6rem;
             }
@@ -341,6 +354,10 @@
 
                         &:nth-child(odd) {
                             padding-right: 4.6rem;
+
+                            .line-ver {
+                                display: none;
+                            }
                         }
 
                         &:nth-child(even) {
@@ -357,6 +374,10 @@
                     }
                 }
             }
+        }
+
+        &-load {
+            display: none;
         }
     }
 }
@@ -483,9 +504,15 @@
                     top: 2.8rem;
                     bottom: 2.8rem;
                 }
+
+                &-nav {
+                    display: none;
+                }
             }
 
             &-main {
+                margin-bottom: 8rem;
+
                 &-inner {
                     &-group {
                         flex-direction: column;
@@ -499,7 +526,7 @@
                             }
 
                             &-img {
-                                @include size(21.5rem, 25.1rem);
+                                @include size(21.5rem, 25rem);
                             }
 
                             &-content {
@@ -535,11 +562,59 @@
                             .line:not(.line-ver) {
                                 display: block;
                                 position: absolute;
-                                top: -.1rem;
+                                bottom: -.1rem;
                                 left: 0;
                             }
                         }
                     }
+                }
+            }
+
+            &-load {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                margin-top: -2rem;
+                margin-bottom: 6rem;
+
+                &.hidden {
+                    display: none;
+                }
+
+                &-btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: solid .2rem var(--cl-txt);
+                    transition: all 400ms ease;
+
+                    &-ic {
+                        @include size(5.2rem);
+                        border-right: solid .2rem currentColor;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .ic {
+                            @include size(1.6rem)
+                        }
+                    }
+
+                    &-txt {
+                        padding: 1rem 1.6rem;
+                    }
+
+                    @media (hover: hover) {
+                        &:hover {
+                            border-color: var(--cl-orange);
+                            color: var(--cl-orange);
+                        }
+                    }
+                }
+
+                .line {
+                    position: absolute;
+                    top: 0;
                 }
             }
         }
@@ -572,6 +647,14 @@
                 position: absolute;
                 bottom: 0;
                 left: 0;
+            }
+
+            &-item {
+                &-link {
+                    &-tooltip {
+                        bottom: -3rem;
+                    }
+                }
             }
         }
 
@@ -649,6 +732,8 @@
             }
 
             &-main {
+                margin-bottom: 0;
+
                 &-inner {
                     &-group {
                         &-item {
@@ -656,7 +741,6 @@
 
                             &-img {
                                 width: 100%;
-                                height: 24.9968rem;
                                 margin-bottom: 3.2rem;
                             }
 
@@ -674,7 +758,21 @@
                             }
                         }
                     }
+
+                    &.all-loaded {
+                        .resource-dtl-rel-main-inner-group:last-child {
+                            .resource-dtl-rel-main-inner-group-item {
+                                .line:not(.line-ver) {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
                 }
+            }
+
+            &-load {
+                margin-top: 6rem;
             }
         }
     }

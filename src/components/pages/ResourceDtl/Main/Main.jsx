@@ -5,7 +5,7 @@ import { convertDate } from "@utils/text.js"
 import ResDtlRel from "./ResourceDtlRel";
 
 function ResourceMain({ ...props }) {
-    // const [openPopup, setOpenPopup] = useState(false)
+    const [openTooltip, setOpenTooltip] = useState(false)
     useEffect(() => {
         document.querySelectorAll(".resource-dtl-richtxt-main.richtext .block-img").forEach((el, idx) => {
             if (el.querySelector('img').getAttribute('alt') !== "") {
@@ -15,12 +15,21 @@ function ResourceMain({ ...props }) {
                 el.appendChild(caption)
             }
         })
-
     }, [])
-
-    function copyClipboard() {
-        // let asdasds = navigator.clipboard.writeText(window.location.href)
-        // console.log(asdasds);
+    function copyClipboard(e) {
+        e.preventDefault()
+        var currentURL = window.location.href;
+        navigator.clipboard.writeText(currentURL)
+            .then(function () {
+                // alert("URL copied to clipboard: " + currentURL);
+                setOpenTooltip(true)
+                setTimeout(() => {
+                    setOpenTooltip(false)
+                }, 1000)
+            })
+            .catch(function (err) {
+                console.error('Failed to copy: ', err);
+            });
     }
     return (
         <section className="resource-dtl">
@@ -65,10 +74,12 @@ function ResourceMain({ ...props }) {
                             </div>
                         </div>
                         <div className="resource-dtl-info-item link">
-                            <a href="" className="resource-dtl-info-item-link" onClick={copyClipboard()}>{props.icShare}</a>
+                            <a href="" className="resource-dtl-info-item-link" onClick={(e) => { copyClipboard(e) }}>{props.icShare}</a>
                             <a href="" className="resource-dtl-info-item-link" >{props.icFacebook}</a>
                             <a href="" className="resource-dtl-info-item-link" >{props.icLinked}</a>
-                            {/* <div className={`resource-dtl-info-item-link-popup ${openPopup ? 'active' : ""}`}></div> */}
+                            <div className={`txt txt-16 txt-bold resource-dtl-info-item-link-tooltip ${openTooltip ? 'active' : ""}`}>
+                                Copied to clipboard
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -90,6 +101,7 @@ function ResourceMain({ ...props }) {
                 <ResDtlRel
                     list={props.relList}
                     icArrow={props.arrIcon}
+                    icDropdown={props.icDropDown}
                     client:visible>
                 </ResDtlRel>
             </div>
