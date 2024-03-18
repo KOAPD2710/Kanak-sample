@@ -16,6 +16,7 @@ function ResDtlRel(props) {
     }, [])
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
+        disabled: flase,
         slides: {
             spacing: 36,
         },
@@ -23,9 +24,9 @@ function ResDtlRel(props) {
             duration: 800
         },
         breakpoints: {
-            "max-width < 767p": {
-
-            }
+            '(max-width: 767px)': {
+                disabled: true
+            },
         },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)
