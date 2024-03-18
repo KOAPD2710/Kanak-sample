@@ -13,7 +13,7 @@ import icDropdown from "@assets/ic-arrow-down.svg?raw";
 const data = await getAllByType("resource");
 
 const featureList = data.filter(({ data }) => data.show_on_feature).slice(0, 5);
-const popularList = data.filter(({ data }) => data.show_on_popular).slice(0, 3);
+const popularList = data.filter(({ data }) => data.show_on_popular).slice(0, 4);
 ---
 
 <section class="resource-main">

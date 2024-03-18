@@ -16,6 +16,9 @@ function ResDtlRel(props) {
     }, [])
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
+        slides: {
+            spacing: 36,
+        },
         defaultAnimation: {
             duration: 800
         },
@@ -26,7 +29,6 @@ function ResDtlRel(props) {
             setLoaded(true)
         },
     })
-    console.log(props);
     return (
         <div className="resource-dtl-rel">
             <div className="resource-dtl-rel-head">

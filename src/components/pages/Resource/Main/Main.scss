@@ -27,6 +27,7 @@
                     min-height: 100%;
                     overflow: hidden;
                     flex-shrink: 0;
+
                     padding: {
                         top: 5rem;
                         right: 4.6rem;
@@ -146,13 +147,8 @@
     &-pop {
         grid-column: 9/-1;
         margin-left: calc(var(--grid-gap)/2 * -1);
-
-        padding: {
-            top: 5rem;
-            left: 4.6rem;
-        }
-
-        ;
+        padding-top: 5rem;
+        padding-left: 4.6rem;
 
         &-line {
             display: none;
@@ -165,13 +161,8 @@
         &-list {
             &-item {
                 position: relative;
-
-                padding: {
-                    top: 5rem;
-                    bottom: 5rem;
-                }
-
-                ;
+                padding-top: 5rem;
+                padding-bottom: 5rem;
                 color: var(--cl-txt);
                 display: flex;
                 flex-direction: column;
@@ -185,7 +176,11 @@
 
                 &-title {
                     margin-bottom: 1.6rem;
-                    @include transition(color .4s ease);
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    transition: color .4s ease;
                 }
 
                 .line {
@@ -201,6 +196,10 @@
 
                         }
                     }
+                }
+
+                &:last-child {
+                    display: none;
                 }
             }
         }
@@ -265,15 +264,17 @@
         }
 
         &-main {
+            padding-bottom: 12rem;
+
             &-inner {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
 
-                &.all-loaded {
-                    &+.line {
-                        display: none;
-                    }
-                }
+                // &.all-loaded {
+                //     &+.line {
+                //         display: none;
+                //     }
+                // }
             }
 
             &-item {
@@ -281,13 +282,8 @@
                 grid-column: span 1;
                 display: flex;
                 column-gap: 3.2rem;
-
-                padding: {
-                    top: 4rem;
-                    bottom: 4rem
-                }
-
-                ;
+                padding-top: 4rem;
+                padding-bottom: 4rem;
 
                 &:nth-child(odd) {
                     padding-right: 4.6rem;
@@ -375,13 +371,8 @@
         &-load {
             display: flex;
             justify-content: center;
-
-            margin: {
-                top: 6rem;
-                bottom: 8rem;
-            }
-
-            ;
+            margin-top: -6rem;
+            margin-bottom: 8rem;
 
             &.hidden {
                 display: none;
@@ -526,8 +517,6 @@
                 left: 0;
             }
 
-            ;
-
             &-line {
                 display: block;
             }
@@ -545,8 +534,6 @@
                         top: 3.2rem;
                         bottom: 3.2rem;
                     }
-
-                    ;
 
                     &-cate {
                         .ic {
@@ -595,6 +582,10 @@
                         .line {
                             display: block;
                         }
+                    }
+
+                    &:last-child {
+                        display: flex;
                     }
                 }
             }
@@ -673,6 +664,8 @@
             }
 
             &-main {
+                padding-bottom: 6rem;
+
                 &-item {
                     grid-column: 1/-1;
 
@@ -681,7 +674,6 @@
                         bottom: 3.2rem;
                     }
 
-                    ;
 
                     &-img {
                         @include size(21.5rem, 25.1rem);
@@ -715,6 +707,11 @@
                         padding-left: 0;
                     }
                 }
+            }
+
+            &-load {
+                margin-top: 0;
+                margin-bottom: 6rem;
             }
         }
     }
@@ -791,8 +788,6 @@
                         bottom: 2.4rem;
                     }
 
-                    ;
-
                     &:nth-child(odd) {
                         border-right: none;
                         padding-right: 0;
@@ -800,6 +795,12 @@
 
                     &:nth-child(even) {
                         padding-left: 0;
+                    }
+
+                    &:nth-last-child(2) {
+                        .line {
+                            display: block;
+                        }
                     }
                 }
             }

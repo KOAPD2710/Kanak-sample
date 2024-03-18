@@ -1,6 +1,4 @@
 ---
-import * as prismicH from "@prismicio/client";
-
 import ResourceMain from "./Main";
 import { getAllByType } from "@/prismic.js";
 
@@ -12,15 +10,12 @@ import arrIcon from "@assets/arr-right.svg?raw";
 const { data, last_publication_date, uid } = Astro.props;
 const resourceList = await getAllByType("resource");
 const relList = resourceList.filter(
-  (item: any) => item.data.category == data.category
+  (item: any) => item.data.category == data.category,
 );
 const removeDupList = relList.filter((item: any) => item.uid != uid);
-
-console.log(last_publication_date);
 ---
 
-<ResourceMain relList={removeDupList} {...Astro.props} client:load>
-  <Fragment set:html={prismicH.asHTML(data.content)} />
+<ResourceMain relList={removeDupList} {...Astro.props} client:visible>
   <Fragment set:html={arrIcon} slot="arrIcon" />
   <Fragment set:html={icLinked} slot="icLinked" />
   <Fragment set:html={icFacebook} slot="icFacebook" />

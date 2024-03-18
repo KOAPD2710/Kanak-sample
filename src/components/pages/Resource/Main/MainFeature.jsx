@@ -10,6 +10,9 @@ function ResourceMainFeature(props) {
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
+        slides: {
+            spacing: 36,
+        },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)
         },
@@ -34,7 +37,7 @@ function ResourceMainFeature(props) {
                                     src={item.data.feature_image.url}
                                     alt={item.data.feature_image.alt}
                                     width={item.data.feature_image.dimensions.width}
-                                    height={item.data.feature_image.dimensions.height}/>
+                                    height={item.data.feature_image.dimensions.height} />
                             </div>
                             <div className="resource-main-fea-main-inner-item-content">
                                 <div className="resource-main-fea-main-inner-item-cate">

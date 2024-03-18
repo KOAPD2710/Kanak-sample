@@ -1,10 +1,20 @@
 import "./Main.scss";
-
+import * as prismicH from "@prismicio/client";
+import { useEffect } from 'react';
 import { convertDate } from "@utils/text.js"
-import ResDtlRichTxt from "./ResourceDtlRichTxt";
 import ResDtlRel from "./ResourceDtlRel";
 
-function ResourceMain({...props}) {
+function ResourceMain({ ...props }) {
+    useEffect(() => {
+        document.querySelectorAll(".resource-dtl-richtxt-main.richtext .block-img").forEach((el, idx) => {
+            if (el.querySelector('img').getAttribute('alt') !== "") {
+                let caption = document.createElement("p")
+                caption.innerHTML = el.querySelector('img').getAttribute('alt')
+                caption.classList.add("block-img-caption")
+                el.appendChild(caption)
+            }
+        })
+    }, [])
     return (
         <section className="resource-dtl">
             <div className="container grid">
@@ -13,7 +23,7 @@ function ResourceMain({...props}) {
                     <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
                     <a href="/resources">Resource</a>
                     <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-                    <a href={`/resources/${props.data.category.toLowerCase().replaceAll(" ","-")}`}>
+                    <a href={`/resources/${props.data.category.toLowerCase().replaceAll(" ", "-")}`}>
                         {props.data.category}
                     </a>
                 </div>
@@ -35,7 +45,7 @@ function ResourceMain({...props}) {
                                 Updated date
                             </div>
                             <div className="txt txt-20 txt-bold resource-dtl-info-item-content">
-                            {convertDate(props.last_publication_date)}
+                                {convertDate(props.last_publication_date)}
                             </div>
                         </div>
                         <div className="resource-dtl-info-item">
@@ -54,7 +64,20 @@ function ResourceMain({...props}) {
                         </div>
                     </div>
                 </div>
-                <ResDtlRichTxt richTxt={props.children} premble={props.data}/>
+                <div className="resource-dtl-richtxt">
+                    <div className="line line-ver"></div>
+                    <div className="resource-dtl-richtxt-wrapper">
+                        <div className="resource-dtl-richtxt-premble-img">
+                            <img
+                                src={props.data.feature_image.url}
+                                alt={props.data.feature_image.alt}
+                                width={props.data.feature_image.dimensions.width}
+                                className="img img-fill" />
+                        </div>
+                        <h2 className="heading h5 txt-black txt-up resource-dtl-richtxt-premble-sapo">{props.data.sapo}</h2>
+                        <div className="txt txt-20 txt-med resource-dtl-richtxt-main richtext" dangerouslySetInnerHTML={{ __html: prismicH.asHTML(props.data.content) }}></div>
+                    </div>
+                </div>
                 <div className="line resource-dtl-line"></div>
                 <ResDtlRel
                     list={props.relList}
