@@ -12,7 +12,7 @@ let newTitle = title.split('\n').map((i: any, idx: number) => {
 })
 
 let lastWord = newTitle.join(' ').split(' ')[newTitle.join(' ').split(' ').length - 1]
-newTitle = newTitle.join('').replace(lastWord, `<div class="txt-green">${lastWord}</div>`);
+newTitle = newTitle.join('').replace(lastWord, `<div class="txt-green">${lastWord}</div>`).replace('Award-', '<span>Award-</span>');
 
 const list = await Promise.all(
     client_list.map(async (client: any) => {
@@ -21,7 +21,7 @@ const list = await Promise.all(
     })
 )
 ---
-<HomeClient subTitle={sub_title} list={list} client:visible>
+<HomeClient subTitle={sub_title} list={list} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
     <Fragment set:html={newTitle} slot="title"/>
     <Image src={quality} class="home-client-title-quality" alt="quality" width={quality.width / 2} slot="imgQuality"/>
     <Image src={map} alt="world map" slot="imgMap"/>

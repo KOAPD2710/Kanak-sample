@@ -2,8 +2,8 @@
 .home-part {
     --content-compare-height: 0;
 
-    margin-top: -11rem;
-    padding-top: 10rem;
+    margin-top: calc(-4.8rem - 1rem);
+    padding-top: 4.8rem;
     contain: paint;
     margin-bottom: -200vh;
     height: calc(500vh + 200vh + 11rem);
@@ -63,7 +63,7 @@
             position: relative;
             pointer-events: none;
             path {
-                --totalOffset: calc(var(--totalL) * ((100 - var(--prog)) / 100));
+                //--totalOffset: calc(var(--totalL) * ((100 - var(--prog)) / 100));
                 @include md {
                     stroke-width: .2rem;
                 }

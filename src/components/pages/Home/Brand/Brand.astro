@@ -1,5 +1,6 @@
 ---
 const { title, brand_list } = Astro.props;
+import HomeBrandThree from './BrandThree';
 import {getByUID} from '@/prismic.js';
 import { Image } from 'astro:assets';
 import arrIconDesk from '@assets/arr-ext-21.svg';
@@ -20,7 +21,8 @@ const list = await Promise.all(
 )
 ---
 
-<HomeBrand list={list} client:idle>
+<HomeBrand list={list} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
+    <HomeBrandThree list={list} slot='brandThree' client:idle/>
     <Fragment set:html={newTitle} slot="title"/>
     <Image src={arrIconDesk} alt='' slot='arrIconDesk'/>
     <Image src={arrIconMob} alt='' slot='arrIconMob'/>

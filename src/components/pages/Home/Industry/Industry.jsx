@@ -1,47 +1,76 @@
 import './Industry.scss'
-import { useRef } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
+import { useEffect, useRef } from 'react';
+import { animate, timeline, stagger, inView } from "motion"
 import SplitType from 'split-type';
 import useSelector from '@/components/hooks/useSelector';
 
 function HomeIndustry(props) {
     const sectionRef = useRef();
     const q = useSelector(sectionRef);
-    useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger);
+    useEffect(() => {
         const label = new SplitType(q('.home-indus-label'), { types: 'lines, words', lineClass: 'split-line' })
         const title = new SplitType(q('.home-indus-title'), { types: 'lines, words', lineClass: 'split-line' })
-        gsap
-            .timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top top+=40%' } })
-            .from(label.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'power4.out', onComplete: () => label.revert() }, 0)
-            .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'power4.out', onComplete: () => title.revert() }, 0.15)
-            .from('.home-indus-cta-wrap', { autoAlpha: 0, scale: .9, duration: 1.5, ease: 'expo.out', clearProps: 'all' }, '>=-0.8')
 
-        sectionRef.current.querySelectorAll('.home-indus-main-item').forEach((item) => {
-            gsap.set(item, { autoAlpha: 0 });
-            ScrollTrigger.create({
-                trigger: item,
-                start: `top top+=82%`,
-                once: true,
-                onEnter: () => {
-                    let itemTitle = new SplitType(item.querySelector('.home-indus-main-item-title'), { types: 'lines, chars', lineClass: 'split-line' })
-                    let itemSub = new SplitType(item.querySelector('.home-indus-main-item-sub'), { types: 'lines, words', lineClass: 'split-line' })
-                    let itemLink = new SplitType(item.querySelector('.home-indus-main-item-link'), { types: 'lines, chars', lineClass: 'split-line' })
-
-                    gsap
-                        .timeline()
-                        .to(item, { autoAlpha: 1, duration: .5, ease: 'power2.out' })
-                        .from(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'expo.inOut', clearProps: 'all' }, '>=-0.1')
-                        .from(item.querySelector('.home-indus-main-item-ic'), { scale: .8, x: -15, autoAlpha: 0, duration: 1.5, ease: 'expo.out', clearProps: 'all'  }, '>=-1')
-                        .from(itemTitle.chars, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemTitle.revert() }, '>=-1.2')
-                        .from(itemSub.words, { yPercent: 100, stagger: .01, duration: .8, ease: 'power2.out', onComplete: () => itemSub.revert() }, '>=-0.6')
-                        .from(itemLink.chars, { yPercent: 100, duration: 1.2, stagger: .005, ease: 'power2.out', onComplete: () => itemLink.revert() }, '>=-1')
-                }
+        animate(label.words, {opacity: 0, transform: 'translateY(12px)'}, {duration: 0})
+        animate(title.words, {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+        const sequence = [
+            [label.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.06)}],
+            [title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.04), at: .2}],
+        ]
+        inView('.home-indus-title-wrap', () => {
+            timeline(sequence).finished.then(() => {
+                label.revert()
+                title.revert()
             })
-        })
-    }, { scope: sectionRef })
+        }, { margin: "-20% 0px -20% 0px" });
+
+        animate('.home-indus-cta-inner', {opacity: 0, transform: ' scale(.9)'}, {duration: 0})
+        animate('.home-indus-cta-outer img', {opacity: 0, transform: ' scale(1.08)'}, {duration: 0})
+        const sequenceButton = [
+            ['.home-indus-cta-inner', {opacity: 1, transform: 'none'}, {duration: .8}],
+            ['.home-indus-cta-outer img', {opacity: 1, transform: 'none'}, {duration: .8, at: .2}],
+        ]
+        inView('.home-indus-title-wrap', () => {
+            timeline(sequenceButton).finished.then(() => {
+                q('.home-indus-cta-inner').removeAttribute('style')
+                q('.home-indus-cta-outer img').removeAttribute('style')
+            })
+        }, { margin: "0px 0px -80% 0px" });
+
+        const allItems = document.querySelectorAll('.home-indus-main-item')
+        allItems.forEach((el,idx) => {
+            let itemTitle = new SplitType(el.querySelector('.home-indus-main-item-title'), { types: 'lines, chars', lineClass: 'split-line' })
+            let itemSub = new SplitType(el.querySelector('.home-indus-main-item-sub'), { types: 'lines, words', lineClass: 'split-line' })
+            let itemLink = new SplitType(el.querySelector('.home-indus-main-item-link'), { types: 'lines, chars', lineClass: 'split-line' })
+
+            animate(el.querySelector('.line'), {scaleX: 0}, {duration: 0})
+            animate(el.querySelector('.home-indus-main-item-ic'), {opacity: 0, transform: 'scale(.8) translateY(15%)'}, {duraion: 0})
+            animate([...itemTitle.chars, ...itemSub.words, ...itemLink.chars], {opacity: 0, transform: 'translateY(100%)'}, {duraion: 0});
+            if (idx == allItems.length - 1) {
+                animate(el.querySelector('.line-bottom'), {scaleX: 0}, {duration: 0})
+            }
+            const sequenceItem = [
+                [el.querySelector('.line'), {scaleX: 1}, {duration: 1}],
+                [el.querySelector('.home-indus-main-item-ic'), {opacity: 1, transform: 'none'}, {duraion: 1.4, at: .2}],
+                [itemTitle.chars, {opacity: 1, transform: 'none'}, {duraion: .8, delay: stagger(.01), at: .2}],
+                [itemSub.words, {opacity: 1, transform: 'none'}, {duraion: .8, delay: stagger(.01), at: .3}],
+                [itemLink.chars, {opacity: 1, transform: 'none'}, {duraion: 1.2, delay: stagger(.005), at: .4}],
+                [idx == allItems.length - 1 && el.querySelector('.line-bottom'), {scaleX: 1}, {duration: .9, at: .3}]
+            ]
+            inView(el, () => {
+                timeline(sequenceItem).finished.then(() => {
+                    el.querySelector('.line').removeAttribute('style')
+                    el.querySelector('.home-indus-main-item-ic').removeAttribute('style')
+                    itemTitle.revert()
+                    itemSub.revert()
+                    itemLink.revert()
+                    if (idx == allItems.length - 1) {
+                        el.querySelector('.line-bottom').removeAttribute('style')
+                    }
+                })
+            }, { margin: "-30% 0px -30% 0px" });
+        });
+    }, [])
     return (
         <section className="home-indus bg-dark" ref={sectionRef}>
             <div className="container grid">
@@ -67,6 +96,4 @@ function HomeIndustry(props) {
     );
 }
 
-HomeIndustry.propTypes = {};
-
-export default (HomeIndustry);
+export default HomeIndustry

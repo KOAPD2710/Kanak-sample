@@ -22,7 +22,7 @@ const list = await Promise.all(
         <HomeProductTitle prod_sub_title={Astro.props.prod_sub_title} client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
         <HomeProductList list={list} client:media="(min-width: 767px)" client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
 
-        <HomeProduct list={list} client:idle>
+        <HomeProduct list={list} client:load>
             <Fragment set:html={arrIcon} slot='arrIcon'/>
             <Image src={sampleQR} alt="" class="ic ic-80" width={sampleQR.width / 2} slot='sampleQR'/>
             <Image src={PDFIcon} alt="pdf icon" class="ic ic-32" slot='PDFIcon'/>

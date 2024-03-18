@@ -1,11 +1,11 @@
 import './Compare.scss';
-import gsap from 'gsap';
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useGSAP } from '@gsap/react';
+import { animate, timeline, stagger, inView, scroll } from "motion";
 import { useEffect, useState, useCallback, useRef } from 'react';
-import useDevice from '@hooks/useDevice';
 import useSelector from '@/components/hooks/useSelector';
 import SplitType from 'split-type';
+import { getLenis } from '@/components/core/lenis';
+import * as ut from '@/js/utils.js';
+import useWindowSize from '@/components/hooks/useWindowSize';
 
 const MainItem = ({ data, type, image, title, content, currentIndex }) => {
     return (
@@ -16,7 +16,7 @@ const MainItem = ({ data, type, image, title, content, currentIndex }) => {
             </h3>
             <div className="home-comp-main-item-list">
                 {data.map(({ data }, idx) => (
-                    <p className={`txt txt-20 home-comp-main-item-list-item${idx == currentIndex ? ' active' : ''}`} key={idx}>
+                    <p className={`txt txt-18 txt-med home-comp-main-item-list-item${idx == currentIndex ? ' active' : ''}`} key={idx}>
                         {data[content]}
                     </p>
                 ))}
@@ -28,14 +28,14 @@ const MainItem = ({ data, type, image, title, content, currentIndex }) => {
 function HomeCompareDesktop(props) {
     const ref = useRef();
     const q = useSelector(ref);
+    const isTablet = useWindowSize
     const [index, setIndex] = useState(0);
     const [itemCompareHeight, setItemCompareHeight] = useState({
         height: 0,
         hasHeader: 0
     });
-    const { isTablet, isMobile } = useDevice();
 
-    const onUpdateProgress = useCallback((progress) => {
+    const onUpdateProgress = (progress) => {
         const numberOfBreakPoints = props.list.length;
         const step = 1 / numberOfBreakPoints;
         const breakPoints = Array.from({ length: numberOfBreakPoints + 1 }, (_, index) => parseFloat((index * step).toPrecision(2)));
@@ -47,83 +47,92 @@ function HomeCompareDesktop(props) {
             if (progress >= startPoint && progress < endPoint) {
                 let idx = Math.floor(progress * 5)
                 setIndex(idx);
-                break;
+                // if (!document.querySelector('html').classList.contains('lenis-scrolling')) {
+                //     let target = ut.offset(ref.current).top + ut.offset(ref.current).top * (idx / 5); 
+                //     getLenis().scrollTo(target)
+                // }
             }
         }
-    }, [index])
-
-    useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger)
-        gsap.set('.home-comp-main-prog-line', { '--prog': 0 })
-        gsap
-            .timeline({
-                scrollTrigger: {
-                    trigger: ref.current,
-                    start: 'top top',
-                    end: 'bottom bottom',
-                    scrub: true,
-                    duration: 1,
-                    snap: [0, .2, .4, .6, .8, 1],
-                    onUpdate: (self) => {
-                        let progress = self.progress;
-                        onUpdateProgress(progress);
-                    }
-                }
-            })
-            .to('.home-comp-main-prog-line', { '--prog': 100, ease: 'linear' })
-
-        // anim text
-        // const title = new SplitType(q('.home-comp-title'), { types: 'lines, words', lineClass: 'split-line' });
-        // const titleItem = new SplitType('.home-comp-main-item-title', { types: 'lines, words', lineClass: 'split-line' });
-        // const subItemGood = new SplitType(q('.home-comp-main-item.good')?.querySelector('.home-comp-main-item-list-item'), { types: 'lines, words', lineClass: 'split-line' });
-        // const subItemBad = new SplitType(q('.home-comp-main-item.bad')?.querySelector('.home-comp-main-item-list-item'), { types: 'lines, words', lineClass: 'split-line' });
-        // const titleProg = new SplitType(q('.home-comp-main-prog-list-item'), { types: 'lines, words', lineClass: 'split-line' });
-        // gsap
-        //     .timeline({ scrollTrigger: { trigger: ref.current, start: 'top-=200 top', once: true }})
-        //     .from(title.words, { yPercent: 100, duration: 1, stagger: .05, ease: 'expo.out', onComplete: () => title.revert() })
-        //     .from('.home-comp-main-prog', { scaleY: 0, autoAlpha: 0, duration: 1, ease: 'power4.out', clearProps: 'all' }, "<= 0")
-        //     .from('.home-comp-main-item img', { y: 5, autoAlpha: 0, duration: 1, ease: 'power4.out', clearProps: 'all' }, '>=-.5')
-        //     .from('.home-comp-main-prog-plates img', { autoAlpha: 0, scale: .8, duration: 1, ease: 'power4.out', clearProps: 'all' }, '<=0')
-        //     .from(titleItem.words, { yPercent: 100, duration: 1.2, stagger: .05, ease: 'expo.out', onComplete: () => titleItem.revert() }, '<=0')
-        //     .from(titleProg.words, { yPercent: 100, duration: 1.2, stagger: .05, ease: 'expo.out', onComplete: () => titleProg.revert() }, '<=0.2')
-        //     .from(subItemGood.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemGood.revert() }, '<=0.1')
-        //     .from(subItemBad.words, { yPercent: 100, duration: .8, stagger: .01, ease: 'power2.out', onComplete: () => subItemBad.revert() }, '<=0')
-        //     .to('.home-comp-main-prog-dot img', { rotate: (idx) => (360/(props.list.length * 14)) * idx, duration: 2, ease: 'expo.inOut' }, 0)
-        //     .to('.home-comp-main-prog-dash img', { rotate: (idx) => (360/props.list.length) * idx,  stagger: .02, duration: 2, ease: 'expo.inOut' }, '<=0')
-
-            gsap.set('.home-comp-main-prog-dot img', { rotate: (idx) => (360/(props.list.length * 14)) * idx, duration: 2, ease: 'expo.inOut' }, 0)
-            gsap.set('.home-comp-main-prog-dash img', { rotate: (idx) => (360/props.list.length) * idx,  stagger: .02, duration: 2, ease: 'expo.inOut' }, '<=0')
-    }, { scope: ref });
+    }
 
     useEffect(() => {
-        const updateHeights = () => {
-            if (isTablet) {
-                const header = document.querySelector('.header');
-                const compItem = document.querySelector('.home-comp-main-item')
+        console.log('init compare')
+        scroll(({y}) => {
+            y.progress > 0 ? document.querySelector('.home-comp-main-prog-line').classList.add('active') : document.querySelector('.home-comp-main-prog-line').classList.remove('active')
+            onUpdateProgress(y.progress);
+            animate('.home-comp-main-prog-line circle', {strokeDasharray: `${y.progress}, 1` }, {duration: 0})
+        }, {
+            target: ref.current,
+            offset: ["start start", "end end"]
+        })
 
-                if (header && compItem) {
-                    const heightHeader = header.offsetHeight;
-                    const heightCompItem = compItem.offsetHeight;
-                    setItemCompareHeight({ height: heightCompItem / 10, hasHeader: (heightHeader + heightCompItem) / 10 });
-                }
-            }
-        };
-
-        if (document.readyState === 'complete') {
-            requestAnimationFrame(() => {
-                updateHeights();
+        const title = new SplitType('.home-comp-title', { types: 'lines, words', lineClass: 'split-line' })
+        const titleItemGood = new SplitType('.home-comp-main-item-title.good', { types: 'lines, words', lineClass: 'split-line' });
+        const titleItemBad = new SplitType('.home-comp-main-item-title.bad', { types: 'lines, words', lineClass: 'split-line' });
+        const subItemGood = new SplitType('.home-comp-main-item.good .home-comp-main-item-list-item.active', { types: 'lines, words', lineClass: 'split-line' });
+        const subItemBad = new SplitType('.home-comp-main-item.bad .home-comp-main-item-list-item.active', { types: 'lines, words', lineClass: 'split-line' });
+        const listTitle = new SplitType('.home-comp-main-prog-list-item.active', {types: 'lines, words', lineClass: 'split-line'});
+        animate([...title.words, ...titleItemGood.words, ...titleItemBad.words, ...subItemGood.words, ...subItemBad.words, ...listTitle.words], {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+        animate('.home-comp-main-item .ic', {scale: .9, opacity: 0}, {duration: 0})
+        animate('.home-comp-main-prog-dot, .home-comp-main-prog-line svg', {scale: 1.1, opacity: 0}, {duration: 0})
+        animate('.home-comp-main-prog-plates', {scale: .9, opacity: 0}, {duration: 0})
+        animate('.home-comp-main-prog-dash', {opacity: 0}, {duration: 0})
+        
+        const sequence = [
+            [title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05)}],
+            ['.home-comp-main-prog-dot, .home-comp-main-prog-line svg', {rotate: 0, scale: 1, opacity: 1}, {duration: 1, at: .2}],
+            ['.home-comp-main-prog-dash', {rotate: 0,scale: 1, opacity: 1}, {duration: 1, at: .15}],
+            ['.home-comp-main-prog-plates', {scale: 1, opacity: 1}, {duration: 1, at: .2}],
+            ['.home-comp-main-item.good .ic', {scale: 1, opacity: 1}, {duration: .8, at: .2}],
+            ['.home-comp-main-item.bad .ic', {scale: 1, opacity: 1}, {duration: .8, at: .25}],
+            [titleItemGood.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05), at: 0.3}],
+            [titleItemBad.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05), at: 0.35}],
+            [subItemGood.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.04), at: 0.4}],
+            [subItemBad.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.04), at: 0.45}],
+            [listTitle.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05), at: 0.35}],
+        ]
+        
+        inView('.home-comp-main-prog', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                titleItemGood.revert()
+                titleItemBad.revert()
+                subItemGood.revert()
+                subItemBad.revert()
+                listTitle.revert()
             })
-        } else {
-            window.addEventListener('load', updateHeights);
-        }
+        }, { margin: "-30% 0px -30% 0px" });
+    }, []);
 
-        return () => {
-            window.removeEventListener('load', updateHeights);
-        };
-    }, [isTablet, itemCompareHeight]);
+    // useEffect(() => {
+    //     const updateHeights = () => {
+    //         if (isTablet) {
+    //             const header = document.querySelector('.header');
+    //             const compItem = document.querySelector('.home-comp-main-item')
+
+    //             if (header && compItem) {
+    //                 const heightHeader = header.offsetHeight;
+    //                 const heightCompItem = compItem.offsetHeight;
+    //                 setItemCompareHeight({ height: heightCompItem / 10, hasHeader: (heightHeader + heightCompItem) / 10 });
+    //             }
+    //         }
+    //     };
+
+    //     if (document.readyState === 'complete') {
+    //         requestAnimationFrame(() => {
+    //             updateHeights();
+    //         })
+    //     } else {
+    //         window.addEventListener('load', updateHeights);
+    //     }
+
+    //     return () => {
+    //         window.removeEventListener('load', updateHeights);
+    //     };
+    // }, [isTablet, itemCompareHeight]);
 
     return (
-        <section className="home-comp desk-ver" ref={ref} style={{ '--content-compare-height': `${itemCompareHeight.height}rem` }}>
+        <section className="home-comp desk-ver" ref={ref}>
             <div className="home-comp-stick bg-light">
                 <div className="container">
                     <div className="home-comp-title-wrap">
@@ -141,7 +150,7 @@ function HomeCompareDesktop(props) {
                             type={"good"}
                         />
                         <div className="home-comp-main-prog">
-                            <div className="home-comp-main-prog-inner" style={{ '--content-height': `${itemCompareHeight.hasHeader}rem` }}>
+                            <div className="home-comp-main-prog-inner">
                                 <div className="home-comp-main-prog-plates">
                                     {props.imgComparePlates}
                                 </div>
@@ -151,7 +160,7 @@ function HomeCompareDesktop(props) {
                                 <div className="home-comp-main-prog-dash">
                                     {props.imgCompareDash}
                                 </div>
-                                <div className="home-comp-main-prog-line" style={{'--PI': Math.PI, '--prog': 0 }}>
+                                <div className="home-comp-main-prog-line">
                                     {props.plateLine}
                                 </div>
                                 <div className="home-comp-main-prog-list">

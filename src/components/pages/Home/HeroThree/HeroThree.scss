@@ -1,5 +1,6 @@
 @use '@styles/mixins' as *;
 .home-hero-three {
+    
     position: absolute;
     top: 0;
     left: 0;
@@ -7,10 +8,18 @@
     height: 100%;
     z-index: 99;
     pointer-events: none;
-    
+    height: calc(100% - var(--SectionPadBot) - var(--btnHeight) + ((100vh - var(--HomeProductCardHeight)) / 2));
     &-wrap {
+        --btnHeight: 16.8rem;
+        --HomeProductCardHeight: 66.2rem;
+        --SectionPadBot: 28.8rem;
         position: relative;
         z-index: 2;
+        @include md {
+            --HomeProductCardHeight: 41rem;
+            --btnHeight: 13.6rem;
+            --SectionPadBot: 13rem;
+        }
     }
     &-stick {
         position: sticky;

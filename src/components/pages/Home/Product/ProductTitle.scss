@@ -2,6 +2,7 @@
 .home-prod {
     &-title-wrap {
         grid-column: 1/11;
+        grid-row: 1/2;
         margin-bottom: 8rem;
         @include md {
             margin-bottom: 14rem;

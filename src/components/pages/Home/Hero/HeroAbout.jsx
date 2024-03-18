@@ -27,7 +27,6 @@ function HomeHeroAbout({...props}) {
         `;
     }, [width, height])
     useEffect(() => {
-        console.log('ninit about')
         const titleTop = new SplitType('.home-hero-abt-title-grp:not(.title-bot)', { types: 'lines, words', lineClass: "split-line" });
         const titleBot = new SplitType('.home-hero-abt-title-grp.title-bot.clone-el', { types: 'lines, words', lineClass: "split-line" });
         animate([...titleTop.words, ...titleBot.words], {opacity: 0}, {duration: 0})

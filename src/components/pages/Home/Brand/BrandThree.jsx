@@ -18,6 +18,7 @@ function Content({...props}) {
     const brandsWrap = useRef()
     const brands = useRef()
     useGSAP(() => {
+        console.log('init three')
         if (activeIndex == 1) {
             gsap.to(brands.current.rotation, {
                 x: Math.PI * .1, y: -Math.PI * 1.45, z: 0
