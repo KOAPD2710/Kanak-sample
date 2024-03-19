@@ -2,8 +2,10 @@ import './Perk.scss';
 import { stagger, inView, animate, timeline } from "motion";
 import SplitType from 'split-type';
 import { useEffect } from 'react';
+import useDevice from '@hooks/useDevice';
 
 function KareersPerk(props) {
+    const { isDesktop, isTablet } = useDevice()
     useEffect(() => {
         const title = new SplitType('.kareer-perk-title', { types: 'lines, words', lineClass: "split-line" });
         const subTitle = new SplitType('.kareer-perk-sub', { types: 'lines, words', lineClass: "split-line" });
@@ -32,9 +34,8 @@ function KareersPerk(props) {
             animate(itemSub.words, {opacity: 0, transform: 'translateY(12px)'}, {duration: 0})
             animate(el.querySelector('[name="itemIc"] img'), { scale: 0.6, opacity: 0 }, { duration: 0 })
 
-
             const sequenceItem = [
-                [el.querySelector('.line-right'), {scaleY: 1 }, {duration: 1, delay: (idx % 3) * .08, easing: [0.87, 0, 0.13, 1]}],
+                [el.querySelector('.line-right'), {scaleY: 1 }, {duration: 1, delay: (isDesktop ? (idx % 3) : isTablet ? (idx % 2) : 0) * .08, easing: [0.87, 0, 0.13, 1]}],
                 [el.querySelector('.line-bot'), {scaleX: 1 }, {duration: 1, easing: [0.87, 0, 0.13, 1], at: '<'}],
                 [el.querySelector('[name="itemIc"] img'), {scale: 1, opacity: 1}, {duration: 1, at: '<' }],
                 [itemTitle.chars, {opacity: 1, transform: 'translateY(0%)'}, {duration: .8, delay: stagger(.01), at: '<'}],
@@ -52,7 +53,7 @@ function KareersPerk(props) {
                 })
             }, { margin: "-25% 0px -25% 0px" });
         })
-    }, []);
+    }, [isDesktop, isTablet]);
     return (
         <section className="kareer-perk bg-dark">
             <div className="container">
