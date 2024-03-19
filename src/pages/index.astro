@@ -41,6 +41,6 @@ const { data } = await getPage("home");
 		compare_list={data.compare_list}
 	/>
 	<Partner />
-	<Value />
-	<CTA />
+	<Value label={data.values_label[0].text} title={data.values_title[0].text} value_list={data.values_list}/>
+	<CTA title={data.cta_title} cta_bg={data.cta_bg}/>
 </Layout>

@@ -26,9 +26,7 @@
         position: relative;
         z-index: 2;
         margin-bottom: -1px;
-        @include sm {
-            display: none;
-        }
+        
         &-inner {
             width: 100%;
             margin-bottom: -18%;
@@ -54,14 +52,11 @@
         text-align: center;
         @include md {
             padding-top: 12rem;
-            padding-bottom: 14rem;
+            padding-bottom: 10rem;
         }
         @include sm {
             padding-top: 8rem;
             padding-bottom: 6rem;
-            br {
-                display: none
-            }
         }
         .txt-180 {
             @include md {
@@ -73,8 +68,11 @@
         }
     }
     &-title {
+        @include md {
+            @include text(h1)
+        }
         @include sm {
-            @include text(h2);
+            @include text(h5);
         }
     }
     &-label {
@@ -166,7 +164,7 @@
                 }
             }
             &-title {
-                max-width: 58rem;
+                max-width: 79rem;
                 margin-bottom: 4rem;
                 @include md {
                     margin-bottom: 3.2rem;
