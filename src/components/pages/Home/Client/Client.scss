@@ -108,6 +108,7 @@
         justify-content: center;
         margin: -.1rem;
         @include sm {
+            display: none;
             grid-area: 7/1/8/4;
             padding-block: 3.2rem;
         }

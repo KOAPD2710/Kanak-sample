@@ -16,7 +16,7 @@
         margin-top: 0;
         margin-bottom: 0;
         height: auto;
-        padding-bottom: 5rem;
+        padding-bottom: 10rem;
         padding-top: 8.2rem;
     }
     &-stick {
@@ -48,8 +48,6 @@
     &-line {
         &-wrap {
             margin-left: 50%;
-            //padding-left: 50%;
-            // margin-right: 50%;
             position: relative;
             @include sm {
                 margin-left: 0;
@@ -63,7 +61,6 @@
             position: relative;
             pointer-events: none;
             path {
-                //--totalOffset: calc(var(--totalL) * ((100 - var(--prog)) / 100));
                 @include md {
                     stroke-width: .2rem;
                 }
@@ -148,7 +145,6 @@
                             left: 0;
                         }
                         .home-part-line-content-title {
-                            // left: calc(((var(--half) * -1) + 50% + 7.6rem));
                             &:first-of-type {
                                 left: calc(((var(--half) * -1) + 50%));
                                 top: 18.1323662738vh;

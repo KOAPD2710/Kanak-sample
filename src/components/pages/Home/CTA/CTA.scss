@@ -52,10 +52,14 @@
                 left: 0;
             }
             &-btn {
-                padding: 2rem 2.4rem;
-                text-transform: uppercase;
-                .txt-18 {
-                    @include text(16);
+                @include md {
+                    padding: 1.85rem 2rem;
+                    .txt-18 {
+                        @include text(16);
+                    }
+                }
+                @include sm {
+                    padding: 2.4rem 2rem;
                 }
             }
         }

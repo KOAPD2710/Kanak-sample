@@ -1,11 +1,7 @@
 import './Compare.scss';
 import { animate, timeline, stagger, inView, scroll } from "motion";
-import { useEffect, useState, useCallback, useRef } from 'react';
-import useSelector from '@/components/hooks/useSelector';
+import { useEffect, useState, useRef } from 'react';
 import SplitType from 'split-type';
-import { getLenis } from '@/components/core/lenis';
-import * as ut from '@/js/utils.js';
-import useWindowSize from '@/components/hooks/useWindowSize';
 
 const MainItem = ({ data, type, image, title, content, currentIndex }) => {
     return (
@@ -27,13 +23,7 @@ const MainItem = ({ data, type, image, title, content, currentIndex }) => {
 
 function HomeCompareDesktop(props) {
     const ref = useRef();
-    const q = useSelector(ref);
-    const isTablet = useWindowSize
     const [index, setIndex] = useState(0);
-    const [itemCompareHeight, setItemCompareHeight] = useState({
-        height: 0,
-        hasHeader: 0
-    });
 
     const onUpdateProgress = (progress) => {
         const numberOfBreakPoints = props.list.length;
@@ -47,10 +37,6 @@ function HomeCompareDesktop(props) {
             if (progress >= startPoint && progress < endPoint) {
                 let idx = Math.floor(progress * 5)
                 setIndex(idx);
-                // if (!document.querySelector('html').classList.contains('lenis-scrolling')) {
-                //     let target = ut.offset(ref.current).top + ut.offset(ref.current).top * (idx / 5); 
-                //     getLenis().scrollTo(target)
-                // }
             }
         }
     }
@@ -103,33 +89,6 @@ function HomeCompareDesktop(props) {
             })
         }, { margin: "-30% 0px -30% 0px" });
     }, []);
-
-    // useEffect(() => {
-    //     const updateHeights = () => {
-    //         if (isTablet) {
-    //             const header = document.querySelector('.header');
-    //             const compItem = document.querySelector('.home-comp-main-item')
-
-    //             if (header && compItem) {
-    //                 const heightHeader = header.offsetHeight;
-    //                 const heightCompItem = compItem.offsetHeight;
-    //                 setItemCompareHeight({ height: heightCompItem / 10, hasHeader: (heightHeader + heightCompItem) / 10 });
-    //             }
-    //         }
-    //     };
-
-    //     if (document.readyState === 'complete') {
-    //         requestAnimationFrame(() => {
-    //             updateHeights();
-    //         })
-    //     } else {
-    //         window.addEventListener('load', updateHeights);
-    //     }
-
-    //     return () => {
-    //         window.removeEventListener('load', updateHeights);
-    //     };
-    // }, [isTablet, itemCompareHeight]);
 
     return (
         <section className="home-comp desk-ver" ref={ref}>
