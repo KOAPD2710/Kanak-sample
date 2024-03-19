@@ -16,10 +16,10 @@ function HomeProductList(props) {
                 animate(el.querySelector('.line-bottom'), {transformOrigin: 'left', scaleX: 0}, {duration: 0})
             }
             const sequence = [
-                [el.querySelector('.home-prod-main-item-title'), { opacity: 1, x: 0 }, {duraion: 1.2}],
-                [el.querySelector('.home-prod-main-item-label'), { opacity: 1, x: 0 }, {duraion: 1.2, at: "-1"}],
-                [el.querySelector('.line'), { scaleX: 1 }, {duraion: .8, at: '<'}],
-                [idx == allItems.length - 1 && el.querySelector('.line-bottom'), { scaleX: 1 }, {duraion: .8, at: "-0.6"}]
+                [el.querySelector('.home-prod-main-item-title'), { opacity: 1, x: 0 }, {duration: 1.2}],
+                [el.querySelector('.home-prod-main-item-label'), { opacity: 1, x: 0 }, {duration: 1.2, at: "-1"}],
+                [el.querySelector('.line'), { scaleX: 1 }, {duration: .8, at: '<'}],
+                [idx == allItems.length - 1 && el.querySelector('.line-bottom'), { scaleX: 1 }, {duration: .8, at: "-0.6"}]
             ]
             inView(el, () => {
                 timeline(sequence).finished.then(() => {

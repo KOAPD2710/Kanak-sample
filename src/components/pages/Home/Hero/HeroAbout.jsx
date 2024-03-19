@@ -35,7 +35,7 @@ function HomeHeroAbout({...props}) {
                 titleTop.revert()
                 titleBot.revert()
             })
-          }, { margin: "-40% 0px -40% 0px" });
+        }, { margin: "-40% 0px -40% 0px" });
     }, [])
     return (
         <>

@@ -28,10 +28,10 @@ function HomeClient(props) {
         const allItems = document.querySelectorAll('.home-client-box:not(.home-client-map)')
         allItems.forEach((el,idx) => {
             animate(el, {opacity: 0}, {duration: 0})
-            animate(el.querySelector('img'), { transform: 'scale(.8) translateY(10%)'}, {duraion: 0})
+            animate(el.querySelector('img'), { transform: 'scale(.8) translateY(10%)'}, {duration: 0})
             const sequence = [
-                [el, { opacity: 1}, {duraion: 1, delay: idx < 12 ? (idx % 3) * .08 : (idx % 6) * .08}],
-                [el.querySelector('img'), { transform: 'none'}, {duraion: 1.2, at: '<'}]
+                [el, { opacity: 1}, {duration: 1, delay: idx < 12 ? (idx % 3) * .08 : (idx % 6) * .08}],
+                [el.querySelector('img'), { transform: 'none'}, {duration: 1.2, at: '<'}]
             ]
             inView(el, () => {
                 timeline(sequence).finished.then(() => {

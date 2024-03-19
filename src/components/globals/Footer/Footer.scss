@@ -15,6 +15,21 @@
         @include sm {
             grid-column: span 4;
         }
+        .ft-head {
+            display: flex;
+            justify-content: space-between;
+            @include md {
+                .ft-left-body-social-item.hide-dk {
+                    display: flex !important;
+                    width: 4rem;
+                    height: 4rem;
+                    .ic {
+                        width: 1.6rem;
+                        height: 1.6rem;
+                    }
+                }
+            }
+        }
         &-body {
             padding-top: 4.6rem;
             @include md {
@@ -194,6 +209,10 @@
             }
         }
         @include sm {
+            padding: {
+                top: 2.4rem;
+                bottom: 2.4rem;
+            }
             .ft-right-head-title-arr  {
                 transition: transform .5s ease-in-out;
             }

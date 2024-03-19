@@ -95,6 +95,9 @@ function GlobalFooter(props) {
                         <div className="ft-logo">
                             {props.logo}
                         </div>
+                        <a href="#" className="ft-left-body-social-item txt-bg-link hide-dk">
+                            {props.imgLinkedIn}
+                        </a>
                         <div className="line line-bottom"></div>
                     </div>
                     <div className="ft-left-body">
@@ -104,7 +107,7 @@ function GlobalFooter(props) {
                             <ContactItem label="Headquarters" content="321 Hovan Drive, Fort Wayne, IN 46825, US" link="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target="_blank"/>
                         </div>
                         <div className="ft-left-body-social">
-                            <a href="#" className="ft-left-body-social-item txt-bg-link">
+                            <a href="#" className="ft-left-body-social-item txt-bg-link hide-mb">
                                 {props.imgLinkedIn}
                             </a>
                         </div>
