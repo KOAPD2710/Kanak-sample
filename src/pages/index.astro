@@ -1,31 +1,45 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Hero from '@pages/Home/Hero/Hero.astro';
-import Product from '@pages/Home/Product/Product.astro';
-import Industry from '@pages/Home/Industry/Industry.astro';
+import Hero from "@pages/Home/Hero/Hero.astro";
+import Product from "@pages/Home/Product/Product.astro";
+import Industry from "@pages/Home/Industry/Industry.astro";
 import Brand from "@pages/Home/Brand/Brand.astro";
 import Client from "@pages/Home/Client/Client.astro";
-import Compare from '@pages/Home/Compare/Compare.astro';
-import Partner from '@pages/Home/Partner/Partner.astro';
-import Value from '@pages/Home/Value/Value.astro';
-import CTA from '@pages/Home/CTA/CTA.astro';
+import Compare from "@pages/Home/Compare/Compare.astro";
+import Partner from "@pages/Home/Partner/Partner.astro";
+import Value from "@pages/Home/Value/Value.astro";
+import CTA from "@pages/Home/CTA/CTA.astro";
 
-import HeroThree from '@pages/Home/HeroThree/HeroThree.astro';
+import HeroThree from "@pages/Home/HeroThree/HeroThree.astro";
 
-import {getPage} from '@/prismic.js';
-const { data } = await getPage('home');
+import { getPage } from "@/prismic.js";
+const { data } = await getPage("home");
 ---
 
 <Layout title="Homepage">
 	<div class="home-hero-three-wrap">
-		<Hero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte}/>
-		<HeroThree product_list={data.product_list}/>
-		<Product prod_sub_title={data.product_title[0].text} product_list={data.product_list}/>
+		<Hero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
+		<HeroThree product_list={data.product_list} />
+		<Product
+			prod_sub_title={data.product_title[0].text}
+			product_list={data.product_list}
+		/>
 	</div>
-	<Client	title={data.client_title[0].text} sub_title={data.client_sub_title[0].text} client_list={data.client_list}/>
-	<Industry label={data.industry_label[0].text} title={data.industry_title[0].text} industry_list={data.industry_list}/>
-	<Brand title={data.brand_title[0].text} brand_list={data.brand_list}/>
-	<Compare title={data.compare_title[0].text} compare_list={data.compare_list} />
+	<Client
+		title={data.client_title[0].text}
+		sub_title={data.client_sub_title[0].text}
+		client_list={data.client_list}
+	/>
+	<Industry
+		label={data.industry_label[0].text}
+		title={data.industry_title[0].text}
+		industry_list={data.industry_list}
+	/>
+	<Brand title={data.brand_title[0].text} brand_list={data.brand_list} />
+	<Compare
+		title={data.compare_title[0].text}
+		compare_list={data.compare_list}
+	/>
 	<Partner />
 	<Value />
 	<CTA />

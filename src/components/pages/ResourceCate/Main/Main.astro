@@ -1,25 +1,23 @@
 ---
 import "./Main.scss";
-import { getAllByType } from "@/prismic.js";
-
 import ResourceCateList from "./Main";
 import icArrowDown from "@assets/ic-arr-down.svg?raw";
-
+import { getAllByType } from "@/prismic.js";
 const list = await getAllByType("resource");
 const cateList = [];
 list.map(({ data }, idx) => {
-    !cateList.includes(data.category) && cateList.push(data.category);
+	!cateList.includes(data.category) && cateList.push(data.category);
 });
 const filterList = list.filter(
-    ({ data }) => data.category == Astro.props.currentCate,
+	({ data }) => data.category == Astro.props.currentCate,
 );
 ---
 
 <section class="resource-cate-main">
-    <div class="container grid">
-        <div class="line resource-cate-main-line"></div>
-        <ResourceCateList list={filterList} client:visible>
-            <Fragment set:html={icArrowDown} slot="icArrowDown" />
-        </ResourceCateList>
-    </div>
+	<div class="container grid">
+		<div class="line resource-cate-main-line"></div>
+		<ResourceCateList list={filterList}>
+			<Fragment set:html={icArrowDown} slot="icArrowDown" />
+		</ResourceCateList>
+	</div>
 </section>

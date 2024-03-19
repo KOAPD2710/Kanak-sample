@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
+import { convertDate } from "@utils/text.js"
 
 function ResourceMainFeature(props) {
     const [loaded, setLoaded] = useState(false);
@@ -9,6 +10,9 @@ function ResourceMainFeature(props) {
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
+        slides: {
+            spacing: 36,
+        },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)
         },
@@ -33,23 +37,23 @@ function ResourceMainFeature(props) {
                                     src={item.data.feature_image.url}
                                     alt={item.data.feature_image.alt}
                                     width={item.data.feature_image.dimensions.width}
-                                    height={item.data.feature_image.dimensions.height}/>
+                                    height={item.data.feature_image.dimensions.height} />
                             </div>
                             <div className="resource-main-fea-main-inner-item-content">
                                 <div className="resource-main-fea-main-inner-item-cate">
-                                    <div className="txt txt-20 txt-black resource-main-fea-main-inner-item-cate-txt">
+                                    <div className="txt txt-20 txt-bold resource-main-fea-main-inner-item-cate-txt">
                                         {item.data.category}
                                     </div>
                                 </div>
                                 <h2 className='heading h4 txt-black txt-up resource-main-fea-main-inner-item-title'>
                                     {item.data.title}
                                 </h2>
-                                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{item.last_publication_date}</span>
+                                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{convertDate(item.last_publication_date)}</span>
                             </div>
                         </a>
                     ))}
                 </div>
-                {/* <div className="resource-main-fea-main-control">
+                <div className="resource-main-fea-main-control">
                     <div className="line"></div>
                     <div className="resource-main-fea-main-pagi">
                         {loaded && instanceRef && (
@@ -82,7 +86,7 @@ function ResourceMainFeature(props) {
                             </>
                         )}
                     </div>
-                </div> */}
+                </div>
                 <div className="line line-ver"></div>
                 <div className="line resource-main-fea-main-line-bot"></div>
             </div>

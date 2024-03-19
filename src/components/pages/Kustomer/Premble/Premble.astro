@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+import KustomerPremble from "./Premble";
+import PrembleBadge from "./PrembleBadge";
+import icBadgeInside from "@assets/badge-inside.png";
+import icBadgeOuside from "@assets/badge-outside.svg";
+---
+
+<KustomerPremble />
+<PrembleBadge>
+    <Image src={icBadgeInside} alt="" class="img" slot="icBadgeInside" />
+    <Image src={icBadgeOuside} alt="" class="img" slot="icBadgeOutside" />
+</PrembleBadge>

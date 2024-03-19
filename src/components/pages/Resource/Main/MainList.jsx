@@ -1,6 +1,7 @@
 import "./Main.scss"
 import { useEffect, useMemo, useState, useRef } from 'react';
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
+import { convertDate } from "@utils/text.js"
 
 function FilterItem(props) {
     return (
@@ -27,7 +28,7 @@ function ArticleItem({ data, idx }) {
                         src={data.data.feature_image.url}
                         alt={data.data.feature_image.alt}
                         width={data.data.feature_image.dimensions.width}
-                        height={data.data.feature_image.dimensions.height}/>
+                        height={data.data.feature_image.dimensions.height} />
                 </div>
             </div>
             <div className="resource-main-list-main-item-content">
@@ -40,7 +41,7 @@ function ArticleItem({ data, idx }) {
                 <p className="txt txt-18 txt-med resource-main-list-main-item-subtitle">
                     {data.data.sapo}
                 </p>
-                <span className="txt txt-18 txt-med resource-main-list-main-item-date">{data.last_publication_date}</span>
+                <span className="txt txt-18 txt-med resource-main-list-main-item-date">{convertDate(data.last_publication_date)}</span>
             </div>
             <div className="line"></div>
             {idx % 2 == 0 ? (
@@ -54,7 +55,7 @@ function ResourceMainList(props) {
 
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
-    const [limit, setLimit] = useState(6);
+    const [limit, setLimit] = useState(4);
     const [categoryToggle, setCategoryToggle] = useState(false)
     const toggleRef = useRef();
     const cateList = []
@@ -109,8 +110,8 @@ function ResourceMainList(props) {
         <div className="resource-main-list">
             <div className="resource-main-list-head">
                 <h3 className="heading h4 txt-black txt-up resource-main-list-head-title">Articles</h3>
-                <div className="resource-main-list-head-filter">
-                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }} ref={toggleRef}>
+                <div className="resource-main-list-head-filter" ref={toggleRef}>
+                    <button className="resource-main-list-head-filter-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }}>
                         <div className="txt txt-18 txt-bold resource-main-list-head-filter-toggle-txt">
                             {filter == 'All' ? 'Categories' : filter}
                         </div>
@@ -124,8 +125,8 @@ function ResourceMainList(props) {
                 </div>
             </div>
             <div className="line"></div>
-            <div className="resource-main-list-main">
-                <div className={`resource-main-list-main-inner ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+            <div className={`resource-main-list-main ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+                <div className={`resource-main-list-main-inner`}>
                     {renderArticles}
                 </div>
                 <div className="line"></div>
