@@ -1,6 +1,33 @@
-import './CTA.scss'
+import './Cta.scss'
+import { stagger, inView, animate, timeline } from "motion";
+import SplitType from 'split-type';
+import { useEffect } from 'react';
 
-function KareersCta({...props}) {
+function KareersCta(props) {
+    useEffect(() => {
+        const title = new SplitType('.kareer-cta-title', { types: 'lines, words', lineClass: "split-line" });
+        const subTitle = new SplitType('.kareer-cta-sub', { types: 'lines, words', lineClass: "split-line" });
+        animate(title.words, {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+        animate(subTitle.words, {opacity: 0, transform: 'translateY(12px)'}, {duration: 0})
+
+        const sequence = [
+            [title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05)}],
+            [subTitle.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.02), at: '<'}]
+        ]
+        inView('.kareer-cta', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                subTitle.revert();
+            })
+        }, { margin: "-30% 0px -30% 0px" });
+
+        animate('.kareer-cta-btn-wrap', { opacity: 0, transform: "translateY(10px)" }, { duration: 0 });
+        inView('.kareer-cta-btn-wrap', () => {
+            animate('.kareer-cta-btn-wrap', { opacity: [0, 1], transform: ["translateY(10px)", "none"]}, { duration: .6 }).finished.then(() => {
+                document.querySelector('.kareer-cta-btn-wrap').removeAttribute('style');
+            })
+        }, { margin: "-10% 0px -10% 0px" });
+    }, []);
     return (
         <section className="kareer-cta">
             <div className="container grid">

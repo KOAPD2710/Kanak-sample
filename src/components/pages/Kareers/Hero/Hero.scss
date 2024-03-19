@@ -26,6 +26,7 @@
         align-items: end;
         position: relative;
         background-color: var(--cl-bg);
+        position: relative;
         @include md {
             --height-bg: 48.2rem;
             align-items: start;
@@ -36,21 +37,23 @@
         @include xs {
             --height-bg: 48.2rem;
         }
+        .line {
+            position: absolute;
+            left: 0;
+            z-index: 2;
+            &-top {
+                top: 0;
+            }
+        }
         &-inner {
             position: sticky;
             bottom: 0;
             width: 100%;
             height: var(--height-bg);
+            contain: paint;
             @include md {
                 top: 0;
                 bottom: auto;
-            }
-            .line {
-                position: absolute;
-                left: 0;
-                &-top {
-                    top: 0;
-                }
             }
         }
     }

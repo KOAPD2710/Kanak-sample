@@ -99,6 +99,7 @@
                     height: calc(100% - .2rem);
                     top: 0;
                     right: 0;
+                    // transform-origin: top;
                     @include sm {
                         display: none;
                     }
