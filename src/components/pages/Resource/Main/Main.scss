@@ -12,16 +12,27 @@
 
         &-main {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
 
             &-inner {
+                overflow: hidden;
+                display: flex;
+                width: 100%;
+
                 &-item {
+                    position: relative;
+                    width: 100%;
+                    min-height: 100%;
+                    overflow: hidden;
+                    flex-shrink: 0;
+
                     padding: {
                         top: 5rem;
                         right: 4.6rem;
                         bottom: 3.2rem;
                     }
-
-                    ;
 
                     &-img {
                         height: 47.5rem;
@@ -38,9 +49,12 @@
                     &-title {
                         margin-bottom: 2.4rem;
                         @include transition(color .4s ease);
+                        min-height: calc(3 * var(--lh-h4));
+                    }
 
-                        @media (hover: hover) {
-                            &:hover {
+                    @media (hover: hover) {
+                        &:hover {
+                            .resource-main-fea-main-inner-item-title {
                                 color: var(--cl-orange);
                             }
                         }
@@ -64,6 +78,7 @@
                 height: 10rem;
                 position: relative;
                 display: flex;
+                margin-top: auto;
 
                 &>.line {
                     position: absolute;
@@ -132,13 +147,8 @@
     &-pop {
         grid-column: 9/-1;
         margin-left: calc(var(--grid-gap)/2 * -1);
-
-        padding: {
-            top: 5rem;
-            left: 4.6rem;
-        }
-
-        ;
+        padding-top: 5rem;
+        padding-left: 4.6rem;
 
         &-line {
             display: none;
@@ -151,13 +161,8 @@
         &-list {
             &-item {
                 position: relative;
-
-                padding: {
-                    top: 5rem;
-                    bottom: 5rem;
-                }
-
-                ;
+                padding-top: 5rem;
+                padding-bottom: 5rem;
                 color: var(--cl-txt);
                 display: flex;
                 flex-direction: column;
@@ -171,19 +176,30 @@
 
                 &-title {
                     margin-bottom: 1.6rem;
-                    @include transition(color .4s ease);
-
-                    @media (hover: hover) {
-                        &:hover {
-                            color: var(--cl-orange);
-                        }
-                    }
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    transition: color .4s ease;
                 }
 
                 .line {
                     position: absolute;
                     top: 0;
                     left: 0;
+                }
+
+                @media (hover: hover) {
+                    &:hover {
+                        .resource-main-pop-list-item-title {
+                            color: var(--cl-orange);
+
+                        }
+                    }
+                }
+
+                &:last-child {
+                    display: none;
                 }
             }
         }
@@ -248,15 +264,11 @@
         }
 
         &-main {
+            padding-bottom: 12rem;
+
             &-inner {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-
-                &.all-loaded {
-                    &+.line {
-                        display: none;
-                    }
-                }
             }
 
             &-item {
@@ -264,13 +276,8 @@
                 grid-column: span 1;
                 display: flex;
                 column-gap: 3.2rem;
-
-                padding: {
-                    top: 4rem;
-                    bottom: 4rem
-                }
-
-                ;
+                padding-top: 4rem;
+                padding-bottom: 4rem;
 
                 &:nth-child(odd) {
                     padding-right: 4.6rem;
@@ -312,6 +319,7 @@
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
+                    transition: color .4s ease;
                 }
 
                 &-subtitle {
@@ -343,19 +351,22 @@
                         display: block;
                     }
                 }
+
+                @media (hover: hover) {
+                    &:hover {
+                        .resource-main-list-main-item-title {
+                            color: var(--cl-orange);
+                        }
+                    }
+                }
             }
         }
 
         &-load {
             display: flex;
             justify-content: center;
-
-            margin: {
-                top: 6rem;
-                bottom: 8rem;
-            }
-
-            ;
+            margin-top: -6rem;
+            margin-bottom: 8rem;
 
             &.hidden {
                 display: none;
@@ -500,8 +511,6 @@
                 left: 0;
             }
 
-            ;
-
             &-line {
                 display: block;
             }
@@ -520,8 +529,6 @@
                         bottom: 3.2rem;
                     }
 
-                    ;
-
                     &-cate {
                         .ic {
                             display: none;
@@ -539,6 +546,10 @@
                         -webkit-line-clamp: 4;
                         -webkit-box-orient: vertical;
                         overflow: hidden;
+                    }
+
+                    &-date {
+                        @include text(16);
                     }
 
                     &:nth-child(odd) {
@@ -569,6 +580,10 @@
                         .line {
                             display: block;
                         }
+                    }
+
+                    &:last-child {
+                        display: flex;
                     }
                 }
             }
@@ -647,6 +662,8 @@
             }
 
             &-main {
+                padding-bottom: 6rem;
+
                 &-item {
                     grid-column: 1/-1;
 
@@ -655,7 +672,6 @@
                         bottom: 3.2rem;
                     }
 
-                    ;
 
                     &-img {
                         @include size(21.5rem, 25.1rem);
@@ -668,6 +684,10 @@
                     }
 
                     &-subtitle {
+                        @include text(16);
+                    }
+
+                    &-date {
                         @include text(16);
                     }
 
@@ -690,6 +710,26 @@
                     }
                 }
             }
+
+            &-load {
+                margin-top: 0;
+                margin-bottom: 6rem;
+
+                &-btn {
+                    &-ic {
+                        @include size(5.2rem);
+
+                        .ic {
+                            @include size(1.6rem);
+                        }
+                    }
+
+                    .txt-20 {
+                        @include text(16);
+                        padding: 1rem 1.6rem;
+                    }
+                }
+            }
         }
     }
 }
@@ -703,6 +743,7 @@
                 &-inner {
                     &-item {
                         flex-direction: column;
+                        padding-bottom: 0;
 
                         &-img,
                         &-content {
@@ -710,7 +751,8 @@
                         }
 
                         &-img {
-                            height: 33.5rem;
+                            height: auto;
+                            aspect-ratio: 1.6;
                         }
 
                         &-content {
@@ -729,8 +771,14 @@
                 &-control {
                     position: relative;
                     display: inline-flex;
-                    left: auto;
+                    left: 0;
+                    top: 0;
                     margin-top: 2.4rem;
+                    margin-bottom: 3.2rem;
+
+                    .line {
+                        width: 6.8rem;
+                    }
                 }
             }
         }
@@ -740,25 +788,17 @@
 
             &-title {
                 margin-bottom: 2.4rem;
+                @include text(h5);
             }
 
             &-list {
                 grid-template-columns: repeat(1, 1fr);
-
-                padding: {
-                    top: .8rem;
-                    bottom: .8rem;
-                }
-
-                ;
+                padding-top: .8rem;
+                padding-bottom: .8rem;
 
                 &-item {
-                    padding: {
-                        top: 2.4rem;
-                        bottom: 2.4rem;
-                    }
-
-                    ;
+                    padding-top: 2.4rem;
+                    padding-bottom: 2.4rem;
 
                     &:nth-child(odd) {
                         border-right: none;
@@ -768,6 +808,12 @@
                     &:nth-child(even) {
                         padding-left: 0;
                     }
+
+                    &:nth-last-child(2) {
+                        .line {
+                            display: block;
+                        }
+                    }
                 }
             }
         }
@@ -775,28 +821,47 @@
         &-list {
             &-head {
                 &-title {
-                    margin: {
-                        top: 2.4rem;
-                        bottom: 2.4rem;
+                    @include text(h5);
+                    margin-top: 2.4rem;
+                    margin-bottom: 2.4rem;
+                }
+
+                &-filter {
+                    &-dropdown {
+                        width: 20rem;
                     }
 
-                    ;
+                    &-item {
+                        padding: 1.6rem;
+
+                        .txt-20 {
+                            @include text(16);
+                        }
+                    }
                 }
             }
 
             &-main {
+                &.all-loaded {
+                    padding-bottom: 0;
+
+                    &>.line {
+                        display: none;
+                    }
+                }
+
                 &-item {
                     flex-direction: column;
 
                     &-img {
                         width: 100%;
-                        height: 24.95rem;
+                        height: auto;
+                        aspect-ratio: 1.372;
                         margin-bottom: 3.2rem;
                     }
 
                     &-subtitle {
                         -webkit-line-clamp: 2;
-
                         margin-bottom: 2rem;
                     }
 

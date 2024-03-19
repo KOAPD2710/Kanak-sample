@@ -44,17 +44,17 @@ function HomeIndustry(props) {
             let itemLink = new SplitType(el.querySelector('.home-indus-main-item-link'), { types: 'lines, chars', lineClass: 'split-line' })
 
             animate(el.querySelector('.line'), {scaleX: 0}, {duration: 0})
-            animate(el.querySelector('.home-indus-main-item-ic'), {opacity: 0, transform: 'scale(.8) translateY(15%)'}, {duraion: 0})
-            animate([...itemTitle.chars, ...itemSub.words, ...itemLink.chars], {opacity: 0, transform: 'translateY(100%)'}, {duraion: 0});
+            animate(el.querySelector('.home-indus-main-item-ic'), {opacity: 0, transform: 'scale(.8) translateY(15%)'}, {duration: 0})
+            animate([...itemTitle.chars, ...itemSub.words, ...itemLink.chars], {opacity: 0, transform: 'translateY(100%)'}, {duration: 0});
             if (idx == allItems.length - 1) {
                 animate(el.querySelector('.line-bottom'), {scaleX: 0}, {duration: 0})
             }
             const sequenceItem = [
                 [el.querySelector('.line'), {scaleX: 1}, {duration: 1}],
-                [el.querySelector('.home-indus-main-item-ic'), {opacity: 1, transform: 'none'}, {duraion: 1.4, at: .2}],
-                [itemTitle.chars, {opacity: 1, transform: 'none'}, {duraion: .8, delay: stagger(.01), at: .2}],
-                [itemSub.words, {opacity: 1, transform: 'none'}, {duraion: .8, delay: stagger(.01), at: .3}],
-                [itemLink.chars, {opacity: 1, transform: 'none'}, {duraion: 1.2, delay: stagger(.005), at: .4}],
+                [el.querySelector('.home-indus-main-item-ic'), {opacity: 1, transform: 'none'}, {duration: 1.4, at: .2}],
+                [itemTitle.chars, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.01), at: .2}],
+                [itemSub.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.01), at: .3}],
+                [itemLink.chars, {opacity: 1, transform: 'none'}, {duration: 1.2, delay: stagger(.005), at: .4}],
                 [idx == allItems.length - 1 && el.querySelector('.line-bottom'), {scaleX: 1}, {duration: .9, at: .3}]
             ]
             inView(el, () => {

@@ -1,0 +1,14 @@
+---
+import { Image } from "astro:assets";
+import KustomerHero from "./Hero";
+
+import MiddleImg from "@assets/kustomer-hero-mid.png";
+import LeftImg from "@assets/kustomer-hero-left.png";
+import RightImg from "@assets/kustomer-hero-right.png";
+---
+
+<KustomerHero client:visible>
+    <Image src={MiddleImg} alt="" slot="MiddleImg" />
+    <Image src={LeftImg} alt="" slot="LeftImg" />
+    <Image src={RightImg} alt="" slot="RightImg" />
+</KustomerHero>

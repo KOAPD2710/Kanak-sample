@@ -12,22 +12,21 @@ import icDropdown from "@assets/ic-arrow-down.svg?raw";
 
 const data = await getAllByType("resource");
 
-const featureList = data.filter(({ data }) => data.show_on_feature) .slice(0, 5);
+const featureList = data.filter(({ data }) => data.show_on_feature).slice(0, 5);
 const popularList = data.filter(({ data }) => data.show_on_popular).slice(0, 4);
-
 ---
 
 <section class="resource-main">
-    <div class="container grid">
-        <div class="line resource-main-line"></div>
-        <ResourceMainFeature data={featureList} client:load>
-            <Fragment set:html={arrIcon} slot="arrIcon" />
-        </ResourceMainFeature>
-        <ResourceMainPopular data={popularList}/>
-        <div class="line resource-main-line"></div>
-        <ResourceMainList data={data} client:visible>
-            <Fragment set:html={icArrowDown} slot="icArrowDown" />
-            <Fragment set:html={icDropdown} slot="icDropDown" />
-        </ResourceMainList>
-    </div>
+  <div class="container grid">
+    <div class="line resource-main-line"></div>
+    <ResourceMainFeature data={featureList} client:load>
+      <Fragment set:html={arrIcon} slot="arrIcon" />
+    </ResourceMainFeature>
+    <ResourceMainPopular data={popularList} />
+    <div class="line resource-main-line"></div>
+    <ResourceMainList data={data} client:visible>
+      <Fragment set:html={icArrowDown} slot="icArrowDown" />
+      <Fragment set:html={icDropdown} slot="icDropDown" />
+    </ResourceMainList>
+  </div>
 </section>

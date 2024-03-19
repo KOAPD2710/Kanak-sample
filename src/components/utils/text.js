@@ -8,6 +8,15 @@ const convertHighlight = (field) => {
     // Thực hiện thay thế
     return htmlString.replace(/<span class="Highlight">(.*?)<\/span>/g, replacer);
 }
-export { convertHighlight }
+
+function convertDate(data) {
+    let dateObject = new Date(data)
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let month = months[dateObject.getMonth()];
+    let day = dateObject.getDate();
+    let year = dateObject.getFullYear();
+    return month + " " + day + ", " + year;
+}
+export { convertHighlight, convertDate }
 
 

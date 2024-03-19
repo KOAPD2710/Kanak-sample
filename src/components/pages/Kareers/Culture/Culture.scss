@@ -95,6 +95,7 @@
             .line {
                 position: absolute;
                 left: 0;
+                transform-origin: left;
                 &-top {
                     top: 0;
                 }
@@ -147,6 +148,7 @@
             &-img {
                 flex: none;
                 height: 18rem;
+                overflow: hidden;
                 @include sm {
                     width: 14.7rem;
                     height: auto;
