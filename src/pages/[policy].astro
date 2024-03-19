@@ -2,21 +2,22 @@
 import Layout from "@/layouts/Layout.astro";
 import PolicyHero from "@pages/Policy/Hero/PolicyHero.astro";
 import PolicyMain from "@/components/pages/Policy/Body/Policy.astro";
-import policyData from '@pages/Policy/Data/policy-data';
+import policyData from "@pages/Policy/Data/policy-data";
 
 export function getStaticPaths() {
   return policyData.map((item: any, idx: number) => {
     return {
-        params: {policy: item.uid},
-        props: {item}
-    }
-  })
+      params: { policy: item.uid },
+      props: { item },
+    };
+  });
 }
 
 const { policy } = Astro.params;
 const { item } = Astro.props;
 ---
+
 <Layout title={item.title}>
-    <PolicyHero title={item.title}/>
-    <PolicyMain body={item.body} last_update={item.last_update}/>
+  <PolicyHero title={item.title} />
+  <PolicyMain body={item.body} last_update={item.last_update} />
 </Layout>

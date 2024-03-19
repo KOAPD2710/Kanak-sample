@@ -1,0 +1,30 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.kustomer-service {
+    &-title {
+        &-stick {
+            grid-column: 1/9;
+            max-width: 80rem;
+        }
+    }
+
+    &-main {
+        position: relative;
+        grid-column: 9/-1;
+        margin-left: calc(var(--grid-gap)/2 * -1);
+        display: grid;
+        column-gap: var(--grid-gap);
+        grid-template-columns: repeat(8, 1fr);
+        padding-left: calc(var(--grid-gap)/2);
+
+
+        .line-ver {
+            position: absolute;
+        }
+
+        &-item {
+            grid-column: 2/-1;
+        }
+    }
+}

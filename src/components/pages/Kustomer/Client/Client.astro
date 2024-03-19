@@ -22,7 +22,7 @@ newTitle = newTitle
 const list = await Promise.all(
     client_list.map(async (client: any) => {
         let item = getByUID("client", client.item.uid);
-        return console.log(item);
+        return item;
     }),
 );
 ---

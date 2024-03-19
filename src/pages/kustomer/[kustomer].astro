@@ -1,8 +1,14 @@
 ---
-import { getAllByType } from "@/prismic.js";
+import { getPage, getAllByType } from "@/prismic.js";
 import Layout from "@/layouts/Layout.astro";
 import Hero from "@pages/Kustomer/Hero/Hero.astro";
 import Premble from "@pages/Kustomer/Premble/Premble.astro";
+import Client from "@pages/Kustomer/Client/Client.astro";
+import Service from "@pages/Kustomer/Service/Service.astro";
+
+import ImgSer1 from "@assets/kustomer-service1.jpg";
+import ImgSer2 from "@assets/kustomer-service2.jpg";
+import ImgSer3 from "@assets/kustomer-service3.jpg";
 
 export async function getStaticPaths() {
     const list = await getAllByType("industry");
@@ -16,10 +22,25 @@ export async function getStaticPaths() {
 
 const { kustomer } = Astro.params;
 const { item } = Astro.props;
-console.log(item);
+const { data } = await getPage("home");
+
+const serviceData = [
+    {
+        title: "Grocery stores",
+        describe:
+            "Elevating your aisles, our eco-friendly dinnerware meets the needs of today's conscious consumer.",
+        image: ImgSer1,
+    },
+];
 ---
 
 <Layout title={item.data.title}>
     <Hero />
     <Premble />
+    <Client
+        title={data.client_title[0].text}
+        sub_title={data.client_sub_title[0].text}
+        client_list={data.client_list}
+    />
+    <Service list={serviceData} />
 </Layout>

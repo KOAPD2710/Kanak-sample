@@ -1,12 +1,16 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: .6s;
+    animation-duration: .6s;
 }
+
 html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -14,35 +18,44 @@ html {
     text-rendering: optimizeSpeed;
     background-color: var(--cl-bg);
     font-kerning: none;
+
     &.lenis {
         height: auto;
     }
 }
+
 .lenis {
     &.lenis-smooth {
         scroll-behavior: auto;
     }
+
     &.lenis-smooth [data-lenis-prevent] {
         overscroll-behavior: contain;
     }
+
     &.lenis-stopped {
         overflow: hidden;
     }
+
     &.lenis-scrolling iframe {
         pointer-events: none;
     }
 }
+
 .main {
     position: relative;
 }
+
 .grid {
     --grid-gap: 2rem;
     display: grid;
     column-gap: var(--grid-gap);
+
     @include md {
         --grid-gap: 1.6rem;
     }
 }
+
 .container {
     --container-width: 1728px;
     --grid-column: 16;
@@ -52,21 +65,26 @@ html {
     width: 100%;
     margin: 0 auto;
     padding: 0 var(--container-padding);
+
     // max-width: var(--container-width);
     &.fluid {
         max-width: none;
     }
+
     &.grid {
         grid-template-columns: repeat(var(--grid-column), 1fr);
     }
+
     @include md {
         --grid-column: 12;
         --container-padding: 4rem;
     }
+
     @include sm {
         --grid-column: 4;
         --container-padding: 2rem;
     }
+
     @include xs {
         --container-padding: 1.6rem;
     }
@@ -77,32 +95,42 @@ a {
     color: inherit;
     display: inline-block;
 }
-button, input, textarea {
+
+button,
+input,
+textarea {
     appearance: none;
     -webkit-appearance: none;
     outline: none;
     border: none;
     font-family: inherit;
 }
+
 button {
     cursor: pointer;
+
     * {
         pointer-events: none;
     }
 }
-img, .img {
+
+img,
+.img {
     display: block;
     width: 100%;
     height: auto;
+
     &.img-h {
         height: 100%;
         width: auto;
     }
+
     &.img-fill {
         height: 100%;
         object-fit: cover;
     }
 }
+
 button {
     appearance: none;
     background-color: transparent;
@@ -110,6 +138,7 @@ button {
     outline: none;
     border: none;
 }
+
 .btn {
     display: flex;
     justify-content: center;
@@ -117,34 +146,47 @@ button {
     padding: 2rem 2.4rem;
     background-color: var(--cl-orange);
     color: var(--cl-white);
+
     &-lg {
         padding: 2.8rem 2.4rem;
+
         @include md {
             padding: 1.8rem 2.4rem;
         }
     }
+
     &-wide {
         width: 100%;
     }
 }
+
 .line {
     @include size(100%, .2rem);
     background-color: var(--cl-txt);
+
+    &-ver {
+        @include size(.2rem, 100%);
+    }
 }
-body, .bg-light {
+
+body,
+.bg-light {
     background: var(--bg-txt) repeat;
     background-size: 40rem auto;
 }
+
 .bg-dark {
     background: var(--bg-txt-dark);
     background-color: var(--cl-bg-dark);
     background-size: 40rem auto;
 }
+
 .hide-mb {
     @include sm {
-        display: none !important; 
+        display: none !important;
     }
 }
+
 .hide-dk {
     @include sm-up {
         display: none !important;
