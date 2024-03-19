@@ -18,6 +18,7 @@
     "@prismicio/helpers": "^2.3.9",
     "@react-three/drei": "^9.99.3",
     "@react-three/fiber": "^8.15.16",
+    "@react-three/postprocessing": "^2.16.2",
     "@studio-freight/lenis": "^1.0.35",
     "@studio-freight/react-lenis": "^0.0.45",
     "@types/react": "^18.2.57",

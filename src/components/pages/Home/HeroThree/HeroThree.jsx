@@ -1,10 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
-import { stagger, inView, animate, timeline, scroll } from "motion"
+import { animate, scroll } from "motion"
 import gsap from 'gsap';
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useGSAP } from '@gsap/react';
 import { Fork } from './Fork.jsx';
 import { FoodContainer } from "./FoodContainer.jsx";
 import { useStore } from '@nanostores/react';
@@ -37,41 +35,57 @@ function Content({...props}) {
     useEffect(() => {
         products.current.children.forEach((el, idx) => {
             if (idx == index) {
+                // animate(
+                //     (progress) => {
+                //         products.current.children[index].scale.set(
+                //             animThreeVal(0, 1, progress),
+                //             animThreeVal(0, 1, progress),
+                //             animThreeVal(0, 1, progress)
+                //         )
+                //     }, { duration: 0.8}
+                // )
                 gsap.to(products.current.children[index].scale, {x: 1, y: 1, z: 1, duration: .8, ease: 'expo.out', overwrite: true})
             } else {
+                // if (products.current.children[idx].scale.x != 0) {
+                //     animate(
+                //         (progress) => {
+                //             products.current.children[idx].scale.set(
+                //                 animThreeVal(products.current.children[idx].scale.x, 0, progress),
+                //                 animThreeVal(products.current.children[idx].scale.y, 0, progress),
+                //                 animThreeVal(products.current.children[idx].scale.y, 0, progress)
+                //             )
+                //         }, { duration: 0.4}
+                //     )
+                // }
                 gsap.to(products.current.children[idx].scale, {x: 0, y: 0, z: 0, duration: .8, ease: 'expo.out', overwrite: true})
             }
         })
     }, [index])
 
-    function animThreeValRot(oldVal, newVal, y) {
-        return Math.PI * (oldVal + ((-oldVal + newVal) * y.progress))
+    function animThreeValRot(oldVal, newVal, prog) {
+        return Math.PI * (oldVal + ((-oldVal + newVal) * prog))
     }
-    function animThreeVal(oldVal, newVal, y) {
-        return oldVal + ( (-oldVal + newVal) * y.progress)
+    function animThreeVal(oldVal, newVal, prog) {
+        return oldVal + ( (-oldVal + newVal) * prog)
     }
     useEffect(() => {
-        // if (window.innerWidth > 991) {
-        // } else if (window.innerWidth > 767) {
-        //     setScaleOffset(2)
-        // } else {
-        //     setScaleOffset(1.5)
-        // }
-        // const sequence = [
-        //     animate(productsWrap.current.position, {x: -.3, y: 0, z: 0}, {duration: 1})
-        // ]
-        console.log(productsWrap.current.position)
+        if (window.innerWidth > 991) {
+        } else if (window.innerWidth > 767) {
+            setScaleOffset(2)
+        } else {
+            setScaleOffset(1.5)
+        }
+
         let leftOffset = window.innerWidth > 767 ? ut.offset(ut.dom('.home-prod-cards')).left + ut.dom('.home-prod-cards').clientWidth / 2 - window.innerWidth / 2 : 0;
         let scrollDis = ut.offset(ut.dom('.home-prod-cards')).top - ((window.innerHeight - ut.dom('.home-prod-cards-inner').clientHeight) / 2);
-        console.log(scrollDis)
         scroll(({y}) => {
             if (y.progress >= 0 && y.progress < 1) { 
-                productsWrap.current.position.set(animThreeVal(1.2, -.3, y), animThreeVal(-.65, 0, y), 0)
-                productsWrap.current.rotation.set(animThreeValRot(.25, -1, y), animThreeValRot(-.28, 0, y), animThreeValRot(.165, -.05, y))
+                productsWrap.current.position.set(animThreeVal(1.2 / scaleOffset, -.3 / scaleOffset, y.progress), animThreeVal(-.65 / scaleOffset, 0 / scaleOffset, y.progress), 0)
+                productsWrap.current.rotation.set(animThreeValRot(.25, -1, y.progress), animThreeValRot(-.28, 0, y.progress), animThreeValRot(.165, -.05, y.progress))
             }
-            forkWrap.current.scale.set(animThreeVal(11, 5, y), animThreeVal(11, 5, y), animThreeVal(11, 5, y))
-            forkWrap.current.position.set(animThreeVal(1.4, 2, y), animThreeVal(1.2, 3, y), animThreeVal(-.4, -1, y))
-            forkWrap.current.rotation.set(animThreeValRot(.6, .75, y),animThreeValRot(-.1, .2, y), animThreeValRot(.33, .4, y))
+            forkWrap.current.scale.set(animThreeVal(11 / scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 / scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 / scaleOffset, 5 / scaleOffset, y.progress))
+            forkWrap.current.position.set(animThreeVal(1.4 / scaleOffset, 2 / scaleOffset, y.progress), animThreeVal(1.2 / scaleOffset, 3 / scaleOffset, y.progress), animThreeVal(-.4 / scaleOffset, -1 / scaleOffset, y.progress))
+            forkWrap.current.rotation.set(animThreeValRot(.6, .75, y.progress),animThreeValRot(-.1, .2, y.progress), animThreeValRot(.33, .4, y.progress))
         }, {
             offset: ['start start', `${scrollDis * .4}px start`]
         })
@@ -79,61 +93,32 @@ function Content({...props}) {
         scroll(({y}) => {
             if (y.progress > 0 && y.progress <= 1) {
                 animate('.home-hero-three-stick-inner', {x: leftOffset * y.progress}, {duration: 0})
-                productsWrap.current.position.set(animThreeVal(-.3, 0, y), animThreeVal(0, -.15, y), 0)
-                productsWrap.current.rotation.set(animThreeValRot(-1, -1.91, y), animThreeValRot(0, .33, y), animThreeValRot(-.05, 0, y))
+                productsWrap.current.position.set(animThreeVal(-.3 / scaleOffset, 0 / scaleOffset, y.progress), animThreeVal(0 / scaleOffset, -.15 / scaleOffset, y.progress), 0)
+                productsWrap.current.rotation.set(animThreeValRot(-1, -1.91, y.progress), animThreeValRot(0, .33, y.progress), animThreeValRot(-.05, 0, y.progress))
             }
         }, {
             offset: [`${scrollDis * .4}px start`, `${scrollDis}px start`]
         })
         scroll(({y}) => {
             if (y.progress >= 0 && y.progress < 1) { 
-                productsWrap.current.scale.set(animThreeVal(11, 5, y), animThreeVal(11, 5, y), animThreeVal(11, 5, y))
+                productsWrap.current.scale.set(animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress))
             }
         }, {
             offset: ['start start', `${scrollDis * .6}px start`]
         })
         scroll(({y}) => {
             if (y.progress > 0 && y.progress <= 1) {
-                productsWrap.current.scale.set(animThreeVal(5, 7, y), animThreeVal(5, 7, y), animThreeVal(5, 7, y))
+                productsWrap.current.scale.set(animThreeVal(5 / scaleOffset, 7 / scaleOffset, y.progress), animThreeVal(5 / scaleOffset, 7 / scaleOffset, y.progress), animThreeVal(5 / scaleOffset, 7 / scaleOffset, y.progress))
             }
         }, {
             offset: [`${scrollDis * .6}px start`, `${scrollDis}px start`]
         })
-        // gsap.registerPlugin(ScrollTrigger)
-        // const tl = gsap.timeline({
-        //     scrollTrigger: {
-        //         trigger: '.home-hero',
-        //         start: 'top top',
-        //         endTrigger: '.home-prod-cards-inner',
-        //         end: 'center center',
-        //         scrub: true,
-        //     },
-        //     defaults: {
-        //         ease: 'linear'
-        //     }
-        // })
-        // let leftOffset = window.innerWidth > 767 ? ut.offset(ut.dom('.home-prod-cards')).left + ut.dom('.home-prod-cards').clientWidth / 2 - props.width / 2 : 0;
-        
-        // tl
-        // .to(productsWrap.current.scale, {duration: 1, x: 5, y: 5, z: 5})
-        // .to(productsWrap.current.position, {duration: 1, x: -.3, y: 0, z: 0}, 0)
-        // .to(productsWrap.current.rotation, {duration: 1, x: Math.PI * -1, y: Math.PI * .15, z: - Math.PI * .05}, 0)
-        // // rotX: .25
-        // .to(forkWrap.current.scale, {duration: 1, x: 9, y: 9, z: 9}, 0)
-        // .to(forkWrap.current.position, {duration: 1, x: .2, y: 3}, 0)
-        // .to(forkWrap.current.rotation, {duration: 1, x: Math.PI * .75, y: -Math.PI * .2, z: -Math.PI * .4}, 0)
-        
-        // .to(productsWrap.current.scale, {duration: 1, x: 7, y: 7, z: 7})
-        // .to('.home-hero-three-stick-inner', {x: leftOffset, duration: 1}, '<=0')
-        // .to(productsWrap.current.position, {duration: 1, x: 0, y: -.15}, '<=0')
-        // .to(productsWrap.current.rotation, {duration: 1, x: Math.PI * -1.91, y: Math.PI * .33, z: 0}, '<=0')
-        // // rotX: .09
-    }, [])
+    }, [scaleOffset])
     return (
         <>
             <group ref={wrap}>
-                <group ref={productsWrap} scale={[11, 11, 11]} 
-                    position={[1.2, -.65, 0]} 
+                <group ref={productsWrap} scale={[11 /scaleOffset, 11 /scaleOffset, 11 /scaleOffset]} 
+                    position={[1.2 / scaleOffset, -.65 / scaleOffset, 0]} 
                     rotation={[Math.PI * .25, -Math.PI * .28, Math.PI * .165]}>
                     <group ref={products}>
                         {props.list.map((item, idx) => {
@@ -166,8 +151,8 @@ function Content({...props}) {
                         })}
                     </group>
                 </group>
-                <group ref={forkWrap} scale={[11, 11, 11]}
-                    position={[1.4, 1.2, -.4]}
+                <group ref={forkWrap} scale={[11 / scaleOffset, 11 / scaleOffset, 11 / scaleOffset]}
+                    position={[1.4 / scaleOffset, 1.2 / scaleOffset, -.4 / scaleOffset]}
                     rotation={[Math.PI * .6, -Math.PI * .1, Math.PI * .33]}>
                     <mesh ref={fork}>
                         <Fork material={<CustomMaterial color='#F9833A' roughness={.2} />} />
@@ -185,14 +170,8 @@ function Content({...props}) {
 function HomeHeroThree({...props}) {
     const { width, height } = useWindowSize();
     const threeRef = useRef();
-    // let perspective = height / 100;
-    // let fov = ((Math.atan(height / 10 / perspective) * 2) * 180 / Math.PI) / 10;
     let perspective = 5 ;
     let fov = 30;
-    console.log('fov: ' + fov )
-    // useGSAP(() => {
-    //     gsap.from(threeRef.current, { ease: "power4.out", autoAlpha: 0, duration: 2, clearProps: 'all' }, .8)
-    // }, { scope: threeRef })
     if (width == 0) {
         return;
     } else {
@@ -208,6 +187,5 @@ function HomeHeroThree({...props}) {
             </div>
         )
     }
-    
 }
 export default HomeHeroThree;
