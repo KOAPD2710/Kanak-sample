@@ -76,7 +76,7 @@ function HomeBrandThree({...props}) {
     if (width == 0) {
         return
     } else {
-        let perspective = height / 250;
+        let perspective = 4;
         let fov = 60;
         return (
             <>
