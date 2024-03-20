@@ -272,8 +272,12 @@
                         }
                     }
 
-                    &[disabled] .ic {
-                        opacity: .2;
+                    &[disabled] {
+                        pointer-events: none;
+
+                        .ic {
+                            opacity: .2;
+                        }
                     }
 
                     @media (hover: hover) {
