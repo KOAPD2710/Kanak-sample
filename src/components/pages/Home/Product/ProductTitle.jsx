@@ -4,7 +4,6 @@ import { stagger, inView, timeline, animate, scroll } from "motion"
 import { useRef, useEffect } from 'react';
 
 function HomeProductTitle(props) {
-    const ref = useRef();
     useEffect(() => {
         const text = new SplitType('.home-prod-title', { types: 'lines, words, chars', lineClass: 'split-line'});
 
@@ -13,7 +12,7 @@ function HomeProductTitle(props) {
         ];
         scroll(
             timeline(sequence),{
-            target: ref.current,
+            target: document.querySelector('.home-prod-title-wrap'),
             offset: ["start end", "end 45vh"]
         })
 
@@ -23,7 +22,7 @@ function HomeProductTitle(props) {
           }, { margin: "-40% 0px -40% 0px" });
     }, [])
     return (
-        <div className="home-prod-title-wrap" ref={ref}>
+        <div className="home-prod-title-wrap">
             <h2 className="heading h1 txt-up txt-black home-prod-title">
                 {props.prod_sub_title}
             </h2>

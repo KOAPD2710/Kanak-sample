@@ -14,7 +14,7 @@ const ContactItem = ({ label, content, link="#", target }) => {
 }
 const MenuItem = ({ link = "#", children }) => {
     return (
-        <a href={link} className="ft-right-body-link txt-link">
+        <a href={link} className="ft-right-body-link txt-link-child">
             <div className="dot"></div>
             <div className="txt txt-18 txt-med ft-right-body-link-txt">{children}</div>
         </a>
@@ -111,7 +111,7 @@ function GlobalFooter(props) {
                                 {props.imgLinkedIn}
                             </a>
                         </div>
-                        <a href="/contact" className="heading h1 txt-up txt-black ft-left-body-title txt-link">
+                        <a href="/contact" className="heading h1 txt-up txt-black ft-left-body-title txt-link-bold">
                             Let's talk!
                         </a>
                     </div>
@@ -157,8 +157,8 @@ function GlobalFooter(props) {
                         <MenuItem>Sustainability</MenuItem>
                         <MenuItem>Logistics Capabilities</MenuItem>
                         <MenuItem>Distribution Network</MenuItem>
-                        <MenuItem>Resources</MenuItem>
-                        <MenuItem>Kareers</MenuItem>
+                        <MenuItem link="/resources">Resources</MenuItem>
+                        <MenuItem link="/kareers">Kareers</MenuItem>
                     </MenuColumn>
                 </div>
                 <div className='ft-copyright-mb'>

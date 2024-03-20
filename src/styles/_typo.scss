@@ -192,24 +192,59 @@ html {
             transform-origin: right;
             @include transition(transform .5s ease);
         }
-
-            &:hover {
-                color: var(--cl-orange);
-
+        &:hover {
+            color: var(--cl-orange);
             &:after {
                 @include transform(scaleX(1));
                 transform-origin: left;
             }
         }
-        &-white:hover {
-            color: var(--cl-txt-light);
-
-            &:after {
-                @include transform(scaleX(1));
-                transform-origin: left;
+        &-child {
+            .dot {
+                transition: background-color 400ms ease;
+            }
+            .txt {
+                display: inline-block;
+                vertical-align: bottom;
+                transition: color 400ms ease;
+                position: relative;
+                &:after {
+                    pointer-events: none;
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    bottom: -0.14em;
+                    width: 100%;
+                    height: .2rem;
+                    background-color: currentColor;
+                    @include transform(scaleX(0));
+                    transform-origin: right;
+                    @include transition(transform .5s ease);
+                }
+            }
+            &:hover {
+                .dot {
+                    background-color: var(--cl-orange);
+                }
+                .txt {
+                    color: var(--cl-orange);
+                    &:after {
+                        @include transform(scaleX(1));
+                        transform-origin: left;
+                    }  
+                }
+                 
+            }
+        }
+        &-bold {
+            transition: color 400ms ease;
+            &:hover {
+                color: var(--cl-orange);
             }
         }
     }
+    
+    
     &-bg-link {
         transition: background-color 400ms ease;
         &:hover {
