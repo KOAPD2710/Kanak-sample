@@ -1,0 +1,142 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.kustomer-commit {
+    background-color: var(--cl-bg-dark);
+    background: var(--bg-txt-dark) repeat;
+    background-size: 20rem auto;
+    color: var(--cl-txt-light);
+    padding-top: 18rem;
+
+    &-subtitle {
+        grid-column: 1/-1;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 3.2rem;
+    }
+
+    &-title {
+        grid-column: 1/-1;
+        width: 131.6rem;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 12rem;
+    }
+
+    &-main {
+        position: relative;
+        grid-column: 1/-1;
+
+        &-wrapper {
+            margin-left: calc(var(--container-padding) * -1);
+            margin-right: calc(var(--container-padding) * -1);
+        }
+
+        &-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            column-gap: var(--grid-gap);
+            align-items: center;
+            justify-items: center;
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            padding-left: var(--container-padding);
+            padding-right: var(--container-padding);
+            z-index: 1;
+
+            &>* {
+                z-index: 2;
+            }
+
+            &-title {
+                grid-column: 1/11;
+                justify-self: start;
+                transition: color .4s ease;
+            }
+
+            &-des {
+                grid-column: 12/-1;
+                opacity: .6;
+            }
+
+            &-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--cl-bg-dark);
+                opacity: 0;
+                z-index: 1;
+                transition: opacity .4s ease;
+            }
+
+            &:nth-child(n+2) {
+                margin-top: -.2rem;
+            }
+
+            .line {
+                position: absolute;
+                width: calc(100% - var(--container-padding) * 2);
+                transition: width .4s ease;
+
+                &:nth-last-child(2) {
+                    top: 0;
+                }
+
+                &:last-child {
+                    bottom: 0;
+                }
+            }
+
+            @media (hover: hover) {
+                &:hover {
+                    z-index: 2;
+
+                    .kustomer-commit-main-item {
+                        &-title {
+                            color: var(--cl-orange);
+                        }
+
+                        &-bg {
+                            opacity: 1;
+                        }
+                    }
+
+                    .line {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        &-thumb {
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include size(100%);
+            z-index: 10;
+
+            &-wrapper {
+                position: relative;
+                @include size(40rem);
+            }
+
+            &-item {
+                position: absolute;
+                top: 0;
+                left: 0;
+                @include size(100%);
+                opacity: 0;
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

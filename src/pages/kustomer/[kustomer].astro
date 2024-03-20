@@ -5,10 +5,19 @@ import Hero from "@pages/Kustomer/Hero/Hero.astro";
 import Premble from "@pages/Kustomer/Premble/Premble.astro";
 import Client from "@pages/Kustomer/Client/Client.astro";
 import Service from "@pages/Kustomer/Service/Service.astro";
+import Explore from "@pages/Kustomer/Explore/Explore.astro";
+import Commitment from "@pages/Kustomer/Commitment/Commitment.astro";
+import CaseStudy from "@/components/pages/Kustomer/CaseStudies/Casestudies.astro";
 
 import ImgSer1 from "@assets/kustomer-service1.jpg";
 import ImgSer2 from "@assets/kustomer-service2.jpg";
 import ImgSer3 from "@assets/kustomer-service3.jpg";
+import icPremium from "@assets/kustomer-premium.svg";
+import icInsight from "@assets/kustomer-insight.svg";
+import icInspect from "@assets/kustomer-inspect.svg";
+import icFormula from "@assets/kustomer-formula.svg";
+import icAwward from "@assets/kustomer-awward.svg";
+import icHeart from "@assets/kustomer-heart.svg";
 
 export async function getStaticPaths() {
     const list = await getAllByType("industry");
@@ -31,7 +40,112 @@ const serviceData = [
             "Elevating your aisles, our eco-friendly dinnerware meets the needs of today's conscious consumer.",
         image: ImgSer1,
     },
+    {
+        title: "Mass retailers",
+        describe:
+            "Scale your impact and sustainability efforts with products designed for the diverse needs of a broad customer base.",
+        image: ImgSer2,
+    },
+    {
+        title: "Club retailers",
+        describe:
+            "Enhance club members' experience with bulk, eco-friendly options that don't compromise on quality.",
+        image: ImgSer3,
+    },
 ];
+const commitData = [
+    {
+        tag: "premium",
+        title: "Custom-Sized Premium Packaging",
+        describle:
+            "Tailored to perfection, our packaging is custom-sized to match your servings, enhancing your product presentation and customer experience.",
+        thumb: icPremium,
+    },
+    {
+        tag: "awward",
+        title: "Unmatched Quality and Punctuality",
+        describle:
+            "Experience our commitment to excellence with a guarantee of the highest quality and on-time delivery, backed by a solid track record.",
+        thumb: icAwward,
+    },
+    {
+        tag: "inspect",
+        title: "Rigorous Inspection for Flawless Results",
+        describle:
+            "Rest assured, every product from Kanak Naturals undergoes 100% inspection, ensuring impeccable quality every time.",
+        thumb: icInspect,
+    },
+    {
+        tag: "formula",
+        title: "Industry-Leading No Added PFAS Formula",
+        describle:
+            "Leading the charge since 2019, our No Added PFAS formula sets industry benchmarks, offering you the safest, most sustainable packaging solutions.",
+        thumb: icFormula,
+    },
+    {
+        tag: "insight",
+        title: "Insights to Keep You Ahead",
+        describle:
+            "Stay at the forefront of retail trends with our regular updates on market intelligence, keeping your offerings fresh and competitive.",
+        thumb: icInsight,
+    },
+    {
+        tag: "heart",
+        title: "Stable Pricing, Reliable Planning",
+        describle:
+            "Benefit from our long-term price commitments, giving you the financial stability to plan for the future with confidence.",
+        thumb: icHeart,
+    },
+];
+const exploreData = [
+    {
+        label: "private label",
+        title: "Your Shelf, Our Standard: Superior Private Label Solutions",
+        list: [
+            {
+                title: "National Brand Quality, Kanak Naturals Craftsmanship",
+                describle:
+                    "Match the best with our full suite of Chinet® equivalent eco-plates, platters, bowls, and cups that boast equal or superior strength and meet strict compostability standards.",
+            },
+            {
+                title: "Retail Ready in Real-Time",
+                describle:
+                    "Ample inventory kept ready to swiftly meet any surge in demand or unexpected shifts in the market.",
+            },
+            {
+                title: "Efficient Packaging, Fast Delivery",
+                describle:
+                    "Leverage our mix-and-match palletizing options for shelf-ready products, all packaged in our Fort Wayne clean room using top-quality, domestically sourced materials, with same-day order processing and allocation.",
+            },
+        ],
+    },
+    {
+        label: "CUSTOM PACKAGING SOLUTIONS",
+        title: "Custom Packaging That Tells Your Story",
+        list: [
+            {
+                title: "Customizable Packaging",
+                describle:
+                    "Tailor packaging to exact specifications, including shapes, sizes, embossing, and printing.",
+            },
+            {
+                title: "Innovation Partner",
+                describle:
+                    "Serve as a collaborative partner in innovation, meticulously designing standout packaging that complies with safety and regulatory standards.",
+            },
+            {
+                title: "Brand-Centric Approach",
+                describle:
+                    "Prioritize your brand's integrity as the blueprint for creating captivating and customer-satisfying packaging.",
+            },
+        ],
+    },
+];
+
+const listCaseStudy = await getAllByType("case_study");
+const filterList = listCaseStudy.filter(
+    (item) => item.data.category.toLowerCase().replace(" ", "-") === kustomer,
+);
 ---
 
 <Layout title={item.data.title}>
@@ -43,4 +157,7 @@ const serviceData = [
         client_list={data.client_list}
     />
     <Service list={serviceData} />
+    <Explore list={exploreData} />
+    <Commitment list={commitData} />
+    <CaseStudy list={filterList} />
 </Layout>

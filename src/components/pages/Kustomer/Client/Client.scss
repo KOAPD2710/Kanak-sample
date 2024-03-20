@@ -1,8 +1,6 @@
 @use '@styles/mixins' as *;
 
 .home-client {
-    padding-bottom: 7rem;
-
     @include sm {
         padding-bottom: 6rem;
     }

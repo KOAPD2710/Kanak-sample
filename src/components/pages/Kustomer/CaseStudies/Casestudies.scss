@@ -1,0 +1,79 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.kustomer-kasestu {
+    padding-top: 16rem;
+
+    &-label {
+        margin-bottom: 2rem;
+        grid-column: 1/-1;
+    }
+
+    &-title {
+        grid-column: 1/10;
+        max-width: 100rem;
+    }
+
+    &-des {
+        grid-column: 12/-1;
+        align-self: end;
+
+        &-content {
+            margin-bottom: 4rem;
+        }
+
+        &-link {
+            color: var(--cl-orange);
+        }
+    }
+
+    &-main {
+        grid-column: 1/-1;
+        margin-top: 10rem;
+
+        &-wrapper {
+            display: flex;
+        }
+
+        &-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 6rem;
+            @include size(75.4rem, 57.1rem);
+
+            .line-ver {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            &-label {}
+
+            &-title {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                min-height: calc(3 * var(--lh-h3));
+            }
+
+            &-bot {
+                display: flex;
+                margin-top: auto;
+                justify-content: space-between;
+
+                &-img {
+                    @include size(15rem, 18.8rem);
+                }
+
+                &-readmore {
+                    align-self: end;
+                    display: flex;
+                    column-gap: .8rem;
+                }
+            }
+        }
+    }
+
+}
