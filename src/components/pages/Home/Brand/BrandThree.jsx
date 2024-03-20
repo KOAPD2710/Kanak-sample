@@ -19,39 +19,6 @@ function Content({...props}) {
     const brands = useRef()
     useEffect(() => {
         console.log('init three')
-        // if (activeIndex == 1) {
-        //     gsap.to(brands.current.rotation, {
-        //         x: Math.PI * .1, y: -Math.PI * 1.45, z: 0
-        //     })
-        //     gsap.to(brands.current.children[0].children[0].rotation, {
-        //         x: Math.PI * .15, y: -Math.PI * 1.1, z: Math.PI * .1
-        //     })
-        //     gsap.to(brands.current.children[0].children[0].position, {
-        //         x: .2, y: -.05, z: -.075
-        //     })
-        //     gsap.to(brands.current.children[1].children[0].rotation, {
-        //         x: -Math.PI * .1, y: 0, z: -Math.PI * .1
-        //     })
-        //     gsap.to(brands.current.children[1].children[0].position, {
-        //         x: -.05, y: -.065, z: .05
-        //     })
-        // } else {
-        //     gsap.to(brands.current.rotation, {
-        //         x: Math.PI * .1, y: -Math.PI * .45, z: 0
-        //     })
-        //     gsap.to(brands.current.children[0].children[0].rotation, {
-        //         x: -Math.PI * .25, y: -Math.PI * .15, z: Math.PI * .1
-        //     })
-        //     gsap.to(brands.current.children[0].children[0].position, {
-        //         x: .2, y: 0, z: 0
-        //     })
-        //     gsap.to(brands.current.children[1].children[0].rotation, {
-        //         x: -Math.PI * .1, y: 0, z: -Math.PI * .1
-        //     })
-        //     gsap.to(brands.current.children[1].children[0].position, {
-        //         x: -.8, y: -.2, z: 0
-        //     })
-        // }
         if (activeIndex == 1) {
             gsap.to(brandsWrap.current.rotation, {x: Math.PI * 1,  duration: .8})
             gsap.to(brands.current.children[0].children[0].position, {x: -.1, z: .2, duration: .8})

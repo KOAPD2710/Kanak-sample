@@ -16,6 +16,7 @@ function HomeProduct(props) {
         productIndex.set(index + 1);
     }
     useEffect(() => {
+        console.log('init')
         scroll(({y}) => {
             if (y.progress >= .9) {
                 sectionRef.current.classList.add('active')
