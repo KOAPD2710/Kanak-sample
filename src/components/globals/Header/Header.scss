@@ -41,11 +41,12 @@
     }
     &-main {
         grid-column: 1/11;
+        grid-row: 1/2;
         @include md {
-            grid-column: span 12;
+            grid-column: 1/13;
         }
         @include sm {
-            grid-column: span 4;
+            grid-column: 1/5;
         }
         &-inner {
             display: flex;
@@ -89,7 +90,7 @@
         column-gap: .8rem;
         padding-top: 2rem;
         @include md {
-            grid-column: span 12;
+            grid-column: span 7;
         }
         @include sm {
             grid-column: span 4;
@@ -136,6 +137,35 @@
 
         @include md {
             display: none;
+        }
+    }
+    &-toggle {
+        display: none;
+        z-index: 5;
+        grid-column: 11/17;
+        grid-row: 1/2;
+        @include md {
+            grid-column: 8/13;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+        @include sm {
+            grid-column: 3/5;
+        }
+        &-link {
+            display: grid;
+            height: 100%;
+            align-items: center;
+            &-txt {
+                grid-column: 1/2;
+                grid-row: 1/2;
+                opacity: 0;
+                transition: opacity 400ms ease;
+                &.active {
+                    opacity: 1;
+                }
+            }
         }
     }
 }

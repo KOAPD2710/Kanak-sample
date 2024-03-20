@@ -20,15 +20,15 @@ function ResourceMain({ ...props }) {
         e.preventDefault()
         var currentURL = props.url;
         navigator.clipboard.writeText(currentURL)
-            .then(function () {
-                setOpenTooltip(true)
-                setTimeout(() => {
-                    setOpenTooltip(false)
-                }, 2000)
-            })
-            .catch(function (err) {
-                console.error('Failed to copy: ', err);
-            });
+        .then(function () {
+            setOpenTooltip(true)
+            setTimeout(() => {
+                setOpenTooltip(false)
+            }, 2000)
+        })
+        .catch(function (err) {
+            console.error('Failed to copy: ', err);
+        });
     }
     return (
         <section className="resource-dtl">

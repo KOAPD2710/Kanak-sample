@@ -80,7 +80,9 @@ function HomeProduct(props) {
             <div className="home-prod-pdf">
                 <a href="#" className="home-prod-pdf-link">
                     <div className="home-prod-pdf-link-ic">
-                        {props.PDFIcon}
+                        <div className="ic ic-32">
+                            {props.PDFIcon}    
+                        </div>
                     </div>
                     <div className="txt txt-20 txt-med home-prod-pdf-link-txt">
                         Download Catalog

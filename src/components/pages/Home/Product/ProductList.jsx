@@ -32,17 +32,20 @@ function HomeProductList(props) {
                 })
             }, { margin: "-10% 0px -10% 0px" });
         });
-        animate('.home-prod-pdf-link', {opacity: 0, x: -10}, {duration: 0})
-        inView('.home-prod-pdf-link', () => {
-            animate('.home-prod-pdf-link', {opacity: 1, x: 0}, {duration: .6, delay: .2})
+        animate('.home-prod-pdf', {opacity: 0, x: -10}, {duration: 0})
+        inView('.home-prod-pdf', () => {
+            animate('.home-prod-pdf', {opacity: 1, x: 0}, {duration: .6, delay: .2}).finished.then(() => {
+                document.querySelector('.home-prod-pdf').removeAttribute('style')
+            })
         }, { margin: "-10% 0px -10% 0px" })
     }, [])
     return(
         <div className="home-prod-main">
             <div className="home-prod-main-list">
                 {props.list.map((item, idx) => (
-                    <div
+                    <a
                         key={idx}
+                        href='#'
                         className={`home-prod-main-item${idx == index ? ' active' : ''}`}
                         onMouseEnter={() => productIndex.set(idx)}
                     >
@@ -58,7 +61,7 @@ function HomeProductList(props) {
                         {idx == props.list.length - 1 && (
                             <div className="line line-bottom"></div>
                         )}
-                    </div>
+                    </a>
                 ))}
             </div>
         </div>

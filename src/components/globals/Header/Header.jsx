@@ -51,6 +51,16 @@ function HeaderGlobal(props) {
                             From plant to product to compost and back again, Kanak is all about coming full circle.
                         </div>
                     </div>
+                    <div className="header-toggle">
+                        <button className="txt txt-16 txt-semi txt-up header-toggle-link">
+                            <span className="header-toggle-link-txt header-toggle-link-txt-open active">
+                                Menu
+                            </span>
+                            <span className="header-toggle-link-txt header-toggle-link-txt-close">
+                                Close
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </header>
             <div className="header header-div-sub">

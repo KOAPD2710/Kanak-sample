@@ -7,7 +7,6 @@ import Perk from "@/components/pages/Kareers/Perk/Perk.astro";
 import Cta from "@/components/pages/Kareers/Cta/Cta.astro";
 import { getPage } from "@/prismic.js";
 const { data } = await getPage("kareers");
-console.log(data.culture_list)
 ---
 <Layout title="Kareers">
     <Hero/>
