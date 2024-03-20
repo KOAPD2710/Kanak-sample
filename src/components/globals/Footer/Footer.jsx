@@ -4,7 +4,7 @@ import './Footer.scss';
 import useDevice from '@hooks/useDevice';
 import { getLenis } from '@/components/core/lenis';
 
-const ContactItem = ({ label, content, link="#", target }) => {
+const ContactItem = ({ label, content, link = "#", target }) => {
     return (
         <div className="ft-left-body-list-item">
             <div className="txt txt-18 txt-med ft-left-body-label">{label}</div>
@@ -31,9 +31,9 @@ const MenuColumn = ({ title, children, tail, tail_link, isOpen, onClick, onClick
                 <div className="line line-bottom"></div>
                 {isMobile && (
                     <div className='ic ic-20 ft-right-head-title-arr'>
-                    <svg width="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.41 8.58997L12 13.17L16.59 8.58997L18 9.99997L12 16L6 9.99997L7.41 8.58997Z" fill="#212121"/>
-                    </svg>
+                        <svg width="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.41 8.58997L12 13.17L16.59 8.58997L18 9.99997L12 16L6 9.99997L7.41 8.58997Z" fill="#212121" />
+                        </svg>
                     </div>
                 )}
             </button>
@@ -42,8 +42,8 @@ const MenuColumn = ({ title, children, tail, tail_link, isOpen, onClick, onClick
                     ref={contentHeight}
                     style={
                         isOpen
-                        ? { height: contentHeight.current.scrollHeight }
-                        : { height: "0px" }
+                            ? { height: contentHeight.current.scrollHeight }
+                            : { height: "0px" }
                     }>{children}</div>)
                 : (
                     <div className="ft-right-body">
@@ -58,7 +58,7 @@ const MenuColumn = ({ title, children, tail, tail_link, isOpen, onClick, onClick
                         {tail}
                     </a>
                 ) : (
-                    <button onClick={() => onClickTail && onClickTail()}className="txt txt-12 txt-bold txt-up ft-right-tail-link txt-link">
+                    <button onClick={() => onClickTail && onClickTail()} className="txt txt-12 txt-bold txt-up ft-right-tail-link txt-link">
                         {tail}
                     </button>
                 )}
@@ -89,7 +89,7 @@ function GlobalFooter(props) {
     return (
         <footer className="ft bg-light">
             <div className="container grid">
-            <div className="line line-top"></div>
+                <div className="line line-top"></div>
                 <div className="ft-left">
                     <div className="ft-head">
                         <div className="ft-logo">
@@ -102,9 +102,9 @@ function GlobalFooter(props) {
                     </div>
                     <div className="ft-left-body">
                         <div className="ft-left-body-list">
-                            <ContactItem label="Get in touch" content="info@kanaknaturals.com" link="mailto:info@kanaknaturals.com"/>
-                            <ContactItem label="Contact" content="+1 (260) 490 4790" link="tel:+1 (260) 490 4790"/>
-                            <ContactItem label="Headquarters" content="321 Hovan Drive, Fort Wayne, IN 46825, US" link="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target="_blank"/>
+                            <ContactItem label="Get in touch" content="info@kanaknaturals.com" link="mailto:info@kanaknaturals.com" />
+                            <ContactItem label="Contact" content="+1 (260) 490 4790" link="tel:+1 (260) 490 4790" />
+                            <ContactItem label="Headquarters" content="321 Hovan Drive, Fort Wayne, IN 46825, US" link="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target="_blank" />
                         </div>
                         <div className="ft-left-body-social">
                             <a href="#" className="ft-left-body-social-item txt-bg-link hide-mb">
@@ -150,7 +150,7 @@ function GlobalFooter(props) {
                         tail="Back to top"
                         isOpen={activeIndex === 2}
                         onClick={() => accordionClick(2)}
-                        onClickTail={() => {getLenis().scrollTo(0)}}
+                        onClickTail={() => { getLenis().scrollTo(0) }}
                     >
                         <MenuItem>Our story</MenuItem>
                         <MenuItem>Awards and Endorsements</MenuItem>
@@ -162,6 +162,11 @@ function GlobalFooter(props) {
                     </MenuColumn>
                 </div>
                 <div className='ft-copyright-mb'>
+                    <div className="txt txt-12 txt-bold ft-copyright-mb-wrap">
+                        <a href="/terms-and-conditions" className="txt-link ft-copyright-mb-link">TERMS & CONDITIONS</a>
+                        <span className="ft-copyright-mb-div">-</span>
+                        <a href="/privacy-policy" className="txt-link ft-copyright-mb-link">PRIVACY POLICY</a>
+                    </div>
                     <CopyRight>{props.currYear}</CopyRight>
                 </div>
             </div>

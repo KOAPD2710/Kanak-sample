@@ -61,13 +61,13 @@ function CaseMain({ ...props }) {
                 <FilterItem name={'All'}
                     count={allItem.length}
                     isActive={filter == 'All'}
-                    onClick={(e) => { filterList(e); setCategoryToggle(!categoryToggle) }}
+                    onClick={(e) => { filterList(e); setCategoryToggle(false) }}
                 />
                 {props.cateList.map((el, idx) => (
                     <FilterItem name={el}
                         count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterList(e); setCategoryToggle(!categoryToggle) }}
+                        onClick={(e) => { filterList(e); setCategoryToggle(false) }}
                         key={idx} />
                 ))}
             </>

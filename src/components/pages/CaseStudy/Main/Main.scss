@@ -111,6 +111,8 @@
                     }
 
                     &[disabled] {
+                        pointer-events: none;
+
                         .ic {
                             opacity: .2;
                         }

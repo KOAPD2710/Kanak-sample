@@ -73,11 +73,12 @@
                     margin-top: 2rem;
                     border: solid .2rem var(--cl-txt);
                     opacity: 0;
-                    
+
                     padding: .8rem 1.2rem;
                     pointer-events: none;
                     transition: all .6s ease;
                     transform: translateY(1rem);
+
                     &.active {
                         transform: none;
                         opacity: 1;
@@ -271,8 +272,12 @@
                         }
                     }
 
-                    &[disabled] .ic {
-                        opacity: .2;
+                    &[disabled] {
+                        pointer-events: none;
+
+                        .ic {
+                            opacity: .2;
+                        }
                     }
 
                     @media (hover: hover) {
@@ -649,9 +654,16 @@
             }
 
             &-item {
+
+                &.link {
+                    align-items: center;
+                }
+
                 &-link {
                     &-tooltip {
-                        bottom: -3rem;
+                        position: static;
+                        margin-top: 0;
+                        transform: translateY(0);
                     }
                 }
             }
@@ -760,7 +772,7 @@
 
                     &.all-loaded {
                         .resource-dtl-rel-main-inner-group:last-child {
-                            .resource-dtl-rel-main-inner-group-item {
+                            .resource-dtl-rel-main-inner-group-item:last-child {
                                 .line:not(.line-ver) {
                                     display: none;
                                 }

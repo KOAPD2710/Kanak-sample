@@ -72,13 +72,13 @@ function ResourceMainList(props) {
                 <FilterItem name={'All'}
                     count={allItem.length}
                     isActive={filter == 'All'}
-                    onClick={(e) => { filterList(e), setCategoryToggle(!categoryToggle) }}
+                    onClick={(e) => { filterList(e), setCategoryToggle(false) }}
                 />
                 {cateList.map((el, idx) => (
                     <FilterItem name={el}
                         count={allItem.filter(({ data }) => data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterList(e); setCategoryToggle(!categoryToggle) }}
+                        onClick={(e) => { filterList(e); setCategoryToggle(false) }}
                         key={idx} />
                 ))}
             </>
@@ -105,6 +105,10 @@ function ResourceMainList(props) {
             setItemList(filterList)
         }
     }, [filter])
+
+    useEffect(() => {
+        console.log(categoryToggle);
+    }, [categoryToggle])
 
     return (
         <div className="resource-main-list">
