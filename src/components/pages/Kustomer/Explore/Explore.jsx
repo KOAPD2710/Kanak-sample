@@ -3,6 +3,7 @@ import ExploreItem from "./ExploreItem"
 
 function KustomerExplore({ ...props }) {
     const allItem = props.list
+    console.log(allItem);
     return (
         <section className="kustomer-explore">
             <div className="container grid">

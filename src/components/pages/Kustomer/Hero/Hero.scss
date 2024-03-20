@@ -4,7 +4,6 @@
 
 .kustomer-hero {
     padding-top: 23.1rem;
-    height: 100vh;
     background-color: var(--cl-bg-dark);
     background: var(--bg-txt-dark) repeat;
     background-size: 20rem auto;
@@ -28,7 +27,6 @@
         padding-bottom: 5rem;
         align-items: end;
         margin-top: 10rem;
-        height: calc(100vh - 71.1rem);
 
         &-middle {
             order: 2;

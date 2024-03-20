@@ -36,7 +36,7 @@ function ResourceMain({ ...props }) {
                 <div className="txt txt-20 txt-bold resource-dtl-bread">
                     <a href="/">Home</a>
                     <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-                    <a href="/resources">Resource</a>
+                    <a href="/resources">Resources</a>
                     <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
                     <a href={`/resources/${props.data.category.toLowerCase().replaceAll(" ", "-")}`}>
                         {props.data.category}

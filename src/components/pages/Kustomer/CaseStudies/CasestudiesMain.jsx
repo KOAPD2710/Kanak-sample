@@ -3,9 +3,9 @@ import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
 
 function CaseStudiesItem({ ...props }) {
+    console.log(props);
     return (
         <a href={`/kase-studies/${props.data.uid}`} className="keen-slider__slide kustomer-kasestu-main-item">
-            <div className="line line-ver"></div>
             <div className="txt txt-20 txt-med kustomer-kasestu-main-item-label">{props.data.data.category}</div>
             <h2 className="heading h3 txt-black txt-up kustomer-kasestu-main-item-title">{props.data.data.title[0].text}</h2>
             <div className="kustomer-kasestu-main-item-bot">
@@ -18,6 +18,12 @@ function CaseStudiesItem({ ...props }) {
                     </div>
                 </div>
             </div>
+            <div className="line line-top"></div>
+            <div className="line line-bot"></div>
+            <div className="line line-ver"></div>
+            {props.lastItem === "lastItem" && (
+                <div className="line line-ver"></div>
+            )}
         </a>
     )
 }
@@ -28,13 +34,11 @@ function CaseStudiesMain({ ...props }) {
 
     return (
         <div className="kustomer-kasestu-main">
-            <div className="line"></div>
             <div className="keen-slider kustomer-kasestu-main-wrapper">
                 {allItem.map((item, idx) => (
-                    <CaseStudiesItem data={item} icArrowExt={props.icArrowExt} key={idx} />
+                    <CaseStudiesItem data={item} icArrowExt={props.icArrowExt} lastItem={`${(idx == allItem.length - 1) ? 'lastItem' : ''}`} key={idx} />
                 ))}
             </div>
-            <div className="line"></div>
         </div>
     )
 }

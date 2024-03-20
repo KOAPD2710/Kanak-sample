@@ -3,6 +3,7 @@
 
 .kustomer-kasestu {
     padding-top: 16rem;
+    padding-bottom: 16rem;
 
     &-label {
         margin-bottom: 2rem;
@@ -30,6 +31,7 @@
     &-main {
         grid-column: 1/-1;
         margin-top: 10rem;
+        margin-right: calc(var(--container-padding)* -1);
 
         &-wrapper {
             display: flex;
@@ -40,15 +42,8 @@
             display: flex;
             flex-direction: column;
             padding: 6rem;
-            @include size(75.4rem, 57.1rem);
-
-            .line-ver {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-
-            &-label {}
+            width: 75.4rem !important;
+            height: 57.1rem !important;
 
             &-title {
                 display: -webkit-box;
@@ -56,15 +51,22 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 min-height: calc(3 * var(--lh-h3));
+                margin-top: 3.2rem;
+                transition: color .4s ease;
             }
 
             &-bot {
                 display: flex;
                 margin-top: auto;
                 justify-content: space-between;
+                transition: color .4s ease;
+
 
                 &-img {
                     @include size(15rem, 18.8rem);
+                    transform-origin: left bottom;
+                    transition: transform .6s ease;
+                    mix-blend-mode: multiply;
                 }
 
                 &-readmore {
@@ -73,7 +75,47 @@
                     column-gap: .8rem;
                 }
             }
+
+            .line-top {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .line-bot {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+            .line-ver {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            &:last-child {
+                .line-ver:last-child {
+                    left: auto;
+                    right: 0;
+                }
+            }
+
+            @media (hover: hover) {
+                &:hover {
+                    .kustomer-kasestu-main-item-title {
+                        color: var(--cl-orange);
+                    }
+
+                    .kustomer-kasestu-main-item-bot {
+                        color: var(--cl-orange);
+
+                        &-img {
+                            transform: scale(1.98);
+                        }
+                    }
+                }
+            }
         }
     }
-
 }
