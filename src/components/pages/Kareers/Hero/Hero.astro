@@ -3,6 +3,6 @@ import { Image } from "astro:assets";
 import KareersHero from './Hero';
 import kareerHeroBg from '@assets/kareer-hero-bg.jpg';
 ---
-<KareersHero client:visible>
+<KareersHero client:load>
     <Image src={kareerHeroBg} alt="" slot="heroBg" class="img img-fill"/>
 </KareersHero>

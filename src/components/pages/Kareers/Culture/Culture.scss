@@ -68,14 +68,18 @@
                 --height-overlap: 14rem;
                 --top-distance: 6rem;
             }
-            @include sm {
-                --top-distance: 4rem;
-            }
             background-color: var(--cl-bg);
             position: sticky;
             top: calc(var(--top-distance) + var(--height-overlap) * var(--idx));
-            padding-bottom: calc(var(--height-overlap) * var(--idx-bot));
-            margin-top: calc(var(--height-overlap) * var(--idx-top) * -1);
+            padding-bottom: calc(var(--height-overlap) * var(--pd-bot));
+            margin-top: calc(var(--height-overlap) * var(--mg-top) * -1);
+            @include sm {
+                position: relative;
+                top: auto;
+                padding-bottom: 0;
+                margin-top: 0;
+                background-color: transparent;
+            }
             &-inner {
                 padding-top: 6rem;
                 padding-bottom: 6rem;
@@ -101,6 +105,9 @@
                 }
                 &-bot {
                     bottom: 0;
+                    @include sm {
+                        display: none;
+                    }
                 }
             }
             &-title {

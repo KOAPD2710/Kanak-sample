@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import useDevice from '@hooks/useDevice';
 
 function KareersPerk(props) {
-    const { isDesktop, isTablet } = useDevice()
     useEffect(() => {
         const title = new SplitType('.kareer-perk-title', { types: 'lines, words', lineClass: "split-line" });
         const subTitle = new SplitType('.kareer-perk-sub', { types: 'lines, words', lineClass: "split-line" });
@@ -32,28 +31,27 @@ function KareersPerk(props) {
             animate(el.querySelector('.line-bot'), {scaleX: 0 }, {duration: 0})
             animate(itemTitle.chars, {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
             animate(itemSub.words, {opacity: 0, transform: 'translateY(12px)'}, {duration: 0})
-            animate(el.querySelector('[name="itemIc"] img'), { scale: 0.6, opacity: 0 }, { duration: 0 })
+            animate(el.querySelector('img'), { scale: 0.8, opacity: 0 }, { duration: 0 })
 
             const sequenceItem = [
-                [el.querySelector('.line-right'), {scaleY: 1 }, {duration: 1, delay: (isDesktop ? (idx % 3) : isTablet ? (idx % 2) : 0) * .08, easing: [0.87, 0, 0.13, 1]}],
-                [el.querySelector('.line-bot'), {scaleX: 1 }, {duration: 1, easing: [0.87, 0, 0.13, 1], at: '<'}],
-                [el.querySelector('[name="itemIc"] img'), {scale: 1, opacity: 1}, {duration: 1, at: '<' }],
+                [el.querySelector('img'), {scale: 1, opacity: 1}, {duration: 1, at: '<', delay: window.innerWidth > 991 && (idx % 3) * .2 }],
                 [itemTitle.chars, {opacity: 1, transform: 'translateY(0%)'}, {duration: .8, delay: stagger(.01), at: '<'}],
                 [itemSub.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.02), at: '<'}],
+                [el.querySelector('.line-right'), {scaleY: 1 }, {duration: 1, at: .1, easing: [0.87, 0, 0.13, 1]}],
+                [el.querySelector('.line-bot'), {scaleX: 1 }, {duration: 1, easing: [0.87, 0, 0.13, 1], at: .2}],
             ]
 
             inView(el, () => {
                 timeline(sequenceItem).finished.then(() => {
-                    el.querySelector('[name="itemIc"] img').removeAttribute('style');
-                    el.querySelector('.line-right').removeAttribute('style')
-                    el.querySelector('.line-bot').removeAttribute('style')
-
                     itemTitle.revert()
                     itemSub.revert()
+                    el.querySelector('img').removeAttribute('style');
+                    el.querySelector('.line-right').removeAttribute('style')
+                    el.querySelector('.line-bot').removeAttribute('style')
                 })
-            }, { margin: "-25% 0px -25% 0px" });
+            }, { margin: "-20% 0px -20% 0px" });
         })
-    }, [isDesktop, isTablet]);
+    }, []);
     return (
         <section className="kareer-perk bg-dark">
             <div className="container">
@@ -66,17 +64,17 @@ function KareersPerk(props) {
                     </h2>
                 </div>
                 <div className="kareer-perk-main">
-                    {[...Array(6)].map((item, idx) => (
+                    {props.perk_list.map((item, idx) => (
                         <div className="kareer-perk-main-item" key={idx}>
                             <div className="kareer-perk-main-item-inner">
                                 <div className="ic ic-60">
-                                    {props.itemIc}
+                                    <img src={item.icon.url} alt={item.icon.alt} width={item.icon.dimensions.width} height={item.icon.dimensions.height} className='img'/>
                                 </div>
                                 <h3 className="heading h5 txt-up txt-black kareer-perk-main-item-title">
-                                    Health Insurance
+                                    {item.title}
                                 </h3>
                                 <p className="txt txt-20 txt-med kareer-perk-main-item-sub">
-                                    A healthy work-life balance is imperative. That's why we offer flexible working arrangements and 30 days of vacation per year, ensuring ample time to rest.
+                                    {item.sub}
                                 </p>
                             </div>
                             <div className="line line-right"></div>

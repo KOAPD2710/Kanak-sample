@@ -49,18 +49,14 @@
                 left: 50%;
                 transform: translateX(-50%);
                 text-align: center;
-                @include sm {
-                    bottom: calc((100dvh - 38.5rem) / 2);
-                }
+                
             }
             &-bot {
                 top: 100%;
                 left: 50%;
                 transform: translateX(-50%);
                 text-align: center;
-                @include sm {
-                    top: calc((100dvh - 38.5rem) / 2);
-                }
+                
             }
             &-left {
                 right: 100%;
