@@ -63,6 +63,7 @@
                     border: solid .2rem var(--cl-txt);
 
                     .ic {
+                        opacity: .2;
                         transition: all 400ms ease;
                     }
 
@@ -74,7 +75,7 @@
                         pointer-events: none;
 
                         .ic {
-                            opacity: .2;
+                            opacity: 1;
                         }
                     }
 

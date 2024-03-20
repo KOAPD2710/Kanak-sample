@@ -20,7 +20,7 @@ function ResourceMain({ ...props }) {
         e.preventDefault()
         var currentURL = props.url;
         navigator.clipboard.writeText(currentURL)
-            .then(function () { 
+            .then(function () {
                 setOpenTooltip(true)
                 setTimeout(() => {
                     setOpenTooltip(false)
@@ -77,7 +77,7 @@ function ResourceMain({ ...props }) {
                             <a href={`https://www.facebook.com/sharer/sharer.php?u=${props.url}`} target="_blank" className="resource-dtl-info-item-link" >{props.icFacebook}</a>
                             <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${props.url}`} target="_blank" className="resource-dtl-info-item-link" >{props.icLinked}</a>
                             <div className={`txt txt-16 txt-semi resource-dtl-info-item-link-tooltip ${openTooltip ? 'active' : ""}`}>
-                                Copied to clipboard
+                                Link is copied
                             </div>
                         </div>
                     </div>

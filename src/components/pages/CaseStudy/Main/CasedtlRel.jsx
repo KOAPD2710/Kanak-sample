@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
+import { filter } from '@prismicio/client';
 
 function CasedtlRel({ ...props }) {
     const [loaded, setLoaded] = useState(false);
@@ -99,7 +100,7 @@ function CasedtlRel({ ...props }) {
                         )
                     )}
                 </div>
-                <button className={`casedtl-rel-load-btn ${limit >= newList.length ? 'hidden' : ''}`} onClick={() => setLimit(limit + 1)}>
+                <button className={`casedtl-rel-load-btn ${limit >= newList.length ? 'hidden' : ''}`} onClick={(e) => setLimit(limit + 1)}>
                     <div className="casedtl-rel-load-btn-ic">
                         <div className="ic ic-16">
                             {props.icArrowDown}
