@@ -75,20 +75,25 @@ function HomeBrandThree({...props}) {
     const activeIndex = useStore(brandIndex);
     let perspective = 4 ;
     let fov = 60;
-    return (
-        <>
-        <div className={`home-brand-canvas-inner-item ${activeIndex == 1 ? 'blur' : ''}`}>
-        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
-            <Content width={width} height={height} list={props.list} top={true}/>
-        </Canvas>                
-        </div>
-        <div className={`home-brand-canvas-inner-item ${activeIndex == 0 ? 'blur' : ''}`}>
-        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
-            <Content width={width} height={height} list={props.list} top={false}/>
-        </Canvas>                
-        </div>
-        </>
-    )
+    if (width == 0) {
+        return
+    } else {
+        
+        return (
+            <>
+            <div className={`home-brand-canvas-inner-item ${activeIndex == 1 ? 'blur' : ''}`}>
+            <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
+                <Content width={width} height={height} list={props.list} top={true}/>
+            </Canvas>                
+            </div>
+            <div className={`home-brand-canvas-inner-item ${activeIndex == 0 ? 'blur' : ''}`}>
+            <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
+                <Content width={width} height={height} list={props.list} top={false}/>
+            </Canvas>                
+            </div>
+            </>
+        )
+    }
 }
 
 export default HomeBrandThree;

@@ -5,22 +5,26 @@ import Hero from "@pages/ResourceCate/Hero/Hero.astro";
 import Main from "@pages/ResourceCate/Main/Main.astro";
 
 export async function getStaticPaths() {
-    const list = await getAllByType('resource');
-    const cateList = [];
+    const list = await getAllByType('resource')
+    
+    const cateList = []
     list.map(({ data }, idx) => {
         !cateList.includes(data.category) && cateList.push(data.category)
     })
     return cateList.map((item: any) => {
+        let newList = list.filter(({data}) => data.category == item)
         return {
             params: {resourceCate: item.toLowerCase().replaceAll(' ', '-')},
-            props: {item}
+            props: {item, newList}
         }
     })
 }
+
 const { resourceCate } = Astro.params;
-const { item } = Astro.props;
+const { item, newList } = Astro.props;
+
 ---
 <Layout title={item}>
     <Hero currentCate={resourceCate} title={item} />
-    <Main currentCate={item} />
+    <Main currentCate={item} list={newList}/>
 </Layout>
