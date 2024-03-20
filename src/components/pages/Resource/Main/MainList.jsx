@@ -83,7 +83,7 @@ function ResourceMainList(props) {
                 ))}
             </>
         )
-    }, [cateList])
+    }, [filter])
 
     const renderArticles = useMemo(() => (
         itemList.map((data, idx) => (

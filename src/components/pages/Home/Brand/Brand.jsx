@@ -39,16 +39,19 @@ function HomeBrand(props) {
 
         const title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
         animate(title.words, {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+        inView('.home-brand-title', () => {
+            animate(title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05)}).finished.then(() => {
+                title.revert()
+            })
+        }, { margin: "-30% 0px -30% 0px" })
         animate('.home-brand .line-ver', {scaleY: 0, transformOrigin: 'top'}, {duration: 0})
         animate('.home-brand .line-bot', {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
         const sequence = [
-            [title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05)}],
             ['.home-brand .line-ver', {scaleY: 1}, {duration: 1.2, at: '<'}],
             ['.home-brand .line-bot', {scaleX: 1}, {duration: 1, at: .2}],
         ]
-        inView('.home-brand-title', () => {
+        inView('.home-brand-canvas', () => {
             timeline(sequence).finished.then(() => {
-                title.revert()
                 q('.line-ver').removeAttribute('style')
                 q('.line-bot').removeAttribute('style')
             })
@@ -75,7 +78,7 @@ function HomeBrand(props) {
                     el.querySelector('.line').removeAttribute('style')
                     el.querySelector('.home-brand-main-item-ic').removeAttribute('style')
                 })
-            }, { margin: "-30% 0px -30% 0px" });
+            }, { margin: "-20% 0px -20% 0px" });
         });
     }, [])
     return (

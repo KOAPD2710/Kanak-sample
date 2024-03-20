@@ -33,8 +33,6 @@
             top: 1.8rem;
             bottom: 8rem;
         }
-
-        ;
     }
 
     &-line {
@@ -71,12 +69,17 @@
 
                 &-tooltip {
                     position: absolute;
-                    bottom: -5rem;
+                    top: 100%;
+                    margin-top: 2rem;
+                    border: solid .2rem var(--cl-txt);
                     opacity: 0;
+                    
+                    padding: .8rem 1.2rem;
                     pointer-events: none;
-                    transition: opacity .6s ease;
-
+                    transition: all .6s ease;
+                    transform: translateY(1rem);
                     &.active {
+                        transform: none;
                         opacity: 1;
                     }
                 }

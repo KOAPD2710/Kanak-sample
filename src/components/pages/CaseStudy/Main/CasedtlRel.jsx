@@ -40,10 +40,6 @@ function CasedtlRel({ ...props }) {
             setLimit(1)
         }
     }, [])
-
-    useEffect(() => {
-        console.log(limit);
-    }, [limit])
     return (
         <div className="casedtl-rel">
             <div className="casedtl-rel-head">
