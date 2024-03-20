@@ -186,7 +186,10 @@
                 margin-top: 6rem;
                 margin-bottom: 3.2rem;
             }
-            p, ul, li {
+
+            p,
+            ul,
+            li {
                 margin-top: 1em;
                 margin-bottom: 1em;
             }
@@ -592,7 +595,7 @@
             }
 
             &-title {
-                @include text(h3);
+                @include text(h4);
                 margin-bottom: 1.6rem;
             }
 
@@ -604,8 +607,6 @@
         }
 
         &-rel {
-            padding-bottom: 3.4rem;
-
             &-title {
                 @include text(h5);
             }
@@ -617,6 +618,16 @@
             &-main {
                 &-inner {
                     flex-direction: column;
+
+                    &.all-loaded {
+                        .casedtl-rel-main-group:last-child {
+                            .casedtl-rel-main-item:last-child {
+                                .line {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 &-group {
@@ -632,7 +643,8 @@
                         min-height: calc(3* var(--lh-16));
                     }
 
-                    .line-ver {
+                    .line {
+                        @include size(100%, .2rem);
                         top: auto;
                         bottom: 0;
                     }
@@ -683,6 +695,10 @@
                 &:hover {
                     border-color: var(--cl-orange);
                     color: var(--cl-orange);
+                }
+
+                &.hidden {
+                    display: none;
                 }
             }
         }

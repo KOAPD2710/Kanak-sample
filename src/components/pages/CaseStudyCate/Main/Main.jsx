@@ -31,7 +31,7 @@ function CaseItem({ ...props }) {
 }
 function CaseMain({ ...props }) {
     const allItem = props.list.filter((item) => item.data.category == props.currentCate)
-    
+
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
 

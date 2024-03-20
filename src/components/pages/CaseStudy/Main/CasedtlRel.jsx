@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
 
 function CasedtlRel({ ...props }) {
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [limit, setLimit] = useState(999);
+
     let perView = 2;
     let newList = props.list.reduce((accumulator, currentValue, currentIndex, array) => {
         if (currentIndex % perView === 0) {
@@ -14,8 +16,17 @@ function CasedtlRel({ ...props }) {
     }, [])
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
+        disabled: false,
+        slides: {
+            spacing: 36,
+        },
         defaultAnimation: {
             duration: 800
+        },
+        breakpoints: {
+            '(max-width: 767px)': {
+                disabled: true
+            },
         },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel)
@@ -24,7 +35,11 @@ function CasedtlRel({ ...props }) {
             setLoaded(true)
         },
     })
-    console.log(newList);
+    useEffect(() => {
+        if (window.innerWidth < 768) {
+            setLimit(1)
+        }
+    }, [])
     return (
         <div className="casedtl-rel">
             <div className="casedtl-rel-head">
@@ -53,10 +68,10 @@ function CasedtlRel({ ...props }) {
                 <div className="line line-bot"></div>
             </div>
             <div className="casedtl-rel-main">
-                <div className="keen-slider casedtl-rel-main-inner bg-light" ref={sliderRef} style={{ '--perView': perView }}>
-                    {newList.map((chunk, idx) => {
-                        return (
-                            <div key={idx} className='keen-slider__slide casedtl-rel-main-group'>
+                <div className={`keen-slider casedtl-rel-main-inner bg-light ${limit >= newList.length ? 'all-loaded' : ''}`} ref={sliderRef} style={{ '--perView': perView }}>
+                    {newList.map((chunk, idx) =>
+                        idx < limit && (
+                            <div className='keen-slider__slide casedtl-rel-main-group' key={idx}>
                                 {chunk.map((item) => (
                                     <a href={`/kase-studies/${item.uid}`} className={`casedtl-rel-main-item${props.list.length < perView ? ' single' : ''}`} key={`${idx}-${item.id}`}>
                                         <h4 className="heading h5 txt-up txt-black casedtl-rel-main-item-title">
@@ -82,9 +97,9 @@ function CasedtlRel({ ...props }) {
                                 ))}
                             </div>
                         )
-                    })}
+                    )}
                 </div>
-                <button className="casedtl-rel-load-btn">
+                <button className={`casedtl-rel-load-btn ${limit >= newList.length ? 'hidden' : ''}`} onClick={() => setLimit(limit + 1)}>
                     <div className="casedtl-rel-load-btn-ic">
                         <div className="ic ic-16">
                             {props.icArrowDown}

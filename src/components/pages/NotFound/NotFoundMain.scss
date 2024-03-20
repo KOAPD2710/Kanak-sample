@@ -6,44 +6,61 @@
     height: 100vh;
     display: flex;
     align-items: center;
+
     .container {
         display: flex;
         align-items: center;
         justify-content: center;
     }
+
     &-grid {
         position: relative;
         grid-template-columns: repeat(8, 1fr);
         grid-gap: 0;
+
         @media screen and (min-width: 991px) and (min-aspect-ratio: 1728 / 1182) {
             grid-template-columns: repeat(8, calc((100vh - 32vh) / 4));
         }
     }
+
     &-item {
         position: relative;
         border-right: .2rem solid var(--cl-txt);
         border-bottom: .2rem solid var(--cl-txt);
+
         &-small {
             width: 100%;
             height: 0;
             padding-top: calc(100% - .4rem);
+
             img {
                 opacity: 0;
             }
+
             @media screen and (min-width: 991px) {
                 &:nth-child(-n + 5) {
                     border-top: .2rem solid var(--cl-txt);
                 }
-                &:nth-child(5), &:nth-child(7), &:nth-child(9), &:nth-child(15) {
+
+                &:nth-child(5),
+                &:nth-child(7),
+                &:nth-child(9),
+                &:nth-child(15) {
                     border-right: none;
                 }
-                &:nth-child(1), &:nth-child(4), &:nth-child(7), &:nth-child(11), &:nth-child(13) {
+
+                &:nth-child(1),
+                &:nth-child(4),
+                &:nth-child(7),
+                &:nth-child(11),
+                &:nth-child(13) {
                     img {
                         opacity: 1;
                     }
-                } 
+                }
             }
         }
+
         img {
             position: absolute;
             top: 50%;
@@ -51,6 +68,7 @@
             transform: translate(-50%, -50%);
             transition: opacity .3s ease;
         }
+
         &-title {
             grid-column: 3/6;
             grid-row: 1/2;
@@ -60,26 +78,30 @@
             justify-content: center;
             align-items: start;
             padding-left: 5.4rem;
-            
-            &-inner  {
+
+            &-inner {
                 display: flex;
                 flex-direction: column;
                 row-gap: 2rem;
                 max-width: 52.3rem;
             }
         }
+
         &-number-1 {
             grid-column: 2/4;
             grid-row: 2/4;
         }
+
         &-number-2 {
             grid-column: 6/8;
             grid-row: 2/4;
         }
+
         &-mainbowl {
             grid-column: 4/6;
             grid-row: 2/4;
         }
+
         &-btn-wrap {
             grid-column: 4/6;
             grid-row: 4/5;
@@ -87,23 +109,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
             .btn {
                 position: relative;
                 width: 100%;
                 padding-top: 2.8rem;
                 padding-bottom: 2.8rem;
-                &::after {
-                    content: "";
-                    pointer-events: none;
-                    position: absolute;
-                    display: block;
-                    width: calc(100% - 1rem);
-                    height: calc(100% - 1rem);
-                    border: .2rem dotted rgba(0, 0, 0, .18);
-                }
             }
         }
     }
+
     &-copy {
         position: absolute;
         top: 100%;
@@ -118,9 +133,11 @@
         height: auto;
         padding-top: 8rem;
         padding-bottom: 16rem;
+
         &-grid {
             grid-template-columns: repeat(6, 1fr);
         }
+
         &-item {
             &-small {
                 @media screen and (min-width: 767px) {
@@ -129,63 +146,83 @@
                             border-top: .2rem solid var(--cl-txt);
                         }
                     }
-                    &:nth-child(2), &:nth-child(8), &:nth-child(12) {
+
+                    &:nth-child(2),
+                    &:nth-child(8),
+                    &:nth-child(12) {
                         border-right: none;
                     }
+
                     @for $i from 13 through 15 {
                         &:nth-child(#{$i}) {
                             display: none;
                         }
                     }
-                    &:nth-child(2), &:nth-child(5), &:nth-child(7), &:nth-child(9), &:nth-child(11) {
+
+                    &:nth-child(2),
+                    &:nth-child(5),
+                    &:nth-child(7),
+                    &:nth-child(9),
+                    &:nth-child(11) {
                         img {
                             opacity: 1;
                         }
-                    } 
+                    }
                 }
             }
+
             &-title {
                 grid-column: 1/5;
                 padding-left: 1.7rem;
-                &-inner  {
+
+                &-inner {
                     row-gap: .7rem;
                     max-width: 39.6rem;
+
                     .h1 {
                         @include text(h2)
                     }
+
                     .txt-20 {
                         @include text(16)
                     }
                 }
             }
+
             &-number-1 {
                 grid-column: 1/3;
                 grid-row: 3/5;
             }
+
             &-number-2 {
                 grid-column: 5/7;
                 grid-row: 3/5;
                 border-right: none;
             }
+
             &-mainbowl {
                 grid-column: 3/5;
                 grid-row: 3/5;
             }
+
             &-btn-wrap {
                 grid-column: 3/5;
                 grid-row: 5/6;
                 padding: 2.4rem;
+
                 .btn {
                     padding-top: 1.8rem;
                     padding-bottom: 1.8rem;
                 }
             }
+
             &-large {
                 width: 100%;
                 height: 0;
                 padding-top: calc(110% - .4rem);
             }
         }
+
         &-copy {
             width: 100%;
             text-align: center;
@@ -201,10 +238,12 @@
         height: auto;
         padding-top: 1.6rem;
         padding-bottom: 0;
+
         &-grid {
             width: 100%;
             grid-template-columns: repeat(3, 1fr);
         }
+
         &-item {
             &-small {
                 @for $i from 1 through 3 {
@@ -212,14 +251,18 @@
                         border-top: .2rem solid var(--cl-txt);
                     }
                 }
-                &:nth-child(3), &:nth-child(6) {
+
+                &:nth-child(3),
+                &:nth-child(6) {
                     border-right: none;
                 }
+
                 @for $i from 7 through 15 {
                     &:nth-child(#{$i}) {
                         display: none;
                     }
                 }
+
                 @for $i from 1 through 6 {
                     &:nth-child(#{$i}) {
                         img {
@@ -228,6 +271,7 @@
                     }
                 }
             }
+
             &-title {
                 grid-column: 1/4;
                 grid-row: 2/3;
@@ -235,42 +279,51 @@
                 padding-block: 2.4rem;
                 border-top: none;
                 border-right: none;
-                &-inner  {
+
+                &-inner {
                     max-width: 34.3rem;
+
                     .h1 {
                         @include text(h3)
                     }
                 }
             }
+
             &-number-1 {
                 grid-column: 1/2;
                 grid-row: 3/4;
             }
+
             &-number-2 {
                 grid-column: 3/4;
                 grid-row: 3/4;
                 border-right: none;
             }
+
             &-mainbowl {
                 grid-column: 2/3;
                 grid-row: 3/4;
             }
+
             &-btn-wrap {
                 grid-column: 1/4;
                 grid-row: 4/5;
                 padding: 3.7rem;
                 border-right: none;
+
                 .btn {
                     padding-top: 1.8rem;
                     padding-bottom: 1.8rem;
                 }
             }
+
             &-large {
                 width: 100%;
                 height: 0;
                 padding-top: calc(108%);
             }
         }
+
         &-copy {
             grid-column: 1/4;
             position: relative;

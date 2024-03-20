@@ -9,3 +9,11 @@
         grid-column: 1/-1;
     }
 }
+
+@include md {
+    .policy-hero {
+        &-title {
+            @include text(h1);
+        }
+    }
+}
