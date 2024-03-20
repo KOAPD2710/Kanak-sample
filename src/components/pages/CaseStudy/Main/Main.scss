@@ -7,8 +7,6 @@
 
     .container>.line-ver {
         grid-column: 7/8;
-        width: .2rem;
-        height: 100%;
         position: absolute;
         top: 0;
         left: -.2rem;
@@ -302,9 +300,6 @@
                     position: absolute;
                     top: 0;
                     right: 0;
-
-                    width: .2rem;
-                    height: 100%;
                 }
 
                 &:nth-child(odd) {
@@ -638,8 +633,6 @@
                     }
 
                     .line-ver {
-                        width: 100%;
-                        height: .2rem;
                         top: auto;
                         bottom: 0;
                     }
