@@ -319,6 +319,10 @@
                             display: flex;
                             flex-direction: column;
 
+                            &-cate {
+                                transition: color .4s ease;
+                            }
+
                             &-title {
                                 display: -webkit-box;
                                 -webkit-line-clamp: 2;
@@ -371,6 +375,10 @@
                         @media (hover: hover) {
                             &:hover {
                                 .resource-dtl-rel-main-inner-group-item-content-title {
+                                    color: var(--cl-orange);
+                                }
+
+                                .resource-dtl-rel-main-inner-group-item-content-cate {
                                     color: var(--cl-orange);
                                 }
                             }

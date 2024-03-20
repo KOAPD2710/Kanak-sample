@@ -44,17 +44,22 @@
                         column-gap: 1.2rem;
                         margin-top: 2.4rem;
                         margin-bottom: 1.6rem;
+                        @include transition(color .4s ease);
                     }
 
                     &-title {
                         margin-bottom: 2.4rem;
-                        @include transition(color .4s ease);
                         min-height: calc(3 * var(--lh-h4));
+                        @include transition(color .4s ease);
                     }
 
                     @media (hover: hover) {
                         &:hover {
                             .resource-main-fea-main-inner-item-title {
+                                color: var(--cl-orange);
+                            }
+
+                            .resource-main-fea-main-inner-item-cate {
                                 color: var(--cl-orange);
                             }
                         }
@@ -172,6 +177,7 @@
                     align-items: center;
                     column-gap: 1.2rem;
                     margin-bottom: 1.6rem;
+                    transition: color .4s ease;
                 }
 
                 &-title {
@@ -193,7 +199,10 @@
                     &:hover {
                         .resource-main-pop-list-item-title {
                             color: var(--cl-orange);
+                        }
 
+                        .resource-main-pop-list-item-cate {
+                            color: var(--cl-orange);
                         }
                     }
                 }
@@ -310,6 +319,10 @@
                     }
                 }
 
+                &-cate {
+                    transition: color .4s ease;
+                }
+
                 &-title {
                     margin-top: 1.2rem;
                     margin-bottom: 1.2rem;
@@ -353,6 +366,10 @@
                 @media (hover: hover) {
                     &:hover {
                         .resource-main-list-main-item-title {
+                            color: var(--cl-orange);
+                        }
+
+                        .resource-main-list-main-item-cate {
                             color: var(--cl-orange);
                         }
                     }
