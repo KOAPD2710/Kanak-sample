@@ -17,87 +17,110 @@ function Content({...props}) {
     const wrap = useRef()
     const brandsWrap = useRef()
     const brands = useRef()
-    useGSAP(() => {
+    useEffect(() => {
         console.log('init three')
+        // if (activeIndex == 1) {
+        //     gsap.to(brands.current.rotation, {
+        //         x: Math.PI * .1, y: -Math.PI * 1.45, z: 0
+        //     })
+        //     gsap.to(brands.current.children[0].children[0].rotation, {
+        //         x: Math.PI * .15, y: -Math.PI * 1.1, z: Math.PI * .1
+        //     })
+        //     gsap.to(brands.current.children[0].children[0].position, {
+        //         x: .2, y: -.05, z: -.075
+        //     })
+        //     gsap.to(brands.current.children[1].children[0].rotation, {
+        //         x: -Math.PI * .1, y: 0, z: -Math.PI * .1
+        //     })
+        //     gsap.to(brands.current.children[1].children[0].position, {
+        //         x: -.05, y: -.065, z: .05
+        //     })
+        // } else {
+        //     gsap.to(brands.current.rotation, {
+        //         x: Math.PI * .1, y: -Math.PI * .45, z: 0
+        //     })
+        //     gsap.to(brands.current.children[0].children[0].rotation, {
+        //         x: -Math.PI * .25, y: -Math.PI * .15, z: Math.PI * .1
+        //     })
+        //     gsap.to(brands.current.children[0].children[0].position, {
+        //         x: .2, y: 0, z: 0
+        //     })
+        //     gsap.to(brands.current.children[1].children[0].rotation, {
+        //         x: -Math.PI * .1, y: 0, z: -Math.PI * .1
+        //     })
+        //     gsap.to(brands.current.children[1].children[0].position, {
+        //         x: -.8, y: -.2, z: 0
+        //     })
+        // }
         if (activeIndex == 1) {
-            gsap.to(brands.current.rotation, {
-                x: Math.PI * .1, y: -Math.PI * 1.45, z: 0
-            })
-            gsap.to(brands.current.children[0].children[0].rotation, {
-                x: Math.PI * .15, y: -Math.PI * 1.1, z: Math.PI * .1
-            })
-            gsap.to(brands.current.children[0].children[0].position, {
-                x: .2, y: -.05, z: -.075
-            })
-            gsap.to(brands.current.children[1].children[0].rotation, {
-                x: -Math.PI * .1, y: 0, z: -Math.PI * .1
-            })
-            gsap.to(brands.current.children[1].children[0].position, {
-                x: -.05, y: -.065, z: .05
-            })
+            gsap.to(brandsWrap.current.rotation, {x: Math.PI * 1,  duration: .8})
+            gsap.to(brands.current.children[0].children[0].position, {x: -.1, z: .2, duration: .8})
+            gsap.to(brands.current.children[1].children[0].position, {x: 0,z: -.23, duration: .8})
+            gsap.to(brands.current.children[0].children[0].rotation, {x: Math.PI * -3, duration: .8})
+            gsap.to(brands.current.children[1].children[0].rotation, {x: Math.PI * -3, duration: .8})
         } else {
-            gsap.to(brands.current.rotation, {
-                x: Math.PI * .1, y: -Math.PI * .45, z: 0
-            })
-            gsap.to(brands.current.children[0].children[0].rotation, {
-                x: -Math.PI * .25, y: -Math.PI * .15, z: Math.PI * .1
-            })
-            gsap.to(brands.current.children[0].children[0].position, {
-                x: .2, y: 0, z: 0
-            })
-            gsap.to(brands.current.children[1].children[0].rotation, {
-                x: -Math.PI * .1, y: 0, z: -Math.PI * .1
-            })
-            gsap.to(brands.current.children[1].children[0].position, {
-                x: -.8, y: -.2, z: 0
-            })
+            gsap.to(brandsWrap.current.rotation, {x: Math.PI * 0, duration: .8})
+            gsap.to(brands.current.children[0].children[0].position, {x: .02, z: .28, duration: .8})
+            gsap.to(brands.current.children[1].children[0].position, {x: -.1, z: -.2, duration: .8})
+            gsap.to(brands.current.children[0].children[0].rotation, {x: Math.PI * 0, duration: .8})
+            gsap.to(brands.current.children[1].children[0].rotation, {x: Math.PI * 0, duration: .8})
         }
+        
     }, [activeIndex])
     return (
         <>
-            <group ref={wrap}>
+            <group ref={wrap} position={[-.25, -.1, 0]} rotation={[Math.PI * .075,Math.PI * .05,0]}>
                 <group ref={brandsWrap} scale={[8,8,8]}>
-                        <group ref={brands} 
-                        position={[-.025, 0, 0]}
-                        rotation={[Math.PI * .1,-Math.PI * .45, 0]}
-                        >
-                            {props.list.map((item, idx) => {
-                                if (item.data.file.url) {
-                                    return (
-                                        <mesh key={idx}>
-                                            {idx == 0 ? 
-                                            <GetModel file={item.data.file.url} 
-                                                position={[0,0,0]} 
-                                                rotation={[-Math.PI * .25, -Math.PI * .15,Math.PI * .1]}
-                                            /> : 
-                                            <GetModel file={item.data.file.url} 
-                                                position={[-.4,-.2,0]} 
-                                                rotation={[-Math.PI * .1,0,-Math.PI * .1]} 
-                                                material={<CustomMaterial color='#EAD6B3'/>}
-                                            />}
-                                        </mesh>
-                                    )
-                                }
-                            })}
-                        </group>
+                    <group ref={brands} 
+                    position={[0, 0, 0]}
+                    // rotation={[Math.PI * .1,-Math.PI * .45, 0]}
+                    >
+                        {props.list.map((item, idx) => {
+                            if (item.data.file.url) {
+                                return (
+                                    <mesh key={idx}>
+                                        {idx == 0 ? 
+                                        <GetModel file={item.data.file.url} visible={props.top ? true : false}
+                                            position={[.02,0,.28]} 
+                                            rotation={[0, -Math.PI * .5,0]}
+                                        /> : 
+                                        <GetModel file={item.data.file.url} visible={props.top ? false : true}
+                                            position={[-.1,0,-.2]} 
+                                            rotation={[0,Math.PI * .5, 0]} 
+                                            material={<CustomMaterial color='#EAD6B3'/>}
+                                        />}
+                                    </mesh>
+                                )
+                            }
+                        })}
+                    </group>
                 </group>
             </group>            
-            <ambientLight intensity={1.25} />
-            <directionalLight intensity={2} position={[-props.width * .00125, 0,0]}/>
-            <directionalLight intensity={.5} position={[props.width * .00125, 0,0]}/>
+            <ambientLight intensity={.65} />
+            <directionalLight intensity={2} position={[-.2, .2,.2]} lookAt={[0,0,.3]}/>
+            <directionalLight intensity={1} position={[.2, 0,.2]} lookAt={[0,0,.3]}/>
         </>
     )
 }
 
 function HomeBrandThree({...props}) {
     const { width, height } = useWindowSize();
-    let perspective = height / 100;
-    let fov = ((Math.atan(height / 10 / perspective) * 2) * 180 / Math.PI) / 10;
-
+    const activeIndex = useStore(brandIndex);
+    let perspective = 4 ;
+    let fov = 60;
     return (
-        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows="basic">
-            <Content width={width} height={height} list={props.list}/>
-        </Canvas>
+        <>
+        <div className={`home-brand-canvas-inner-item ${activeIndex == 1 ? 'blur' : ''}`}>
+        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
+            <Content width={width} height={height} list={props.list} top={true}/>
+        </Canvas>                
+        </div>
+        <div className={`home-brand-canvas-inner-item ${activeIndex == 0 ? 'blur' : ''}`}>
+        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
+            <Content width={width} height={height} list={props.list} top={false}/>
+        </Canvas>                
+        </div>
+        </>
     )
 }
 

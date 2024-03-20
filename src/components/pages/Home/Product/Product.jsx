@@ -17,7 +17,7 @@ function HomeProduct(props) {
     }
     useEffect(() => {
         scroll(({y}) => {
-            if (y.progress >= .99) {
+            if (y.progress >= .9) {
                 sectionRef.current.classList.add('active')
             } else {
                 productIndex.set(0)

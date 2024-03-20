@@ -14,7 +14,6 @@ Astro.props.value_list.map(async (value: any) => {
         return item
     })
 )
-console.log(list[0])
 
 const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width})
 let newLabel = Astro.props.label.replaceAll('\n','<br/>')

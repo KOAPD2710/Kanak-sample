@@ -39,7 +39,7 @@ function HomeHero(props) {
                     </div>
                     <div className="home-hero-sub-btn-wrap">
                         <a href="/contact" className="btn btn-main">
-                            <div className="txt txt-18 txt-med">Kontact us</div>
+                            <div className="txt txt-18 txt-med txt-up">Kontact us</div>
                         </a>
                     </div>
                     <div className="home-hero-sub-cta-wrap">
