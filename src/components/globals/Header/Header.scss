@@ -14,6 +14,9 @@
     }
     &-div-sub {
         z-index: 999;
+        @include md {
+            display: none;
+        }
     }
     transition: opacity 400ms ease;
     &.on-hide {
