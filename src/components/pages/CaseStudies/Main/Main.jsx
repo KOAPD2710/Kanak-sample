@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import useOutsideAlerter from "@hooks/useOutsideAlerter";
+
 import './Main.scss';
 
 function CaseItem({ ...props }) {
@@ -49,13 +51,17 @@ function CaseMain({ ...props }) {
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
     const [categoryToggle, setCategoryToggle] = useState(false)
+    const toggleRef = useRef();
+
+    useOutsideAlerter(toggleRef, () => { setCategoryToggle(false) })
+
     const renderFilter = useMemo(() => {
         return (
             <>
                 <FilterItem name={'All'}
                     count={allItem.length}
                     isActive={filter == 'All'}
-                    onClick={(e) => { filterList(e), setCategoryToggle(!categoryToggle) }}
+                    onClick={(e) => { filterList(e); setCategoryToggle(!categoryToggle) }}
                 />
                 {props.cateList.map((el, idx) => (
                     <FilterItem name={el}
@@ -66,7 +72,8 @@ function CaseMain({ ...props }) {
                 ))}
             </>
         )
-    }, [props.cateList])
+    }, [filter])
+
     const renderCases = useMemo(() => (
         itemList.map((item, idx) => (
             idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} /> : ''
@@ -86,14 +93,18 @@ function CaseMain({ ...props }) {
         }
     }, [filter])
 
+    useEffect(() => {
+        console.log(categoryToggle);
+    }, [categoryToggle])
+
     return (
         <section className="case-main">
             <div className="case-filter">
                 <div className="container">
                     <div className="line line-top"></div>
                     <div className="case-filter-inner">
-                        <div className="case-filter-list">
-                            <button className="case-filter-list-toggle" onClick={() => { setCategoryToggle(!categoryToggle) }}>
+                        <div className="case-filter-list" ref={toggleRef}>
+                            <button className="case-filter-list-toggle" onClick={(e) => { setCategoryToggle(!categoryToggle) }}>
                                 <div className="txt txt-18 txt-bold case-filter-list-toggle-txt">
                                     {filter == 'All' ? 'All Categories' : filter}
                                 </div>

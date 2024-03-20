@@ -30,12 +30,12 @@ function HomeProductList(props) {
                         el.querySelector('.line-bottom').removeAttribute('style')
                     }
                 })
-            }, { margin: "-20% 0px -20% 0px" });
+            }, { margin: "-10% 0px -10% 0px" });
         });
         animate('.home-prod-pdf-link', {opacity: 0, x: -10}, {duration: 0})
         inView('.home-prod-pdf-link', () => {
             animate('.home-prod-pdf-link', {opacity: 1, x: 0}, {duration: .6, delay: .2})
-        }, { margin: "-20% 0px -20% 0px" })
+        }, { margin: "-10% 0px -10% 0px" })
     }, [])
     return(
         <div className="home-prod-main">

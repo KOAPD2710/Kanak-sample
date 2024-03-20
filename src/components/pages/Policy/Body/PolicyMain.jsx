@@ -27,6 +27,10 @@ function PolicyMain({ ...props }) {
         })
     }
     useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "https://app.termly.io/embed-policy.min.js";
+        script.async = true;
+        document.body.appendChild(script);
         ActiveTocFunc();
     }, [])
 
@@ -57,7 +61,8 @@ function PolicyMain({ ...props }) {
                     <div className="line"></div>
                     <div className="policy-body-main">
                         <div className="txt txt-20 txt-med policy-body-main-richtxt">
-                            {props.content}
+                            {/* {props.content} */}
+                            <div name="termly-embed" data-id="319e0d22-20e7-449c-a002-bf22aa177cb8"></div>
                         </div>
                     </div>
                 </div>

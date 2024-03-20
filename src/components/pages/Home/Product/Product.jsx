@@ -5,7 +5,6 @@ import { productIndex } from '@contexts/StoreGlobal';
 import { scroll } from "motion"
 
 function HomeProduct(props) {
-    const sectionRef = useRef();
     const index = useStore(productIndex);
     function onClickNavPrev(e) {
         e.preventDefault();
@@ -19,10 +18,10 @@ function HomeProduct(props) {
         console.log('init')
         scroll(({y}) => {
             if (y.progress >= .9) {
-                sectionRef.current.classList.add('active')
+                document.querySelector('.home-prod-cards-inner').classList.add('active')
             } else {
                 productIndex.set(0)
-                sectionRef.current.classList.remove('active')
+                document.querySelector('.home-prod-cards-inner').classList.remove('active')
             }
         }, {
             target: document.querySelector('.home-prod-cards-inner'),
@@ -32,7 +31,7 @@ function HomeProduct(props) {
     return (
         <>
             <div className="home-prod-cards">
-                <div className="home-prod-cards-inner" ref={sectionRef}>
+                <div className="home-prod-cards-inner">
                     <div className="home-prod-cards-top">
                         <div className="heading h6 txt-up txt-black home-prod-cards-top-txt">
                             Product Kategories

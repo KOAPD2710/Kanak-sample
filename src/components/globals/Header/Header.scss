@@ -2,14 +2,22 @@
 @use '@styles/colors' as *;
 
 .header {
-    z-index: 999;
+    z-index: 998;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     pointer-events: none;
-    mix-blend-mode: difference;
-    filter: invert(1);
+    &-div-main {
+        mix-blend-mode: difference;
+        filter: invert(1);
+    }
+    &-div-sub {
+        z-index: 999;
+        @include md {
+            display: none;
+        }
+    }
     transition: opacity 400ms ease;
     &.on-hide {
         opacity: 0;
