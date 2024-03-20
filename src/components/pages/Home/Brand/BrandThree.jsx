@@ -73,12 +73,11 @@ function Content({...props}) {
 function HomeBrandThree({...props}) {
     const { width, height } = useWindowSize();
     const activeIndex = useStore(brandIndex);
-    let perspective = 4 ;
-    let fov = 60;
     if (width == 0) {
         return
     } else {
-        
+        let perspective = height / 250;
+        let fov = 60;
         return (
             <>
             <div className={`home-brand-canvas-inner-item ${activeIndex == 1 ? 'blur' : ''}`}>

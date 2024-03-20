@@ -2,22 +2,21 @@ import './Header.scss'
 import { Fragment, useEffect, useRef } from 'react';
 import { getLenis } from '@/components/core/lenis';
 function HeaderGlobal(props) {
-    const header = useRef()
     useEffect(() => {
         getLenis().on('scroll', function(inst) {
             if (inst.direction == 1) {
                 if (inst.scroll >= document.querySelector('.header').clientHeight) {
-                    header.current.classList.add('on-hide')
+                    document.querySelector('.header').classList.add('on-hide')
                 } else {
-                    header.current.classList.remove('on-hide')
+                    document.querySelector('.header').classList.remove('on-hide')
                 }
             } else if (inst.direction == -1) {
-                header.current.classList.remove('on-hide')
+                document.querySelector('.header').classList.remove('on-hide')
             }
         })
     }, [])
     return (
-        <header className="header" ref={header}>
+        <header className="header">
             <div className="container grid">
                 <div className="header-main">
                     <div className="header-main-inner">
