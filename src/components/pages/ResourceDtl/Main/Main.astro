@@ -14,9 +14,10 @@ const relList = resourceList.filter(
   (item: any) => item.data.category == data.category,
 );
 const removeDupList = relList.filter((item: any) => item.uid != uid);
+const currentUrl = Astro.url
 ---
 
-<ResourceMain relList={removeDupList} {...Astro.props} client:visible>
+<ResourceMain relList={removeDupList} {...Astro.props} client:visible url={currentUrl}>
   <Fragment set:html={arrIcon} slot="arrIcon" />
   <Fragment set:html={icLinked} slot="icLinked" />
   <Fragment set:html={icFacebook} slot="icFacebook" />

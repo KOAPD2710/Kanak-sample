@@ -18,14 +18,13 @@ function ResourceMain({ ...props }) {
     }, [])
     function copyClipboard(e) {
         e.preventDefault()
-        var currentURL = window.location.href;
+        var currentURL = props.url;
         navigator.clipboard.writeText(currentURL)
-            .then(function () {
-                // alert("URL copied to clipboard: " + currentURL);
+            .then(function () { 
                 setOpenTooltip(true)
                 setTimeout(() => {
                     setOpenTooltip(false)
-                }, 1000)
+                }, 2000)
             })
             .catch(function (err) {
                 console.error('Failed to copy: ', err);
@@ -74,9 +73,9 @@ function ResourceMain({ ...props }) {
                             </div>
                         </div>
                         <div className="resource-dtl-info-item link">
-                            <a href="" className="resource-dtl-info-item-link" onClick={(e) => { copyClipboard(e) }}>{props.icShare}</a>
-                            <a href="" className="resource-dtl-info-item-link" >{props.icFacebook}</a>
-                            <a href="" className="resource-dtl-info-item-link" >{props.icLinked}</a>
+                            <button className="resource-dtl-info-item-link" onClick={(e) => { copyClipboard(e) }}>{props.icShare}</button>
+                            <a href={`https://www.facebook.com/sharer/sharer.php?u=${props.url}`} target="_blank" className="resource-dtl-info-item-link" >{props.icFacebook}</a>
+                            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${props.url}`} target="_blank" className="resource-dtl-info-item-link" >{props.icLinked}</a>
                             <div className={`txt txt-16 txt-semi resource-dtl-info-item-link-tooltip ${openTooltip ? 'active' : ""}`}>
                                 Copied to clipboard
                             </div>

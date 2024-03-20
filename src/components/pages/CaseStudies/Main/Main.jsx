@@ -66,7 +66,7 @@ function CaseMain({ ...props }) {
                 ))}
             </>
         )
-    }, [props.cateList])
+    }, [filter])
     const renderCases = useMemo(() => (
         itemList.map((item, idx) => (
             idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} /> : ''

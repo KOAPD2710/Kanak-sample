@@ -12,7 +12,7 @@ export function GetModel({...props}) {
   return (
     <group {...props} dispose={null}>
       {nodes.Scene.children.map((item, idx) => (
-        <mesh geometry={item.geometry} material={!props.material && item.material} key={idx}>
+        <mesh geometry={item.geometry} name={props.name} material={!props.material && item.material} key={idx}>
           {props.material && props.material}
         </mesh>
       ))}
