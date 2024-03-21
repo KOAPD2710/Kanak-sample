@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
+import ArrowUpRight from "@/components/globals/IcArrow/ArrowUpRight"
 
 function CaseStudiesItem({ ...props }) {
-    console.log(props);
     return (
         <a href={`/kase-studies/${props.data.uid}`} className="keen-slider__slide kustomer-kasestu-main-item">
             <div className="txt txt-20 txt-med kustomer-kasestu-main-item-label">{props.data.data.category}</div>
@@ -14,7 +14,7 @@ function CaseStudiesItem({ ...props }) {
                 </div>
                 <div className="txt txt-18 txt-bold kustomer-kasestu-main-item-bot-readmore">Read more
                     <div className="ic ic-20">
-                        {props.icArrowExt}
+                        <ArrowUpRight />
                     </div>
                 </div>
             </div>
@@ -31,12 +31,36 @@ function CaseStudiesItem({ ...props }) {
 
 function CaseStudiesMain({ ...props }) {
     const allItem = props.list
+    const [loaded, setLoaded] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const [sliderRef, instanceRef] = useKeenSlider({
+        initial: 0,
+        disabled: false,
+        slides: {
+            perView: 'auto',
+        },
+        defaultAnimation: {
+            duration: 800
+        },
+        // breakpoints: {
+        //     '(max-width: 991px)': {
+        //         disabled: true
+        //     },
+        // },
+        slideChanged(slider) {
+            setCurrentSlide(slider.track.details.rel)
+        },
+        created() {
+            setLoaded(true)
+        },
+    })
 
     return (
         <div className="kustomer-kasestu-main">
-            <div className="keen-slider kustomer-kasestu-main-wrapper">
+            <div className="keen-slider kustomer-kasestu-main-wrapper" ref={sliderRef} >
                 {allItem.map((item, idx) => (
-                    <CaseStudiesItem data={item} icArrowExt={props.icArrowExt} lastItem={`${(idx == allItem.length - 1) ? 'lastItem' : ''}`} key={idx} />
+                    <CaseStudiesItem data={item} lastItem={`${(idx == allItem.length - 1) ? 'lastItem' : ''}`} key={idx} />
                 ))}
             </div>
         </div>

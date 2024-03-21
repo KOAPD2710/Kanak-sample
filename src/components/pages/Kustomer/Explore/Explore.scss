@@ -25,6 +25,17 @@
             grid-template-columns: repeat(var(--grid-column), 1fr);
             column-gap: var(--grid-gap);
 
+
+            &:last-child {
+                .kustomer-explore-main-item-main {
+                    padding-bottom: 7.2rem;
+                }
+
+                .kustomer-explore-main-item-list {
+                    padding-bottom: 2rem;
+                }
+            }
+
             &-line {
                 position: absolute;
                 top: 0;
@@ -36,7 +47,10 @@
                 margin-right: calc(var(--fr-width) * -1 - var(--grid-gap));
                 padding-right: calc(var(--fr-width) + var(--grid-gap));
                 padding-top: 6rem;
-
+                padding-bottom: 5.2rem;
+                display: flex;
+                flex-direction: column;
+                transition: color .4s ease;
 
                 &-label {
                     margin-bottom: 3.2rem;
@@ -44,6 +58,25 @@
 
                 &-title {
                     max-width: 91.6rem;
+                }
+
+                &-img {
+                    @include size(22.3rem, 31rem);
+                    align-self: end;
+                    margin-top: auto;
+                    transform-origin: right bottom;
+                    transition: transform 600ms ease;
+                    mix-blend-mode: multiply;
+                }
+
+                @media (hover: hover) {
+                    &:hover {
+                        color: var(--cl-orange);
+
+                        .kustomer-explore-main-item-main-img {
+                            transform: scale(1.98);
+                        }
+                    }
                 }
             }
 

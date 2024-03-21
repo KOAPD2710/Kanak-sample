@@ -3,7 +3,6 @@ import ExploreItem from "./ExploreItem"
 
 function KustomerExplore({ ...props }) {
     const allItem = props.list
-    console.log(allItem);
     return (
         <section className="kustomer-explore">
             <div className="container grid">
@@ -14,6 +13,7 @@ function KustomerExplore({ ...props }) {
                             title={item.title}
                             label={item.label}
                             list={item.list}
+                            img={props.img}
                             key={idx}
                         />
                     )}

@@ -4,6 +4,7 @@
 .kustomer-kasestu {
     padding-top: 16rem;
     padding-bottom: 16rem;
+    overflow: hidden;
 
     &-label {
         margin-bottom: 2rem;
@@ -31,16 +32,18 @@
     &-main {
         grid-column: 1/-1;
         margin-top: 10rem;
-        margin-right: calc(var(--container-padding)* -1);
 
         &-wrapper {
             display: flex;
+            overflow: visible    !important;
+            // margin-right: calc(var(--container-padding)* -1);
         }
 
         &-item {
             position: relative;
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
             padding: 6rem;
             width: 75.4rem !important;
             height: 57.1rem !important;
@@ -95,6 +98,8 @@
             }
 
             &:last-child {
+                margin-right: var(--container-padding);
+
                 .line-ver:last-child {
                     left: auto;
                     right: 0;
