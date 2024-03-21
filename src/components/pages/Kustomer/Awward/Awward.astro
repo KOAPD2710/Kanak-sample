@@ -1,0 +1,14 @@
+---
+import KustomerAwward from "./Awward";
+import Image from "astro/components/Image.astro";
+
+import imgAwward from "@assets/kustomer-awward.png";
+import imgQr from "@assets/kustomer-qr.png";
+import imgPlate from "@assets/kustomer-plate.png";
+---
+
+<KustomerAwward>
+    <Image src={imgAwward} alt="" slot="imgAwward" class="img img-fill" />
+    <Image src={imgQr} alt="" slot="imgQr" />
+    <Image src={imgPlate} alt="" slot="imgPlate" />
+</KustomerAwward>

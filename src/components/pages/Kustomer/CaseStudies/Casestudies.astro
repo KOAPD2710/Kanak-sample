@@ -1,8 +1,5 @@
 ---
 import KustomerCaseStudies from "./Casestudies";
-import icArrowExt from "@assets/ic-arrow-small.svg?raw";
 ---
 
-<KustomerCaseStudies {...Astro.props} client:visible>
-    <Fragment slot="icArrowExt" set:html={icArrowExt} />
-</KustomerCaseStudies>
+<KustomerCaseStudies {...Astro.props} client:visible />

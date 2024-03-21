@@ -5,9 +5,13 @@ import Hero from "@pages/Kustomer/Hero/Hero.astro";
 import Premble from "@pages/Kustomer/Premble/Premble.astro";
 import Client from "@pages/Kustomer/Client/Client.astro";
 import Service from "@pages/Kustomer/Service/Service.astro";
+import Sustainable from "@pages/Kustomer/Sustainable/Sustainable.astro";
 import Explore from "@pages/Kustomer/Explore/Explore.astro";
 import Commitment from "@pages/Kustomer/Commitment/Commitment.astro";
-import CaseStudy from "@/components/pages/Kustomer/CaseStudies/Casestudies.astro";
+import CaseStudy from "@pages/Kustomer/CaseStudies/Casestudies.astro";
+import Value from "@pages/Kustomer/Value/Value.astro";
+import Awward from "@pages/Kustomer/Awward/Awward.astro";
+import CTA from "@pages/Kustomer/CTA/CTA.astro";
 
 import ImgSer1 from "@assets/kustomer-service1.jpg";
 import ImgSer2 from "@assets/kustomer-service2.jpg";
@@ -143,7 +147,7 @@ const exploreData = [
 ];
 
 const listCaseStudy = await getAllByType("case_study");
-const filterList = listCaseStudy.filter(
+const filterCaseStudy = listCaseStudy.filter(
     (item) => item.data.category.toLowerCase().replace(" ", "-") === kustomer,
 );
 ---
@@ -157,7 +161,15 @@ const filterList = listCaseStudy.filter(
         client_list={data.client_list}
     />
     <Service list={serviceData} />
+    <Sustainable />
     <Explore list={exploreData} />
     <Commitment list={commitData} />
-    <CaseStudy list={filterList} />
+    <CaseStudy list={filterCaseStudy} />
+    <Value
+        label={data.values_label[0].text}
+        title={data.values_title[0].text}
+        value_list={data.values_list}
+    />
+    <Awward />
+    <CTA />
 </Layout>

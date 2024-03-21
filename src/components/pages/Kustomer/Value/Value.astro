@@ -1,0 +1,62 @@
+---
+import { Image, getImage } from "astro:assets";
+import { getByUID } from "@/prismic.js";
+import icNetwork from "@assets/ic-network.svg";
+import icTree from "@assets/ic-tree.svg";
+import icAward from "@assets/ic-award.svg";
+import bgTextureDark from "@assets/bg-texture-dark-sm.png";
+import KustomerValueItem from "./ValueItem";
+import KustomerValue from "./Value";
+
+const list = await Promise.all(
+    Astro.props.value_list.map(async (value: any) => {
+        let item = getByUID("values", value.item.uid);
+        return item;
+    }),
+);
+
+const OpBgTextureDark = await getImage({
+    src: bgTextureDark,
+    format: "webp",
+    width: bgTextureDark.width,
+});
+let newLabel = Astro.props.label.replaceAll("\n", "<br/>");
+let newTitle = Astro.props.title.replaceAll("\n", "<br/>");
+---
+
+<KustomerValue
+    bgText={OpBgTextureDark}
+    client:visible={{ rootMargin: "100% 0% 100% 0%" }}
+>
+    <Fragment set:html={newLabel} slot="label" />
+    <Fragment set:html={newTitle} slot="title" />
+    <Fragment slot="list">
+        {
+            list.map((item: any, idx: number) => (
+                <KustomerValueItem
+                    idx={idx}
+                    key={idx}
+                    sub_title={item.data.sub_title}
+                >
+                    <Fragment
+                        set:html={item.data.title[0].text.replaceAll(
+                            "\n",
+                            "<br/>",
+                        )}
+                        slot="title"
+                    />
+                    <Image
+                        src={item.data.icon.url}
+                        alt=""
+                        class="ic ic-150"
+                        slot="ic"
+                        width={item.data.icon.dimensions.width}
+                        height={item.data.icon.dimensions.height}
+                    />
+                </KustomerValueItem>
+            ))
+        }
+    </Fragment>
+    <Image src={icTree} alt="" class="ic ic-150" slot="icTree" />
+    <Image src={icAward} alt="" class="ic ic-150" slot="icAward" />
+</KustomerValue>

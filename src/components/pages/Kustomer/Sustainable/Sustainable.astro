@@ -1,0 +1,13 @@
+---
+import Image from "astro/components/Image.astro";
+
+import KustomerSustain from "./Sustainable";
+
+import ic from "@assets/kustomer-sus-ic.svg";
+import sustainable from "@assets/ic-sustainable.svg";
+---
+
+<KustomerSustain client:visible>
+    <Image src={ic} alt="" slot="ic" class="img img-fill" />
+    <Image src={sustainable} alt="" slot="sustainable" class="img img-fill" />
+</KustomerSustain>
