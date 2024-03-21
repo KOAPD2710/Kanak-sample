@@ -1,10 +1,16 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
+import SplitType from 'split-type';
+import { animate, timeline, stagger, inView } from "motion";
 
 import './Main.scss';
 
 function CaseItem({ ...props }) {
+
+    useEffect(() => {
+        console.log('asdasdasdasds');
+    }, [props])
+
     return (
         <a href={`/kase-studies/${props.uid}`} className="case-list-item">
             <p className="txt txt-20 txt-bold case-list-item-label">
@@ -28,6 +34,9 @@ function CaseItem({ ...props }) {
             </div>
             <div className="line line-bot"></div>
             <div className="line line-ver"></div>
+            {props.lineTop && (
+                <div className="line line-top"></div>
+            )}
         </a>
     )
 }
@@ -76,7 +85,7 @@ function CaseMain({ ...props }) {
 
     const renderCases = useMemo(() => (
         itemList.map((item, idx) => (
-            idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} /> : ''
+            idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} lineTop={idx < 2} /> : ''
         ))
     ), [itemList, limit])
 
@@ -94,8 +103,38 @@ function CaseMain({ ...props }) {
     }, [filter])
 
     useEffect(() => {
-        console.log(categoryToggle);
-    }, [categoryToggle])
+        // Animation Filter
+        animate('.case-filter .line-top', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.case-filter-view', { opacity: 0 }, { duration: 0 })
+
+        const sequence = [
+            ['.case-filter .line-top', { scaleX: 1 }, { duration: 2 }],
+            ['.case-filter-view', { opacity: 1 }, { duration: .8, at: 1.6 }]
+        ]
+
+        let listItem = []
+        document.querySelectorAll('.case-filter-list-dropdown .case-filter-item').forEach((item, idx) => {
+            const txt = new SplitType(item.querySelectorAll('.case-filter-item-txt'), { types: 'lines, words', lineClass: 'split-line' })
+
+            animate(txt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            animate(item.querySelectorAll('.case-filter-item-count'), { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+            sequence.push(
+                [txt.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.01), at: .5 + .1 * idx }],
+                [item.querySelectorAll('.case-filter-item-count'), { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.015), at: .7 + .1 * idx }]
+            )
+            listItem.push(txt)
+        })
+
+        inView('.case-filter', () => {
+            timeline(sequence).finished.then(() => {
+                listItem.map((split, idx) => {
+                    split.revert()
+                })
+            })
+        }, { margin: "-30% 0px -30% 0px" })
+        // End Animation Filter
+    }, [])
 
     return (
         <section className="case-main">
@@ -106,7 +145,7 @@ function CaseMain({ ...props }) {
                         <div className="case-filter-list" ref={toggleRef}>
                             <button className="case-filter-list-toggle" onClick={(e) => { setCategoryToggle(!categoryToggle) }}>
                                 <div className="txt txt-18 txt-bold case-filter-list-toggle-txt">
-                                    {filter == 'All' ? 'All Categories' : filter}
+                                    {filter == 'All' ? 'Categories' : filter}
                                 </div>
                                 <div className={`ic ic-20 case-filter-list-toggle-ic ${categoryToggle ? 'open' : ''}`}>
                                     {props.icDropdown}
@@ -129,14 +168,13 @@ function CaseMain({ ...props }) {
                             </button>
                         </div>
                     </div>
-                    <div className="line line-bot"></div>
                 </div>
             </div>
             <div className="case-list">
                 <div className="container">
-                    <motion.div layout transition={{ duration: 0.3 }} className={`case-list-inner ${layout == 'list' ? 'layout-list' : ''} ${limit >= itemList.length ? 'all-loaded' : ''}`}>
+                    <div className={`case-list-inner ${layout == 'list' ? 'layout-list' : ''} ${limit >= itemList.length ? 'all-loaded' : ''}`}>
                         {renderCases}
-                    </motion.div>
+                    </div>
                     <div className={`case-list-load ${limit >= itemList.length ? 'hidden' : ''}`}>
                         <button className="case-list-load-btn" onClick={() => setLimit(limit + 4)}>
                             <div className="case-list-load-btn-ic">

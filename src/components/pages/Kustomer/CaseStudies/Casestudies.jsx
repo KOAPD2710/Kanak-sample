@@ -1,7 +1,9 @@
 import "./Casestudies.scss";
+
 import CaseStudiesMain from "./CasestudiesMain";
 
 function KustomerCaseStudies({ ...props }) {
+
     return (
         <section className="kustomer-kasestu">
             <div className="container grid">

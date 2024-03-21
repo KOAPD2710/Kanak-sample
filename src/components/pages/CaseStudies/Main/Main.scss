@@ -125,6 +125,10 @@
                             grid-column: span 16;
                         }
 
+                        &:nth-child(2) .line-top {
+                            display: none;
+                        }
+
                         &-label {
                             grid-column: span 3
                         }
@@ -228,7 +232,7 @@
                     }
                 }
 
-                .line:not(.line-ver) {
+                .line:not(.line-ver, .line-top) {
                     position: absolute;
                     bottom: 0;
                     left: 0;
@@ -239,6 +243,12 @@
                     position: absolute;
                     top: 0;
                     right: -.1rem;
+                }
+
+                .line-top {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
                 }
             }
 
