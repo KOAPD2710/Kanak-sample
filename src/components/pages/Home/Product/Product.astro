@@ -4,7 +4,7 @@ const { product_list } = Astro.props;
 import { Image } from 'astro:assets';
 import arrIcon from '@assets/arr-right.svg?raw';
 import sampleQR from '@assets/image 11.png';
-import PDFIcon from '@assets/ic-pdf.svg';
+import PDFIcon from '@assets/ic-pdf.svg?raw';
 import { getByUID } from '@/prismic.js';
 import HomeProductTitle from './ProductTitle';
 import HomeProduct from './Product';
@@ -25,7 +25,7 @@ const list = await Promise.all(
         <HomeProduct list={list} client:load>
             <Fragment set:html={arrIcon} slot='arrIcon'/>
             <Image src={sampleQR} alt="" class="ic ic-80" width={sampleQR.width / 2} slot='sampleQR'/>
-            <Image src={PDFIcon} alt="pdf icon" class="ic ic-32" slot='PDFIcon'/>
+            <Fragment set:html={PDFIcon} slot='PDFIcon'/>
         </HomeProduct>
     </div>
 </section>

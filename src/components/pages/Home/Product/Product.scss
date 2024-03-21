@@ -215,12 +215,21 @@
             align-items: center;
             justify-content: center;
             border: solid .2rem var(--cl-txt);
+            transition: all 400ms ease;
+            &:hover {
+                color: var(--cl-orange);
+                border-color: var(--cl-orange);
+                .home-prod-pdf-link-ic {
+                    border-color: var(--cl-orange);
+                }
+            }
             &-ic {
                 @include size(7.2rem, 7rem);
                 border-right: solid .2rem var(--cl-txt);
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                transition: border-color 400ms ease;
                 @include md {
                     @include size(6rem);
                 }

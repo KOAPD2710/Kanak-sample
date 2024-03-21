@@ -13,6 +13,7 @@
             max-width: 75.4rem;
         }
         @include sm {
+            width: 100%;
             padding-top: 16rem;
             padding-bottom: 4rem;
             text-align: left;

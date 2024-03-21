@@ -3,6 +3,6 @@ import Image from 'astro/components/Image.astro'
 import KareerCulture from './Culture.jsx'
 import kareerCultItem from '@assets/kareer-cult-item.jpg';
 ---
-<KareerCulture {...Astro.props} client:visible={{rootMargin: "50% 0% 50% 0%"}}>
-    <Image src={kareerCultItem} alt='' slot='itemImg' class='img img-h' />
+<KareerCulture {...Astro.props} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
+    <Image src={kareerCultItem} alt='' slot='itemImg' class='img img-h'/>
 </KareerCulture>

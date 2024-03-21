@@ -22,7 +22,6 @@ export async function getStaticPaths() {
 
 const { resourceCate } = Astro.params;
 const { item, newList } = Astro.props;
-
 ---
 <Layout title={item}>
     <Hero currentCate={resourceCate} title={item} />
