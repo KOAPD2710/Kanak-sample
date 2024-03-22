@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
-import { filter } from '@prismicio/client';
+
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
 
 function CasedtlRel({ ...props }) {
     const [loaded, setLoaded] = useState(false);
@@ -37,10 +39,53 @@ function CasedtlRel({ ...props }) {
         },
     })
     useEffect(() => {
+        if (!loaded) return
         if (window.innerWidth < 768) {
             setLimit(1)
         }
-    }, [])
+        const title = new SplitType('.casedtl-rel-title', { types: 'lines, words', lineClass: 'split-line' })
+
+        animate('.casedtl-rel-head .line-top', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.casedtl-rel-head .line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.casedtl-rel-nav', { opacity: 0 }, { duration: 0 })
+        animate(title.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+
+        const sequence = [
+            ['.casedtl-rel-head .line-top', { scaleX: 1 }, { duration: 1.8, at: 0 }],
+            ['.casedtl-rel-head .line-bot', { scaleX: 1 }, { duration: 1.65, at: +.2 }],
+            [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.05), at: .4 }],
+            ['.casedtl-rel-nav', { opacity: 1 }, { duration: .8, at: 1.2 }],
+        ]
+
+        document.querySelectorAll('.casedtl-rel-main-group:first-child .casedtl-rel-main-item').forEach((el, idx) => {
+            const titleItem = new SplitType(el.querySelector('.casedtl-rel-main-item-title'), { types: 'lines, words', lineClass: 'split-line' })
+            const readmore = new SplitType(el.querySelector('.casedtl-rel-main-item-link-txt'), { types: 'lines, words, chars', lineClass: 'split-line' })
+
+            animate(titleItem.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+            animate(readmore.chars, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+            animate(el.querySelector('.casedtl-rel-main-item-link svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
+
+            if (idx == 0) {
+                animate(el.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+            }
+
+            sequence.push(
+                [el.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1.2, at: .8 }],
+                [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.04), at: 1.1 }],
+                [readmore.chars, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.012), at: 1.45 }],
+                [el.querySelector('.casedtl-rel-main-item-link svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: "-.2" }]
+            )
+        })
+
+        inView('.casedtl-rel', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                document.querySelector('.casedtl-rel-head .line-top').removeAttribute('style')
+                document.querySelector('.casedtl-rel-head .line-bot').removeAttribute('style')
+            })
+        })
+
+    }, [loaded])
     return (
         <div className="casedtl-rel">
             <div className="casedtl-rel-head">
@@ -74,7 +119,7 @@ function CasedtlRel({ ...props }) {
                         idx < limit && (
                             <div className='keen-slider__slide casedtl-rel-main-group' key={idx}>
                                 {chunk.map((item) => (
-                                    <a href={`/kase-studies/${item.uid}`} className={`casedtl-rel-main-item${props.list.length < perView ? ' single' : ''}`} key={`${idx}-${item.id}`}>
+                                    <a href={`/kase-studies/${item.uid}`} className={`casedtl-rel-main-item ${props.list.length < perView ? 'single' : ''}`} key={`${idx}-${item.id}`}>
                                         <h4 className="heading h5 txt-up txt-black casedtl-rel-main-item-title">
                                             {item.data.title[0].text}
                                         </h4>

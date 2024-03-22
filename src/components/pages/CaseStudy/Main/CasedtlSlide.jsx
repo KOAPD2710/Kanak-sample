@@ -19,14 +19,39 @@ function CasedtlSlide({ ...props }) {
     })
 
     useEffect(() => {
-        let asdas = document.querySelectorAll('.casedtl-slide .line').length
-        console.log(asdas);
+        animate('.casedtl-slide-line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+        animate('.casedtl-slide-stick-line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate('.casedtl-slide-main', { opacity: 0 }, { duration: 0 })
+
+        const sequence = [
+            ['.casedtl-slide .casedtl-slide-line-ver', { scaleY: 1 }, { duration: 1, at: 0 }],
+            ['.casedtl-slide-stick-line', { scaleX: 1 }, { duration: 1, at: 0 }],
+            ['.casedtl-slide-main', { opacity: 1 }, { duration: 1, at: 1 }]
+        ]
+
+        // document.querySelectorAll('.casedtl-slide-main-pagi-item').forEach((item, idx) => {
+        //     animate(item, { opacity: 0 }, { duration: 0 })
+
+        //     sequence.push(
+        //         [item, { opacity: 1 }, { duration: 1, delay: .5, at: 5 + idx * 1 }],
+        //     )
+        // })
+        requestAnimationFrame(() => {
+            inView('.casedtl-slide', () => {
+                timeline(sequence).finished.then(() => {
+                    document.querySelector('.casedtl-slide-line-ver').removeAttribute('style')
+                    document.querySelector('.casedtl-slide-stick-line').removeAttribute('style')
+                    document.querySelector('.casedtl-slide-main').removeAttribute('style')
+
+                })
+            })
+        })
     }, [])
     return (
         <div className="casedtl-slide">
             <div className="line line-ver casedtl-slide-line-ver"></div>
             <div className="casedtl-slide-stick">
-                <div className="line"></div>
+                <div className="line casedtl-slide-stick-line"></div>
                 <div className="casedtl-slide-main">
                     <div className="keen-slider casedtl-slide-main-inner" ref={sliderRef}>
                         {props.data.images.map((item, idx) => (
