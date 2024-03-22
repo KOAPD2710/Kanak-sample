@@ -38,8 +38,10 @@ const FormItem = forwardRef(({ className, children, ...props }, ref) => {
                 {Children.map(children, child => {
                     return cloneElement(child, { id: `${id}-form-item` });
                 })}
-                <span className={cn('line', s.fieldLine)}>
+                <span className={cn('line line-bot', s.fieldLine)}>
                     <span className={s.fieldLineInner}></span>
+                </span>
+                <span className={cn('line line-ver')}>
                 </span>
             </div>
         </FormItemContext.Provider>

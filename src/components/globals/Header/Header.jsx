@@ -1,7 +1,8 @@
 import './Header.scss'
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { getLenis } from '@/components/core/lenis';
 function HeaderGlobal(props) {
+    const [navOpen, setNavOpen] = useState(false)
     useEffect(() => {
         getLenis().on('scroll', function(inst) {
             if (inst.direction == 1) {
@@ -51,8 +52,8 @@ function HeaderGlobal(props) {
                             From plant to product to compost and back again, Kanak is all about coming full circle.
                         </div>
                     </div>
-                    <div className="header-toggle">
-                        <button className="txt txt-16 txt-semi txt-up header-toggle-link">
+                    <div className={`header-toggle ${navOpen ? 'active' : ''}`}>
+                        <button className="txt txt-16 txt-semi txt-up header-toggle-link" onClick={() => (setNavOpen(!navOpen))}>
                             <span className="header-toggle-link-txt header-toggle-link-txt-open active">
                                 Menu
                             </span>
@@ -76,6 +77,11 @@ function HeaderGlobal(props) {
                             {props.tailFlag}
                         </div>
                     </a>
+                </div>
+            </div>
+            <div className="nav ">
+                <div className={`nav-inner bg-light ${navOpen ? 'active' : ''}`}>
+                    <div className="container grid"></div>
                 </div>
             </div>
         </>

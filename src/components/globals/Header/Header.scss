@@ -90,10 +90,10 @@
         column-gap: .8rem;
         padding-top: 2rem;
         @include md {
-            grid-column: span 7;
+            grid-column: 1/8;
         }
         @include sm {
-            grid-column: span 4;
+            grid-column: 1/5;
         }
         &-txt {
             max-width: 28.4rem;
@@ -144,6 +144,7 @@
         z-index: 5;
         grid-column: 11/17;
         grid-row: 1/2;
+        height: 100%;
         @include md {
             grid-column: 8/13;
             display: flex;
@@ -162,10 +163,47 @@
                 grid-row: 1/2;
                 opacity: 0;
                 transition: opacity 400ms ease;
-                &.active {
+                &-open {
                     opacity: 1;
                 }
             }
+        }
+        &.active {
+            .header-toggle-link-txt {
+                &-open {
+                    opacity: 0;
+                }
+                &-close {
+                    opacity: 1;
+                }
+            }
+        }
+    }   
+}
+.nav {
+    display: none;
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    width: 100%;
+    height: calc(100dvh - 6rem);
+    z-index: 998;
+    pointer-events: none;
+    contain: paint;
+    @include md {
+        display: block;
+    }
+    &-inner {
+        width: 100%;
+        height: 100%;
+        background-color: var(--cl-bg);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 600ms ease;
+        &.active {
+            pointer-events: auto;
+            opacity: 1;
+            transform: none;
         }
     }
 }
