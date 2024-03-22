@@ -5,7 +5,9 @@
     background: transparent;
     width: 100%;
     color: var(--cl-txt);
-
+    text-overflow: ellipsis;
+    caret-color: var(--cl-txt);
+    caret-shape: block;
     padding: {
         top: var(--offset-top);
         left: var(--offset-left);

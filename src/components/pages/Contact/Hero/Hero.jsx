@@ -11,7 +11,7 @@ function ContactHero(props) {
             animate(title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05)}).finished.then(() => {
                 title.revert()
             })
-        }, {margin: '-30% 0px -30% 0px'})
+        }, {margin: '-20% 0px -20% 0px'})
 
         const allItems = document.querySelectorAll('.contact-info-item')
         allItems.forEach((el, idx) => {
@@ -29,13 +29,12 @@ function ContactHero(props) {
                 })
             }, {margin: '-30% 0px -30% 0px'})
         })
+        animate('.contact-info-list .line-top', {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
         inView('.contact-info-list', () => {
             animate('.contact-info-list .line-top', {scaleX: 1}, {duration: 1, delay: .2}).finished.then(() => {
                 document.querySelector('.contact-info-list .line-top').removeAttribute('style')
             })
         }, {margin: '-30% 0px -30% 0px'})
-        
-        
     }, [])
     return (
         <>

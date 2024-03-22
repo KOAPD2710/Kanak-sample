@@ -90,6 +90,7 @@ function HomeBrand(props) {
                         {props.brandThree}
                     </div>
                 </div>
+                <div className="line line-ver"></div>
                 <div className="home-brand-main">
                     <div className='home-brand-main-list keen_slider' ref={sliderRef}>
                         {props.list.map(({ data }, idx) => (
