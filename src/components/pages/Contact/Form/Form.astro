@@ -13,12 +13,11 @@ import icChat from "@assets/contact-form-chat.svg";
 import icLoad from "@assets/contact-form-load.svg?raw";
 import icSuccess from "@assets/contact-form-success.svg";
 import icArrowUpRight from "@assets/arrow-up-right.svg"
-import icArrowDown from "@assets/arrow-down.svg"
 const industryList = await getAllByType('industry')
 ---
 
 
-<ContactForm list={industryList} client:visible {...Astro.props}>
+<ContactForm list={industryList} {...Astro.props} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
     <Image src={icAvatar} alt="" slot="icAvatar"/>
     <Image src={icEmail} alt="" slot="icEmail"/>
     <Image src={icSubmit} alt="" slot="icSubmit"/>
@@ -29,5 +28,4 @@ const industryList = await getAllByType('industry')
     <Fragment set:html={icLoad} alt="" slot="icLoad"/>
     <Image src={icSuccess} alt="" slot="icSuccess"/>
     <Image src={icArrowUpRight} alt="" slot="icArrowUpRight"/>
-    <!-- <Image src={icArrowDown} alt="" slot="icArrowDown"/> -->
 </ContactForm>

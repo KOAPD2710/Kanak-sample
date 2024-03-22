@@ -19,7 +19,7 @@ const { data } = await getPage("home");
 <Layout title="Homepage">
 	<div class="home-hero-three-wrap">
 		<Hero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
-		<HeroThree product_list={data.product_list} />
+		<!-- <HeroThree product_list={data.product_list} /> -->
 		<Product
 			prod_sub_title={data.product_title[0].text}
 			product_list={data.product_list}

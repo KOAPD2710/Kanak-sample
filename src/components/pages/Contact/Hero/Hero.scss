@@ -13,9 +13,19 @@
 .contact-info {
     position: relative;
     &-list {
+        position: relative;
         padding-block: 4rem;
-        border-top: 0.2rem solid var(--cl-txt);
         grid-template-columns: 6fr 5fr 5fr;
+        .line {
+            position: absolute;
+            left: 0;
+            &-top {
+                top: 0;
+            }
+            &-bot {
+                bottom: 0;
+            }
+        }
     }
     &-item {
         display: flex;

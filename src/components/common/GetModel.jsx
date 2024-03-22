@@ -6,6 +6,7 @@ Files: PC6200.glb [2.21MB] > /Users/mac/Dropbox/Code Assets/kanak/public/PC6200-
 
 import { useGLTF } from '@react-three/drei'
 let path;
+
 export function GetModel({...props}) {
   path = props.file
   const { nodes } = useGLTF(props.file) 

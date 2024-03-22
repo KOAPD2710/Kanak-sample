@@ -116,6 +116,7 @@
     &.current{
         color: var(--cl-orange);
         &::after {
+            transform: scale(1);
             opacity: 1;
         }
     }

@@ -63,11 +63,12 @@
             pointer-events: none;
         }
 
-        .line-ver {
+        & > .line-ver {
             position: absolute;
             top: 0;
             left: 0;
             transform: translateX(-100%);
+            z-index: 5;
         }
 
     }
@@ -91,44 +92,27 @@
             &:first-child {
                 opacity: 1;
                 pointer-events: auto;
-                transform: translateY(0);
             }
             &:nth-child(2) {
                 opacity: 0;
                 pointer-events: auto;
-                transform: translateY(1rem);
             }
         }
         &.submitted {
-            @keyframes successColor {
-                0% {
-                    color: var(--cl-orange);
-                }
-                100% {
-                    color: var(--cl-txt);
-                }
-            }
             .contact-form-head-wrap:first-child {
                 opacity: 0;
-                transform: translateY(-1rem);
                 pointer-events: none;
             }
             .contact-form-head-wrap:nth-child(2) {
                 opacity: 1;
                 pointer-events: auto;
-                transform: translateY(0);
-                .contact-form-head-title {
-                    animation: successColor 2s ease-in-out;
-                }
             }
         }
 
         &-title {
             margin-bottom: .4rem;
-            transition: transform .3s ease;
         }
         &-subtitle {
-            transition: transform .3s ease;
         }
         &-title-succ {
             position: absolute;
@@ -164,15 +148,16 @@
                 z-index: 3;
             }
         }
+        .line-ver {
+            display: none;
+        }
         &:first-child {
-            &:after {
-                content: '';
+            .line-ver {
+                display: block;
                 position: absolute;
-                height: 100%;
-                width: .2rem;
                 top: 0;
-                right: -0.1rem;
-                background-color: var(--cl-txt);
+                right: 0;
+                
             }
         }
         &:not(:nth-child(-n+2)) {
@@ -196,6 +181,11 @@
         img {
             width: 3.2rem;
         }
+        transition: color 400ms ease;
+        &:hover {
+            color: var(--cl-orange);
+        }
+
     }
     &-success {
         contain: paint;
