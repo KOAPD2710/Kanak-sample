@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
 
-function CasedtlSlide({...props}) {
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
+
+function CasedtlSlide({ ...props }) {
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [sliderRef, instanceRef] = useKeenSlider({
@@ -14,8 +17,14 @@ function CasedtlSlide({...props}) {
             setLoaded(true)
         },
     })
+
+    useEffect(() => {
+        let asdas = document.querySelectorAll('.casedtl-slide .line').length
+        console.log(asdas);
+    }, [])
     return (
         <div className="casedtl-slide">
+            <div className="line line-ver casedtl-slide-line-ver"></div>
             <div className="casedtl-slide-stick">
                 <div className="line"></div>
                 <div className="casedtl-slide-main">
@@ -32,9 +41,9 @@ function CasedtlSlide({...props}) {
                             {loaded && instanceRef && (
                                 props.data.images.map((item, idx) => (
                                     <button className={"casedtl-slide-main-pagi-item" + (currentSlide === idx ? " active" : "")} key={idx}
-                                    onClick={() => {
-                                        instanceRef.current?.moveToIdx(idx)
-                                    }}>
+                                        onClick={() => {
+                                            instanceRef.current?.moveToIdx(idx)
+                                        }}>
                                     </button>
                                 ))
                             )}
@@ -43,15 +52,15 @@ function CasedtlSlide({...props}) {
                             {loaded && instanceRef && (
                                 <>
                                     <button className="casedtl-slide-main-nav-item casedtl-slide-main-nav-item-prev"
-                                    onClick={() => {instanceRef.current.prev()}} 
-                                    disabled={instanceRef.current.track.details.rel === 0}>
+                                        onClick={() => { instanceRef.current.prev() }}
+                                        disabled={instanceRef.current.track.details.rel === 0}>
                                         <div className="ic ic-40">
                                             {props.arrIcon}
                                         </div>
                                     </button>
                                     <button className="casedtl-slide-main-nav-item casedtl-slide-main-nav-item-next"
-                                    onClick={() => {instanceRef.current.next()}}
-                                    disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}>
+                                        onClick={() => { instanceRef.current.next() }}
+                                        disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}>
                                         <div className="ic ic-40">
                                             {props.arrIcon}
                                         </div>

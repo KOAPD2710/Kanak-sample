@@ -15,8 +15,7 @@ function CasedtlMain(props) {
             const txt = new SplitType(item.querySelector('.casedtl-bread-link'), { types: 'lines, words', lineClass: 'split-line' })
             const slash = item.querySelector('.casedtl-bread-div') && item.querySelector('.casedtl-bread-div')
 
-            abc = abc + idx + ((txt.words.length < 2) && txt.words.length)
-
+            abc = abc + ((txt.words.length < 2) ? 2 : txt.words.length + 1)
             animate(txt.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
             sequence.push(
                 [txt.words, { opacity: 1, transform: 'none' }, { duration: .5, delay: stagger(.1), at: .1 + .1 * abc }],
@@ -33,6 +32,7 @@ function CasedtlMain(props) {
             })
         }, { margin: "0px 0px 0px 0px" })
     }, [])
+
     return (
         <div className="casedtl-main">
             <div className="casedtl-bread">

@@ -19,6 +19,12 @@
         padding-top: 8rem;
         position: relative;
 
+        .line-ver {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
         &-stick {
             position: sticky;
             top: 16rem;
@@ -574,6 +580,10 @@
             margin-right: 0;
             padding-top: 5.8rem;
             pointer-events: none;
+
+            .line-ver {
+                display: none;
+            }
 
             &-stick {
                 position: static;
