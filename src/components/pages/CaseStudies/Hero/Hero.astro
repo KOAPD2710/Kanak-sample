@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import CaseHero from './Hero';
+import { Image } from "astro:assets";
+import CaseHero from "./Hero";
 ---
 <CaseHero {...Astro.props} client:visible={{rootMargin: '100% 0px 100% 0px'}}>
    <Image slot='authorAvatar' class="img img-fill" src={Astro.props.client_avatar.url} alt={Astro.props.client_name} width={Astro.props.client_avatar.dimensions.width / 2} height={Astro.props.client_avatar.dimensions.height / 2}/>

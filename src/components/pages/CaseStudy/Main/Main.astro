@@ -24,7 +24,7 @@ const removeDupList = relList.filter(
             <Fragment set:html={arrIcon} slot="arrIcon" />
         </CasedtlSlide>
         <div class="line line-ver"></div>
-        <CasedtlMain {...Astro.props}>
+        <CasedtlMain {...Astro.props} client:load>
             <Image
                 slot="clientLogo"
                 src={Astro.props.data.client_logo.url}
