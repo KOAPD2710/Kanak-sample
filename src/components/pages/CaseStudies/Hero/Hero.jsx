@@ -11,7 +11,6 @@ function CaseHero({ ...props }) {
         const authorName = new SplitType('.case-hero-content-author-name', { types: 'lines, words, chars', lineClass: 'split-line' })
         const authorJob = new SplitType('.case-hero-content-author-job', { types: 'lines, words, chars', lineClass: 'split-line' })
 
-
         animate(title.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(sub.lines, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate('.case-hero-content .line', { scaleX: 0, transformOrigin: 'left center' }, { duration: 0 })
@@ -19,7 +18,6 @@ function CaseHero({ ...props }) {
         animate(authorName.chars, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(authorJob.chars, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate('.case-hero-content-author-company', { opacity: 0 }, { duration: 0 })
-
 
         const sequence = [
             [title.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.025) }],
@@ -38,7 +36,7 @@ function CaseHero({ ...props }) {
                 authorName.revert()
                 authorJob.revert()
             })
-        })
+        }, window.innerWidth > 767 ? { margin: "-30% 0px -30% 0px" } : { margin: "-20% 0px -20% 0px" })
     }, [])
 
     return (

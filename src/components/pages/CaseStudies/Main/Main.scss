@@ -195,6 +195,7 @@
                     margin-bottom: 5.3rem;
                     max-width: 75.4rem;
                     min-height: calc(3 * var(--lh-h3));
+                    font-kerning: none;
                 }
 
                 &-bot {
@@ -222,13 +223,16 @@
                     display: flex;
                     align-items: center;
                     column-gap: .8rem;
+                    overflow: hidden;
                 }
 
-                &:hover {
-                    color: var(--cl-orange);
+                @media (hover: hover) {
+                    &.anim-done:hover {
+                        color: var(--cl-orange);
 
-                    .case-list-item-img {
-                        transform: scale(1.98);
+                        .case-list-item-img {
+                            transform: scale(1.98);
+                        }
                     }
                 }
 
@@ -239,9 +243,9 @@
                 }
 
                 .line-ver {
-                    height: 100%;
+                    height: calc(100% + .2rem);
                     position: absolute;
-                    top: 0;
+                    top: -.2rem;
                     right: -.1rem;
                 }
 

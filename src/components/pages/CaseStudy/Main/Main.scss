@@ -137,6 +137,12 @@
         position: relative;
 
         &-link {
+            &-wrap {
+                display: flex;
+                column-gap: .8rem;
+                align-items: center;
+            }
+
             transition: color 400ms ease;
 
             &:hover {
