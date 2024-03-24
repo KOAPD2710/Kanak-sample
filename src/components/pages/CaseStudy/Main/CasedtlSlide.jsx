@@ -19,34 +19,36 @@ function CasedtlSlide({ ...props }) {
     })
 
     useEffect(() => {
+        if (!loaded) return
         animate('.casedtl-slide-line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
         animate('.casedtl-slide-stick-line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
         animate('.casedtl-slide-main', { opacity: 0 }, { duration: 0 })
 
         const sequence = [
             ['.casedtl-slide .casedtl-slide-line-ver', { scaleY: 1 }, { duration: 1, at: 0 }],
-            ['.casedtl-slide-stick-line', { scaleX: 1 }, { duration: 1, at: 0 }],
-            ['.casedtl-slide-main', { opacity: 1 }, { duration: 1, at: 1 }]
+            ['.casedtl-slide-stick-line', { scaleX: 1 }, { duration: 1, at: "<" }],
+            ['.casedtl-slide-main', { opacity: 1 }, { duration: 1, at: "-.2" }],
         ]
 
-        // document.querySelectorAll('.casedtl-slide-main-pagi-item').forEach((item, idx) => {
-        //     animate(item, { opacity: 0 }, { duration: 0 })
-
-        //     sequence.push(
-        //         [item, { opacity: 1 }, { duration: 1, delay: .5, at: 5 + idx * 1 }],
-        //     )
-        // })
-        requestAnimationFrame(() => {
-            inView('.casedtl-slide', () => {
-                timeline(sequence).finished.then(() => {
-                    document.querySelector('.casedtl-slide-line-ver').removeAttribute('style')
-                    document.querySelector('.casedtl-slide-stick-line').removeAttribute('style')
-                    document.querySelector('.casedtl-slide-main').removeAttribute('style')
-
+        let pagiItems = []
+        document.querySelectorAll('.casedtl-slide-main-pagi-item').forEach((item, idx) => {
+            animate(item, { opacity: 0 }, { duration: 0 })
+            pagiItems.push(item)
+        })
+        sequence.push(
+            [pagiItems, { opacity: 1 }, { duration: 1, delay: stagger(.1) ,at: "-.3" }],
+        )
+        inView('.casedtl-slide', () => {
+            timeline(sequence).finished.then(() => {
+                document.querySelector('.casedtl-slide-line-ver').removeAttribute('style')
+                document.querySelector('.casedtl-slide-stick-line').removeAttribute('style')
+                document.querySelector('.casedtl-slide-main').removeAttribute('style')
+                document.querySelectorAll('.casedtl-slide-main-pagi-item').forEach((el, idx) => {
+                    el.removeAttribute('style')
                 })
             })
         })
-    }, [])
+    }, [loaded])
     return (
         <div className="casedtl-slide">
             <div className="line line-ver casedtl-slide-line-ver"></div>

@@ -9,33 +9,39 @@ function CaseItem({ ...props }) {
     const itemRef = useRef();
 
     useEffect(() => {
-        const label = new SplitType(itemRef.current.querySelector('.case-list-item-label'), { types: 'lines, words', lineClass: 'split-line' })
-        const title = new SplitType(itemRef.current.querySelector('.case-list-item-title'), { types: 'lines, words', lineClass: 'split-line' })
-        const readmore = new SplitType(itemRef.current.querySelector('.case-list-item-link-txt'), { types: 'lines, words', lineClass: 'split-line' })
+        const item = itemRef.current
 
-        animate(itemRef.current.querySelector('.line-bot'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
-        animate(itemRef.current.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+        const label = new SplitType(item.querySelector('.case-list-item-label'), { types: 'lines, words', lineClass: 'split-line' })
+        const title = new SplitType(item.querySelector('.case-list-item-title'), { types: 'lines, words', lineClass: 'split-line' })
+        const readMore = new SplitType(item.querySelector('.case-list-item-link-txt'), { types: 'lines, words', lineClass: 'split-line' })
+
+        animate(item.querySelector('.line-bot'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
         animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(readmore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 0, transform: 'scale(.4)', transformOrigin: "left bottom" }, { duration: 0 })
-        animate(itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
+        animate(readMore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(item.querySelector('.case-list-item-img-inner'), { opacity: 0, transform: 'scale(.4)', transformOrigin: "left bottom" }, { duration: 0 })
+        animate(item.querySelector('.case-list-item-link-ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
 
         const itemSequence = [
-            [itemRef.current.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1.2 }],
-            [itemRef.current.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1.2, at: 0 }],
+            [item.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1.2 }],
+            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1.2, at: 0 }],
             [label.words, { opacity: 1, transform: 'none' }, { duration: 1, delay: stagger(.05), at: .1 }],
             [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .6 }],
-            [itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 1, transform: 'none' }, { duration: .6, at: 1 }],
-            [readmore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: 1.2 }],
-            [itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: 1.4 }]
+            [item.querySelector('.case-list-item-img-inner'), { opacity: 1, transform: 'none' }, { duration: .6, at: 1 }],
+            [readMore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: 1.2 }],
+            [item.querySelector('.case-list-item-link-ic svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: 1.4 }]
         ]
-        inView(itemRef.current, () => {
+        inView(item, () => {
             timeline(itemSequence).finished.then(() => {
                 label.revert()
                 title.revert()
-                readmore.revert()
-                itemRef.current.classList.add("anim-done")
+                readMore.revert()
+                item.querySelector('.line-bot').removeAttribute('style')
+                item.querySelector('.line-ver').removeAttribute('style')
+                item.querySelector('.case-list-item-img-inner').removeAttribute('style')
+                item.querySelector('.case-list-item-link-ic svg').removeAttribute('style')
+                item.classList.add("anim-done")
             })
         }, { margin: "-15% 0px -15% 0px" })
     }, [])
@@ -123,6 +129,8 @@ function CaseMain({ ...props }) {
     ), [itemList, limit])
 
     function filterList(e) {
+        setItemList([])
+
         let type = e.target.dataset.filter;
         setFilter(type)
     }
@@ -178,8 +186,26 @@ function CaseMain({ ...props }) {
                 })
                 toggle.revert()
             })
-        }, window.innerWidth > 767 ? { margin: "-30% 0px -30% 0px" } : { margin: "-20% 0px -20% 0px" })
+        }, window.innerWidth > 767 ? { margin: "0% 0px -30% 0px" } : { margin: "-20% 0px -20% 0px" })
         // End Animation Filter
+
+        // Button Anim
+        const btnTxt = new SplitType('.case-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
+
+        animate('.case-list-load', {opacity: 0}, {duration: 0})
+        animate(btnTxt.words, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
+
+        const btnSequence = [
+            ['.case-list-load', {opacity: 1}, {duration: 1, at: 0}],
+            [btnTxt.words, {opacity: 1, transform: "none"}, {duration: .4, delay: stagger(0.03), at: "-.6"}],
+        ]
+
+        inView('.case-list-load', () => {
+            timeline(btnSequence).finished.then(() => {
+                btnTxt.revert()
+            })
+        })
+        // End Button Anim
     }, [])
 
     return (

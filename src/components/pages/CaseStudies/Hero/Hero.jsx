@@ -36,7 +36,7 @@ function CaseHero({ ...props }) {
                 authorName.revert()
                 authorJob.revert()
             })
-        }, window.innerWidth > 767 ? { margin: "-30% 0px -30% 0px" } : { margin: "-20% 0px -20% 0px" })
+        }, window.innerWidth > 767 ? { margin: "0% 0px -30% 0px" } : { margin: "-20% 0px -20% 0px" })
     }, [])
 
     return (

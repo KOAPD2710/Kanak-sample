@@ -1,9 +1,36 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
+
 function CommitItem({ title, describle, ...props }) {
+    const itemRef = useRef()
+    useEffect(() => {
+        const item = itemRef.current
+        
+        const title = new SplitType(item.querySelector('.kustomer-commit-main-item-title'), { types: 'lines, words', lineClass: 'split-line' })
+        const describe = new SplitType(item.querySelector('.kustomer-commit-main-item-des p'), { types: 'lines. words', lineClass: 'split-line' })
+
+        animate(title.words, { transform: "translateY(100%)"}, {duration: 0})
+        animate(describe.lines, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
+
+        const itemSequence = [
+            [title.words, { transform: "none"}, {duration: .6, delay: stagger(.04), at: 0}],
+            [describe.lines, {opacity: 1, transform: "none"}, {duration: .6, delay: stagger(.04), at: "-.2"}],
+        ]
+
+        inView(item, () => {
+            timeline(itemSequence).finished.then(() => {
+                title.revert()
+                // describe.revert()
+            })
+        }, {margin: "-10% 0px -10% 0px"})
+    }, [])
     return (
-        <div className="kustomer-commit-main-item" {...props} >
+        <div className="kustomer-commit-main-item" {...props} ref={itemRef}>
             <h3 className="heading h4 txt-black txt-up kustomer-commit-main-item-title">{title}</h3>
-            <p className="txt txt-18 txt-med kustomer-commit-main-item-des">{describle}</p>
+            <div className="txt txt-18 txt-med kustomer-commit-main-item-des">
+                <p>{describle}</p>
+            </div>
             <div className="kustomer-commit-main-item-bg"></div>
             <div className="line"></div>
             <div className="line"></div>
@@ -17,9 +44,9 @@ function KustomerCommitMain({ ...props }) {
 
     const [activeIc, setActiveIc] = useState('')
 
-    useEffect(() => {
-        console.log(activeIc);
-    }, [activeIc])
+    // useEffect(() => {
+    //     console.log(activeIc);
+    // }, [activeIc])
 
     return (
         <div className="kustomer-commit-main">
