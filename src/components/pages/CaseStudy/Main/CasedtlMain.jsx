@@ -6,7 +6,7 @@ function CasedtlMain(props) {
 
     useEffect(() => {
 
-        // Breadcrum Animation
+        // BreadCrum Animation
         animate('.casedtl-bread .line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
 
         const allItems = document.querySelectorAll('.casedtl-bread .casedtl-bread-link-wrap')
@@ -37,7 +37,7 @@ function CasedtlMain(props) {
             })
         }, { margin: "0px 0px 0px 0px" })
 
-        // End Breadcrum Animation
+        // End BreadCrum Animation
 
 
         // Main Animation
@@ -50,18 +50,31 @@ function CasedtlMain(props) {
 
         const mainSequence = [
             [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: 1 }],
-            ['.casedtl-content-client-img', { opacity: 1, transform: 'none' }, { duration: .5, at: 1.5 }],
-            ['.casedtl-content-head .line', { scaleX: 1 }, { duration: .8, at: 1.3 }],
+            ['.casedtl-content-client-img', { opacity: 1, transform: 'none' }, { duration: .5, at: "-.3" }],
         ]
 
-        document.querySelectorAll('.casedtl-content-richtext astro-slot *').forEach((item, idx) => {
-            const txt = new SplitType(item, { types: 'lines', lineClass: 'split-line' })
-            animate(txt.lines, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        if (document.querySelector('.casedtl-content-sub')) {
+            const subTitle = new SplitType('.casedtl-content-sub', { types: 'lines, words', lineClass: 'split-line' })
+            animate(subTitle.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
 
             mainSequence.push(
-                [txt.lines, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.1), at: 1.2 + .3 * idx }]
+                [subTitle.words, { opacity: 1, transform: 'none' }, { duration: .5, delay: stagger(.03), at: "-.3" }],
             )
-            mainSplit.push(txt)
+            mainSplit.push(subTitle)
+
+        }
+        mainSequence.push(
+            ['.casedtl-content-head .line', { scaleX: 1 }, { duration: .8, at: "<.56" }],
+        )
+
+        document.querySelectorAll('.casedtl-content-richtext astro-slot *').forEach((item, idx) => {
+            const richTxt = new SplitType(item, { types: 'lines', lineClass: 'split-line' })
+            animate(richTxt.lines, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+            mainSequence.push(
+                [richTxt.lines, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: `<` }]
+            )
+            mainSplit.push(richTxt)
         })
 
         inView('.casedtl-main', () => {

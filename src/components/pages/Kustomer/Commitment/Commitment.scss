@@ -58,9 +58,9 @@
             }
 
             &-des {
-                grid-column: 12/-1;
+                grid-column: 12/17;
                 opacity: .6;
-            }
+                font-kerning: none;            }
 
             &-bg {
                 position: absolute;
@@ -134,10 +134,13 @@
                 top: 0;
                 left: 0;
                 @include size(100%);
+                transform: scale(.8);
                 opacity: 0;
+                transition: all .4s ease;
 
                 &.active {
                     opacity: 1;
+                    transform: scale(1);
                 }
             }
         }

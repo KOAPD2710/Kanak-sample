@@ -3,16 +3,18 @@
 
 
 .kustomer-premble {
-    --offset-top: 20vh;
-    background: var(--bg-txt) repeat;
-    background-color: var(--cl-bg);
+    --offset-top: 20rem;
+    // background: var(--bg-txt) repeat;
+    // background-color: var(--cl-bg);
     margin-top: calc(var(--offset-top) * -1);
     padding-top: calc(var(--offset-top) + 7rem);
+    padding-bottom: 20.5rem;
 
     &-title {
         grid-column: 3/15;
         text-align: center;
         max-width: 104.3rem;
         margin: auto;
+        color: var(--cl-txt-light);
     }
 }
