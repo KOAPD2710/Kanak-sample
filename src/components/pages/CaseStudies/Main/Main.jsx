@@ -192,12 +192,12 @@ function CaseMain({ ...props }) {
         // Button Anim
         const btnTxt = new SplitType('.case-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
 
-        animate('.case-list-load', {opacity: 0}, {duration: 0})
-        animate(btnTxt.words, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
+        animate('.case-list-load', { opacity: 0 }, { duration: 0 })
+        animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const btnSequence = [
-            ['.case-list-load', {opacity: 1}, {duration: 1, at: 0}],
-            [btnTxt.words, {opacity: 1, transform: "none"}, {duration: .4, delay: stagger(0.03), at: "-.6"}],
+            ['.case-list-load', { opacity: 1 }, { duration: 1, at: 0 }],
+            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "-.6" }],
         ]
 
         inView('.case-list-load', () => {

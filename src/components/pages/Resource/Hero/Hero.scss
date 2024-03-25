@@ -5,8 +5,9 @@
     padding-top: 23.7rem;
 
     &-title {
-        grid-column: 1/8;
+        grid-column: 1/9;
     }
+
     &-subtitle {
         grid-column: 12/-1;
         margin-bottom: 7rem;
@@ -16,11 +17,12 @@
 @include md {
     .resource-hero {
         padding-top: 17.5rem;
-    
+
         &-title {
             grid-column: 1/-1;
             margin-bottom: 1.6rem;
         }
+
         &-subtitle {
             grid-column: 1/7;
             margin-bottom: 4rem;
@@ -37,6 +39,7 @@
         &-title {
             @include text(h1);
         }
+
         &-subtitle {
             grid-column: 1/-1;
             margin-right: 0;
