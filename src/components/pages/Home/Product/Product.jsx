@@ -16,7 +16,8 @@ function HomeProduct(props) {
     }
     useEffect(() => {
         console.log('init')
-        scroll(({y}) => {
+        let anim = scroll(({y}) => {
+            console.log('scrolling')
             if (y.progress >= .9) {
                 document.querySelector('.home-prod-cards-inner').classList.add('active')
             } else {

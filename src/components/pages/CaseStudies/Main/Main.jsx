@@ -9,70 +9,71 @@ function CaseItem({ ...props }) {
     const itemRef = useRef();
 
     useEffect(() => {
-        const item = itemRef.current
+        if (!itemRef.current) return
+        const label = new SplitType(itemRef.current.querySelector('.case-list-item-label'), { types: 'lines, words', lineClass: 'split-line' })
+        const title = new SplitType(itemRef.current.querySelector('.case-list-item-title'), { types: 'lines, words', lineClass: 'split-line' })
+        const readmore = new SplitType(itemRef.current.querySelector('.case-list-item-link-txt'), { types: 'lines, words', lineClass: 'split-line' })
 
-        const label = new SplitType(item.querySelector('.case-list-item-label'), { types: 'lines, words', lineClass: 'split-line' })
-        const title = new SplitType(item.querySelector('.case-list-item-title'), { types: 'lines, words', lineClass: 'split-line' })
-        const readMore = new SplitType(item.querySelector('.case-list-item-link-txt'), { types: 'lines, words', lineClass: 'split-line' })
-
-        animate(item.querySelector('.line-bot'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
-        animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+        animate(itemRef.current.querySelector('.line-bot'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate(itemRef.current.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
         animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(readMore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(item.querySelector('.case-list-item-img-inner'), { opacity: 0, transform: 'scale(.4)', transformOrigin: "left bottom" }, { duration: 0 })
-        animate(item.querySelector('.case-list-item-link-ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
+        animate(readmore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 0, transform: 'scale(.4)', transformOrigin: "left bottom" }, { duration: 0 })
+        animate(itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
 
         const itemSequence = [
-            [item.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1.2 }],
-            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1.2, at: 0 }],
-            [label.words, { opacity: 1, transform: 'none' }, { duration: 1, delay: stagger(.05), at: .1 }],
-            [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .6 }],
-            [item.querySelector('.case-list-item-img-inner'), { opacity: 1, transform: 'none' }, { duration: .6, at: 1 }],
-            [readMore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: 1.2 }],
-            [item.querySelector('.case-list-item-link-ic svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: 1.4 }]
+            [itemRef.current.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1 }],
+            [itemRef.current.querySelector('.line-ver'), { scaleY: 1 }, { duration: .8, at: .2 }],
+            [label.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .1 }],
+            [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.03), at: .2 }],
+            [itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 1, transform: 'none'}, { duration: .6, at: .4 }],
+            [readmore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .5 }],
+            [itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: .6 }]
         ]
-        inView(item, () => {
+        inView(itemRef.current, () => {
             timeline(itemSequence).finished.then(() => {
+                if (!itemRef.current) return
+                itemRef.current.querySelector('.line-bot').removeAttribute('style')
+                itemRef.current.querySelector('.line-ver').removeAttribute('style')
+                itemRef.current.querySelector('.case-list-item-img-inner').removeAttribute('style')
+                itemRef.current.querySelector('.case-list-item-link-ic svg').removeAttribute('style')
                 label.revert()
                 title.revert()
-                readMore.revert()
-                item.querySelector('.line-bot').removeAttribute('style')
-                item.querySelector('.line-ver').removeAttribute('style')
-                item.querySelector('.case-list-item-img-inner').removeAttribute('style')
-                item.querySelector('.case-list-item-link-ic svg').removeAttribute('style')
-                item.classList.add("anim-done")
+                readmore.revert()
             })
         }, { margin: "-15% 0px -15% 0px" })
+        return () => {
+            if (!itemRef.current) return
+        }
     }, [])
 
     return (
-        <a href={`/kase-studies/${props.uid}`} className="case-list-item" ref={itemRef}>
-            <p className="txt txt-20 txt-bold case-list-item-label">
+        <div className="case-list-item" ref={itemRef}>
+            <a href={`/kase-studies/${props.data.category.toLowerCase().replaceAll(' ', '-')}`} className="txt txt-20 txt-bold case-list-item-label txt-link" data-cursor="txtLink">
                 {props.data.category}
-            </p>
-            <h2 className="heading h3 txt-up txt-black case-list-item-title">
-                {props.data.title[0].text}
-            </h2>
-            <div className="case-list-item-bot">
-                <div className="case-list-item-img">
-                    <div className="case-list-item-img-inner">
-                        <img className='img img-h' src={props.data.images[0].image_item.url} alt='' width={props.data.images[0].image_item.dimensions.width} height={props.data.images[0].image_item.dimensions.height} />
+            </a>
+            <a href={`/kase-studies/${props.uid}`} className="case-list-item-inner" data-cursor="ext">
+                <h2 className="heading h3 txt-up txt-black case-list-item-title">
+                    {props.data.title[0].text}
+                </h2>
+                <div className="case-list-item-bot">
+                    <div className="case-list-item-img">
+                        <div className="case-list-item-img-inner">
+                            <img className='img img-h' src={props.data.images[0].image_item.url} alt='' width={props.data.images[0].image_item.dimensions.width} height={props.data.images[0].image_item.dimensions.height} />
+                        </div>
+                    </div>
+                    <div className="case-list-item-link">
+                        <div className="txt txt-18 txt-bold case-list-item-link-txt">Read more</div>
+                        <div className="ic ic-16 case-list-item-link-ic">
+                            {props.icArrowExt}
+                        </div>
                     </div>
                 </div>
-                <div className="case-list-item-link">
-                    <div className="txt txt-18 txt-bold case-list-item-link-txt">Read more</div>
-                    <div className="ic ic-16 case-list-item-link-ic">
-                        {props.icArrowExt}
-                    </div>
-                </div>
-            </div>
+            </a>
             <div className="line line-bot"></div>
             <div className="line line-ver"></div>
-            {/* {props.lineTop && (
-                <div className="line line-top"></div>
-            )} */}
-        </a>
+        </div>
     )
 }
 function FilterItem({ ...props }) {
@@ -89,12 +90,9 @@ function FilterItem({ ...props }) {
     )
 }
 
-function renderCases() {
-
-}
 function CaseMain({ ...props }) {
     const { list: allItem } = props;
-    const [layout, setLayout] = useState('grid');
+    const [layout, setLayout] = useState('list');
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
@@ -109,30 +107,31 @@ function CaseMain({ ...props }) {
                 <FilterItem name={'All'}
                     count={allItem.length}
                     isActive={filter == 'All'}
-                    onClick={(e) => { filterList(e); setCategoryToggle(false) }}
-                />
+                    onClick={(e) => {filterList(e)}}/>
                 {props.cateList.map((el, idx) => (
                     <FilterItem name={el}
                         count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterList(e); setCategoryToggle(false) }}
+                        onClick={(e) => {filterList(e)}}
                         key={idx} />
                 ))}
             </>
         )
     }, [filter])
 
-    const renderCases = useMemo(() => (
-        itemList.map((item, idx) => (
+    const renderCases = useMemo(() => {
+        // console.log(filter)
+        return (itemList.map((item, idx) => (
             idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} lineTop={idx < 2} /> : ''
-        ))
-    ), [itemList, limit])
+        )))
+    }, [itemList, limit, filter])
 
     function filterList(e) {
         setItemList([])
 
         let type = e.target.dataset.filter;
         setFilter(type)
+        window.innerWidth < 991 && setCategoryToggle(false)
     }
     useEffect(() => {
         if (filter == 'All') {
@@ -145,48 +144,45 @@ function CaseMain({ ...props }) {
 
     useEffect(() => {
         // Animation Filter
-        let delayMb = 0
-        if (window.innerWidth < 768) {
-            delayMb = 1;
-        }
-        const toggle = new SplitType('.case-filter-list-toggle-txt', { types: 'lines, words, chars', lineClass: 'split-line' })
+        const toggle = new SplitType('.case-filter-list-toggle-txt', { types: 'lines, words', lineClass: 'split-line' })
 
         animate('.case-filter .line-top', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
-        animate('.case-filter-view', { opacity: 0 }, { duration: 0 })
-        animate(toggle.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate('.case-filter-list-toggle .ic img', { opacity: 0, transform: "translateY(20%)" }, { duration: 0 })
+        animate('.case-filter-view-item', { opacity: 0 }, { duration: 0 })
+        animate(toggle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate('.case-filter-list-toggle .ic', { opacity: 0, transform: "translateY(20%)" }, { duration: 0 })
         animate('.case-filter .line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
 
         const sequence = [
-            ['.case-filter .line-top', { scaleX: 1 }, { duration: 2, at: delayMb + 0 }],
-            ['.case-filter .line-bot', { scaleX: 1 }, { duration: 1.8, at: delayMb + .2 }],
-            ['.case-filter-view', { opacity: 1 }, { duration: .8, at: delayMb + 1.7 }],
-            [toggle.chars, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.017), at: delayMb + 1 }],
-            ['.case-filter-list-toggle .ic img', { opacity: 1, transform: "none" }, { duration: .5, at: delayMb + 1.3 }],
+            ['.case-filter .line-top', { scaleX: 1 }, { duration: 1, at: 0 }],
+            ['.case-filter .line-bot', { scaleX: 1 }, { duration: .8, at: .2 }],
+            ['.case-filter-view-item', { opacity: 1 }, { duration: .8, delay: stagger(.1), at: .4}],
+            [toggle.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .3 }],
+            ['.case-filter-list-toggle .ic', { opacity: 1, transform: "none" }, { duration: .6, at: .4 }],
         ]
-
-        let listItem = []
+        let splitTitles = []
         document.querySelectorAll('.case-filter-list-dropdown .case-filter-item').forEach((item, idx) => {
-            const txt = new SplitType(item.querySelectorAll('.case-filter-item-txt'), { types: 'lines, words', lineClass: 'split-line' })
-
-            animate(txt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            const label = new SplitType(item.querySelectorAll('.case-filter-item-txt'), { types: 'lines, words', lineClass: 'split-line' })
+            animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
             animate(item.querySelectorAll('.case-filter-item-count'), { opacity: 0, transform: "translateY(50%)" }, { duration: 0 })
-
             sequence.push(
-                [txt.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.01), at: .5 + .1 * idx }],
-                [item.querySelectorAll('.case-filter-item-count'), { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.015), at: .7 + .1 * idx }]
+                [label.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.02), at: .2 + .04 * idx }],
+                [item.querySelectorAll('.case-filter-item-count'), { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.015), at: .3 + .06 * idx }]
             )
-            listItem.push(txt)
+            splitTitles.push(label)
         })
 
         inView('.case-filter', () => {
             timeline(sequence).finished.then(() => {
-                listItem.map((split, idx) => {
+                splitTitles.map((split, idx) => {
                     split.revert()
                 })
                 toggle.revert()
+                document.querySelector('.case-filter .line-top').removeAttribute('style')
+                document.querySelector('.case-filter .line-bot').removeAttribute('style')
+                document.querySelector('.case-filter-view-item').removeAttribute('style')
+                document.querySelector('.case-filter-list-toggle .ic').removeAttribute('style')
             })
-        }, window.innerWidth > 767 ? { margin: "0% 0px -30% 0px" } : { margin: "-20% 0px -20% 0px" })
+        }, { margin: "-20% 0px -20% 0px" })
         // End Animation Filter
 
         // Button Anim

@@ -45,7 +45,7 @@ function PopItem({ ...props }) {
         })
     })
     return (
-        <a href={`/resources/${props.uid}`} className="resource-main-pop-list-item" ref={itemRef}>
+        <a href={`/insights/${props.uid}`} className="resource-main-pop-list-item" ref={itemRef}>
             <div className="resource-main-pop-list-item-cate">
                 <div className="txt txt-20 txt-bold resource-main-pop-list-item-cate-txt">
                     {props.data.category}

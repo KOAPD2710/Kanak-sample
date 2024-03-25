@@ -55,27 +55,6 @@ function HomePartner(props) {
         if (window.innerWidth > 767 ) {
             scroll(({y}) => {
                 animate('.home-part-line-main path', {strokeDasharray: `${y.progress}, 1` }, {duration: 0})
-                // if (y.progress > 0.06 && y.progress < .35) {
-                //     activeIcon(0)
-                // } else if (y.progress > 0.44 && y.progress < .5) {
-                //     activeIcon(1)
-                // } else if (y.progress > 0.7 && y.progress < .75) {
-                //     activeIcon(2)
-                // } else if (y.progress > 0.98) {
-                //     activeIcon(3)
-                // }
-    
-                // if (y.progress > 0.02 && y.progress < 0.16 ) {
-                //     activeTitle(0)
-                // } else if (y.progress > 0.18 && y.progress < 0.35) {
-                //     activeTitle(1)
-                // } else if (y.progress > 0.4 && y.progress < 0.5) {
-                //     activeTitle(2)
-                // } else if (y.progress > 0.7 && y.progress < 0.9) {
-                //     activeTitle(3)
-                // } else if (y.progress > 0.92) {
-                //     activeTitle(4)
-                // }
             }, {
                 target: ref.current,
                 offset: [`-70vh start`, `${1 - sectionBotOffset / ref.current.clientHeight} end`]

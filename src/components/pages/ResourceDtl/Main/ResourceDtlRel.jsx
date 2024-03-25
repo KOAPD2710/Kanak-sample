@@ -49,7 +49,7 @@ function RelItem({ ...props }) {
     }, [])
 
     return (
-        <a href={`/resources/${props.uid}`} className="resource-dtl-rel-main-inner-group-item" ref={itemRef}>
+        <a href={`/insights/${props.uid}`} className="resource-dtl-rel-main-inner-group-item" ref={itemRef}>
             <div className="resource-dtl-rel-main-inner-group-item-img">
                 <img src={props.data.feature_image.url} alt={props.data.feature_image.alt} width={props.data.feature_image.dimensions.width} className='img img-fill' />
             </div>

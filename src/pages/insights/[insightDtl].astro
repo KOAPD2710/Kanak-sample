@@ -7,12 +7,12 @@ export async function getStaticPaths() {
     const list = await getAllByType("resource");
     return list.map((item: any) => {
         return {
-            params: { resourceDtl: item.uid },
+            params: { insightDtl: item.uid },
             props: { item },
         };
     });
 }
-const { resourceDtl } = Astro.params;
+const { insightDtl } = Astro.params;
 const { item } = Astro.props;
 ---
 

@@ -6,7 +6,6 @@ import Main from "@pages/ResourceCate/Main/Main.astro";
 
 export async function getStaticPaths() {
     const list = await getAllByType("resource");
-
     const cateList = [];
     list.map(({ data }, idx) => {
         !cateList.includes(data.category) && cateList.push(data.category);
@@ -14,17 +13,17 @@ export async function getStaticPaths() {
     return cateList.map((item: any) => {
         let newList = list.filter(({ data }) => data.category == item);
         return {
-            params: { resourceCate: item.toLowerCase().replaceAll(" ", "-") },
+            params: { insightCate: item.toLowerCase().replaceAll(" ", "-") },
             props: { item, newList },
         };
     });
 }
 
-const { resourceCate } = Astro.params;
+const { insightCate } = Astro.params;
 const { item, newList } = Astro.props;
 ---
 
 <Layout title={item}>
-    <Hero currentCate={resourceCate} title={item} />
+    <Hero currentCate={insightCate} title={item} />
     <Main currentCate={item} list={newList} />
 </Layout>

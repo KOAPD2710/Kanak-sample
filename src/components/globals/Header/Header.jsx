@@ -1,5 +1,6 @@
 import './Header.scss'
 import { Fragment, useEffect, useRef, useState } from 'react';
+import {offset, parseRem} from '@/js/utils';
 import { getLenis } from '@/components/core/lenis';
 function HeaderGlobal(props) {
     const [navOpen, setNavOpen] = useState(false)
@@ -9,6 +10,8 @@ function HeaderGlobal(props) {
                 if (inst.scroll >= document.querySelector('.header').clientHeight) {
                     document.querySelector('.header-div-main').classList.add('on-hide')
                     document.querySelector('.header-div-sub').classList.add('on-hide')
+                    document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
+                    document.querySelector('.header').classList.remove('on-open')
                 } else {
                     document.querySelector('.header-div-main').classList.remove('on-hide')
                     document.querySelector('.header-div-sub').classList.remove('on-hide')
@@ -18,7 +21,32 @@ function HeaderGlobal(props) {
                 document.querySelector('.header-div-sub').classList.remove('on-hide')
             }
         })
+        window.addEventListener('click', function(e){   
+            if (document.querySelector('.header-dropdowns').contains(e.target) || document.querySelector('.header-main').contains(e.target)){
+                
+            } else {
+                if (document.querySelectorAll('.header-dropdown.active').length == 1 ) {
+                    document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
+                    document.querySelector('.header').classList.remove('on-open')
+                }
+            }
+          });
     }, [])
+    function menuOnClick(e) {
+        e.preventDefault()
+        let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown="${e.target.getAttribute('data-dropdown')}"]`)
+        if (!dropdownEl.classList.contains('active')) {
+            document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
+            document.querySelector('.header').classList.add('on-open')
+            dropdownEl.classList.add('active')
+        } else {
+            document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
+            document.querySelector('.header').classList.remove('on-open')
+        }
+        dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
+        dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
+    }
+
     return (
         <>
             <header className="header header-div-main">
@@ -31,7 +59,11 @@ function HeaderGlobal(props) {
                             <div className="header-menu">
                                 {props.pages.map((page, idx) => (
                                     <Fragment key={idx}>
-                                        <a href={page.link} className="txt txt-14 txt-up txt-semi txt-link">{page.name}</a>
+                                        <div className="header-menu-item">
+                                            <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown={page.name} className="header-menu-item-link txt-link" onClick={page.type == 'dropdown' ? (e) => {menuOnClick(e)} : null}>
+                                                <span className="txt txt-14 txt-up txt-semi">{page.name}</span>
+                                            </a>
+                                        </div>
                                         {idx !== props.pages.length - 1 && (
                                             <span className="txt txt-14 txt-semi txt-div">/</span>
                                         )}
@@ -64,9 +96,31 @@ function HeaderGlobal(props) {
                     </div>
                 </div>
             </header>
+            <div className="header-dropdowns">
+                {props.pages.map((page, idx) => {
+                    if (page.type == 'dropdown') {
+                        return (
+                            <div className="header-dropdown" key={idx} data-dropdown={page.name}>
+                                <div className="header-dropdown-inner bg-light">
+                                    {page.sub_menu.map((el, idx) => (
+                                        <a href={el.url} className="header-dropdown-item" key={idx}>
+                                            <span className="txt txt-14 txt-up txt-semi">{el.name}</span>
+                                            <div className="header-dropdown-item-ic">
+                                                <div className="ic ic-16">
+                                                    {props.extIcon}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        )
+                    }
+                })}
+            </div>
             <div className="header header-div-sub">
                 <div className="container grid">
-                    <a href="/contact" className="header-cta">
+                    <a href="/contact" className="header-cta" data-cursor="hide">
                         <div className="header-cta-head">
                             {props.headFlag}
                         </div>

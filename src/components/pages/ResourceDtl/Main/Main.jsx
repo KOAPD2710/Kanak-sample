@@ -103,11 +103,11 @@ function ResourceMain({ ...props }) {
                         <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
                     </div>
                     <div className="resource-dtl-bread-link-wrap">
-                        <a className="resource-dtl-bread-link" href="/resources">Resources</a>
+                        <a className="resource-dtl-bread-link" href="/insights">Insights</a>
                         <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
                     </div>
                     <div className="resource-dtl-bread-link-wrap">
-                        <a className="resource-dtl-bread-link" href={`/resources/${props.data.category.toLowerCase().replaceAll(" ", "-")}`}>
+                        <a className="resource-dtl-bread-link" href={`/insights/${props.data.category.toLowerCase().replaceAll(" ", "-")}`}>
                             {props.data.category}
                         </a>
                     </div>

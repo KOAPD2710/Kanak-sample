@@ -7,7 +7,7 @@ function ResourceHero({ ...props }) {
 
     useEffect(() => {
         const title = new SplitType('.resource-hero-title', { types: 'lines, words, chars', lineClass: 'split-line' })
-        const subtitle = new SplitType('.resource-hero-subtitle astro-slot', { types: 'lines, words', lineClass: 'split-line' })
+        const subtitle = new SplitType('.resource-hero-subtitle', { types: 'lines, words', lineClass: 'split-line' })
 
         animate(title.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(subtitle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
@@ -30,10 +30,10 @@ function ResourceHero({ ...props }) {
         <section className="resource-hero">
             <div className="container grid">
                 <h1 className="heading h0 txt-black txt-up resource-hero-title">
-                    {props.title}
+                    Insights    
                 </h1>
                 <p className="txt txt-20 txt-black txt-up resource-hero-subtitle">
-                    {props.subTitle}
+                    a one-stop destination for eco-friendly living. Explore practical tips, guides, and inspiration to help you make a positive impact on the planet.
                 </p>
             </div>
         </section>

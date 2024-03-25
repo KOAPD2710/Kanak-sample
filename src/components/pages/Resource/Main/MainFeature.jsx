@@ -41,7 +41,7 @@ function FeatItem({ ...props }) {
     }, [])
 
     return (
-        <a href={`/resources/${props.uid}`} className="keen-slider__slide resource-main-fea-main-inner-item" ref={itemRef}>
+        <a href={`/insights/${props.uid}`} className="keen-slider__slide resource-main-fea-main-inner-item" ref={itemRef}>
             <div className="resource-main-fea-main-inner-item-img">
                 <img
                     className='img img-fill'

@@ -78,7 +78,7 @@ function ArticleItem({ data, idx }) {
         })
     }, [])
     return (
-        <a href={`/resources/${data.uid}`} className="resource-main-list-main-item" ref={itemRef}>
+        <a href={`/insights/${data.uid}`} className="resource-main-list-main-item" ref={itemRef}>
             <div className="resource-main-list-main-item-img">
                 <div className="resource-main-list-main-item-img-inner">
                     <img
