@@ -10,6 +10,12 @@
         align-items: center;
         column-gap: .8rem;
         margin-bottom: 3.4rem;
+
+        &-link-wrap {
+            display: flex;
+            align-items: center;
+            column-gap: .8rem;
+        }
     }
 
     &-head {
@@ -30,6 +36,7 @@
             align-self: end;
             justify-self: end;
             margin-bottom: 1.4rem;
+            width: 100%;
         }
     }
 }

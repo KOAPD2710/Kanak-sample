@@ -3,11 +3,7 @@ import "./Main.scss";
 import ResourceCateList from "./Main";
 import icArrowDown from "@assets/ic-arr-down.svg?raw";
 ---
-<section class="resource-cate-main">
-	<div class="container grid">
-		<div class="line resource-cate-main-line"></div>
-		<ResourceCateList list={Astro.props.list} client:load>
-			<Fragment set:html={icArrowDown} slot="icArrowDown" />
-		</ResourceCateList>
-	</div>
-</section>
+
+<ResourceCateList list={Astro.props.list} client:load>
+	<Fragment set:html={icArrowDown} slot="icArrowDown" />
+</ResourceCateList>
