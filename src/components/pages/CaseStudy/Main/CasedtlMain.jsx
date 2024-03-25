@@ -28,7 +28,7 @@ function CasedtlMain(props) {
         })
         const sequence = [
             ['.casedtl-bread .line', { scaleX: 1 }, { duration: 1, at: 0 }],
-            [allText, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.04), at: .1 }]
+            [allText, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.04), at: .1}]
         ]
         inView('.casedtl-bread', () => {
             timeline(sequence).finished.then(() => {

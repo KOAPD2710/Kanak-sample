@@ -34,7 +34,7 @@ function HomeValue(props) {
             scroll(
                 animate('.home-val-arr-inner', {scale: [.2, 1], transformOrigin: 'center top'}, {easing: 'linear'}), {
                     target: document.querySelector('.home-val-arr'),
-                    offset: ['start end', `end ${window.innerWidth > 991 ? document.querySelector('.home-val-arr').clientHeight * 1.05 + 'px' : 'end'}`]
+                    offset: ['start end', `${window.innerWidth > 991 ? document.querySelector('.home-val-arr').clientHeight * .95 + 'px' : 'end'} end`]
                 }
             )
         }

@@ -7,36 +7,38 @@ import { animate, timeline, stagger, inView } from "motion";
 function CaseHero({ ...props }) {
     useEffect(() => {
         const title = new SplitType('.case-hero-title', { types: 'lines, words', lineClass: 'split-line' })
-        const sub = new SplitType('.case-hero-content-sub', { types: 'lines', lineClass: 'split-line' })
-        const authorName = new SplitType('.case-hero-content-author-name', { types: 'lines, words, chars', lineClass: 'split-line' })
-        const authorJob = new SplitType('.case-hero-content-author-job', { types: 'lines, words, chars', lineClass: 'split-line' })
+        const sub = new SplitType('.case-hero-content-sub', { types: 'lines, words', lineClass: 'split-line' })
+        const authorName = new SplitType('.case-hero-content-author-name', { types: 'lines, words', lineClass: 'split-line' })
+        const authorJob = new SplitType('.case-hero-content-author-job', { types: 'lines, words', lineClass: 'split-line' })
 
         animate(title.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        animate(sub.lines, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        animate('.case-hero-content .line', { scaleX: 0, transformOrigin: 'left center' }, { duration: 0 })
-        animate('.case-hero-content-author-ava', { opacity: 0 }, { duration: 0 })
-        animate(authorName.chars, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        animate(authorJob.chars, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        animate('.case-hero-content-author-company', { opacity: 0 }, { duration: 0 })
+        animate(sub.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate('.case-hero-content .line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate('.case-hero-content-author-ava img', { opacity: 0, transform: 'scale(1.2)' }, { duration: 0 })
+        animate(authorName.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate(authorJob.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate('.case-hero-content-author-company', { opacity: 0, transform: 'scale(.9)' }, { duration: 0 })
 
         const sequence = [
-            [title.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.025) }],
-            [sub.lines, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.05), at: .5 }],
-            ['.case-hero-content .line', { scaleX: 1.0 }, { duration: 1, at: .9 }],
-            ['.case-hero-content-author-ava', { opacity: 1 }, { duration: .5, at: 1.3 }],
-            [authorName.chars, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.009), at: 1.4 }],
-            [authorJob.chars, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.009), at: 1.6 }],
-            ['.case-hero-content-author-company', { opacity: 1 }, { duration: .5, at: 2 }],
+            [title.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.02) }],
+            [sub.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: .2 }],
+            ['.case-hero-content .line', { scaleX: 1 }, { duration: .8, at: .2 }],
+            ['.case-hero-content-author-ava img', { opacity: 1, transform: 'none' }, { duration: .5, at: .4 }],
+            [authorName.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.02), at: .5 }],
+            [authorJob.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.02), at: .6 }],
+            ['.case-hero-content-author-company', { opacity: 1, transform: 'none' }, { duration: .5, at: .8 }],
         ]
-
         inView(".case-hero", () => {
             timeline(sequence).finished.then(() => {
                 title.revert()
                 sub.revert()
                 authorName.revert()
                 authorJob.revert()
+                document.querySelector('.case-hero-content .line').removeAttribute('style')
+                document.querySelector('.case-hero-content-author-ava img').removeAttribute('style')
+                document.querySelector('.case-hero-content-author-company').removeAttribute('style')
             })
-        }, window.innerWidth > 767 ? { margin: "0% 0px -30% 0px" } : { margin: "-20% 0px -20% 0px" })
+        }, { margin: "-20% 0px -20% 0px" })
     }, [])
 
     return (

@@ -8,9 +8,7 @@
                 padding: {
                     top: 3rem;
                     bottom: 3rem;
-                }
-
-                ;
+                };
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -63,7 +61,7 @@
                     border: solid .2rem var(--cl-txt);
 
                     .ic {
-                        opacity: .2;
+                        opacity: 1;
                         transition: all 400ms ease;
                     }
 
@@ -73,9 +71,8 @@
 
                     &.active {
                         pointer-events: none;
-
                         .ic {
-                            opacity: 1;
+                            opacity: .2;
                         }
                     }
 
@@ -123,10 +120,6 @@
 
                         .line-bot {
                             grid-column: span 16;
-                        }
-
-                        &:nth-child(2) .line-top {
-                            display: none;
                         }
 
                         &-label {
@@ -180,14 +173,13 @@
 
                 &:nth-child(odd) {
                     padding-right: 5rem;
+                    .line-ver {
+                        display: none;
+                    }
                 }
 
                 &:nth-child(even) {
                     padding-left: 5rem;
-
-                    .line-ver {
-                        display: none;
-                    }
                 }
 
                 &-title {
@@ -227,9 +219,8 @@
                 }
 
                 @media (hover: hover) {
-                    &.anim-done:hover {
+                    &:hover {
                         color: var(--cl-orange);
-
                         .case-list-item-img {
                             transform: scale(1.98);
                         }
@@ -246,7 +237,7 @@
                     height: calc(100% + .2rem);
                     position: absolute;
                     top: -.2rem;
-                    right: -.1rem;
+                    left: -.1rem;
                 }
 
                 .line-top {
