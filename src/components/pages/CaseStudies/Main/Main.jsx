@@ -14,13 +14,13 @@ function CaseItem({ ...props }) {
         const title = new SplitType(itemRef.current.querySelector('.case-list-item-title'), { types: 'lines, words', lineClass: 'split-line' })
         const readmore = new SplitType(itemRef.current.querySelector('.case-list-item-link-txt'), { types: 'lines, words', lineClass: 'split-line' })
 
-        animate(item.querySelector('.line-bot'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
-        animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+        animate(itemRef.current.querySelector('.line-bot'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate(itemRef.current.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
         animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(readMore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(item.querySelector('.case-list-item-img-inner'), { opacity: 0, transform: 'scale(.4)', transformOrigin: "left bottom" }, { duration: 0 })
-        animate(item.querySelector('.case-list-item-link-ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
+        animate(readmore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 0, transform: 'scale(.4)', transformOrigin: "left bottom" }, { duration: 0 })
+        animate(itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
 
         const itemSequence = [
             [itemRef.current.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1 }],
@@ -31,7 +31,7 @@ function CaseItem({ ...props }) {
             [readmore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .5 }],
             [itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: .6 }]
         ]
-        inView(item, () => {
+        inView(itemRef.current, () => {
             timeline(itemSequence).finished.then(() => {
                 if (!itemRef.current) return
                 itemRef.current.querySelector('.line-bot').removeAttribute('style')

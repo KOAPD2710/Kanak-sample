@@ -39,7 +39,6 @@ function CasedtlMain(props) {
 
         // End BreadCrum Animation
 
-
         // Main Animation
         let mainSplit = []
         const title = new SplitType('.casedtl-content-title', { types: 'lines, words', lineClass: 'split-line' })
