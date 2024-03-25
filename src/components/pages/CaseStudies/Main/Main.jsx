@@ -49,29 +49,31 @@ function CaseItem({ ...props }) {
     }, [])
 
     return (
-        <a href={`/kase-studies/${props.uid}`} className="case-list-item" ref={itemRef}>
-            <p className="txt txt-20 txt-bold case-list-item-label">
+        <div className="case-list-item" ref={itemRef}>
+            <a href={`/kase-studies/${props.data.category.toLowerCase().replaceAll(' ', '-')}`} className="txt txt-20 txt-bold case-list-item-label txt-link" data-cursor="txtLink">
                 {props.data.category}
-            </p>
-            <h2 className="heading h3 txt-up txt-black case-list-item-title">
-                {props.data.title[0].text}
-            </h2>
-            <div className="case-list-item-bot">
-                <div className="case-list-item-img">
-                    <div className="case-list-item-img-inner">
-                        <img className='img img-h' src={props.data.images[0].image_item.url} alt='' width={props.data.images[0].image_item.dimensions.width} height={props.data.images[0].image_item.dimensions.height} />
+            </a>
+            <a href={`/kase-studies/${props.uid}`} className="case-list-item-inner" data-cursor="ext">
+                <h2 className="heading h3 txt-up txt-black case-list-item-title">
+                    {props.data.title[0].text}
+                </h2>
+                <div className="case-list-item-bot">
+                    <div className="case-list-item-img">
+                        <div className="case-list-item-img-inner">
+                            <img className='img img-h' src={props.data.images[0].image_item.url} alt='' width={props.data.images[0].image_item.dimensions.width} height={props.data.images[0].image_item.dimensions.height} />
+                        </div>
+                    </div>
+                    <div className="case-list-item-link">
+                        <div className="txt txt-18 txt-bold case-list-item-link-txt">Read more</div>
+                        <div className="ic ic-16 case-list-item-link-ic">
+                            {props.icArrowExt}
+                        </div>
                     </div>
                 </div>
-                <div className="case-list-item-link">
-                    <div className="txt txt-18 txt-bold case-list-item-link-txt">Read more</div>
-                    <div className="ic ic-16 case-list-item-link-ic">
-                        {props.icArrowExt}
-                    </div>
-                </div>
-            </div>
+            </a>
             <div className="line line-bot"></div>
             <div className="line line-ver"></div>
-        </a>
+        </div>
     )
 }
 function FilterItem({ ...props }) {
@@ -90,7 +92,7 @@ function FilterItem({ ...props }) {
 
 function CaseMain({ ...props }) {
     const { list: allItem } = props;
-    const [layout, setLayout] = useState('grid');
+    const [layout, setLayout] = useState('list');
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);

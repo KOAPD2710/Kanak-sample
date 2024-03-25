@@ -8,7 +8,7 @@ import { getPage } from '@/prismic.js';
 const { data } = await getPage('resources_page');
 let subTitle = convertHighlight(data.hero_demo);
 ---
-<Layout title="Resources">
+<Layout title="Insights">
     <Hero title={data.hero_title[0].text} subTitle={subTitle}/>
     <Main />
 </Layout>

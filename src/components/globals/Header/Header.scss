@@ -25,6 +25,12 @@
             transform: translateY(-8rem);
         }
     }
+    &.on-open {
+        .header-sub {
+            opacity: 0;
+            transform: translateY(-2rem);
+        }
+    }
     &:not(.on-hide) {
         .container > * {
             pointer-events: auto;
@@ -40,7 +46,7 @@
         }
     }
     &-main {
-        grid-column: 1/11;
+        grid-column: 1/10;
         grid-row: 1/2;
         @include md {
             grid-column: 1/13;
@@ -70,6 +76,77 @@
         @include md {
             display: none;
         }
+        &-item {
+            position: relative;
+            &-link {
+                & * {
+                    pointer-events: none;
+                }
+            }
+            
+        }
+    }
+    &-dropdowns {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        .header-dropdown {
+            position: absolute;
+            top: 100%;
+            left: -2rem;
+            pointer-events: none;
+            contain: paint;
+            &-inner {
+                min-width: 21.4rem;
+                background-color: var(--cl-bg);
+                display: flex;
+                flex-direction: column;
+                border: solid .2rem var(--cl-txt);
+                border-top: none;
+                transform: translateY(-2rem);
+                opacity: 0;
+                transition: all 400ms ease;
+            }
+            &.active {
+                pointer-events: auto;
+                .header-dropdown-inner {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            &-item {
+                width: 100%;
+                padding: 2rem;
+                border-bottom: solid .2rem var(--cl-txt);
+                display: flex;
+                align-items: center;
+                column-gap: 1.6rem;
+                justify-content: space-between;
+                color: var(--cl-txt);
+                transition: color 400ms ease;
+                &-ic {
+                    contain: paint;
+                    .ic {
+                        opacity: 0;
+                        transition: 400ms ease;
+                        transition-property: opacity, transform;
+                        transform: translate(-100%, 100%);    
+                    }
+                }
+                &:hover {
+                    color: var(--cl-orange);
+                    .header-dropdown-item-ic .ic {
+                        transform: translate(0, 0);
+                        opacity: 1;
+                    }
+                }
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
     }
     .line {
         width: 100%;
@@ -89,6 +166,7 @@
         align-items: center;
         column-gap: .8rem;
         padding-top: 2rem;
+        transition: all 400ms ease;
         @include md {
             grid-column: 1/8;
         }

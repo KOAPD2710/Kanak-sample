@@ -141,7 +141,7 @@ function GlobalFooter(props) {
                     >
                         {props.list?.map((item, idx) => {
                             return (
-                                <MenuItem link={`/kustomer/${item.uid}`} key={idx}>{item.data.title}</MenuItem>
+                                <MenuItem link={`/kustomers/${item.uid}`} key={idx}>{item.data.title}</MenuItem>
                             )
                         })}
                     </MenuColumn>

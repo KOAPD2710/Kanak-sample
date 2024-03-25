@@ -96,6 +96,7 @@ function HomeBrand(props) {
                         {props.list.map(({ data }, idx) => (
                             <a
                                 key={idx}
+                                data-cursor="ext"
                                 href="#"
                                 className={`home-brand-main-item keen-slider__slide ${currentSlide == idx ? 'active' : ''}`}
                                 onMouseOver={() => {brandIndex.set(idx)}}
