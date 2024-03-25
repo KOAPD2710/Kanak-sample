@@ -1,8 +1,77 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
 import { convertDate } from "@utils/text.js"
 
+import SplitType from 'split-type';
+import { animate, timeline, stagger, inView, createStyleString } from "motion";
+
+
+function RelItem({ ...props }) {
+    const itemRef = useRef()
+    useEffect(() => {
+        const item = itemRef.current
+
+        const label = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-cate'), { types: 'lines, words', lineClass: 'split-line' })
+        const titleItem = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-title'), { types: 'lines, words', lineClass: 'split-line' })
+        const describle = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-des'), { types: 'lines, words', lineClass: 'split-line' })
+        const date = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-date'), { types: 'lines, words', lineClass: 'split-line' })
+
+        animate(label.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate(titleItem.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate(describle.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate(date.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate(item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 0, scale: 0, transformOrigin: "left bottom" }, { duration: 0 })
+        animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate(item.querySelector('.line:not(.line-ver)'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+
+
+        const itemSequence = [
+            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: .2 }],
+            [item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 1, scale: 1 }, { duration: 1.2, at: "<" }],
+            [label.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.03), at: "-.8" }],
+            [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.04), at: "-.4" }],
+            [describle.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: "-.4" }],
+            [date.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: "-.6" }],
+            [item.querySelector('.line:not(.line-ver)'), { scaleX: 1 }, { duration: .8, at: "-1" }],
+        ]
+
+        inView(item, () => {
+            timeline(itemSequence).finished.then(() => {
+                titleItem.revert()
+                describle.revert()
+                label.revert()
+                date.revert()
+                item.querySelector('.line').removeAttribute('style')
+                item.querySelector('.resource-dtl-rel-main-inner-group-item-img img').removeAttribute('style')
+            })
+        })
+    }, [])
+
+    return (
+        <a href={`/insights/${props.uid}`} className="resource-dtl-rel-main-inner-group-item" ref={itemRef}>
+            <div className="resource-dtl-rel-main-inner-group-item-img">
+                <img src={props.data.feature_image.url} alt={props.data.feature_image.alt} width={props.data.feature_image.dimensions.width} className='img img-fill' />
+            </div>
+            <div className="resource-dtl-rel-main-inner-group-item-content">
+                <div className="txt txt-20 txt-bold resource-dtl-rel-main-inner-group-item-content-cate">
+                    {props.data.category}
+                </div>
+                <h3 className='heading h4 txt-black txt-up resource-dtl-rel-main-inner-group-item-content-title'>
+                    {props.data.title}
+                </h3>
+                <p className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-des'>
+                    {props.data.sapo}
+                </p>
+                <span className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-date'>
+                    {convertDate(props.last_publication_date)}
+                </span>
+                <div className="line line-ver"></div>
+                <div className="line"></div>
+            </div>
+        </a>
+    )
+}
 
 function ResDtlRel(props) {
     const [loaded, setLoaded] = useState(false);
@@ -37,10 +106,34 @@ function ResDtlRel(props) {
         },
     })
     useEffect(() => {
+        if (!loaded) return
+
         if (window.innerWidth < 992) {
             setLimit(1)
         }
-    }, [])
+
+        const title = new SplitType('.resource-dtl-rel-head-title', { types: 'lines, words', lineClass: 'split-line' })
+
+        animate(title.words, { transform: "translateY(100%)" }, { duration: 0 })
+        animate('.resource-dtl-rel-main-line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.resource-dtl-rel-head-nav', { opacity: 0, transform: "translateX(-20px)" }, { duration: 0 })
+
+        const sequence = [
+            [title.words, { transform: "none" }, { duration: .4, delay: stagger(.05), at: "-.2" }],
+            ['.resource-dtl-rel-main-line', { scaleX: 1 }, { duration: 1, at: "-.4" }],
+            ['.resource-dtl-rel-head-nav', { opacity: 1, transform: "none" }, { duration: 1, at: "-.7" }],
+        ]
+
+
+        inView('.resource-dtl-rel', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                document.querySelector('.resource-dtl-rel-main-line').removeAttribute('style')
+                document.querySelector('.resource-dtl-rel-head-nav').removeAttribute('style')
+            })
+        })
+
+    }, [loaded])
     return (
         <div className="resource-dtl-rel">
             <div className="resource-dtl-rel-head">
@@ -65,34 +158,12 @@ function ResDtlRel(props) {
                 )}
             </div>
             <div className="resource-dtl-rel-main">
-                <div className="line"></div>
+                <div className="line resource-dtl-rel-main-line"></div>
                 <div className={`keen-slider  resource-dtl-rel-main-inner ${limit >= newList.length ? 'all-loaded' : ''}`} ref={sliderRef} style={{ '--perView': perView }}>
                     {newList.map((chunk, idx) =>
                         idx < limit && (
                             <div className="keen-slider__slide resource-dtl-rel-main-inner-group" key={idx}>
-                                {chunk.map((item, itemIdx) => (
-                                    <a href={`/resources/${item.uid}`} className="resource-dtl-rel-main-inner-group-item" key={itemIdx} >
-                                        <div className="resource-dtl-rel-main-inner-group-item-img">
-                                            <img src={item.data.feature_image.url} alt={item.data.feature_image.alt} width={item.data.feature_image.dimensions.width} className='img img-fill' />
-                                        </div>
-                                        <div className="resource-dtl-rel-main-inner-group-item-content">
-                                            <div className="txt txt-20 txt-bold resource-dtl-rel-main-inner-group-item-content-cate">
-                                                {item.data.category}
-                                            </div>
-                                            <h3 className='heading h4 txt-black txt-up resource-dtl-rel-main-inner-group-item-content-title'>
-                                                {item.data.title}
-                                            </h3>
-                                            <p className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-des'>
-                                                {item.data.sapo}
-                                            </p>
-                                            <span className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-date'>
-                                                {convertDate(item.last_publication_date)}
-                                            </span>
-                                            <div className="line line-ver"></div>
-                                            <div className="line"></div>
-                                        </div>
-                                    </a>
-                                ))}
+                                {chunk.map((item, itemIdx) => <RelItem {...item} key={itemIdx} />)}
                             </div>
                         )
                     )}

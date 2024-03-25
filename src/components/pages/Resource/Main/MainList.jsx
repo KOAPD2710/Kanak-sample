@@ -3,6 +3,10 @@ import { useEffect, useMemo, useState, useRef } from 'react';
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
 import { convertDate } from "@utils/text.js"
 
+import SplitType from 'split-type';
+import { animate, timeline, stagger, inView } from "motion";
+import { sequence } from "astro:middleware";
+
 function FilterItem(props) {
     return (
         <button className={`resource-main-list-head-filter-item ${props.isActive ? 'active' : ''}`} onClick={props.onClick} data-filter={props.name}>
@@ -19,8 +23,62 @@ function FilterItem(props) {
 
 
 function ArticleItem({ data, idx }) {
+    const itemRef = useRef()
+    useEffect(() => {
+        const item = itemRef.current
+        const cate = new SplitType(item.querySelector('.resource-main-list-main-item-cate'), { types: 'lines, words', lineClass: 'split-line' })
+        const title = new SplitType(item.querySelector('.resource-main-list-main-item-title'), { types: 'lines, words', lineClass: 'split-line' })
+        const des = new SplitType(item.querySelector('.resource-main-list-main-item-subtitle'), { types: 'lines, words', lineClass: 'split-line' })
+        const date = new SplitType(item.querySelector('.resource-main-list-main-item-date'), { types: 'lines, words', lineClass: 'split-line' })
+
+        animate(item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 0, scale: .6, transformOrigin: "left bottom" }, { duration: 0 })
+        animate(cate.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(des.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+
+        const itemSequence = []
+        if (item.querySelectorAll('.line-ver').length) {
+            animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+            itemSequence.push(
+                [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: 0 }]
+            )
+        }
+
+        itemSequence.push(
+            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
+            [item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .2 }],
+            [cate.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.04), at: 0 }],
+        )
+
+        title.lines.forEach((el, idx) => {
+            if (idx == 0) {
+                itemSequence.push(
+                    [el.children, { opacity: 1, transform: "none" }, { duration: .6, at: "-.2" }]
+                )
+            } else if (idx < 2) {
+                itemSequence.push(
+                    [el.children, { opacity: 1, transform: "none" }, { duration: .6, at: "-.5" }]
+                )
+            }
+        })
+        itemSequence.push(
+            [des.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
+            [date.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
+        )
+
+        inView(item, () => {
+            timeline(itemSequence).finished.then(() => {
+                cate.revert()
+                title.revert()
+                des.revert()
+                item.querySelector('.resource-main-list-main-item-img-inner').removeAttribute('style')
+            })
+        })
+    }, [])
     return (
-        <a href={`/resources/${data.uid}`} className="resource-main-list-main-item">
+        <a href={`/insights/${data.uid}`} className="resource-main-list-main-item" ref={itemRef}>
             <div className="resource-main-list-main-item-img">
                 <div className="resource-main-list-main-item-img-inner">
                     <img
@@ -93,6 +151,7 @@ function ResourceMainList(props) {
 
 
     function filterList(e) {
+        setItemList([])
         let type = e.target.dataset.filter;
         setFilter(type)
     }
@@ -107,8 +166,74 @@ function ResourceMainList(props) {
     }, [filter])
 
     useEffect(() => {
-        console.log(categoryToggle);
-    }, [categoryToggle])
+        const title = new SplitType('.resource-main-list-head-title', { types: 'lines, words, chars', lineClass: 'split-line' })
+        const toggle = new SplitType('.resource-main-list-head-filter-toggle .resource-main-list-head-filter-toggle-txt', { types: 'lines, words, chars', lineClass: 'split-line' })
+
+        animate(toggle.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(title.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate('.resource-main-list-line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate('.resource-main-list-head-filter-toggle-ic', { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+        const filterArray = []
+        const countArray = []
+
+        const sequence = [
+            [title.chars, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.3" }],
+            ['.resource-main-list-line', { scaleX: 1 }, { duration: 1, at: "-.2" }],
+        ]
+
+        sequence.push(
+            [[...toggle.chars, document.querySelector('.resource-main-list-head-filter-toggle-ic')], { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: 1 }]
+        )
+
+        document.querySelectorAll('.resource-main-list-head-filter-dropdown .resource-main-list-head-filter-item').forEach((el, idx) => {
+            const cate = new SplitType(el.querySelector('.resource-main-list-head-filter-item-txt'), { types: 'lines, words', lineClass: 'split-line' })
+            animate(cate.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            animate(el.querySelector('.resource-main-list-head-filter-item-count'), { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+            sequence.push(
+                [[...cate.words, el.querySelector('.resource-main-list-head-filter-item-count')], { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.4" }],
+            )
+
+            filterArray.push(cate)
+            countArray.push(el.querySelector('.resource-main-list-head-filter-item-count'))
+        })
+
+
+
+        inView('.resource-main-list', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                filterArray.map((el, idx) => {
+                    el.revert()
+                })
+                countArray.map((el, idx) => {
+                    el.removeAttribute('style')
+                })
+                document.querySelector('.resource-main-list-line').removeAttribute('style')
+            })
+        })
+
+
+
+        // Button Anim
+        const btnTxt = new SplitType('.resource-main-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
+
+        animate('.resource-main-list-load', { opacity: 0 }, { duration: 0 })
+        animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+        const btnSequence = [
+            ['.resource-main-list-load', { opacity: 1 }, { duration: 1, at: 0 }],
+            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "-.6" }],
+        ]
+
+        inView('.resource-main-list-load', () => {
+            timeline(btnSequence).finished.then(() => {
+                btnTxt.revert()
+            })
+        })
+        // End Button Anim
+    }, [])
 
     return (
         <div className="resource-main-list">
@@ -128,12 +253,12 @@ function ResourceMainList(props) {
                     </div>
                 </div>
             </div>
-            <div className="line"></div>
+            <div className="line resource-main-list-line"></div>
             <div className={`resource-main-list-main ${limit >= itemList.length ? 'all-loaded' : ''}`}>
                 <div className={`resource-main-list-main-inner`}>
                     {renderArticles}
                 </div>
-                <div className="line"></div>
+                {/* <div className="line"></div> */}
             </div>
             <div className={`resource-main-list-load ${limit >= itemList.length ? 'hidden' : ''}`}>
                 <button className="resource-main-list-load-btn" onClick={() => setLimit(limit + 4)}>

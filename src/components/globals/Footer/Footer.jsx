@@ -157,7 +157,7 @@ function GlobalFooter(props) {
                         <MenuItem>Sustainability</MenuItem>
                         <MenuItem>Logistics Capabilities</MenuItem>
                         <MenuItem>Distribution Network</MenuItem>
-                        <MenuItem link="/resources">Resources</MenuItem>
+                        <MenuItem link="/insights">Resources</MenuItem>
                         <MenuItem link="/kareers">Kareers</MenuItem>
                     </MenuColumn>
                 </div>

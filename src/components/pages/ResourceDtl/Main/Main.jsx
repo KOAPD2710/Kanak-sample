@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { convertDate } from "@utils/text.js"
 import ResDtlRel from "./ResourceDtlRel";
 
+import SplitType from 'split-type';
+import { animate, timeline, stagger, inView, createStyleString } from "motion";
+
 function ResourceMain({ ...props }) {
     const [openTooltip, setOpenTooltip] = useState(false)
     useEffect(() => {
@@ -15,32 +18,99 @@ function ResourceMain({ ...props }) {
                 el.appendChild(caption)
             }
         })
+
+        let allText = []
+        let splitList = []
+        const allItem = document.querySelectorAll(".resource-dtl-bread-link-wrap")
+        allItem.forEach((item, idx) => {
+            const breadTxt = new SplitType(item.querySelector('.resource-dtl-bread-link'), { types: 'lines, words', lineClass: 'split-line' })
+            animate(breadTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            splitList.push(breadTxt)
+            if (idx != allItem.length - 1) {
+                const slash = item.querySelector('.resource-dtl-bread-div')
+                animate(slash, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+                allText.push(...breadTxt.words, slash)
+            } else {
+                allText.push(...breadTxt.words)
+            }
+        })
+
+        const title = new SplitType('.resource-dtl-title', { types: 'lines, words, chars', lineClass: 'split-line' })
+        animate(title.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate('.resource-dtl-line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.resource-dtl-richtxt .line-ver', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+
+        const sequence = [
+            [allText, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.04), at: .1 }],
+            [title.chars, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.005), at: "-.4" }],
+            ['.resource-dtl-line', { scaleX: 1 }, { duration: 1, at: "-.4" }],
+            ['.resource-dtl-richtxt .line-ver', { scaleY: 1 }, { duration: 1, at: "-.8" }],
+        ]
+
+        const allInfo = document.querySelectorAll('.resource-dtl-info-stick .resource-dtl-info-item:not(.link)')
+
+        allInfo.forEach((el, idx) => {
+            const head = new SplitType(el.querySelector('.resource-dtl-info-item-head'), { types: 'lines, words', lineClass: 'split-line' })
+            const content = new SplitType(el.querySelector('.resource-dtl-info-item-content'), { types: 'lines, words', lineClass: 'split-line' })
+
+            animate(head.words, { transform: "translateY(100%)" }, { duration: 0 })
+            animate(content.words, { transform: "translateY(100%)" }, { duration: 0 })
+
+
+            sequence.push(
+                [head.words, { transform: "none" }, { duration: .8, at: 1 }],
+                [content.words, { transform: "none" }, { duration: .8, at: "-.7" }],
+            )
+        })
+
+        const allLink = document.querySelectorAll('.resource-dtl-info-stick .resource-dtl-info-item.link .resource-dtl-info-item-link');
+
+        allLink.forEach((el, idx) => {
+            animate(el, { opacity: 0, transform: "translateX(-20px) scale(.6)" }, { duration: 0 })
+
+            sequence.push(
+                [el, { opacity: 1, transform: 'none' }, { duration: .4, at: "-.3" }]
+            )
+        })
+
+        inView('.resource-dtl', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                splitList.forEach(el => el.revert())
+            })
+        })
     }, [])
     function copyClipboard(e) {
         e.preventDefault()
-        var currentURL = props.url;
+        let currentURL = props.url;
         navigator.clipboard.writeText(currentURL)
-        .then(function () {
-            setOpenTooltip(true)
-            setTimeout(() => {
-                setOpenTooltip(false)
-            }, 2000)
-        })
-        .catch(function (err) {
-            console.error('Failed to copy: ', err);
-        });
+            .then(function () {
+                setOpenTooltip(true)
+                setTimeout(() => {
+                    setOpenTooltip(false)
+                }, 2000)
+            })
+            .catch(function (err) {
+                console.error('Failed to copy: ', err);
+            });
     }
     return (
         <section className="resource-dtl">
             <div className="container grid">
                 <div className="txt txt-20 txt-bold resource-dtl-bread">
-                    <a href="/">Home</a>
-                    <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-                    <a href="/resources">Resources</a>
-                    <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
-                    <a href={`/resources/${props.data.category.toLowerCase().replaceAll(" ", "-")}`}>
-                        {props.data.category}
-                    </a>
+                    <div className="resource-dtl-bread-link-wrap">
+                        <a className="resource-dtl-bread-link" href="/">Home</a>
+                        <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
+                    </div>
+                    <div className="resource-dtl-bread-link-wrap">
+                        <a className="resource-dtl-bread-link" href="/insights">Insights</a>
+                        <div className="txt txt-14 txt-semi resource-dtl-bread-div">/</div>
+                    </div>
+                    <div className="resource-dtl-bread-link-wrap">
+                        <a className="resource-dtl-bread-link" href={`/insights/${props.data.category.toLowerCase().replaceAll(" ", "-")}`}>
+                            {props.data.category}
+                        </a>
+                    </div>
                 </div>
                 <h1 className="heading h0 txt-black txt-up resource-dtl-title">{props.data.title}</h1>
                 <div className="line resource-dtl-line"></div>
