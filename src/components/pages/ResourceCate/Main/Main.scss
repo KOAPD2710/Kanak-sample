@@ -43,11 +43,11 @@
                 }
 
                 &-title {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    min-height: calc(2 * var(--lh-h5));
+                    // display: -webkit-box;
+                    // -webkit-line-clamp: 2;
+                    // -webkit-box-orient: vertical;
+                    // overflow: hidden;
+                    // min-height: calc(2 * var(--lh-h5));
                     transition: color .4s ease;
 
                     margin: {
