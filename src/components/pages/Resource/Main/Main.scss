@@ -31,6 +31,12 @@
                     padding-right: 4.6rem;
                     padding-bottom: 3.2rem;
 
+                    &-content {
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                    }
+
                     &-img {
                         width: 100%;
                         height: 47.5rem;
@@ -145,7 +151,7 @@
                     &[disabled] {
                         pointer-events: none;
 
-                        .ic {
+                        .ic svg {
                             opacity: .2;
                         }
                     }
@@ -457,11 +463,18 @@
                         }
 
                         &-img {
-                            height: 25.8rem;
+                            height: 100%;
+                            // height: 25.8rem;
                         }
 
                         &-content {
                             padding-left: 2.4rem;
+
+                            &-link-wrap {
+                                display: flex;
+                                flex-direction: column;
+                                height: 100%;
+                            }
                         }
 
                         &-cate {
@@ -480,6 +493,10 @@
                         &-title {
                             @include text(h4);
                             margin-bottom: 1.6rem;
+                        }
+
+                        &-date {
+                            margin-bottom: 5rem;
                         }
                     }
                 }
@@ -508,6 +525,10 @@
 
                         @include size(3.5rem, 3.4rem);
                         border-bottom: .2rem solid var(--cl-txt);
+
+                        .line {
+                            display: block
+                        }
 
                         .ic {
                             @include size(1.6rem);

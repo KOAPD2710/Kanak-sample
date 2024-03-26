@@ -19,10 +19,10 @@ function PopItem({ ...props }) {
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         const itemSequence = [
-            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: props.idx * .2 }],
-            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.8" }],
-            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.6  " }],
-            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.6" }],
+            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: props.idx * .25 }],
+            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: .3 + props.idx * .25 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at:  .4 + props.idx * .25 }],
+            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at:  .7 + props.idx * .25 }],
         ]
 
         if (props.idx % 2 == 0) {

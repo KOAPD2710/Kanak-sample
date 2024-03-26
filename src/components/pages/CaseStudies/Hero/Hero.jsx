@@ -38,7 +38,7 @@ function CaseHero({ ...props }) {
                 document.querySelector('.case-hero-content-author-ava img').removeAttribute('style')
                 document.querySelector('.case-hero-content-author-company').removeAttribute('style')
             })
-        }, { margin: "-20% 0px -20% 0px" })
+        }, { margin: "-10% 0px -20% 0px" })
     }, [])
 
     return (

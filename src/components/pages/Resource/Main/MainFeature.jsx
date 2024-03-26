@@ -93,10 +93,12 @@ function ResourceMainFeature(props) {
 
         animate('.resource-main-fea .line-mid', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
         animate('.resource-main-fea-main-control .line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
-        // animate('.resource-main-fea-main-nav', { opacity: 0 }, { duration: 0 })
+        animate('.resource-main-fea-main-nav', { opacity: 0 }, { duration: 0 })
         animate('.resource-main-fea-main-line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item', { opacity: 0 }, { duration: 0 })
         animate('.resource-main-fea-main-nav .line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+        animate('.resource-main-fea-main-nav-item .ic', { opacity: 0, scale: .6 }, { duration: 0 })
+
 
         console.log(document.querySelectorAll('.resource-main-fea-main-nav .line-ver').length);
 
@@ -106,23 +108,26 @@ function ResourceMainFeature(props) {
             ['.resource-main-fea-main-control .line', { scaleX: 1 }, { duration: 1, at: "-1" }],
             ['.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item', { opacity: 1 }, { duration: .4, delay: stagger(.06), at: 1 }],
             ['.resource-main-fea-main-nav .line-ver', { scaleY: 1 }, { duration: .5, delay: stagger(.1), at: .8 }],
+            ['.resource-main-fea-main-nav-item .ic', { opacity: 1, scale: 1 }, { duration: .6, at: 1 }],
         ]
 
-        // if (window.innerWidth > 991) {
-        //     sequence.push(
-        //         ['.resource-main-fea-main-nav', { opacity: 1 }, { duration: .6, at: "-.8" }],
-        //     )
-        // } else {
-        //     sequence.push(
-        //         ['.resource-main-fea-main-nav', { opacity: 1 }, { duration: .6, at: "-.8" }],
-        //     )
-        // }
+        if (window.innerWidth > 991) {
+            sequence.push(
+                ['.resource-main-fea-main-nav', { opacity: 1 }, { duration: .6, at: "-.8" }],
+            )
+        } else {
+            sequence.push(
+                ['.resource-main-fea-main-nav', { opacity: 1 }, { duration: .6, at: "-.8" }],
+            )
+        }
 
         inView('.resource-main-fea', () => {
             timeline(sequence).finished.then(() => {
-                document.querySelector('.resource-main-fea .line-ver').removeAttribute('style')
+                document.querySelector('.resource-main-fea .line-mid').removeAttribute('style')
+                document.querySelector('.resource-main-fea-main-line-bot').removeAttribute('style')
                 document.querySelector('.resource-main-fea-main-control .line').removeAttribute('style')
-                document.querySelector('.resource-main-fea-main-nav').removeAttribute('style')
+                document.querySelectorAll('.resource-main-fea-main-nav .line-ver').forEach(item => item.removeAttribute('style'))
+                document.querySelectorAll('.resource-main-fea-main-nav-item .ic').forEach(item => item.removeAttribute('style'))
                 document.querySelectorAll('.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item').forEach((el, idx) => {
                     el.removeAttribute('style')
                 })

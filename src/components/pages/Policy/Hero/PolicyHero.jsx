@@ -11,7 +11,7 @@ function Hero({ ...props }) {
         animate(title.words, { transform: "translateY(100%)" }, { duration: 0 })
 
         const sequence = [
-            [title.words, { transform: "none" }, { duration: .8, delay: stagger(.06), at: 0 }],
+            [title.words, { transform: "none" }, { duration: .8, delay: stagger(.08), at: 0 }],
         ]
 
         inView('.policy-hero', () => {

@@ -49,13 +49,10 @@ function ArticleItem({ data, idx }) {
         itemSequence.push(
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
             [item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .2 }],
-            [cate.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.04), at: 0 }],
-            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: "-.2" }],
-        )
-
-        itemSequence.push(
-            [des.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
-            [date.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
+            [cate.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: 0 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at: .2 }],
+            [des.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .5 }],
+            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.02), at: "-.4" }],
         )
 
         inView(item, () => {
@@ -184,7 +181,7 @@ function ResourceMainList(props) {
             animate(el.querySelector('.resource-main-list-head-filter-item-count'), { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
             sequence.push(
-                [[...cate.words, el.querySelector('.resource-main-list-head-filter-item-count')], { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.08), at: "-.45" }],
+                [[...cate.words, el.querySelector('.resource-main-list-head-filter-item-count')], { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.1), at: "-.45" }],
             )
 
             filterArray.push(cate)
@@ -208,12 +205,12 @@ function ResourceMainList(props) {
         const btnTxt = new SplitType('.resource-main-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
 
         animate('.resource-main-list-load', { opacity: 0 }, { duration: 0 })
-        animate('.resource-main-list-load-btn .ic svg', { transform: "translateY(-100%)" }, { duration: 0 })
+        animate('.resource-main-list-load-btn .ic svg', { opacity: 0, transform: 'translateY(-40%) scale(.8)' }, { duration: 0 })
         animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const btnSequence = [
             ['.resource-main-list-load', { opacity: 1 }, { duration: 1, at: 0 }],
-            ['.resource-main-list-load-btn .ic svg', { transform: "none" }, { duration: .4, at: "-.6" }],
+            ['.resource-main-list-load-btn .ic svg', { opacity: 1, transform: "none" }, { duration: .4, at: "-.6" }],
             [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "<" }],
         ]
 

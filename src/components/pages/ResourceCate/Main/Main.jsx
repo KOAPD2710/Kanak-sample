@@ -35,10 +35,10 @@ function CatelistItem({ ...props }) {
         itemSequence.push(
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
             [item.querySelector('.resource-cate-main-item-img img'), { opacity: 1, scale: 1 }, { duration: 1, at: 0 }],
-            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.8" }],
-            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.02), at: "-.6" }],
-            [sapo.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.005), at: "-.6" }],
-            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.4" }],
+            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .2 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at: .3 }],
+            [sapo.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .5 }],
+            [date.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.012), at: .7 }],
         )
 
         inView(item, () => {
@@ -55,7 +55,7 @@ function CatelistItem({ ...props }) {
     return (
         <>
             <div className={`resource-cate-main-item ${props.idx == 0 && "first-item"}`} ref={itemRef}>
-                <a href={`/insights/${props.uid}`} className="resource-cate-main-item-img">
+                <a href={`/insights/${props.uid}`} className="resource-cate-main-item-img" data-cursor="ext">
                     <img
                         className='img img-fill'
                         src={props.data.feature_image.url}
@@ -64,8 +64,8 @@ function CatelistItem({ ...props }) {
                         height={props.data.feature_image.dimensions.height} />
                 </a>
                 <div className="resource-cate-main-item-content">
-                    <a href={`/insights/${props.data.category.toLowerCase().replace(" ", "-")}`} className="txt txt-20 txt-bold resource-cate-main-item-content-cate">{props.data.category}</a>
-                    <a href={`/insights/${props.uid}`} className="resource-cate-main-item-content-wrap">
+                    <a href={`/insights/${props.data.category.toLowerCase().replace(" ", "-")}`} className="txt txt-20 txt-bold resource-cate-main-item-content-cate" data-cursor="txtLink">{props.data.category}</a>
+                    <a href={`/insights/${props.uid}`} className="resource-cate-main-item-content-wrap" data-cursor="ext">
                         <h4 className="heading h5 txt-black txt-up resource-cate-main-item-content-title">{props.data.title}</h4>
                         <div className="txt txt-18 txt-med resource-cate-main-item-content-des">{props.data.sapo}</div>
                         <span className="txt txt-18 txt-med resource-cate-main-item-content-date">{convertDate(props.last_publication_date)}</span>
