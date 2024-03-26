@@ -52,14 +52,13 @@ function PolicyMain({ ...props }) {
         ]
 
         const linkList = document.querySelectorAll('.policy-nav-list .policy-nav-item')
-
+        const splitArrayNav = []
         linkList.forEach((el, idx) => {
-            // el.querySelector('.dot')
-
             animate(el, { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
             sequence.push(
                 [el, { opacity: 1, transform: "none" }, { duration: .4, at: "-.35" }],
             )
+            splitArrayNav.push(el)
 
             // animate(el.querySelector('.dot'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
             // animate(el.querySelector('.policy-nav-item-link'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
@@ -77,9 +76,42 @@ function PolicyMain({ ...props }) {
                 document.querySelector('.line-ver').removeAttribute('style')
                 updateDate.revert()
                 naviTxt.revert()
-
+                splitArrayNav.forEach(item => item.removeAttribute('style'))
             })
         })
+
+
+        // RichTxt Anim
+
+        const items = document.querySelectorAll('.policy-body-main-richtxt *:not(astro-slot, ul)')
+
+        const itemSequence = []
+        const splitArray = []
+
+        items.forEach((el, idx) => {
+            // const splitTxt = new SplitType(el, { types: 'lines, words', lineClass: 'split-line' })
+            // animate(splitTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            // itemSequence.push(
+            //     [splitTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.003), at: .2 }]
+            // )
+
+            animate(el, { opacity: 0, transform: "translateY(30px)" }, { duration: 0 })
+
+            itemSequence.push(
+                [el, { opacity: 1, transform: "none" }, { duration: .6, at: .4 }]
+            )
+            splitArray.push(el)
+        })
+
+
+        inView('.policy-body-main-richtxt', () => {
+            timeline(itemSequence).finished.then(() => {
+                splitArray.forEach(el => el.removeAttribute('style'))
+            })
+        })
+
+        // End RichTxt Anim
+
     }, [])
 
     return (

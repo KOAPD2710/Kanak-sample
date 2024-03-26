@@ -14,7 +14,7 @@ function ResourceHero({ ...props }) {
 
         const sequence = [
             [title.chars, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.015), at: .2 }],
-            [subtitle.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.4" }],
+            [subtitle.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .4 }],
         ]
 
         inView('.resource-hero', () => {
@@ -30,7 +30,7 @@ function ResourceHero({ ...props }) {
         <section className="resource-hero">
             <div className="container grid">
                 <h1 className="heading h0 txt-black txt-up resource-hero-title">
-                    Insights    
+                    Insights
                 </h1>
                 <p className="txt txt-20 txt-black txt-up resource-hero-subtitle">
                     a one-stop destination for eco-friendly living. Explore practical tips, guides, and inspiration to help you make a positive impact on the planet.

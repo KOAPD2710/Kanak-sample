@@ -60,7 +60,8 @@
             &-des {
                 grid-column: 12/17;
                 opacity: .6;
-                font-kerning: none;            }
+                width: 100%;
+            }
 
             &-bg {
                 position: absolute;
@@ -123,9 +124,9 @@
 
             &-wrapper {
                 position: relative;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                top: 0;
+                left: 0;
+                // transform: translate(-50%, -50%);
                 @include size(40rem);
             }
 

@@ -10,7 +10,7 @@ function PopItem({ ...props }) {
     useEffect(() => {
         const item = itemRef.current
 
-        const category = new SplitType(item.querySelector('.resource-main-pop-list-item-cate-txt'), { types: 'lines, words', lineClass: 'split-line' })
+        const category = new SplitType(item.querySelector('.resource-main-pop-list-item-cate'), { types: 'lines, words', lineClass: 'split-line' })
         const title = new SplitType(item.querySelector('.resource-main-pop-list-item-title'), { types: 'lines, words', lineClass: 'split-line' })
         const date = new SplitType(item.querySelector('.resource-main-pop-list-item-date'), { types: 'lines, words', lineClass: 'split-line' })
 
@@ -21,8 +21,8 @@ function PopItem({ ...props }) {
 
         const itemSequence = [
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
-            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.3" }],
-            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.65" }],
+            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.8" }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.6  " }],
             [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.6" }],
         ]
 
@@ -45,19 +45,19 @@ function PopItem({ ...props }) {
         })
     })
     return (
-        <a href={`/insights/${props.uid}`} className="resource-main-pop-list-item" ref={itemRef}>
-            <div className="resource-main-pop-list-item-cate">
-                <div className="txt txt-20 txt-bold resource-main-pop-list-item-cate-txt">
-                    {props.data.category}
-                </div>
-            </div>
-            <h3 className="heading h5 txt-black txt-up resource-main-pop-list-item-title">
-                {props.data.title}
-            </h3>
-            <span className='txt txt-18 txt-med resource-main-pop-list-item-date'>{convertDate(props.last_publication_date)}</span>
+        <div className="resource-main-pop-list-item" ref={itemRef}>
+            <a href={`/insights/${props.data.category.toLowerCase().replace(" ", "-")}`} className="txt txt-20 txt-bold resource-main-pop-list-item-cate" data-cursor="txtLink">
+                {props.data.category}
+            </a>
+            <a href={`/insights/${props.uid}`} className="resource-main-pop-list-item-content-wrap" data-cursor="ext">
+                <h3 className="heading h5 txt-black txt-up resource-main-pop-list-item-title">
+                    {props.data.title}
+                </h3>
+                <span className='txt txt-18 txt-med resource-main-pop-list-item-date'>{convertDate(props.last_publication_date)}</span>
+            </a>
             <div className="line"></div>
             {props.idx % 2 == 0 && <div className="line line-ver"></div>}
-        </a>
+        </div>
     )
 }
 
@@ -67,7 +67,7 @@ function ResourceMainPopular(props) {
         animate(heading.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate('.resource-main-pop-line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         const sequence = [
-            [heading.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: .6 }],
+            [heading.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: .4 }],
             ['.resource-main-pop-line', { scaleX: 1 }, { duration: 1, at: 0 }],
         ]
 

@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react';
 import { parseRem } from '@/js/utils';
 import './cursor.scss';
 
-function CursorMain({...props}) {
+function CursorMain({ ...props }) {
     const cursor = useRef();
     const cursorInner = useRef();
-    const lerp = (a,b,t = 0.08) => {
+    const lerp = (a, b, t = 0.08) => {
         return a + (b - a) * t;
     }
     let pointer = {
@@ -18,11 +18,13 @@ function CursorMain({...props}) {
         if (cursor.current.classList.contains('on-load')) {
             cursor.current.classList.remove('on-load')
         }
+        document.querySelector('html').style.setProperty('--cursor-top', pointer.y + 'px');
+        document.querySelector('html').style.setProperty('--cursor-left', pointer.x + 'px');
     }
     useEffect(() => {
         if (!cursor.current.classList.contains('on-load')) return;
         console.log('init cursor once')
-        pointer = {x: window.innerWidth/2, y: window.innerHeight/2};
+        pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         window.addEventListener('pointermove', (e) => getCursor(e));
         let myReq;
         function moveCursor() {
@@ -32,28 +34,29 @@ function CursorMain({...props}) {
             let targetY = pointer.y;
             let targetEl;
             if (document.querySelectorAll('[data-cursor]:hover').length == 1) {
+                cursorInner.current.classList.remove('on-hover', 'on-hide', 'on-hover-sm')
+
                 let type = document.querySelector('[data-cursor]:hover').getAttribute('data-cursor')
-                switch(type) {
+                switch (type) {
                     case 'ext':
                         cursorInner.current.classList.add('on-hover')
                         break;
                     case 'hide':
                         cursorInner.current.classList.add('on-hide')
                         break;
-                    case 'txtLink': 
-                        
+                    case 'txtLink':
                         cursorInner.current.classList.add('on-hover-sm')
                         targetEl = document.querySelector('[data-cursor]:hover')
                         targetX = targetEl.getBoundingClientRect().left - parseRem(14) - cursorInner.current.getBoundingClientRect().width / 2;;
                         targetY = targetEl.getBoundingClientRect().top + targetEl.getBoundingClientRect().height / 2;
                         break;
-                    default: 
+                    default:
                         break;
                 }
             } else {
                 cursorInner.current.classList.remove('on-hover', 'on-hide', 'on-hover-sm')
             }
-            
+
             cursor.current.style.transform = `translate(${lerp(cursorX, targetX)}px, ${lerp(cursorY, targetY)}px)`
             myReq = requestAnimationFrame(moveCursor)
         }

@@ -16,6 +16,16 @@
             align-items: center;
             column-gap: .8rem;
         }
+
+        &-link {
+            transition: color .4s ease;
+
+            @media (hover:hover) {
+                &:hover {
+                    color: var(--cl-orange);
+                }
+            }
+        }
     }
 
     &-head {

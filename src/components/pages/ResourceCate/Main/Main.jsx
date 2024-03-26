@@ -21,7 +21,7 @@ function CatelistItem({ ...props }) {
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(sapo.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(item.querySelector('.resource-cate-main-item-img img'), { opacity: 0 }, { duration: 0 })
+        animate(item.querySelector('.resource-cate-main-item-img img'), { opacity: 0, scale: .8, transformOrigin: "left bottom" }, { duration: 0 })
         animate(item.querySelector('.line:not(.line-ver)'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
 
         const itemSequence = []
@@ -34,7 +34,7 @@ function CatelistItem({ ...props }) {
 
         itemSequence.push(
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
-            [item.querySelector('.resource-cate-main-item-img img'), { opacity: 1 }, { duration: 1, at: 0 }],
+            [item.querySelector('.resource-cate-main-item-img img'), { opacity: 1, scale: 1 }, { duration: 1, at: 0 }],
             [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.8" }],
             [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.02), at: "-.6" }],
             [sapo.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.005), at: "-.6" }],
@@ -54,26 +54,28 @@ function CatelistItem({ ...props }) {
 
     return (
         <>
-            <a href={`/insights/${props.uid}`} className={`resource-cate-main-item ${props.idx == 0 && "first-item"}`} ref={itemRef}>
-                <div className="resource-cate-main-item-img">
+            <div className={`resource-cate-main-item ${props.idx == 0 && "first-item"}`} ref={itemRef}>
+                <a href={`/insights/${props.uid}`} className="resource-cate-main-item-img">
                     <img
                         className='img img-fill'
                         src={props.data.feature_image.url}
                         alt={props.data.feature_image.alt}
                         width={props.data.feature_image.dimensions.width}
                         height={props.data.feature_image.dimensions.height} />
-                </div>
+                </a>
                 <div className="resource-cate-main-item-content">
-                    <div className="txt txt-20 txt-bold resource-cate-main-item-content-cate">{props.data.category}</div>
-                    <h4 className="heading h5 txt-black txt-up resource-cate-main-item-content-title">{props.data.title}</h4>
-                    <div className="txt txt-18 txt-med resource-cate-main-item-content-des">{props.data.sapo}</div>
-                    <span className="txt txt-18 txt-med resource-cate-main-item-content-date">{convertDate(props.last_publication_date)}</span>
+                    <a href={`/insights/${props.data.category.toLowerCase().replace(" ", "-")}`} className="txt txt-20 txt-bold resource-cate-main-item-content-cate">{props.data.category}</a>
+                    <a href={`/insights/${props.uid}`} className="resource-cate-main-item-content-wrap">
+                        <h4 className="heading h5 txt-black txt-up resource-cate-main-item-content-title">{props.data.title}</h4>
+                        <div className="txt txt-18 txt-med resource-cate-main-item-content-des">{props.data.sapo}</div>
+                        <span className="txt txt-18 txt-med resource-cate-main-item-content-date">{convertDate(props.last_publication_date)}</span>
+                    </a>
                 </div>
                 <div className="line"></div>
                 {props.lineVer && (
                     <div className="line line-ver"></div>
                 )}
-            </a>
+            </div>
             {
                 props.idx == 0 && (
                     <div className="resource-cate-main-item fake-item"></div>

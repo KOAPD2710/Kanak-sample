@@ -1,11 +1,11 @@
 import './Header.scss'
 import { Fragment, useEffect, useRef, useState } from 'react';
-import {offset, parseRem} from '@/js/utils';
+import { offset, parseRem } from '@/js/utils';
 import { getLenis } from '@/components/core/lenis';
 function HeaderGlobal(props) {
     const [navOpen, setNavOpen] = useState(false)
     useEffect(() => {
-        getLenis().on('scroll', function(inst) {
+        getLenis().on('scroll', function (inst) {
             if (inst.direction == 1) {
                 if (inst.scroll >= document.querySelector('.header').clientHeight) {
                     document.querySelector('.header-div-main').classList.add('on-hide')
@@ -21,16 +21,16 @@ function HeaderGlobal(props) {
                 document.querySelector('.header-div-sub').classList.remove('on-hide')
             }
         })
-        window.addEventListener('click', function(e){   
-            if (document.querySelector('.header-dropdowns').contains(e.target) || document.querySelector('.header-main').contains(e.target)){
-                
+        window.addEventListener('click', function (e) {
+            if (document.querySelector('.header-dropdowns').contains(e.target) || document.querySelector('.header-main').contains(e.target)) {
+
             } else {
-                if (document.querySelectorAll('.header-dropdown.active').length == 1 ) {
+                if (document.querySelectorAll('.header-dropdown.active').length == 1) {
                     document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
                     document.querySelector('.header').classList.remove('on-open')
                 }
             }
-          });
+        });
     }, [])
     function menuOnClick(e) {
         e.preventDefault()
@@ -46,7 +46,7 @@ function HeaderGlobal(props) {
         dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
         dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
     }
-
+    console.log(object);
     return (
         <>
             <header className="header header-div-main">
@@ -60,7 +60,7 @@ function HeaderGlobal(props) {
                                 {props.pages.map((page, idx) => (
                                     <Fragment key={idx}>
                                         <div className="header-menu-item">
-                                            <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown={page.name} className="header-menu-item-link txt-link" onClick={page.type == 'dropdown' ? (e) => {menuOnClick(e)} : null}>
+                                            <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown={page.name} className="header-menu-item-link txt-link" onClick={page.type == 'dropdown' ? (e) => { menuOnClick(e) } : null}>
                                                 <span className="txt txt-14 txt-up txt-semi">{page.name}</span>
                                             </a>
                                         </div>
@@ -134,8 +134,27 @@ function HeaderGlobal(props) {
                 </div>
             </div>
             <div className="nav ">
-                <div className={`nav-inner bg-light ${navOpen ? 'active' : ''}`}>
-                    <div className="container grid"></div>
+                <div className={`nav-inner bg-light ${navOpen ? 'active' : 'active'}`}>
+                    <div className="container grid">
+                        <div className="nav-info">
+                            <div className="nav-info-item">
+                                <div className="txt txt-14 txt-med nav-info-item-head">Get in touch</div>
+                                <a href="mailto:info@kanaknaturals.com" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">info@kanaknaturals.com</a>
+                            </div>
+                            <div className="nav-info-item">
+                                <div className="txt txt-14 txt-med nav-info-item-head">Contact</div>
+                                <a href="tel:+1 (260) 490 4790" className="heading h6 txt-black txt-up nav-info-item-content">+1 (260) 490 4790</a>
+                            </div>
+                            <div className="nav-info-item">
+                                <div className="txt txt-14 txt-med nav-info-item-head">Headquarters</div>
+                                <a href="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">321 Hovan Drive, Fort Wayne, IN 46825, US</a>
+                            </div>
+                            <a href="/contact" className="btn btn-lg btn-wide nav-info-btn">
+                                <div className="heading txt-16 txt-black txt-up">Request a quote</div>
+                            </a>
+                            {/* <div className="nav-info-footer">⁠©⁠ {props.currentyear} KANAK NATURALS </div> */}
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
