@@ -7,7 +7,22 @@ import SplitType from 'split-type';
 function HomePartner(props) {
     const ref = useRef();
     const q = useSelector(ref);
-
+    function activeIcon(idx, listIcon) {
+        if (!listIcon[idx].classList.contains('done')) {
+            listIcon[idx].classList.add('done')
+            animate(listIcon[idx], { opacity: 1, scale: 1 }, {duration: .3}).finished.then(() => {
+                listIcon[idx].removeAttribute('style')
+            })
+        }
+    }
+    function activeTitle(idx, listTitle, listTitleSplit) {
+        if (!listTitle[idx].classList.contains('done')) {
+            listTitle[idx].classList.add('done')
+            animate(listTitleSplit[idx].words, { transform: 'none', opacity: 1}, {duration: .6, delay: stagger(.03)}).finished.then(() => {
+                listTitleSplit[idx].revert()
+            })
+        }
+    }
     useEffect(() => {
         let sectionBotOffset;
         if (window.innerWidth > 767) {
@@ -22,9 +37,9 @@ function HomePartner(props) {
             })
         }
 
-        let listTitle = ref.current.querySelectorAll('.home-part-line-content-title');
+        let listTitle = document.querySelectorAll('.home-part-line-content-title');
 
-        let listIcon = ref.current.querySelectorAll('.home-part-line-content-ic');
+        let listIcon = document.querySelectorAll('.home-part-line-content-ic');
         [...listIcon, ...listTitle].forEach((el) => {
             el.classList.remove('done')
         })
@@ -33,23 +48,6 @@ function HomePartner(props) {
             animate(title.words, { transform: 'translateY(100%)', opacity: 0 }, {duration: 0});
             return title;
         })
-
-        function activeIcon(idx) {
-            if (!listIcon[idx].classList.contains('done')) {
-                listIcon[idx].classList.add('done')
-                animate(listIcon[idx], { opacity: 1, scale: 1 }, {duration: .3}).finished.then(() => {
-                    listIcon[idx].removeAttribute('style')
-                })
-            }
-        }
-        function activeTitle(idx) {
-            if (!listTitle[idx].classList.contains('done')) {
-                listTitle[idx].classList.add('done')
-                animate(listTitleSplit[idx].words, { transform: 'none', opacity: 1}, {duration: .6, delay: stagger(.03)}).finished.then(() => {
-                    listTitleSplit[idx].revert()
-                })
-            }
-        }
 
         animate('.home-part-line-content-ic', { opacity: 0, scale: .8 }, {duration: 0});
         if (window.innerWidth > 767 ) {
@@ -62,13 +60,13 @@ function HomePartner(props) {
         }
         listIcon.forEach((el,idx) => {
             inView(el, () => {
-                activeIcon(idx)
-            }, { margin: "-20% -50% -20% -5%" })
+                activeIcon(idx,listIcon)
+            }, { margin: "-20% -40% -20% -5%" })
         })
         listTitle.forEach((el,idx) => {
             inView(el, () => {
-                activeTitle(idx)
-            }, { margin: "-20% -50% -20% -5%" })
+                activeTitle(idx, listTitle, listTitleSplit)
+            }, { margin: "-20% -40% -20% -5%" })
         })
     },[])
     return (

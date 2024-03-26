@@ -35,8 +35,8 @@ function HomeCTA(props) {
                     </div>
                     <div className="home-cta-main-tail">
                         <div className="line"></div>
-                        <a href="/contact" className="btn btn-lg btn-wide home-cta-main-tail-btn">
-                            <div className="txt txt-18 txt-med txt-up">
+                        <a href="/contact" className="btn btn-lg btn-wide home-cta-main-tail-btn" data-cursor="txtlink" data-cursor-txtlink="child">
+                            <div className="txt txt-18 txt-med txt-up" data-cursor-txtlink-child>
                                 Request a quote
                             </div>
                         </a>

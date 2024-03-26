@@ -23,7 +23,7 @@ function HomeValue(props) {
             ]
             scroll(timeline(itemSequence), {
                 target: document.querySelector('.home-val'),
-                offset: [`${document.querySelector('.home-val-main').offsetTop}px start`, `${1 - window.innerHeight / ref.current.clientHeight} end`]
+                offset: [`${document.querySelector('.home-val-main').offsetTop}px start`, `${document.querySelector('.home-val').clientHeight - window.innerHeight * 1.1}px end`]
             })
             scroll(
                 animate('.home-part-stick .home-part-inner', {scale: [1, .8], opacity: [1, .2]}, {easing: 'ease-in', at: '<'}), {
@@ -59,17 +59,17 @@ function HomeValue(props) {
         allItems.forEach((el, idx) => {
             let itemNumber = new SplitType(el.querySelector('.home-val-main-item-num'), { types: 'lines, chars', lineClass: 'split-line' })
             let itemTitle = new SplitType(el.querySelector('.home-val-main-item-title'), { types: 'lines, words', lineClass: 'split-line' })
-            let itemSub = new SplitType(el.querySelector('.home-val-main-item-sub'), { types: 'lines, words', lineClass: 'split-line' })
+            let itemSub = new SplitType(el.querySelector('.home-val-main-item-sub'), { types: 'lines', lineClass: 'split-line' })
             let itemLink = new SplitType(el.querySelector('.home-val-main-item-link'), { types: 'lines, chars', lineClass: 'split-line' })
             animate(el.querySelector('.home-val-main-item-ic'), {opacity: 0, scale: 0.8}, {duration: 0})
             if (idx != 0) {
                 animate(el.querySelector('.line.line-left'), {scaleY: 0, transformOrigin: 'top'}, {duration: 0})
             }
-            animate([...itemNumber.chars, ...itemTitle.words, ...itemSub.words, ...itemLink.chars], {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+            animate([...itemNumber.chars, ...itemTitle.words, ...itemSub.lines, ...itemLink.chars], {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
             const sequence = [
                 [itemNumber.chars, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.01)}],
                 [itemTitle.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.01), at: .1}],
-                [itemSub.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.008), at: .3}],
+                [itemSub.lines, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.04), at: .3}],
                 [itemLink.chars, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.008), at: .2}],
                 [el.querySelector('.home-val-main-item-ic'), {opacity: 1, scale: 1}, {duration: 1, at: .5}],
                 [idx != 0 && el.querySelector('.line.line-left'), {scaleY: 1}, {duration: 1, at: 0}]
@@ -80,7 +80,7 @@ function HomeValue(props) {
                     idx != 0 && el.querySelector('.line.line-left').removeAttribute('style')
                     itemNumber.revert()
                     itemTitle.revert()
-                    itemSub.revert()
+                    // itemSub.revert()
                     itemLink.revert()
                 })
             }, {margin: "-30% -10% -30% -10%"})

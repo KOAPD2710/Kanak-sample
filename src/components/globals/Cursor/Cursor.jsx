@@ -30,6 +30,7 @@ function CursorMain({...props}) {
             let cursorY = new DOMMatrixReadOnly(getComputedStyle(cursor.current).transform).m42
             let targetX = pointer.x
             let targetY = pointer.y;
+            let speed = 0.08;
             let targetEl;
             if (document.querySelectorAll('[data-cursor]:hover').length == 1) {
                 let type = document.querySelector('[data-cursor]:hover').getAttribute('data-cursor')
@@ -40,11 +41,15 @@ function CursorMain({...props}) {
                     case 'hide':
                         cursorInner.current.classList.add('on-hide')
                         break;
-                    case 'txtLink': 
-                        
+                    case 'txtlink': 
                         cursorInner.current.classList.add('on-hover-sm')
-                        targetEl = document.querySelector('[data-cursor]:hover')
-                        targetX = targetEl.getBoundingClientRect().left - parseRem(14) - cursorInner.current.getBoundingClientRect().width / 2;;
+                        if (document.querySelector('[data-cursor]:hover').getAttribute('data-cursor-txtlink') == 'child') {
+                            targetEl = document.querySelector('[data-cursor]:hover').querySelector('[data-cursor-txtlink-child]')
+                        } else {
+                            targetEl = document.querySelector('[data-cursor]:hover')
+                        }
+                        speed = .1
+                        targetX = targetEl.getBoundingClientRect().left - parseRem(8) - document.querySelector('.cursor-main-inner-dot').getBoundingClientRect().width / 2;;
                         targetY = targetEl.getBoundingClientRect().top + targetEl.getBoundingClientRect().height / 2;
                         break;
                     default: 
@@ -54,7 +59,7 @@ function CursorMain({...props}) {
                 cursorInner.current.classList.remove('on-hover', 'on-hide', 'on-hover-sm')
             }
             
-            cursor.current.style.transform = `translate(${lerp(cursorX, targetX)}px, ${lerp(cursorY, targetY)}px)`
+            cursor.current.style.transform = `translate(${lerp(cursorX, targetX, speed)}px, ${lerp(cursorY, targetY, speed)}px)`
             myReq = requestAnimationFrame(moveCursor)
         }
         myReq = requestAnimationFrame(moveCursor)

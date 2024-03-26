@@ -149,7 +149,16 @@ button {
     position: relative;
     overflow: hidden;
     z-index: 1;
-
+    &[data-cursor-txtlink] {
+        .txt {
+            transition: transform 400ms ease;
+        }
+        &:hover {
+            .txt {
+                transform: translateX(.6rem);
+            }   
+        }
+    }
     &::before,
     &::after {
         content: '';
