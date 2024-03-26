@@ -114,14 +114,19 @@
                 display: flex;
 
                 &-item {
+                    position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-left: solid .2rem var(--cl-txt);
                     width: 10.2rem;
                     height: 10rem;
                     transition: color 400ms ease;
                     margin-right: -.2rem;
+
+                    .line-ver {
+                        right: auto;
+                        left: -.1rem;
+                    }
 
                     &-prev {
                         svg {

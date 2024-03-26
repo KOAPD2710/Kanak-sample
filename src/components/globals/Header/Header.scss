@@ -329,6 +329,7 @@
         background-color: var(--cl-bg);
         transform: translateY(-100%);
         opacity: 0;
+        padding-top: 7.6rem;
         transition: all 600ms ease;
 
         .grid {
@@ -344,13 +345,25 @@
     }
 
     &-info {
+        position: relative;
         height: 100%;
         grid-column: 1/2;
         display: flex;
         flex-direction: column;
-        row-gap: 2.4rem;
-        padding-top: 20rem;
-        max-width: 82.65582656%;
+
+        &-wrap {
+            max-width: 82.65582656%;
+            display: flex;
+            flex-direction: column;
+            row-gap: 2.4rem;
+            padding-top: 12.4rem;
+        }
+
+        .line-ver {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
 
         &-item {
             display: flex;
@@ -360,6 +373,32 @@
 
         &-btn {
             margin-top: 1.2rem;
+        }
+
+        &-footer {
+            margin-top: auto;
+            margin-bottom: 4rem;
+        }
+    }
+
+    &-main {
+        grid-column: 2/3;
+
+        &-wrap {
+            height: 100%;
+            max-width: 92.97297297%;
+            margin-left: auto;
+        }
+
+        &-item {
+            position: relative;
+            padding: 4rem 0;
+
+            .line {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
         }
     }
 }

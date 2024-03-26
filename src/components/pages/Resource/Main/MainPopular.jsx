@@ -18,9 +18,8 @@ function PopItem({ ...props }) {
         animate(category.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-
         const itemSequence = [
-            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
+            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: props.idx * .2 }],
             [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.8" }],
             [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.6  " }],
             [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.6" }],
