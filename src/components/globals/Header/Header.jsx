@@ -46,7 +46,6 @@ function HeaderGlobal(props) {
         dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
         dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
     }
-    console.log(object);
     return (
         <>
             <header className="header header-div-main">
@@ -134,7 +133,7 @@ function HeaderGlobal(props) {
                 </div>
             </div>
             <div className="nav ">
-                <div className={`nav-inner bg-light ${navOpen ? 'active' : 'active'}`}>
+                <div className={`nav-inner bg-light ${navOpen ? 'active' : ''}`}>
                     <div className="container grid">
                         <div className="nav-info">
                             <div className="nav-info-item">
