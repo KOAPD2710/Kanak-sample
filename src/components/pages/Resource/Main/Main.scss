@@ -182,10 +182,6 @@
 
                 &-title {
                     margin-bottom: 1.6rem;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
                     transition: color .4s ease;
                 }
 
@@ -330,19 +326,7 @@
                 &-title {
                     margin-top: 1.2rem;
                     margin-bottom: 1.2rem;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    max-height: calc(2 * var(--lh-h5));
                     transition: color .4s ease;
-                }
-
-                &-subtitle {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
                 }
 
                 &-date {
@@ -406,6 +390,11 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
+                    .ic {
+                        overflow: hidden;
+
+                    }
                 }
 
                 &-txt {
@@ -488,11 +477,6 @@
                         &-title {
                             @include text(h4);
                             margin-bottom: 1.6rem;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 3;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                            max-height: calc(3 * var(--lh-h4));
                         }
                     }
                 }
@@ -572,14 +556,6 @@
                             font-weight: 700;
                             @include text(18);
                         }
-                    }
-
-                    &-title {
-                        min-height: calc(4 * var(--lh-h5));
-                        display: -webkit-box;
-                        -webkit-line-clamp: 4;
-                        -webkit-box-orient: vertical;
-                        overflow: hidden;
                     }
 
                     &-date {
@@ -904,7 +880,6 @@
                     }
 
                     &-subtitle {
-                        -webkit-line-clamp: 2;
                         margin-bottom: 2rem;
                     }
 

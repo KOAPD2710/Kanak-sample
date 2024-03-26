@@ -1,7 +1,7 @@
 import "./Main.scss";
 import * as prismicH from "@prismicio/client";
 import { useEffect, useState } from 'react';
-import { convertDate } from "@utils/text.js"
+import { convertDate, cleanText } from "@utils/text.js"
 import ResDtlRel from "./ResourceDtlRel";
 
 import SplitType from 'split-type';
@@ -9,6 +9,7 @@ import { animate, timeline, stagger, inView, createStyleString } from "motion";
 
 function ResourceMain({ ...props }) {
     const [openTooltip, setOpenTooltip] = useState(false)
+
     useEffect(() => {
         document.querySelectorAll(".resource-dtl-richtxt-main.richtext .block-img").forEach((el, idx) => {
             if (el.querySelector('img').getAttribute('alt') !== "") {
@@ -18,6 +19,8 @@ function ResourceMain({ ...props }) {
                 el.appendChild(caption)
             }
         })
+
+        cleanText(document.querySelector('.resource-dtl-title'))
 
         let allText = []
         let splitList = []
@@ -42,8 +45,8 @@ function ResourceMain({ ...props }) {
 
         const sequence = [
             [allText, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.04), at: .1 }],
-            [title.chars, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.005), at: "-.4" }],
-            ['.resource-dtl-line', { scaleX: 1 }, { duration: 1, at: "-.4" }],
+            [title.chars, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.005), at: "-.8" }],
+            ['.resource-dtl-line', { scaleX: 1 }, { duration: 1, at: "-1" }],
             ['.resource-dtl-richtxt .line-ver', { scaleY: 1 }, { duration: 1, at: "-.8" }],
         ]
 
@@ -58,7 +61,7 @@ function ResourceMain({ ...props }) {
 
 
             sequence.push(
-                [head.words, { transform: "none" }, { duration: .8, at: 1 }],
+                [head.words, { transform: "none" }, { duration: .8, at: .4 }],
                 [content.words, { transform: "none" }, { duration: .8, at: "-.7" }],
             )
         })
@@ -77,6 +80,25 @@ function ResourceMain({ ...props }) {
             timeline(sequence).finished.then(() => {
                 title.revert()
                 splitList.forEach(el => el.revert())
+            })
+        })
+
+        // RichText Anim
+
+        const sapo = new SplitType('.resource-dtl-richtxt-premble-sapo', { types: 'lines, words', lineClass: 'split-line' })
+
+        animate('.resource-dtl-richtxt-premble-img', { opacity: 0 }, { duration: 0 })
+        animate(sapo.words, { transform: "translateY(100%)" }, { duration: 0 })
+
+
+        const richtxtSequence = [
+            ['.resource-dtl-richtxt-premble-img', { opacity: 1 }, { duration: 1, at: .5 }],
+            [sapo.words, { transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.7" }],
+        ]
+
+        inView('.resource-dtl-richtxt', () => {
+            timeline(richtxtSequence).finished.then(() => {
+                document.querySelector('.resource-dtl-richtxt').removeAttribute('style')
             })
         })
     }, [])

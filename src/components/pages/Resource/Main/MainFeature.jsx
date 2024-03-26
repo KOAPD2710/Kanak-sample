@@ -23,7 +23,7 @@ function FeatItem({ ...props }) {
             animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
             const itemSequence = [
-                [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: 1 }],
+                [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: "<" }],
                 [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.4" }],
                 [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.3" }],
                 [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.45" }],
@@ -96,9 +96,9 @@ function ResourceMainFeature(props) {
         animate('.resource-main-fea-main-line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
 
         const sequence = [
-            ['.resource-main-fea .line-ver', { scaleY: 1 }, { duration: 1, at: .6 }],
-            ['.resource-main-fea-main-line-bot', { scaleX: 1 }, { duration: 1, at: .4 }],
-            ['.resource-main-fea-main-control .line', { scaleX: 1 }, { duration: 1, at: 2 }],
+            ['.resource-main-fea .line-ver', { scaleY: 1 }, { duration: 1, at: 0 }],
+            ['.resource-main-fea-main-line-bot', { scaleX: 1 }, { duration: 1, at: 0 }],
+            ['.resource-main-fea-main-control .line', { scaleX: 1 }, { duration: 1, at: "-1" }],
         ]
 
         if (window.innerWidth > 991) {
@@ -115,11 +115,11 @@ function ResourceMainFeature(props) {
             animate(el, { opacity: 0 }, { duration: 0 })
             if (idx == 0) {
                 sequence.push(
-                    [el, { opacity: 1 }, { duration: .3, at: "-.8" }]
+                    [el, { opacity: 1 }, { duration: .3, at: "-1.2" }]
                 )
             } else {
                 sequence.push(
-                    [el, { opacity: 1 }, { duration: .3, at: "-.15" }]
+                    [el, { opacity: 1 }, { duration: .3, at: "-.2" }]
                 )
             }
         })

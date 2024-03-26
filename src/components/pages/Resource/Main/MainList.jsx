@@ -50,19 +50,9 @@ function ArticleItem({ data, idx }) {
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
             [item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .2 }],
             [cate.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.04), at: 0 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: "-.2" }],
         )
 
-        title.lines.forEach((el, idx) => {
-            if (idx == 0) {
-                itemSequence.push(
-                    [el.children, { opacity: 1, transform: "none" }, { duration: .6, at: "-.2" }]
-                )
-            } else if (idx < 2) {
-                itemSequence.push(
-                    [el.children, { opacity: 1, transform: "none" }, { duration: .6, at: "-.5" }]
-                )
-            }
-        })
         itemSequence.push(
             [des.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
             [date.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
@@ -179,11 +169,11 @@ function ResourceMainList(props) {
 
         const sequence = [
             [title.chars, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.3" }],
-            ['.resource-main-list-line', { scaleX: 1 }, { duration: 1, at: "-.2" }],
+            ['.resource-main-list-line', { scaleX: 1 }, { duration: 1, at: "-.8" }],
         ]
 
         sequence.push(
-            [[...toggle.chars, document.querySelector('.resource-main-list-head-filter-toggle-ic')], { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: 1 }]
+            [[...toggle.chars, document.querySelector('.resource-main-list-head-filter-toggle-ic')], { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: "-.6" }]
         )
 
         document.querySelectorAll('.resource-main-list-head-filter-dropdown .resource-main-list-head-filter-item').forEach((el, idx) => {
@@ -192,7 +182,7 @@ function ResourceMainList(props) {
             animate(el.querySelector('.resource-main-list-head-filter-item-count'), { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
             sequence.push(
-                [[...cate.words, el.querySelector('.resource-main-list-head-filter-item-count')], { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.4" }],
+                [[...cate.words, el.querySelector('.resource-main-list-head-filter-item-count')], { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.08), at: "-.45" }],
             )
 
             filterArray.push(cate)
@@ -220,16 +210,20 @@ function ResourceMainList(props) {
         const btnTxt = new SplitType('.resource-main-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
 
         animate('.resource-main-list-load', { opacity: 0 }, { duration: 0 })
+        animate('.resource-main-list-load-btn .ic svg', { transform: "translateY(-100%)" }, { duration: 0 })
         animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const btnSequence = [
             ['.resource-main-list-load', { opacity: 1 }, { duration: 1, at: 0 }],
-            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "-.6" }],
+            ['.resource-main-list-load-btn .ic svg', { transform: "none" }, { duration: .4, at: "-.6" }],
+            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "<" }],
         ]
 
         inView('.resource-main-list-load', () => {
             timeline(btnSequence).finished.then(() => {
                 btnTxt.revert()
+                document.querySelector('.resource-main-list-load-btn .ic svg').removeAttribute('style')
+                document.querySelector('.resource-main-list-load').removeAttribute('style')
             })
         })
         // End Button Anim

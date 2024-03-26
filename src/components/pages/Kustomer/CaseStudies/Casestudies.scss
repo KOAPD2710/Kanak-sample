@@ -35,7 +35,7 @@
 
         &-wrapper {
             display: flex;
-            overflow: visible    !important;
+            overflow: visible !important;
             // margin-right: calc(var(--container-padding)* -1);
         }
 
@@ -49,11 +49,6 @@
             height: 57.1rem !important;
 
             &-title {
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                min-height: calc(3 * var(--lh-h3));
                 margin-top: 3.2rem;
                 transition: color .4s ease;
             }

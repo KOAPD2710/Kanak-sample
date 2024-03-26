@@ -133,6 +133,28 @@ function ResDtlRel(props) {
             })
         })
 
+
+        // Button Anim
+        const btnTxt = new SplitType('.resource-dtl-rel-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
+
+        animate('.resource-dtl-rel-load', { opacity: 0 }, { duration: 0 })
+        animate('.resource-dtl-rel-load-btn .ic svg', { transform: "translateY(-100%)" }, { duration: 0 })
+        animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+        const btnSequence = [
+            ['.resource-dtl-rel-load', { opacity: 1 }, { duration: 1, at: 0 }],
+            ['.resource-dtl-rel-load-btn .ic svg', { transform: "none" }, { duration: .4, at: "-.6" }],
+            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "<" }],
+        ]
+
+        inView('.resource-dtl-rel-load', () => {
+            timeline(btnSequence).finished.then(() => {
+                btnTxt.revert()
+                document.querySelector('.resource-dtl-rel-load-btn .ic svg').removeAttribute('style')
+                document.querySelector('.resource-dtl-rel-load').removeAttribute('style')
+            })
+        })
+        // End Button Anim
     }, [loaded])
     return (
         <div className="resource-dtl-rel">

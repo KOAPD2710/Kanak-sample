@@ -34,6 +34,7 @@
 
     &-title {
         grid-column: 1/-1;
+        width: 100%;
 
         margin: {
             top: 1.8rem;
@@ -330,11 +331,6 @@
                             }
 
                             &-title {
-                                display: -webkit-box;
-                                -webkit-line-clamp: 2;
-                                -webkit-box-orient: vertical;
-                                overflow: hidden;
-                                height: calc(2 * var(--lh-h4));
                                 transition: color .4s ease;
 
                                 margin: {
@@ -344,11 +340,7 @@
                             }
 
                             &-des {
-                                display: -webkit-box;
-                                -webkit-line-clamp: 3;
-                                -webkit-box-orient: vertical;
-                                overflow: hidden;
-                                height: calc(3 * var(--lh-18));
+                                margin-bottom: 1.6rem;
                             }
 
                             &-date {
@@ -771,11 +763,6 @@
 
                             &-content {
                                 margin-left: 0;
-
-                                &-des {
-                                    -webkit-line-clamp: 2;
-                                    min-height: calc(2 * var(--lh-16));
-                                }
 
                                 &-date {
                                     margin-top: 2rem;

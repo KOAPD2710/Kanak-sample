@@ -14,34 +14,25 @@ function KustomerCaseStudies({ ...props }) {
         const link = new SplitType(".kustomer-kasestu-des-link", { types: 'lines, words', lineClass: 'split-line' })
 
 
-        animate(label.words, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
-        animate(title.words, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
-        animate(paragraph.words, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
-        animate(link.words, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
+        animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(paragraph.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(link.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const sequence = [
-            [label.words, {opacity: 1, transform: "none"}, {duration: .5, delay: stagger(.04), at: 0}],
+            [label.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.04), at: 0 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: "-.4" }],
+            [paragraph.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.03), at: "-.3" }],
+            [link.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.04), at: "-.3" }],
         ]
-        title.lines.forEach((el, idx) => {
-            sequence.push(
-                [el.children, {opacity: 1, transform: "none"}, {duration: .6, at: "-.4"}]
-            )
-        })
-        paragraph.lines.forEach((el, idx) => {
-            sequence.push(
-                [el.children, {opacity: 1, transform: "none"}, {duration: .4, at: "-.3"}]
-            )
-        })
-        sequence.push(
-            [link.words, {opacity: 1, transform: "none"}, {duration: .5, delay: stagger(.04), at: "-.3"}],
-        )
         inView('.kustomer-kasestu', () => {
             timeline(sequence).finished.then(() => {
                 title.revert()
                 label.revert()
                 paragraph.revert()
+                link.revert()
             })
-        }, {margin: "-20% 0px -20% 0px"})
+        }, { margin: "-20% 0px -20% 0px" })
     }, [])
 
     return (

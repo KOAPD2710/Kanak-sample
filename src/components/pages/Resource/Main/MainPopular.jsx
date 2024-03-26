@@ -20,9 +20,9 @@ function PopItem({ ...props }) {
         animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const itemSequence = [
-            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: .8 }],
+            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
             [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.3" }],
-            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.6" }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.65" }],
             [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.6" }],
         ]
 
@@ -68,7 +68,7 @@ function ResourceMainPopular(props) {
         animate('.resource-main-pop-line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         const sequence = [
             [heading.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: .6 }],
-            ['.resource-main-pop-line', { scaleX: 1 }, { duration: 1, at: "-.3" }],
+            ['.resource-main-pop-line', { scaleX: 1 }, { duration: 1, at: 0 }],
         ]
 
         inView('.resource-main-pop', () => {
