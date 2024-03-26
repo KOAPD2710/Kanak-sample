@@ -31,7 +31,7 @@ function ArticleItem({ data, idx }) {
         const des = new SplitType(item.querySelector('.resource-main-list-main-item-subtitle'), { types: 'lines, words', lineClass: 'split-line' })
         const date = new SplitType(item.querySelector('.resource-main-list-main-item-date'), { types: 'lines, words', lineClass: 'split-line' })
 
-        animate(item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 0, scale: .6, transformOrigin: "left bottom" }, { duration: 0 })
+        animate(item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 0, scale: .8, transformOrigin: "left bottom" }, { duration: 0 })
         animate(cate.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(des.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
@@ -50,19 +50,9 @@ function ArticleItem({ data, idx }) {
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
             [item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .2 }],
             [cate.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.04), at: 0 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: "-.2" }],
         )
 
-        title.lines.forEach((el, idx) => {
-            if (idx == 0) {
-                itemSequence.push(
-                    [el.children, { opacity: 1, transform: "none" }, { duration: .6, at: "-.2" }]
-                )
-            } else if (idx < 2) {
-                itemSequence.push(
-                    [el.children, { opacity: 1, transform: "none" }, { duration: .6, at: "-.5" }]
-                )
-            }
-        })
         itemSequence.push(
             [des.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
             [date.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.4" }],
@@ -78,8 +68,8 @@ function ArticleItem({ data, idx }) {
         })
     }, [])
     return (
-        <a href={`/insights/${data.uid}`} className="resource-main-list-main-item" ref={itemRef}>
-            <div className="resource-main-list-main-item-img">
+        <div className="resource-main-list-main-item" ref={itemRef}>
+            <a href={`/insights/${data.uid}`} className="resource-main-list-main-item-img" data-cursor="ext">
                 <div className="resource-main-list-main-item-img-inner">
                     <img
                         className='img img-fill'
@@ -88,24 +78,26 @@ function ArticleItem({ data, idx }) {
                         width={data.data.feature_image.dimensions.width}
                         height={data.data.feature_image.dimensions.height} />
                 </div>
-            </div>
+            </a>
             <div className="resource-main-list-main-item-content">
-                <div href="#" className="txt txt-20 txt-bold resource-main-list-main-item-cate">
+                <a href={`/insights/${data.data.category.toLowerCase().replace(" ", "-")}`} className="txt txt-20 txt-bold resource-main-list-main-item-cate" data-cursor="txtLink">
                     {data.data.category}
-                </div>
-                <h4 href="#" className="heading h5 txt-black txt-up resource-main-list-main-item-title">
-                    {data.data.title}
-                </h4>
-                <p className="txt txt-18 txt-med resource-main-list-main-item-subtitle">
-                    {data.data.sapo}
-                </p>
-                <span className="txt txt-18 txt-med resource-main-list-main-item-date">{convertDate(data.last_publication_date)}</span>
+                </a>
+                <a href={`/insights/${data.uid}`} className="resource-main-list-main-item-content-wrap" data-cursor="ext">
+                    <h4 href="#" className="heading h5 txt-black txt-up resource-main-list-main-item-title">
+                        {data.data.title}
+                    </h4>
+                    <p className="txt txt-18 txt-med resource-main-list-main-item-subtitle">
+                        {data.data.sapo}
+                    </p>
+                    <span className="txt txt-18 txt-med resource-main-list-main-item-date">{convertDate(data.last_publication_date)}</span>
+                </a>
             </div>
             <div className="line"></div>
             {idx % 2 == 0 ? (
                 <div className="line line-ver"></div>
             ) : ""}
-        </a>
+        </div>
     )
 }
 function ResourceMainList(props) {
@@ -179,11 +171,11 @@ function ResourceMainList(props) {
 
         const sequence = [
             [title.chars, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.3" }],
-            ['.resource-main-list-line', { scaleX: 1 }, { duration: 1, at: "-.2" }],
+            ['.resource-main-list-line', { scaleX: 1 }, { duration: 1, at: "-.8" }],
         ]
 
         sequence.push(
-            [[...toggle.chars, document.querySelector('.resource-main-list-head-filter-toggle-ic')], { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: 1 }]
+            [[...toggle.chars, document.querySelector('.resource-main-list-head-filter-toggle-ic')], { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: "-.6" }]
         )
 
         document.querySelectorAll('.resource-main-list-head-filter-dropdown .resource-main-list-head-filter-item').forEach((el, idx) => {
@@ -192,14 +184,12 @@ function ResourceMainList(props) {
             animate(el.querySelector('.resource-main-list-head-filter-item-count'), { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
             sequence.push(
-                [[...cate.words, el.querySelector('.resource-main-list-head-filter-item-count')], { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.4" }],
+                [[...cate.words, el.querySelector('.resource-main-list-head-filter-item-count')], { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.08), at: "-.45" }],
             )
 
             filterArray.push(cate)
             countArray.push(el.querySelector('.resource-main-list-head-filter-item-count'))
         })
-
-
 
         inView('.resource-main-list', () => {
             timeline(sequence).finished.then(() => {
@@ -214,22 +204,24 @@ function ResourceMainList(props) {
             })
         })
 
-
-
         // Button Anim
         const btnTxt = new SplitType('.resource-main-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
 
         animate('.resource-main-list-load', { opacity: 0 }, { duration: 0 })
+        animate('.resource-main-list-load-btn .ic svg', { transform: "translateY(-100%)" }, { duration: 0 })
         animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const btnSequence = [
             ['.resource-main-list-load', { opacity: 1 }, { duration: 1, at: 0 }],
-            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "-.6" }],
+            ['.resource-main-list-load-btn .ic svg', { transform: "none" }, { duration: .4, at: "-.6" }],
+            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "<" }],
         ]
 
         inView('.resource-main-list-load', () => {
             timeline(btnSequence).finished.then(() => {
                 btnTxt.revert()
+                document.querySelector('.resource-main-list-load-btn .ic svg').removeAttribute('style')
+                document.querySelector('.resource-main-list-load').removeAttribute('style')
             })
         })
         // End Button Anim

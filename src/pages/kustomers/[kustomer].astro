@@ -10,7 +10,7 @@ import Explore from "@pages/Kustomer/Explore/Explore.astro";
 import Commitment from "@pages/Kustomer/Commitment/Commitment.astro";
 import CaseStudy from "@pages/Kustomer/CaseStudies/Casestudies.astro";
 import Value from "@pages/Kustomer/Value/Value.astro";
-import Awward from "@pages/Kustomer/Awward/Awward.astro";
+import Award from "@pages/Kustomer/Award/Award.astro";
 import CTA from "@pages/Kustomer/CTA/CTA.astro";
 
 import ImgSer1 from "@assets/kustomer-service1.jpg";
@@ -170,6 +170,6 @@ const filterCaseStudy = listCaseStudy.filter(
         title={data.values_title[0].text}
         value_list={data.values_list}
     />
-    <Awward />
+    <Award />
     <CTA />
 </Layout>

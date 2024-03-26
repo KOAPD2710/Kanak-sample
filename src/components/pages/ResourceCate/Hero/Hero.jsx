@@ -30,7 +30,7 @@ function ResourceCateHero({ ...props }) {
         const sequence = [
             [allText, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.04), at: .1 }],
             [title.chars, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.02), at: .2 }],
-            [quote.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.6" }],
+            [quote.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .4 }],
         ]
 
         inView('.resource-cate-hero-bread', () => {
@@ -42,20 +42,19 @@ function ResourceCateHero({ ...props }) {
         })
 
     }, [])
-
     return (
         <>
             <div className="txt txt-20 txt-bold resource-cate-hero-bread">
                 <div className="resource-cate-hero-bread-link-wrap">
-                    <a href="/" className="txt-bold resource-cate-hero-bread-link">Home</a>
+                    <a href="/" className="txt-bold resource-cate-hero-bread-link txt-link">Home</a>
                     <div className="txt txt-14 txt-med resource-cate-hero-bread-div">/</div>
                 </div>
                 <div className="resource-cate-hero-bread-link-wrap">
-                    <a href="/insights" className="txt-bold resource-cate-hero-bread-link">Insights</a>
+                    <a href="/insights" className="txt-bold resource-cate-hero-bread-link txt-link">Insights</a>
                 </div>
             </div>
             <div className="txt-bold resource-cate-hero-head">
-                <h1 className="heading h0 txt-black txt-up resource-cate-hero-head-title">Insights</h1>
+                <h1 className="heading h0 txt-black txt-up resource-cate-hero-head-title">{props.title}</h1>
                 <p className="txt txt-20 txt-black txt-up resource-cate-hero-head-quote">Comprehensive Analysis and Expert Insights into Market Trends, Dynamics, and Future Projections.</p>
             </div>
         </>

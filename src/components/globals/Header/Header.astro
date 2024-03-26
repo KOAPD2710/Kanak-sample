@@ -1,4 +1,5 @@
 ---
+
 import { Image } from "astro:assets";
 import { getImage } from "astro:assets";
 import kanakLogo from "@assets/kanak-logo.svg";
@@ -8,6 +9,7 @@ import bodyFlag from "@assets/body-flag.svg";
 import tailFlag from "@assets/tail-flag.svg";
 import extIcon from "@assets/ext-arr-menu.svg?raw"
 import HeaderGlobal from "./Header";
+const currYear = new Date().getFullYear()
 
 const pages = [
     { name: "Kustomers", link: "/", type: 'dropdown', sub_menu: [
@@ -32,7 +34,7 @@ const pages = [
 const bodyFlagIc = await getImage({ src: bodyFlag, format: "svg" });
 ---
 
-<HeaderGlobal pages={pages} bodyFlag={bodyFlagIc.src} client:load>
+<HeaderGlobal pages={pages} bodyFlag={bodyFlagIc.src} currYear={currYear} client:load>
     <Image src={kanakLogo} alt="Kanak Logo" slot="logo" class="img-h" />
     <Image src={recycleIc} alt="Recycle Icon" slot="recycleIc" />
     <Image src={headFlag} alt="" slot="headFlag" />

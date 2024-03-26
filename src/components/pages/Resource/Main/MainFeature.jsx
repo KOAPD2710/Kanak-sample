@@ -17,13 +17,13 @@ function FeatItem({ ...props }) {
             const title = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-title'), { types: 'lines, words', lineClass: 'split-line' })
             const date = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-date'), { types: 'lines, words', lineClass: 'split-line' })
 
-            animate(item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 0, scale: .6, transformOrigin: "left bottom" }, { duration: 0 })
+            animate(item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 0, scale: .8, transformOrigin: "left bottom" }, { duration: 0 })
             animate(category.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
             animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
             animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
             const itemSequence = [
-                [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: 1 }],
+                [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: "<" }],
                 [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.4" }],
                 [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.3" }],
                 [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.45" }],
@@ -39,29 +39,30 @@ function FeatItem({ ...props }) {
             })
         }
     }, [])
-
     return (
-        <a href={`/insights/${props.uid}`} className="keen-slider__slide resource-main-fea-main-inner-item" ref={itemRef}>
-            <div className="resource-main-fea-main-inner-item-img">
+        <div className="keen-slider__slide resource-main-fea-main-inner-item" ref={itemRef}>
+            <a href={`/insights/${props.uid}`} className="resource-main-fea-main-inner-item-img" data-cursor="ext">
                 <img
                     className='img img-fill'
                     src={props.image.url}
                     alt={props.image.alt}
                     width={props.image.dimensions.width}
                     height={props.image.dimensions.height} />
-            </div>
+            </a>
             <div className="resource-main-fea-main-inner-item-content">
-                <div className="resource-main-fea-main-inner-item-cate">
+                <a href={`/insights/${props.category.toLowerCase().replace(' ', '-')}`} className="resource-main-fea-main-inner-item-cate" data-cursor="txtLink">
                     <div className="txt txt-20 txt-bold resource-main-fea-main-inner-item-cate-txt">
                         {props.category}
                     </div>
-                </div>
-                <h2 className='heading h4 txt-black txt-up resource-main-fea-main-inner-item-title'>
-                    {props.title}
-                </h2>
-                <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{convertDate(props.date)}</span>
+                </a>
+                <a href={`/insights/${props.uid}`} className='resource-main-fea-main-inner-item-content-link-wrap' data-cursor="ext">
+                    <h2 className='heading h4 txt-black txt-up resource-main-fea-main-inner-item-title'>
+                        {props.title}
+                    </h2>
+                    <span className='txt txt-18 txt-med resource-main-fea-main-inner-item-date'>{convertDate(props.date)}</span>
+                </a>
             </div>
-        </a>
+        </div>
     )
 }
 
@@ -94,35 +95,24 @@ function ResourceMainFeature(props) {
         animate('.resource-main-fea-main-control .line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.resource-main-fea-main-nav', { opacity: 0 }, { duration: 0 })
         animate('.resource-main-fea-main-line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item', { opacity: 0 }, { duration: 0 })
 
         const sequence = [
-            ['.resource-main-fea .line-ver', { scaleY: 1 }, { duration: 1, at: .6 }],
-            ['.resource-main-fea-main-line-bot', { scaleX: 1 }, { duration: 1, at: .4 }],
-            ['.resource-main-fea-main-control .line', { scaleX: 1 }, { duration: 1, at: 2 }],
+            ['.resource-main-fea .line-ver', { scaleY: 1 }, { duration: 1, at: 0 }],
+            ['.resource-main-fea-main-line-bot', { scaleX: 1 }, { duration: 1, at: 0 }],
+            ['.resource-main-fea-main-control .line', { scaleX: 1 }, { duration: 1, at: "-1" }],
+            ['.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item', { opacity: 1 }, { duration: .6, delay: stagger(.03), at: 1 }],
         ]
 
         if (window.innerWidth > 991) {
             sequence.push(
-                ['.resource-main-fea-main-nav', { opacity: 1 }, { duration: .6, at: "-.2" }],
+                ['.resource-main-fea-main-nav', { opacity: 1 }, { duration: .6, at: "-.8" }],
             )
         } else {
             sequence.push(
                 ['.resource-main-fea-main-nav', { opacity: 1 }, { duration: .6, at: "-.8" }],
             )
         }
-
-        document.querySelectorAll('.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item').forEach((el, idx) => {
-            animate(el, { opacity: 0 }, { duration: 0 })
-            if (idx == 0) {
-                sequence.push(
-                    [el, { opacity: 1 }, { duration: .3, at: "-.8" }]
-                )
-            } else {
-                sequence.push(
-                    [el, { opacity: 1 }, { duration: .3, at: "-.15" }]
-                )
-            }
-        })
 
         inView('.resource-main-fea', () => {
             timeline(sequence).finished.then(() => {
@@ -150,7 +140,9 @@ function ResourceMainFeature(props) {
                                 <button className={"resource-main-fea-main-pagi-item" + (currentSlide === idx ? " active" : "")} key={idx}
                                     onClick={() => {
                                         instanceRef.current?.moveToIdx(idx)
-                                    }}>
+                                    }}
+                                    data-cursor="hide"
+                                >
                                 </button>
                             ))
                         )}
@@ -160,14 +152,16 @@ function ResourceMainFeature(props) {
                             <>
                                 <button className="resource-main-fea-main-nav-item resource-main-fea-main-nav-item-prev"
                                     onClick={() => { instanceRef.current.prev() }}
-                                    disabled={instanceRef.current.track.details.rel === 0}>
+                                    disabled={instanceRef.current.track.details.rel === 0}
+                                    data-cursor="hide">
                                     <div className="ic ic-40">
                                         {props.arrIcon}
                                     </div>
                                 </button>
                                 <button className="resource-main-fea-main-nav-item resource-main-fea-main-nav-item-next"
                                     onClick={() => { instanceRef.current.next() }}
-                                    disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}>
+                                    disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}
+                                    data-cursor="hide">
                                     <div className="ic ic-40">
                                         {props.arrIcon}
                                     </div>

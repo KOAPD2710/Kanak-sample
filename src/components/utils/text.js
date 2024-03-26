@@ -17,6 +17,18 @@ function convertDate(data) {
     let year = dateObject.getFullYear();
     return month + " " + day + ", " + year;
 }
-export { convertHighlight, convertDate }
+
+function cleanText(text) {
+    if (typeof (text) === "string") {
+        return cleanText(document.querySelectorAll(text));
+    } else if (text[0] && text[0].innerHTML) {
+        for (var i = 0; i < text.length; i++) {
+            cleanText(text[i]);
+        }
+        return;
+    }
+    text.innerHTML = text.innerHTML.replace(/\-/g, "&#8209;").replace(/V/g, "&zwnj;V&zwnj;").replace(/\./g, "&zwnj;.&zwnj;").replace(/,/g, "&zwnj;,&zwnj;").replace(/A/g, "&zwnj;A&zwnj;").replace(/fi/g, "f&zwnj;i");
+}
+export { convertHighlight, convertDate, cleanText }
 
 

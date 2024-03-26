@@ -21,15 +21,15 @@ function RelItem({ ...props }) {
         animate(titleItem.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(describle.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(date.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        animate(item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 0, scale: 0, transformOrigin: "left bottom" }, { duration: 0 })
+        animate(item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 0, scale: 0.8, transformOrigin: "left bottom" }, { duration: 0 })
         animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
         animate(item.querySelector('.line:not(.line-ver)'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
 
 
         const itemSequence = [
             [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: .2 }],
-            [item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 1, scale: 1 }, { duration: 1.2, at: "<" }],
-            [label.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.03), at: "-.8" }],
+            [item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 1, scale: 1 }, { duration: 1, at: "<" }],
+            [label.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.03), at: .3 }],
             [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.04), at: "-.4" }],
             [describle.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: "-.4" }],
             [date.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: "-.6" }],
@@ -49,27 +49,29 @@ function RelItem({ ...props }) {
     }, [])
 
     return (
-        <a href={`/insights/${props.uid}`} className="resource-dtl-rel-main-inner-group-item" ref={itemRef}>
-            <div className="resource-dtl-rel-main-inner-group-item-img">
+        <div className="resource-dtl-rel-main-inner-group-item" ref={itemRef}>
+            <a href={`/insights/${props.uid}`} className="resource-dtl-rel-main-inner-group-item-img" data-cursor="ext">
                 <img src={props.data.feature_image.url} alt={props.data.feature_image.alt} width={props.data.feature_image.dimensions.width} className='img img-fill' />
-            </div>
+            </a>
             <div className="resource-dtl-rel-main-inner-group-item-content">
-                <div className="txt txt-20 txt-bold resource-dtl-rel-main-inner-group-item-content-cate">
+                <a href={`/insights/${props.data.category.toLowerCase().replace(" ", "-")}`} className="txt txt-20 txt-bold resource-dtl-rel-main-inner-group-item-content-cate" data-cursor="txtLink">
                     {props.data.category}
-                </div>
-                <h3 className='heading h4 txt-black txt-up resource-dtl-rel-main-inner-group-item-content-title'>
-                    {props.data.title}
-                </h3>
-                <p className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-des'>
-                    {props.data.sapo}
-                </p>
-                <span className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-date'>
-                    {convertDate(props.last_publication_date)}
-                </span>
+                </a>
+                <a href={`/insights/${props.uid}`} className='resource-dtl-rel-main-inner-group-item-content-wrap' data-cursor="ext">
+                    <h3 className='heading h4 txt-black txt-up resource-dtl-rel-main-inner-group-item-content-title'>
+                        {props.data.title}
+                    </h3>
+                    <p className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-des'>
+                        {props.data.sapo}
+                    </p>
+                    <span className='txt txt-18 txt-med resource-dtl-rel-main-inner-group-item-content-date'>
+                        {convertDate(props.last_publication_date)}
+                    </span>
+                </a>
                 <div className="line line-ver"></div>
                 <div className="line"></div>
             </div>
-        </a>
+        </div>
     )
 }
 
@@ -133,6 +135,28 @@ function ResDtlRel(props) {
             })
         })
 
+
+        // Button Anim
+        const btnTxt = new SplitType('.resource-dtl-rel-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
+
+        animate('.resource-dtl-rel-load', { opacity: 0 }, { duration: 0 })
+        animate('.resource-dtl-rel-load-btn .ic svg', { transform: "translateY(-100%)" }, { duration: 0 })
+        animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+        const btnSequence = [
+            ['.resource-dtl-rel-load', { opacity: 1 }, { duration: 1, at: 0 }],
+            ['.resource-dtl-rel-load-btn .ic svg', { transform: "none" }, { duration: .4, at: "-.6" }],
+            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "<" }],
+        ]
+
+        inView('.resource-dtl-rel-load', () => {
+            timeline(btnSequence).finished.then(() => {
+                btnTxt.revert()
+                document.querySelector('.resource-dtl-rel-load-btn .ic svg').removeAttribute('style')
+                document.querySelector('.resource-dtl-rel-load').removeAttribute('style')
+            })
+        })
+        // End Button Anim
     }, [loaded])
     return (
         <div className="resource-dtl-rel">
@@ -142,14 +166,16 @@ function ResDtlRel(props) {
                     <div className="resource-dtl-rel-head-nav">
                         <button className="resource-dtl-rel-head-nav-item resource-dtl-rel-head-nav-item-prev"
                             onClick={() => { instanceRef.current.prev() }}
-                            disabled={instanceRef.current.track.details.rel === 0}>
+                            disabled={instanceRef.current.track.details.rel === 0}
+                            data-cursor="hide">
                             <div className="ic ic-16">
                                 {props.icArrow}
                             </div>
                         </button>
                         <button className="resource-dtl-rel-head-nav-item resource-dtl-rel-head-nav-item-next"
                             onClick={() => { instanceRef.current.next() }}
-                            disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}>
+                            disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}
+                            data-cursor="hide">
                             <div className="ic ic-16">
                                 {props.icArrow}
                             </div>

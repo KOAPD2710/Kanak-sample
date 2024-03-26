@@ -34,6 +34,7 @@
 
     &-title {
         grid-column: 1/-1;
+        width: 100%;
 
         margin: {
             top: 1.8rem;
@@ -248,11 +249,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
-            padding: {
-                top: 5rem;
-                bottom: 5rem;
-            }
+            padding-top: 5rem;
+            padding-bottom: 5rem;
 
             &-nav {
                 display: flex;
@@ -308,15 +306,12 @@
                         width: calc(100% / var(--perView));
                         display: flex;
                         flex-shrink: 0;
-
-                        padding: {
-                            top: 4rem;
-                            bottom: 4rem;
-                        }
+                        padding-top: 4rem;
+                        padding-bottom: 4rem;
 
                         &-img {
                             flex-shrink: 0;
-                            @include size(23.4rem, 27.4rem);
+                            @include size(23.4rem, 100%);
                             overflow: hidden;
                         }
 
@@ -325,17 +320,20 @@
                             display: flex;
                             flex-direction: column;
 
+                            &-wrap {
+                                display: flex;
+                                flex-direction: column;
+                                height: 100%;
+                            }
+
                             &-cate {
                                 transition: color .4s ease;
                             }
 
                             &-title {
-                                display: -webkit-box;
-                                -webkit-line-clamp: 2;
-                                -webkit-box-orient: vertical;
-                                overflow: hidden;
-                                height: calc(2 * var(--lh-h4));
                                 transition: color .4s ease;
+                                transition-delay: 100ms;
+
 
                                 margin: {
                                     top: 1.2rem;
@@ -344,11 +342,7 @@
                             }
 
                             &-des {
-                                display: -webkit-box;
-                                -webkit-line-clamp: 3;
-                                -webkit-box-orient: vertical;
-                                overflow: hidden;
-                                height: calc(3 * var(--lh-18));
+                                margin-bottom: 1.6rem;
                             }
 
                             &-date {
@@ -379,14 +373,15 @@
                         }
 
                         @media (hover: hover) {
-                            &:hover {
-                                .resource-dtl-rel-main-inner-group-item-content-title {
-                                    color: var(--cl-orange);
-                                }
 
-                                .resource-dtl-rel-main-inner-group-item-content-cate {
-                                    color: var(--cl-orange);
-                                }
+                            .resource-dtl-rel-main-inner-group-item-img:hover+.resource-dtl-rel-main-inner-group-item-content .resource-dtl-rel-main-inner-group-item-content-title,
+                            .resource-dtl-rel-main-inner-group-item-content-title:hover {
+                                color: var(--cl-orange);
+                                transition-delay: 0ms;
+                            }
+
+                            .resource-dtl-rel-main-inner-group-item-content-cate:hover {
+                                color: var(--cl-orange);
                             }
                         }
                     }
@@ -518,10 +513,8 @@
 
         &-rel {
             &-head {
-                padding: {
-                    top: 2.8rem;
-                    bottom: 2.8rem;
-                }
+                padding-top: 2.8rem;
+                padding-bottom: 2.8rem;
 
                 &-nav {
                     display: none;
@@ -537,11 +530,8 @@
 
                         &-item {
                             width: 100%;
-
-                            padding: {
-                                top: 3.2rem;
-                                bottom: 3.2rem;
-                            }
+                            padding-top: 3.2rem;
+                            padding-bottom: 3.2rem;
 
                             &-img {
                                 @include size(21.5rem, 25rem);
@@ -650,11 +640,8 @@
 
         &-info {
             grid-column: 1/-1;
-
-            padding: {
-                top: 3.2rem;
-                bottom: 3.2rem;
-            }
+            padding-top: 3.2rem;
+            padding-bottom: 3.2rem;
 
             &-stick {
                 position: static;
@@ -746,10 +733,8 @@
 
         &-rel {
             &-head {
-                padding: {
-                    top: 2.4rem;
-                    bottom: 2.4rem;
-                }
+                padding-top: 2.4rem;
+                padding-bottom: 2.4rem;
 
                 &-title {
                     @include text(h5);
@@ -771,11 +756,6 @@
 
                             &-content {
                                 margin-left: 0;
-
-                                &-des {
-                                    -webkit-line-clamp: 2;
-                                    min-height: calc(2 * var(--lh-16));
-                                }
 
                                 &-date {
                                     margin-top: 2rem;

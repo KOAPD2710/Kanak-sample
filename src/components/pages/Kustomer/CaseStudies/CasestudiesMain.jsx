@@ -14,43 +14,32 @@ function CaseStudiesItem({ ...props }) {
         const title = new SplitType(item.querySelector(".kustomer-kasestu-main-item-title"), { types: 'lines, words', lineClass: 'split-line' })
         const readMore = new SplitType(item.querySelector('.kustomer-kasestu-main-item-bot-readmore span'), { types: 'lines, words', lineClass: 'split-line' })
 
-        animate(item.querySelector('.line-top'), {scaleX: 0, transformOrigin: "left"}, {duration: 0})
-        animate(item.querySelector('.line-ver'), {scaleY: 0, transformOrigin: "top"}, {duration: 0})
-        animate(item.querySelector('.line-bot'), {scaleX: 0, transformOrigin: "left"}, {duration: 0})
-        animate(label.words, {opacity: 0, transform: "translateY(100%)"}, {duration: 0})
-        animate(title.words, {transform: "translateY(100%)"}, {duration: 0})
+        animate(item.querySelector('.line-top'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate(item.querySelector('.line-bot'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(title.words, { transform: "translateY(100%)" }, { duration: 0 })
         animate(readMore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(item.querySelector('.kustomer-kasestu-main-item-bot-img img'), { opacity: 0, scale: .4, transformOrigin: "left bottom" }, { duration: 0 })
         animate(item.querySelector('.kustomer-kasestu-main-item-bot-readmore .ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
 
         const sequence = [
-            [item.querySelector('.line-top'), {scaleX: 1}, {duration: 1.4, at: .1}],
-            [item.querySelector('.line-ver'), {scaleY: 1}, {duration: .6, at: "<"}],
-            [item.querySelector('.line-bot'), {scaleX: 1}, {duration: 1, at: "-.1"}],
-            [label.words, {opacity: 1, transform: "none"}, {duration: .4, delay: stagger(.04), at: "<"}],
+            [item.querySelector('.line-top'), { scaleX: 1 }, { duration: 1.4, at: .1 }],
+            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: .6, at: "<" }],
+            [item.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1, at: "-.1" }],
+            [label.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.04), at: "<" }],
+            [title.words, { transform: "none" }, { duration: .4, delay: stagger(.04), at: "-.1" }],
         ]
-
-        title.lines.forEach((el, idx) => {
-            if (idx == 0) {
-                sequence.push(
-                    [el.children, {transform: "none"}, {duration: .4, at: "-.1"}],
-                )
-            } else if (idx < 3) {
-                sequence.push(
-                    [el.children, {transform: "none"}, {duration: .4, at: "-.35"}],
-                )
-            }
-        })
 
         sequence.push(
             [item.querySelector('.kustomer-kasestu-main-item-bot-img img'), { opacity: 1, scale: 1 }, { duration: .6, at: "-.2" }],
             [readMore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: "-.5" }],
-            [item.querySelector('.kustomer-kasestu-main-item-bot-readmore .ic svg'), {opacity: 1, transform: "none"}, { duration: .6, at: "-.4" }]
+            [item.querySelector('.kustomer-kasestu-main-item-bot-readmore .ic svg'), { opacity: 1, transform: "none" }, { duration: .6, at: "-.4" }]
         )
         if (props.lastItem) {
-            animate(item.querySelector('.line-right'), {scaleY: 0, transformOrigin: "top"}, {duration: 0})
+            animate(item.querySelector('.line-right'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
             sequence.push(
-                [item.querySelector('.line-right'), {scaleY: 1}, {duration: 1, at: 1.15}],
+                [item.querySelector('.line-right'), { scaleY: 1 }, { duration: 1, at: 1.15 }],
             )
         }
 
@@ -63,7 +52,7 @@ function CaseStudiesItem({ ...props }) {
                 title.revert()
                 if (props.lastItem) item.querySelector('.line-right').removeAttribute('style')
             })
-        }, {margin: "-20% 0px -20% 0px"})
+        }, { margin: "-20% 0px -20% 0px" })
     }, [])
 
     return (

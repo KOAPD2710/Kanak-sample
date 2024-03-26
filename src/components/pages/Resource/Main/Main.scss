@@ -27,19 +27,17 @@
                     min-height: 100%;
                     overflow: hidden;
                     flex-shrink: 0;
-
-                    padding: {
-                        top: 5rem;
-                        right: 4.6rem;
-                        bottom: 3.2rem;
-                    }
+                    padding-top: 5rem;
+                    padding-right: 4.6rem;
+                    padding-bottom: 3.2rem;
 
                     &-img {
+                        width: 100%;
                         height: 47.5rem;
                     }
 
                     &-cate {
-                        display: flex;
+                        display: inline-flex;
                         align-items: center;
                         column-gap: 1.2rem;
                         margin-top: 2.4rem;
@@ -51,17 +49,19 @@
                         margin-bottom: 2.4rem;
                         min-height: calc(3 * var(--lh-h4));
                         @include transition(color .4s ease);
+                        transition-delay: .1s;
                     }
 
                     @media (hover: hover) {
-                        &:hover {
-                            .resource-main-fea-main-inner-item-title {
-                                color: var(--cl-orange);
-                            }
 
-                            .resource-main-fea-main-inner-item-cate {
-                                color: var(--cl-orange);
-                            }
+                        .resource-main-fea-main-inner-item-content-link-wrap:hover .resource-main-fea-main-inner-item-title,
+                        .resource-main-fea-main-inner-item-img:hover+.resource-main-fea-main-inner-item-content .resource-main-fea-main-inner-item-title {
+                            color: var(--cl-orange);
+                            transition-delay: 0ms;
+                        }
+
+                        .resource-main-fea-main-inner-item-cate:hover {
+                            color: var(--cl-orange);
                         }
                     }
                 }
@@ -173,19 +173,12 @@
                 flex-direction: column;
 
                 &-cate {
-                    display: inline-flex;
-                    align-items: center;
-                    column-gap: 1.2rem;
                     margin-bottom: 1.6rem;
                     transition: color .4s ease;
                 }
 
                 &-title {
                     margin-bottom: 1.6rem;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
                     transition: color .4s ease;
                 }
 
@@ -200,14 +193,12 @@
                 }
 
                 @media (hover: hover) {
-                    &:hover {
-                        .resource-main-pop-list-item-title {
-                            color: var(--cl-orange);
-                        }
+                    .resource-main-pop-list-item-content-wrap:hover .resource-main-pop-list-item-title {
+                        color: var(--cl-orange);
+                    }
 
-                        .resource-main-pop-list-item-cate {
-                            color: var(--cl-orange);
-                        }
+                    .resource-main-pop-list-item-cate:hover {
+                        color: var(--cl-orange);
                     }
                 }
 
@@ -314,7 +305,7 @@
 
                 &-img {
                     width: 23.4rem;
-                    height: 27.4rem;
+                    height: 100%;
                     flex-shrink: 0;
                     overflow: hidden;
 
@@ -327,22 +318,21 @@
                     transition: color .4s ease;
                 }
 
+                &-content-wrap {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+
                 &-title {
                     margin-top: 1.2rem;
                     margin-bottom: 1.2rem;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    max-height: calc(2 * var(--lh-h5));
                     transition: color .4s ease;
+                    transition-delay: .1s;
                 }
 
                 &-subtitle {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
+                    margin-bottom: 1.6rem;
                 }
 
                 &-date {
@@ -369,14 +359,15 @@
                 // }
 
                 @media (hover: hover) {
-                    &:hover {
-                        .resource-main-list-main-item-title {
-                            color: var(--cl-orange);
-                        }
 
-                        .resource-main-list-main-item-cate {
-                            color: var(--cl-orange);
-                        }
+                    .resource-main-list-main-item-img:hover+.resource-main-list-main-item-content .resource-main-list-main-item-title,
+                    .resource-main-list-main-item-content-wrap:hover .resource-main-list-main-item-title {
+                        color: var(--cl-orange);
+                        transition-delay: 0ms;
+                    }
+
+                    .resource-main-list-main-item-cate:hover {
+                        color: var(--cl-orange);
                     }
                 }
             }
@@ -406,6 +397,11 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
+                    .ic {
+                        overflow: hidden;
+
+                    }
                 }
 
                 &-txt {
@@ -447,13 +443,8 @@
                 &-inner {
                     &-item {
                         display: flex;
-
-                        padding: {
-                            top: 3.2rem;
-                            right: 0;
-                        }
-
-                        ;
+                        padding-top: 3.2rem;
+                        padding-right: 0;
 
                         &-img,
                         &-content {
@@ -465,11 +456,7 @@
                         }
 
                         &-content {
-                            padding: {
-                                left: 2.4rem;
-                            }
-
-                            ;
+                            padding-left: 2.4rem;
                         }
 
                         &-cate {
@@ -488,11 +475,6 @@
                         &-title {
                             @include text(h4);
                             margin-bottom: 1.6rem;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 3;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                            max-height: calc(3 * var(--lh-h4));
                         }
                     }
                 }
@@ -537,11 +519,8 @@
         &-pop {
             grid-column: 1/-1;
             margin-left: 0;
-
-            padding: {
-                top: 2.8rem;
-                left: 0;
-            }
+            padding-top: 2.8rem;
+            padding-left: 0;
 
             &-line {
                 display: block;
@@ -557,11 +536,8 @@
 
                 &-item {
                     position: relative;
-
-                    padding: {
-                        top: 3.2rem;
-                        bottom: 3.2rem;
-                    }
+                    padding-top: 3.2rem;
+                    padding-bottom: 3.2rem;
 
                     &-cate {
                         .ic {
@@ -572,14 +548,6 @@
                             font-weight: 700;
                             @include text(18);
                         }
-                    }
-
-                    &-title {
-                        min-height: calc(4 * var(--lh-h5));
-                        display: -webkit-box;
-                        -webkit-line-clamp: 4;
-                        -webkit-box-orient: vertical;
-                        overflow: hidden;
                     }
 
                     &-date {
@@ -707,12 +675,8 @@
 
                 &-item {
                     grid-column: 1/-1;
-
-                    padding: {
-                        top: 3.2rem;
-                        bottom: 3.2rem;
-                    }
-
+                    padding-top: 3.2rem;
+                    padding-bottom: 3.2rem;
 
                     &-img {
                         @include size(21.5rem, 25.1rem);
@@ -795,10 +759,8 @@
                         }
 
                         &-content {
-                            padding: {
-                                top: 2.4rem;
-                                left: 0;
-                            }
+                            padding-top: 2.4rem;
+                            padding-left: 0;
                         }
 
                         &-title {
@@ -904,7 +866,6 @@
                     }
 
                     &-subtitle {
-                        -webkit-line-clamp: 2;
                         margin-bottom: 2rem;
                     }
 
