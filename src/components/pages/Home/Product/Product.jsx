@@ -16,13 +16,14 @@ function HomeProduct(props) {
     }
     useEffect(() => {
         console.log('init')
-        let anim = scroll(({y}) => {
-            console.log('scrolling')
-            if (y.progress >= .9) {
-                document.querySelector('.home-prod-cards-inner').classList.add('active')
-            } else {
-                productIndex.set(0)
-                document.querySelector('.home-prod-cards-inner').classList.remove('active')
+        scroll(({y}) => {
+            if (document.querySelectorAll('.home-prod-cards-inner').length == 1) {
+                if (y.progress >= .9) {
+                    document.querySelector('.home-prod-cards-inner').classList.add('active')
+                } else {
+                    productIndex.set(0)
+                    document.querySelector('.home-prod-cards-inner').classList.remove('active')
+                }
             }
         }, {
             target: document.querySelector('.home-prod-cards-inner'),

@@ -92,7 +92,7 @@ function FilterItem({ ...props }) {
 
 function CaseMain({ ...props }) {
     const { list: allItem } = props;
-    const [layout, setLayout] = useState('list');
+    const [layout, setLayout] = useState('grid');
     const [filter, setFilter] = useState('All');
     const [itemList, setItemList] = useState(allItem);
     const [limit, setLimit] = useState(4);
