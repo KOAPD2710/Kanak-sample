@@ -2,97 +2,13 @@
 @use '@styles/mixins' as *;
 
 .case-main {
+    position: relative;
+    z-index: 6; //Higher than footer
     .case {
-        &-filter {
-            &-inner {
-                padding: {
-                    top: 3rem;
-                    bottom: 3rem;
-                }
-
-                ;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            &-list {
-                &-toggle {
-                    display: none;
-                }
-
-                &-dropdown {
-                    display: flex;
-                    align-items: center;
-                    column-gap: 2rem;
-                }
-            }
-
-            &-item {
-                display: flex;
-                align-items: start;
-                column-gap: .4rem;
-
-                &-txt {
-                    padding-top: .4rem;
-                    padding-bottom: .4rem;
-                    transition: color 400ms ease;
-                }
-
-                .line {
-                    display: none;
-                }
-
-                &:hover,
-                &.active {
-                    .case-filter-item-txt {
-                        color: var(--cl-orange);
-                    }
-                }
-            }
-
-            &-view {
-                display: flex;
-
-                &-item {
-                    width: 3.6rem;
-                    height: 3.6rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: solid .2rem var(--cl-txt);
-
-                    .ic {
-                        transition: all 400ms ease;
-                    }
-
-                    &:not(:first-child) {
-                        margin-left: -.2rem;
-                    }
-
-                    &.active {
-                        pointer-events: none;
-
-                        .ic {
-                            opacity: .2;
-                        }
-                    }
-
-                    &:hover {
-                        .ic {
-                            opacity: 1;
-                            color: var(--cl-orange);
-                        }
-                    }
-                }
-            }
-        }
-
         &-list {
             .container {
                 mix-blend-mode: multiply;
             }
-
             &-inner {
                 padding-bottom: 12rem;
                 display: grid;
@@ -107,7 +23,19 @@
                         grid-template-columns: repeat(16, 1fr);
                         column-gap: 2rem;
                         position: relative;
-
+                        &-inner {
+                            grid-column: span 13;
+                            display: grid;
+                            margin-top: 0;
+                            @media (hover: hover) {
+                                &:hover {
+                                    .case-list-item-img {
+                                        opacity: 1;
+                                        transform: translate(-50%, -50%) scale(1.98) rotate(20deg);
+                                    }
+                                }
+                            }
+                        }
                         &:nth-child(odd) {
                             padding-right: 0rem;
                         }
@@ -125,12 +53,12 @@
                         }
 
                         &-label {
-                            grid-column: span 3
+                            grid-column: span 3;
+                            justify-self: start;
                         }
 
                         &-title {
                             margin-left: -2rem;
-                            grid-column: span 13;
                             max-width: none;
                             margin-top: 0;
                             margin-bottom: 6rem;
@@ -149,18 +77,13 @@
                             opacity: 0;
                             transform: translate(-50%, -50%) scale(1) rotate(10deg);
                             transform-origin: center center;
+                            will-change: transform;
                         }
 
                         &-link {
                             display: none;
                         }
-
-                        &:hover {
-                            .case-list-item-img {
-                                opacity: 1;
-                                transform: translate(-50%, -50%) scale(1.98) rotate(20deg);
-                            }
-                        }
+                        
                     }
                 }
             }
@@ -170,26 +93,24 @@
                 flex-direction: column;
                 align-items: start;
                 padding-top: 6rem;
-                transition: color 400ms ease;
                 position: relative;
 
                 &:nth-child(odd) {
                     padding-right: 5rem;
-                }
-
-                &:nth-child(even) {
-                    padding-left: 5rem;
-
                     .line-ver {
                         display: none;
                     }
                 }
 
+                &:nth-child(even) {
+                    padding-left: 5rem;
+                }
+
                 &-title {
-                    margin-top: 3.2rem;
                     margin-bottom: 5.3rem;
                     max-width: 75.4rem;
                     min-height: calc(3 * var(--lh-h3));
+                    font-kerning: none;
                 }
 
                 &-bot {
@@ -217,27 +138,43 @@
                     display: flex;
                     align-items: center;
                     column-gap: .8rem;
+                    overflow: hidden;
                 }
-
-                &:hover {
-                    color: var(--cl-orange);
-
-                    .case-list-item-img {
-                        transform: scale(1.98);
+                &-inner {
+                    width: 100%;
+                    margin-top: 3.2rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 100%;
+                    transition: color 400ms ease;
+                    @media (hover: hover) {
+                        &:hover {
+                            color: var(--cl-orange);
+                            .case-list-item-img {
+                                transform: scale(1.98);
+                            }
+                        }
                     }
                 }
 
-                .line:not(.line-ver) {
+                .line:not(.line-ver, .line-top) {
                     position: absolute;
                     bottom: 0;
                     left: 0;
                 }
 
                 .line-ver {
-                    height: 100%;
+                    height: calc(100% + .2rem);
+                    position: absolute;
+                    top: -.2rem;
+                    left: -.1rem;
+                }
+
+                .line-top {
                     position: absolute;
                     top: 0;
-                    right: -.1rem;
+                    left: 0;
                 }
             }
 
@@ -264,6 +201,9 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        .ic {
+                            contain: paint;
+                        }
                     }
 
                     &-txt {
@@ -284,90 +224,6 @@
 @include md {
     .case-main {
         .case {
-            &-filter {
-                position: relative;
-                z-index: 3;
-
-                &-inner {
-                    position: relative;
-                    padding: 0;
-                }
-
-                &-list {
-                    &-toggle {
-                        z-index: 3;
-                        display: flex;
-                        align-items: center;
-
-                        padding: {
-                            top: 2.4rem;
-                            bottom: 2.4rem;
-                        }
-
-                        ;
-                        column-gap: .8rem;
-
-                        &-ic {
-                            transform: rotate(0deg);
-                            @include transition(transform .5s ease);
-
-                            &.open {
-                                transform: rotate(180deg);
-                            }
-                        }
-                    }
-
-                    &-dropdown {
-                        z-index: 2;
-                        position: absolute;
-                        top: 100%;
-                        flex-direction: column;
-                        align-items: start;
-                        background: var(--bg-txt) repeat;
-                        background-color: var(--cl-bg);
-                        width: 25.7rem;
-                        pointer-events: none;
-                        opacity: 0;
-                        transform: translateY(-2rem);
-                        border-top: .2rem solid var(--cl-txt);
-                        overflow: hidden;
-                        transition: all .4s ease-out;
-
-
-                        .case-filter-item {
-                            border-left: .2rem solid var(--cl-txt);
-                            border-right: .2rem solid var(--cl-txt);
-                        }
-
-                        &.active {
-                            opacity: 1;
-                            pointer-events: auto;
-                            transform: none;
-                        }
-                    }
-                }
-
-                &-item {
-                    position: relative;
-                    width: 100%;
-                    padding: 2rem;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    .line {
-                        display: block;
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                    }
-
-                    &-txt {
-                        @include text(18);
-                        padding: 0;
-                    }
-                }
-            }
-
             &-list {
                 &-inner {
                     padding-bottom: 6rem;
@@ -375,32 +231,18 @@
 
                 &-load {
                     margin-bottom: 8rem;
-
-                    &-btn {
-                        &-ic {
-                            @include size(5rem);
-
-                            .ic {
-                                @include size(1.6rem);
-                            }
-                        }
-
-                        &-txt {
-                            padding: 1rem 1.6rem;
-                            @include text(16);
-                        }
-                    }
                 }
 
                 &-item {
                     padding-top: 2.4rem;
-
+                    &-inner {
+                        margin-top: 1.2rem;
+                    }
                     &-label {
                         @include text(16);
                     }
 
                     &-title {
-                        margin-top: 1.2rem;
                         margin-bottom: 2.7rem;
                         @include text(h4);
                         min-height: calc(4* var(--lh-h4));
@@ -429,6 +271,23 @@
                     }
                 }
 
+                &-load {
+                    &-btn {
+                        &-ic {
+                            @include size(5.2rem, 5rem);
+
+                            .ic {
+                                @include size(1.6rem);
+                            }
+                        }
+
+                        &-txt {
+                            padding: 1rem 1.6rem;
+                            @include text(16);
+                        }
+                    }
+                }
+
                 &-inner {
                     &.layout-list {
                         & .case {
@@ -438,14 +297,14 @@
 
                                     padding: {
                                         top: 3.2rem;
-                                    }
-
-                                    ;
+                                    };
 
                                     &-label {
                                         grid-column: 1/3;
                                     }
-
+                                    &-inner {
+                                        margin-top: 1.2rem;
+                                    }
                                     &-title {
                                         grid-column: 4/-1;
                                         margin-left: 0;
@@ -474,27 +333,6 @@
 @include sm {
     .case-main {
         .case {
-            &-filter {
-                &-inner {}
-
-                &-view {
-                    display: none;
-                }
-
-                &-list {
-                    width: 100%;
-
-                    &-toggle {
-                        width: 100%;
-                        justify-content: space-between;
-                    }
-
-                    &-dropdown {
-                        width: 100%;
-                    }
-                }
-            }
-
             &-list {
                 &-inner {
                     grid-template-columns: 1fr;
@@ -506,6 +344,8 @@
                                 display: none;
                             }
                         }
+
+                        padding-bottom: 0;
                     }
                 }
 

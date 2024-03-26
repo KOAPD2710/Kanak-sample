@@ -1,81 +1,11 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
+import CaseItem from '../CaseItem/CaseItem.jsx'
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
 import SplitType from 'split-type';
 import { animate, timeline, stagger, inView } from "motion";
 
 import './Main.scss';
 
-function CaseItem({ ...props }) {
-    const itemRef = useRef();
-
-    useEffect(() => {
-        if (!itemRef.current) return
-        const label = new SplitType(itemRef.current.querySelector('.case-list-item-label'), { types: 'lines, words', lineClass: 'split-line' })
-        const title = new SplitType(itemRef.current.querySelector('.case-list-item-title'), { types: 'lines, words', lineClass: 'split-line' })
-        const readmore = new SplitType(itemRef.current.querySelector('.case-list-item-link-txt'), { types: 'lines, words', lineClass: 'split-line' })
-
-        animate(itemRef.current.querySelector('.line-bot'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
-        animate(itemRef.current.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
-        animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(readmore.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 0, transform: 'scale(.4)', transformOrigin: "left bottom" }, { duration: 0 })
-        animate(itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
-
-        const itemSequence = [
-            [itemRef.current.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1 }],
-            [itemRef.current.querySelector('.line-ver'), { scaleY: 1 }, { duration: .8, at: .2 }],
-            [label.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .1 }],
-            [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.03), at: .2 }],
-            [itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 1, transform: 'none'}, { duration: .6, at: .4 }],
-            [readmore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .5 }],
-            [itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: .6 }]
-        ]
-        inView(itemRef.current, () => {
-            timeline(itemSequence).finished.then(() => {
-                if (!itemRef.current) return
-                itemRef.current.querySelector('.line-bot').removeAttribute('style')
-                itemRef.current.querySelector('.line-ver').removeAttribute('style')
-                itemRef.current.querySelector('.case-list-item-img-inner').removeAttribute('style')
-                itemRef.current.querySelector('.case-list-item-link-ic svg').removeAttribute('style')
-                label.revert()
-                title.revert()
-                readmore.revert()
-            })
-        }, { margin: "-15% 0px -15% 0px" })
-        return () => {
-            if (!itemRef.current) return
-        }
-    }, [])
-
-    return (
-        <div className="case-list-item" ref={itemRef}>
-            <a href={`/kase-studies/${props.data.category.toLowerCase().replaceAll(' ', '-')}`} className="txt txt-20 txt-bold case-list-item-label txt-link" data-cursor="txtLink">
-                {props.data.category}
-            </a>
-            <a href={`/kase-studies/${props.uid}`} className="case-list-item-inner" data-cursor="ext">
-                <h2 className="heading h3 txt-up txt-black case-list-item-title">
-                    {props.data.title[0].text}
-                </h2>
-                <div className="case-list-item-bot">
-                    <div className="case-list-item-img">
-                        <div className="case-list-item-img-inner">
-                            <img className='img img-h' src={props.data.images[0].image_item.url} alt='' width={props.data.images[0].image_item.dimensions.width} height={props.data.images[0].image_item.dimensions.height} />
-                        </div>
-                    </div>
-                    <div className="case-list-item-link">
-                        <div className="txt txt-18 txt-bold case-list-item-link-txt">Read more</div>
-                        <div className="ic ic-16 case-list-item-link-ic">
-                            {props.icArrowExt}
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <div className="line line-bot"></div>
-            <div className="line line-ver"></div>
-        </div>
-    )
-}
 function FilterItem({ ...props }) {
     return (
         <button className={`case-filter-item ${props.isActive ? 'active' : ''}`} onClick={props.onClick} data-filter={props.name}>
@@ -120,17 +50,17 @@ function CaseMain({ ...props }) {
     }, [filter])
 
     const renderCases = useMemo(() => {
-        // console.log(filter)
         return (itemList.map((item, idx) => (
             idx < limit ? <CaseItem key={item.uid} {...item} icArrowExt={props.icArrowExt} lineTop={idx < 2} /> : ''
         )))
     }, [itemList, limit, filter])
 
     function filterList(e) {
-        setItemList([])
-
         let type = e.target.dataset.filter;
-        setFilter(type)
+        if (filter !== type) {
+            setItemList([])
+            setFilter(type)
+        }
         window.innerWidth < 991 && setCategoryToggle(false)
     }
     useEffect(() => {
@@ -187,17 +117,20 @@ function CaseMain({ ...props }) {
 
         // Button Anim
         const btnTxt = new SplitType('.case-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
-
-        animate('.case-list-load', { opacity: 0 }, { duration: 0 })
+        animate('.case-list-load', {opacity: 0}, {duration: 0})
+        animate('.case-list-load .ic svg', { opacity: 0, transform: 'translateY(-40%) scale(.8)' }, { duration: 0 })
         animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const btnSequence = [
-            ['.case-list-load', { opacity: 1 }, { duration: 1, at: 0 }],
-            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.03), at: "-.6" }],
+            ['.case-list-load', { opacity: 1}, { duration: .6, at: 0 }],
+            ['.case-list-load .ic svg', { opacity: 1, transform: "none" }, { duration: .8, at: 0 }],
+            [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.06), at: .2 }],
         ]
 
         inView('.case-list-load', () => {
             timeline(btnSequence).finished.then(() => {
+                document.querySelector('.case-list-load').removeAttribute('style')
+                document.querySelector('.case-list-load .ic svg').removeAttribute('style')
                 btnTxt.revert()
             })
         })
@@ -220,7 +153,9 @@ function CaseMain({ ...props }) {
                                 </div>
                             </button>
                             <div className={`case-filter-list-dropdown ${categoryToggle ? 'active' : ''}`}>
-                                {renderFilter}
+                                <div className="case-filter-list-dropdown-inner">
+                                    {renderFilter}
+                                </div>
                             </div>
                         </div>
                         <div className="case-filter-view">

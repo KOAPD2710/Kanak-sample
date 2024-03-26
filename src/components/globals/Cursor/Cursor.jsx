@@ -23,6 +23,7 @@ function CursorMain({ ...props }) {
     }
     useEffect(() => {
         if (!cursor.current.classList.contains('on-load')) return;
+        if (window.innerWidth < 991) return;
         console.log('init cursor once')
         pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         window.addEventListener('pointermove', (e) => getCursor(e));

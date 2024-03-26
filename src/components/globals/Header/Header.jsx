@@ -1,11 +1,13 @@
 import './Header.scss'
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { offset, parseRem } from '@/js/utils';
+import { parseRem} from '@/js/utils';
 import { getLenis } from '@/components/core/lenis';
 function HeaderGlobal(props) {
     const [navOpen, setNavOpen] = useState(false)
     useEffect(() => {
-        getLenis().on('scroll', function (inst) {
+        document.querySelector('.header-div-main').classList.remove('on-hide')
+        document.querySelector('.header-div-sub').classList.remove('on-hide')
+        getLenis().on('scroll', function(inst) {
             if (inst.direction == 1) {
                 if (inst.scroll >= document.querySelector('.header').clientHeight) {
                     document.querySelector('.header-div-main').classList.add('on-hide')
@@ -48,7 +50,7 @@ function HeaderGlobal(props) {
     }
     return (
         <>
-            <header className="header header-div-main">
+            <header className="header header-div-main on-hide">
                 <div className="container grid">
                     <div className="header-main">
                         <div className="header-main-inner">
@@ -117,7 +119,7 @@ function HeaderGlobal(props) {
                     }
                 })}
             </div>
-            <div className="header header-div-sub">
+            <div className="header header-div-sub on-hide">
                 <div className="container grid">
                     <a href="/contact" className="header-cta" data-cursor="hide">
                         <div className="header-cta-head">

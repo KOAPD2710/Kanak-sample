@@ -8,7 +8,9 @@ const ContactItem = ({ label, content, link = "#", target }) => {
     return (
         <div className="ft-left-body-list-item">
             <div className="txt txt-18 txt-med ft-left-body-label">{label}</div>
-            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt txt-link" target={target}>{content}</a>
+            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt txt-link" target={target} data-cursor="txtlink">
+                {content}
+            </a>
         </div>
     )
 }

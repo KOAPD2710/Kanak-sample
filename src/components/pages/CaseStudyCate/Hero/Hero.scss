@@ -2,7 +2,7 @@
 @use '@styles/mixins' as *;
 
 .case-cate-hero {
-    padding-top: 20.7rem;
+    padding-top: 24rem;
     padding-bottom: 8rem;
     &-title-wrap {
         grid-column: 1/7;
@@ -41,6 +41,15 @@
     .case-cate-hero {
         padding-top: 19.3rem;
         padding-bottom: 6rem;
+        &-bread {
+            margin-bottom: 1.6rem;
+            &-link {
+                @include text(16);
+            }
+        }
+        &-title {
+            @include text(h1)
+        }
         &-content {
             grid-column: 7/13;
             &-sub {
@@ -56,9 +65,8 @@
         padding-bottom: 3.2rem;
         &-title-wrap {
             grid-column: 1/-1;
-            margin-bottom: 4rem;
-            max-width: 30.4rem;
-            @include text(h1);
+            margin-bottom: 2.4rem;
+            max-width: none;
         }
         &-content {
             grid-column: 1/-1;

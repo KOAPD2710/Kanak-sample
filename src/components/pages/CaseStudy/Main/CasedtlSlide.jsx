@@ -3,7 +3,6 @@ import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
 
 import { animate, timeline, stagger, inView } from "motion";
-import SplitType from 'split-type';
 
 function CasedtlSlide({ ...props }) {
     const [loaded, setLoaded] = useState(false);
@@ -21,29 +20,29 @@ function CasedtlSlide({ ...props }) {
     useEffect(() => {
         if (!loaded) return
         animate('.casedtl-slide-line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
-        animate('.casedtl-slide-stick-line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
-        animate('.casedtl-slide-main', { opacity: 0 }, { duration: 0 })
+        animate('.casedtl-slide-stick-line, .casedtl-slide-main-control > .line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate('.casedtl-slide-main', { opacity: 0}, { duration: 0 })
+        animate('.casedtl-slide-main-pagi-item', { opacity: 0, scale: .6 }, { duration: 0 })
+        animate('.casedtl-slide-main-nav-item .line-ver', {scaleY: 0, transformOrigin: 'top'}, {duration: 0})
 
         const sequence = [
             ['.casedtl-slide .casedtl-slide-line-ver', { scaleY: 1 }, { duration: 1, at: 0 }],
-            ['.casedtl-slide-stick-line', { scaleX: 1 }, { duration: 1, at: "<" }],
-            ['.casedtl-slide-main', { opacity: 1 }, { duration: 1, at: "-.2" }],
+            ['.casedtl-slide-stick-line', { scaleX: 1 }, { duration: .8, at: .2 }],
+            ['.casedtl-slide-main', { opacity: 1 }, { duration: .8, at: .2 }],
+            ['.casedtl-slide-main-control > .line', {scaleX: 1}, {duration: .6, at: .3}],
+            ['.casedtl-slide-main-pagi-item', {opacity: 1, scale: 1}, {duration: .4, delay: stagger(.06), at: .3}],
+            ['.casedtl-slide-main-nav-item .line-ver', {scaleY: 1}, {duration: .5, delay: stagger(.1), at: .4}]
         ]
-
-        let pagiItems = []
-        document.querySelectorAll('.casedtl-slide-main-pagi-item').forEach((item, idx) => {
-            animate(item, { opacity: 0 }, { duration: 0 })
-            pagiItems.push(item)
-        })
-        sequence.push(
-            [pagiItems, { opacity: 1 }, { duration: 1, delay: stagger(.1) ,at: "-.3" }],
-        )
         inView('.casedtl-slide', () => {
             timeline(sequence).finished.then(() => {
                 document.querySelector('.casedtl-slide-line-ver').removeAttribute('style')
                 document.querySelector('.casedtl-slide-stick-line').removeAttribute('style')
                 document.querySelector('.casedtl-slide-main').removeAttribute('style')
-                document.querySelectorAll('.casedtl-slide-main-pagi-item').forEach((el, idx) => {
+                document.querySelector('.casedtl-slide-main-control > .line').removeAttribute('style')
+                document.querySelectorAll('.casedtl-slide-main-pagi-item').forEach((el) => {
+                    el.removeAttribute('style')
+                })
+                document.querySelectorAll('.casedtl-slide-main-nav-item .line-ver').forEach((el) => {
                     el.removeAttribute('style')
                 })
             })
@@ -81,6 +80,7 @@ function CasedtlSlide({ ...props }) {
                                     <button className="casedtl-slide-main-nav-item casedtl-slide-main-nav-item-prev"
                                         onClick={() => { instanceRef.current.prev() }}
                                         disabled={instanceRef.current.track.details.rel === 0}>
+                                        <div className="line line-ver"></div>
                                         <div className="ic ic-40">
                                             {props.arrIcon}
                                         </div>
@@ -88,6 +88,7 @@ function CasedtlSlide({ ...props }) {
                                     <button className="casedtl-slide-main-nav-item casedtl-slide-main-nav-item-next"
                                         onClick={() => { instanceRef.current.next() }}
                                         disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}>
+                                        <div className="line line-ver"></div>
                                         <div className="ic ic-40">
                                             {props.arrIcon}
                                         </div>

@@ -1,3 +1,4 @@
+@use '@styles/mixins' as *;
 .cursor {
     position: fixed;
     top: 0;
@@ -78,5 +79,8 @@
                 }
             }
         }
+    }
+    @include md {
+        display: none;
     }
 }

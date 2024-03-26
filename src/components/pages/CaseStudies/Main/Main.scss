@@ -2,6 +2,8 @@
 @use '@styles/mixins' as *;
 
 .case-main {
+    position: relative;
+    z-index: 6; //Higher than footer
     .case {
         &-filter {
             &-inner {
@@ -20,9 +22,11 @@
                 }
 
                 &-dropdown {
-                    display: flex;
-                    align-items: center;
-                    column-gap: 2rem;
+                    &-inner {
+                        display: flex;
+                        align-items: center;
+                        column-gap: 2rem;
+                    }
                 }
             }
 
@@ -283,6 +287,9 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        .ic {
+                            contain: paint;
+                        }
                     }
 
                     &-txt {
@@ -317,13 +324,10 @@
                         z-index: 3;
                         display: flex;
                         align-items: center;
-
                         padding: {
                             top: 2.4rem;
                             bottom: 2.4rem;
-                        }
-
-                        ;
+                        };
                         column-gap: .8rem;
 
                         &-ic {
@@ -340,28 +344,30 @@
                         z-index: 2;
                         position: absolute;
                         top: 100%;
-                        flex-direction: column;
-                        align-items: start;
-                        background: var(--bg-txt) repeat;
-                        background-color: var(--cl-bg);
-                        width: 25.7rem;
+                        margin-top: .2rem;
+                        contain: paint;
                         pointer-events: none;
-                        opacity: 0;
-                        transform: translateY(-2rem);
-                        border-top: .2rem solid var(--cl-txt);
-                        overflow: hidden;
-                        transition: all .4s ease-out;
-
-
-                        .case-filter-item {
-                            border-left: .2rem solid var(--cl-txt);
-                            border-right: .2rem solid var(--cl-txt);
+                        &-inner {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: start;
+                            background: var(--bg-txt) repeat;
+                            background-size: 40rem auto;
+                            background-color: var(--cl-bg);
+                            width: 25.7rem;                            
+                            opacity: 0;
+                            transform: translateY(-2rem);
+                            overflow: hidden;
+                            transition: all .4s ease-out;
+                            border: .2rem solid var(--cl-txt);
+                            border-top: none;
                         }
-
                         &.active {
-                            opacity: 1;
                             pointer-events: auto;
-                            transform: none;
+                            .case-filter-list-dropdown-inner {
+                                opacity: 1;
+                                transform: none;
+                            }
                         }
                     }
                 }
@@ -378,6 +384,11 @@
                         position: absolute;
                         bottom: 0;
                         left: 0;
+                    }
+                    &:last-child {
+                        .line {
+                            display: none;
+                        }
                     }
 
                     &-txt {
@@ -460,9 +471,7 @@
 
                                     padding: {
                                         top: 3.2rem;
-                                    }
-
-                                    ;
+                                    };
 
                                     &-label {
                                         grid-column: 1/3;
@@ -515,6 +524,9 @@
 
                     &-dropdown {
                         width: 100%;
+                        &-inner {
+                            width: 100%;
+                        }
                     }
                 }
             }

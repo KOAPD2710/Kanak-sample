@@ -5,7 +5,7 @@ import { animate, timeline, stagger, inView } from "motion";
 
 function CaseCateHero({ ...props }) {
     useEffect(() => {
-        let allText = []
+        let breadcrumbText = []
         let splitList = []
         const allItem = document.querySelectorAll(".case-cate-hero-bread-link-wrap")
         allItem.forEach((item, idx) => {
@@ -15,22 +15,22 @@ function CaseCateHero({ ...props }) {
             if (idx != allItem.length - 1) {
                 const slash = item.querySelector('.case-cate-hero-bread-div')
                 animate(slash, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-                allText.push(...breadTxt.words, slash)
+                breadcrumbText.push(...breadTxt.words, slash)
             } else {
-                allText.push(...breadTxt.words)
+                breadcrumbText.push(...breadTxt.words)
             }
         })
 
-        const title = new SplitType('.case-cate-hero-title', { types: 'lines, words, chars', lineClass: 'split-line' })
-        const subTitle = new SplitType('.case-cate-hero-content-sub', { types: 'lines', lineClass: 'split-line' })
+        const title = new SplitType('.case-cate-hero-title', { types: 'lines, words', lineClass: 'split-line' })
+        const subTitle = new SplitType('.case-cate-hero-content-sub', { types: 'lines, words', lineClass: 'split-line' })
 
-        animate(title.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(subTitle.lines, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(subTitle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const sequence = [
-            [allText, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.06), at: .1 }],
-            [title.chars, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.015), at: "-.2" }],
-            [subTitle.lines, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.04), at: "-.25" }]
+            [breadcrumbText, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04)}],
+            [title.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.02), at: .1 }],
+            [subTitle.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: .2 }],
         ]
 
         inView('.case-cate-hero', () => {
@@ -39,7 +39,7 @@ function CaseCateHero({ ...props }) {
                 subTitle.revert()
                 splitList.forEach(el => el.revert())
             })
-        })
+        }, { margin: "-10% 0px 10% 0px" })
     }, [])
     return (
         <section className="case-cate-hero">
@@ -47,7 +47,9 @@ function CaseCateHero({ ...props }) {
                 <div className="case-cate-hero-title-wrap">
                     <div className="case-cate-hero-bread">
                         <div className="case-cate-hero-bread-link-wrap">
-                            <a href="/" className="txt txt-20 txt-bold case-cate-hero-bread-link">Home</a>
+                            <a href="/" className="txt txt-20 txt-bold case-cate-hero-bread-link">
+                                Home
+                            </a>
                             <div className="txt txt-14 txt-semi case-cate-hero-bread-div">/</div>
                         </div>
                         <div className="case-cate-hero-bread-link-wrap">

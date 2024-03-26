@@ -10,37 +10,28 @@ function CaseRel({itemLength, uid, data, image,...props}) {
     const itemRef = useRef();
 
     useEffect(() => {
+        console.log('init anim')
         const item = itemRef.current
 
         const titleItem = new SplitType(item.querySelector('.casedtl-rel-main-item-title'), { types: 'lines, words', lineClass: 'split-line' })
-        const readMore = new SplitType(item.querySelector('.casedtl-rel-main-item-link-txt'), { types: 'lines, words, chars', lineClass: 'split-line' })
+        const readMore = new SplitType(item.querySelector('.casedtl-rel-main-item-link-txt'), { types: 'lines, words', lineClass: 'split-line' })
 
         animate(titleItem.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        animate(readMore.chars, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate(readMore.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(item.querySelector('.casedtl-rel-main-item-img-inner'), { opacity: 0, scale: 0, transformOrigin: "left bottom" }, { duration: 0 })
         animate(item.querySelector('.casedtl-rel-main-item-link svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
-
-        const itemSequence =[]
-
         if (window.innerWidth >= 768) {
             animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
-            itemSequence.push(
-                [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1.2, at: 1 }],
-            )
         } else {
             animate(item.querySelector('.line-ver'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
-
-            itemSequence.push(
-                [item.querySelector('.line-ver'), { scaleX: 1 }, { duration: 1.2, at: 2 }],
-            )
         }
-
-        itemSequence.push(
-            [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.04), at: 1.4 }],
-            [item.querySelector('.casedtl-rel-main-item-img-inner'), { opacity: 1, scale: 1 }, { duration: 1.2, at: 1.7 }],
-            [readMore.chars, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.012), at: "-.8" }],
-            [item.querySelector('.casedtl-rel-main-item-link svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: "-.25" }]
-        )
+        const itemSequence = [
+            [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.04) }],
+            [item.querySelector('.casedtl-rel-main-item-img-inner'), { opacity: 1, scale: 1 }, { duration: 1.2, at: .1}],
+            [readMore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .2 }],
+            [item.querySelector('.casedtl-rel-main-item-link svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: .3 }],
+            [item.querySelector('.line-ver'), (window.innerWidth >= 768) ? { scaleY: 1 } : { scaleX: 1 }, { duration: .8, at: .3 }],
+        ]
 
         inView(item, () => {
             timeline(itemSequence).finished.then(() => {
@@ -51,10 +42,10 @@ function CaseRel({itemLength, uid, data, image,...props}) {
                 item.querySelector('.line-ver').removeAttribute('style')
 
             })
-        })
+        }, {margin : '-15% -15% -15% -15%'})
     }, [])
     return (
-        <a href={`/kase-studies/${uid}`} className={`casedtl-rel-main-item ${itemLength < 2 ? 'single' : ''}`} ref={itemRef}>
+        <a href={`/kase-studies/${uid}`} className={`casedtl-rel-main-item ${itemLength < 2 ? 'single' : ''}`} ref={itemRef} data-cursor='ext'>
             <h4 className="heading h5 txt-up txt-black casedtl-rel-main-item-title">
                 {data.title[0].text}
             </h4>
@@ -124,14 +115,13 @@ function CasedtlRel({ ...props }) {
         animate('.casedtl-rel-head .line-top', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.casedtl-rel-head .line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate(title.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        props.list.length > perView && animate('.casedtl-rel-nav', { opacity: 0 }, { duration: 0 })
-
+        props.list.length > perView && animate('.casedtl-rel-nav .casedtl-rel-nav-item', { opacity: 0 }, { duration: 0 })
 
         const sequence = [
-            ['.casedtl-rel-head .line-top', { scaleX: 1 }, { duration: 1.8, at: 0 }],
-            ['.casedtl-rel-head .line-bot', { scaleX: 1 }, { duration: 1.65, at: "-1.5" }],
-            props.list.length > perView ? ['.casedtl-rel-nav', { opacity: 1 }, { duration: .8, at: "-.5" }] : [],
-            [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.05), at: "-2" }],
+            ['.casedtl-rel-head .line-top', { scaleX: 1 }, { duration: 1, at: .3}],
+            ['.casedtl-rel-head .line-bot', { scaleX: 1 }, { duration: .8, at: .5 }],
+            props.list.length > perView ? ['.casedtl-rel-nav .casedtl-rel-nav-item', { opacity: 1 }, { duration: .6, at: .5, delay: stagger(.1) }] : [],
+            [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .4 }],
         ]
         inView('.casedtl-rel', () => {
             timeline(sequence).finished.then(() => {
@@ -140,7 +130,28 @@ function CasedtlRel({ ...props }) {
                 document.querySelector('.casedtl-rel-head .line-top').removeAttribute('style')
                 document.querySelector('.casedtl-rel-head .line-bot').removeAttribute('style')
             })
-        })
+        }, {margin : '-15% 0px -15% 0px'})
+
+        if (window.innerWidth < 767) {
+            const btnTxt = new SplitType('.casedtl-rel-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
+            animate('.casedtl-rel-load-btn', {opacity: 0}, {duration: 0})
+            animate('.casedtl-rel-load-btn .ic svg', { opacity: 0, transform: 'translateY(-40%) scale(.8)' }, { duration: 0 })
+            animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+            const btnSequence = [
+                ['.casedtl-rel-load-btn ', { opacity: 1}, { duration: .6, at: 0 }],
+                ['.casedtl-rel-load-btn  .ic svg', { opacity: 1, transform: "none" }, { duration: .8, at: 0 }],
+                [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.06), at: .2 }],
+            ]
+    
+            inView('.casedtl-rel-load-btn ', () => {
+                timeline(btnSequence).finished.then(() => {
+                    document.querySelector('.casedtl-rel-load-btn ').removeAttribute('style')
+                    document.querySelector('.casedtl-rel-load-btn  .ic svg').removeAttribute('style')
+                    btnTxt.revert()
+                })
+            }, {margin: '-15% 0px -15% 0px'})
+        }
 
     }, [loaded])
     return (

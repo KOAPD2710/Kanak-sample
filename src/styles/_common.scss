@@ -23,6 +23,13 @@ html {
         height: auto;
     }
 }
+.main {
+    opacity: 1;
+    transition: opacity 300ms ease;
+    &.on-load {
+        opacity: 0;
+    }
+}
 
 .lenis {
     &.lenis-smooth {

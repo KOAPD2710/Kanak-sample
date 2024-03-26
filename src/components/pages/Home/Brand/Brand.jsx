@@ -59,16 +59,16 @@ function HomeBrand(props) {
 
         const allItems = document.querySelectorAll('.home-brand-main-item')
         allItems.forEach((el,idx) => {
-            const itemTitle = new SplitType(el.querySelector('.home-brand-main-item-title'), { types: 'lines, chars', lineClass: 'split-line' })
+            const itemTitle = new SplitType(el.querySelector('.home-brand-main-item-title'), { types: 'lines, words', lineClass: 'split-line' })
             const itemSub = new SplitType(el.querySelector('.home-brand-main-item-sub'), { types: 'lines, words', lineClass: 'split-line' })
 
             animate(el.querySelector('.line'), {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
             animate(el.querySelector('.home-brand-main-item-ic'), {opacity: 0, transform: 'scale(.8) translateY(20%)'}, {duration: 0})
-            animate([...itemTitle.chars, ...itemSub.words], {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+            animate([...itemTitle.words, ...itemSub.words], {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
             const sequence = [
                 [el.querySelector('.line'), {scaleX: 1}, {duration: 1}],
                 [el.querySelector('.home-brand-main-item-ic'), {opacity: .8, transform: 'none'}, {duration: .8, at: .1}],
-                [itemTitle.chars, {opacity: 1, transform: 'none'}, {duration: .7, delay: stagger(.008), at: .2}],
+                [itemTitle.words, {opacity: 1, transform: 'none'}, {duration: .7, delay: stagger(.008), at: .2}],
                 [itemSub.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.006), at: .3}],
             ]
             inView(el, () => {

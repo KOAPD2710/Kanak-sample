@@ -19,7 +19,7 @@ const { title, hideNav = false } = Astro.props;
 	<body style={`--bg-txt: url(${OpBgTexture.src}); --bg-txt-dark: url(${OpBgTextureDark.src});`}>
 		{!hideNav && <Header />}
 			<Cursor />
-			<div class="main">
+			<div class="main on-load">
 				<slot />
 			</div>
 		{!hideNav && <Footer />}
@@ -27,7 +27,8 @@ const { title, hideNav = false } = Astro.props;
 </html>
 <script>
 	import main from '@/js/main'
-	document.addEventListener('astro:page-load', () => {
-    	main()
-  	}, { once: true });
+	setTimeout(() => {
+		document.querySelector('.main').classList.remove('on-load')	
+	}, 200);
+	main()
 </script>
