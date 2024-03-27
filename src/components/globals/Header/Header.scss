@@ -327,7 +327,7 @@
         width: 100%;
         height: 100%;
         background-color: var(--cl-bg);
-        transform: translateY(-100%);
+        // transform: translateY(3rem);
         opacity: 0;
         padding-top: 7.6rem;
         transition: all 600ms ease;
@@ -373,6 +373,7 @@
 
         &-btn {
             margin-top: 1.2rem;
+            margin-bottom: 2rem;
         }
 
         &-footer {
@@ -383,21 +384,83 @@
 
     &-main {
         grid-column: 2/3;
+        overflow-y: auto;
 
         &-wrap {
-            height: 100%;
+            max-height: calc(100% - 5rem);
             max-width: 92.97297297%;
             margin-left: auto;
         }
 
         &-item {
             position: relative;
-            padding: 4rem 0;
+            padding-top: 4rem;
+            width: 100%;
 
             .line {
-                position: absolute;
-                bottom: 0;
-                left: 0;
+                margin-top: 4rem;
+                // position: absolute;
+                // bottom: 0;
+                // left: 0;
+            }
+
+            &-head {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                row-gap: 1.6rem;
+                width: 100%;
+                overflow: hidden;
+                transition: color .4s ease;
+
+
+                * {
+                    pointer-events: none
+                }
+
+                &-txt {}
+
+                &-ic {
+                    @include size(4rem);
+                    flex-shrink: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .ic svg {
+                        transition: transform .4s ease;
+                    }
+                }
+
+                &.active {
+                    color: var(--cl-orange);
+
+                    .ic svg {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                @media (hover: hover) {
+                    &:hover {
+                        color: var(--cl-orange);
+                    }
+                }
+            }
+
+            &-dropdown {
+                height: 0;
+                width: 100%;
+                overflow: hidden;
+                transition: height .6s ease;
+
+                &-inner {
+                    padding-top: 4rem;
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 2rem;
+                    width: 100%;
+                }
             }
         }
     }

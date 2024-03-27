@@ -25,15 +25,48 @@ function HeaderGlobal(props) {
             }
         })
     }, [])
+    useEffect(() => {
+        if (window.innerWidth > 991) {
+            if (navOpen) {
+                getLenis().stop()
+            } else {
+                getLenis().start()
+            }
+        }
+    }, [navOpen])
     function menuOnClick(e, idx) {
         e.preventDefault()
-        let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown-idx="${idx}"]`)
-        setDropdownIdx(idx);
-        setIsHide(false);
-        dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
-        dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
+
+        if (window.innerWidth > 991) {
+            e.preventDefault()
+            let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown-idx="${idx}"]`)
+            setDropdownIdx(idx);
+            setIsHide(false);
+            dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
+            dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
+        } else {
+            let slideEl = document.querySelector(`.nav-main-item-dropdown[data-dropdown="${e.target.getAttribute('data-dropdown')}"]`)
+
+            if (!slideEl.classList.contains('active')) {
+                document.querySelectorAll('.nav-main-item-dropdown').forEach(item => {
+                    item.style.setProperty('height', "0")
+                    item.classList.remove('active')
+                })
+                document.querySelectorAll('.nav-main-item-head').forEach(item => { item.classList.remove("active") })
+
+                let height = slideEl.querySelector('.nav-main-item-dropdown-inner').clientHeight
+                slideEl.style.setProperty('height', `${height}px`)
+                slideEl.classList.add('active')
+                e.target.classList.add('active')
+            } else {
+                document.querySelectorAll('.nav-main-item-dropdown').forEach(item => {
+                    item.style.setProperty('height', "0")
+                    item.classList.remove('active')
+                })
+                document.querySelectorAll('.nav-main-item-head').forEach(item => { item.classList.remove("active") })
+            }
+        }
     }
-    console.log(props);
     return (
         <>
             <header className={cn("header header-div-main", { "on-open": dropdownIdx >= 0, "on-hide": isHide })}>
@@ -127,7 +160,7 @@ function HeaderGlobal(props) {
                     </a>
                 </div>
             </div>
-            <div className="nav ">
+            <div className="nav">
                 <div className={`nav-inner bg-light ${navOpen ? 'active' : ''}`}>
                     <div className="container grid">
                         <div className="nav-info">
@@ -154,11 +187,28 @@ function HeaderGlobal(props) {
                         <div className="nav-main" data-lenis-prevent="#">
                             <div className="nav-main-wrap">
                                 {props.pages.map((page, idx) => (
-                                    <div className="nav-main-item" key={idx}>
-                                        <div className="nav-main-item-head">
-                                            <h2 className="heading h3 txt-black txt-up nav-main-item-head-txt">{page.name}</h2>
-
-                                        </div>
+                                    <div href='#' className="nav-main-item" key={idx}>
+                                        <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown={page.name} onClick={page.type == 'dropdown' ? (e) => { menuOnClick(e) } : null} className="nav-main-item-head">
+                                            <span className="heading h3 txt-black txt-up nav-main-item-head-txt">{page.name}</span>
+                                            {page.type == "dropdown" && (
+                                                <div className="nav-main-item-head-ic">
+                                                    <div className="ic">
+                                                        {props.icDropdown}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </a>
+                                        {page.type == "dropdown" && (
+                                            <div className="nav-main-item-dropdown" data-dropdown={page.name}>
+                                                <div className="nav-main-item-dropdown-inner">
+                                                    {page.sub_menu.map((el, elIdx) => (
+                                                        <a href={el.url} className="heading h5 txt-black txt-up nav-main-item-dropdown-item" key={elIdx}>
+                                                            {el.name}
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                                         <div className="line"></div>
                                     </div>
                                 ))}

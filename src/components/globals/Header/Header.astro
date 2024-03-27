@@ -7,29 +7,40 @@ import headFlag from "@assets/head-flag.svg";
 import bodyFlag from "@assets/body-flag.svg";
 import tailFlag from "@assets/tail-flag.svg";
 import extIcon from "@assets/ext-arr-menu.svg?raw";
-import icDropdown from "@assets/ic-arrow-down.svg";
+import icDropdown from "@assets/ic-arrow-down.svg?raw";
 import { getAllByType } from "@/prismic";
 import HeaderGlobal from "./Header";
-const currYear = new Date().getFullYear()
+const currYear = new Date().getFullYear();
 
-const kustomerList = await getAllByType('industry')
-let newList = kustomerList.map((el, idx) => (
-    {name: el.data.title, url: `/kustomers/${el.uid}`}
-))
+const kustomerList = await getAllByType("industry");
+let newList = kustomerList.map((el, idx) => ({
+    name: el.data.title,
+    url: `/kustomers/${el.uid}`,
+}));
 
 const pages = [
-    { name: "Kustomers", link: "/", type: 'dropdown', sub_menu: [...newList] },
-    { name: "Katalog", link: "/", type: ''},
-    { name: "Solutions", link: "/", type: 'dropdown', sub_menu: [
-        {name: 'Private label', url: '/'},
-        {name: 'Custom packaging', url: '/'}
-    ] },
-    { name: "Fullfilment", link: "/", type: ''},
-    { name: "Resources", link: "/", type: 'dropdown', sub_menu: [
-        {name: 'Insights', url: '/insights'},
-        {name: 'Kase Studies', url: '/kase-studies'}
-    ] },
-    { name: "Know us", link: "/", type: '' },
+    { name: "Kustomers", link: "/", type: "dropdown", sub_menu: [...newList] },
+    { name: "Katalog", link: "/", type: "" },
+    {
+        name: "Solutions",
+        link: "/",
+        type: "dropdown",
+        sub_menu: [
+            { name: "Private label", url: "/" },
+            { name: "Custom packaging", url: "/" },
+        ],
+    },
+    { name: "Fullfilment", link: "/", type: "" },
+    {
+        name: "Resources",
+        link: "/",
+        type: "dropdown",
+        sub_menu: [
+            { name: "Insights", url: "/insights" },
+            { name: "Kase Studies", url: "/kase-studies" },
+        ],
+    },
+    { name: "Know us", link: "/", type: "" },
 ];
 const bodyFlagIc = await getImage({ src: bodyFlag, format: "svg" });
 ---
@@ -45,5 +56,5 @@ const bodyFlagIc = await getImage({ src: bodyFlag, format: "svg" });
     <Image src={headFlag} alt="" slot="headFlag" />
     <Image src={tailFlag} alt="" slot="tailFlag" />
     <Fragment set:html={extIcon} slot="extIcon" />
-    <Fragment set:html={extIcon} slot="extIcon" />
+    <Fragment set:html={icDropdown} slot="icDropdown" />
 </HeaderGlobal>

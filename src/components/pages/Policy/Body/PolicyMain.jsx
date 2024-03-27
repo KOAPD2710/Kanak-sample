@@ -11,8 +11,6 @@ import { animate, timeline, stagger, inView, createStyleString } from "motion";
 function PolicyMain({ ...props }) {
     const [activeToc, setActiveToc] = useState(0)
     const [richTxtIdx, setRichTxtIdx] = useState(0)
-    const [richTxtAnim, setRichTxtAnim] = useState(false)
-
 
     function activeScrollTo(e) {
         let header = ut.dom('.header-div-main')
@@ -61,19 +59,19 @@ function PolicyMain({ ...props }) {
 
 
         // linkList.forEach((el, idx) => {
-            // animate(el, { opacity: 0, transform: "translateX(10px)" }, { duration: 0 })
-            // sequence.push(
-            //     [el, { opacity: 1, transform: "none" }, { duration: .4, at: "-.35" }],
-            // )
-            // splitArrayNav.push(el)
+        // animate(el, { opacity: 0, transform: "translateX(10px)" }, { duration: 0 })
+        // sequence.push(
+        //     [el, { opacity: 1, transform: "none" }, { duration: .4, at: "-.35" }],
+        // )
+        // splitArrayNav.push(el)
 
-            // animate(el.querySelector('.dot'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
-            // animate(el.querySelector('.policy-nav-item-link'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
+        // animate(el.querySelector('.dot'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
+        // animate(el.querySelector('.policy-nav-item-link'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
 
-            // sequence.push(
-            //     [el.querySelector('.dot'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.3" }],
-            //     [el.querySelector('.policy-nav-item-link'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.4" }]
-            // )
+        // sequence.push(
+        //     [el.querySelector('.dot'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.3" }],
+        //     [el.querySelector('.policy-nav-item-link'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.4" }]
+        // )
         // })
 
         inView('.policy-main', () => {
@@ -105,7 +103,7 @@ function PolicyMain({ ...props }) {
                 timeline(itemSequence).finished.then(() => {
                     splitTxt.revert()
                 })
-            }, {margin: "-10% 0px -10% 0px"})
+            }, { margin: "-10% 0px -10% 0px" })
 
             // animate(el, { opacity: 0, transform: "translateY(30px)" }, { duration: 0 })
 
