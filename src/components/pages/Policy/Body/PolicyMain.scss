@@ -177,6 +177,10 @@
             .container.grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+
+            .line-ver {
+                grid-column: 3/4;
+            }
         }
 
         &-navtitle,

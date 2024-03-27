@@ -4,15 +4,21 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { parseRem } from '@/js/utils';
 import { getLenis } from '@/components/core/lenis';
 import useOutsideAlerter from '@hooks/useOutsideAlerter';
+
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
+
 function HeaderGlobal(props) {
     const dropdownRef = useRef();
     const [navOpen, setNavOpen] = useState(false);
     const [dropdownIdx, setDropdownIdx] = useState(-1);
     const [isHide, setIsHide] = useState(false);
+    const [isSubHide, setIsSubHide] = useState(false);
+
 
     useOutsideAlerter(dropdownRef, () => setDropdownIdx(-1));
     useEffect(() => {
-        getLenis().on('scroll', function(inst) {
+        getLenis().on('scroll', function (inst) {
             if (inst.direction == 1) {
                 if (inst.scroll >= document.querySelector('.header').clientHeight) {
                     setIsHide(true);
@@ -26,14 +32,98 @@ function HeaderGlobal(props) {
         })
     }, [])
     useEffect(() => {
-        if (window.innerWidth > 991) {
+        if (window.innerWidth < 992) {
             if (navOpen) {
                 getLenis().stop()
+                navAnim.open()
+
+                if (window.innerWidth < 768) {
+                    setIsSubHide(true)
+                }
+
             } else {
                 getLenis().start()
+                setIsSubHide(false)
             }
         }
     }, [navOpen])
+
+    const navAnim = {
+        open: () => {
+            // Anim Info
+            const navInfo = document.querySelector('.nav-info')
+            const footerTxt = new SplitType(navInfo.querySelector('.nav-info-footer'), { types: "lines, words", lineClass: 'split-line' })
+
+            animate(navInfo.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+            animate(navInfo.querySelector('.nav-info-btn'), { opacity: 0, transform: "translateY(2rem)" }, { duration: 0 })
+            animate(footerTxt.words, { transform: "translateY(100%)" }, { duration: 0 })
+
+
+            const openSequence = [
+                [navInfo.querySelector('.line-ver'), { scaleY: 1 }, { duration: .8, at: .2 }],
+                [navInfo.querySelector('.nav-info-btn'), { opacity: 1, transform: "none" }, { duration: .6, at: .4 }],
+                [footerTxt.words, { transform: "none" }, { duration: .4, delay: stagger(.03), at: .5 }],
+            ]
+            const infoSplit = []
+            navInfo.querySelectorAll('.nav-info-item').forEach((item, idx) => {
+                const headTxt = new SplitType(item.querySelector('.nav-info-item-head'), { types: "lines, words", lineClass: 'split-line' })
+                const contentTxt = new SplitType(item.querySelector('.nav-info-item-content'), { types: "lines, words", lineClass: 'split-line' })
+
+                animate(headTxt.words, { transform: "translateY(100%)" }, { duration: 0 })
+                animate(contentTxt.words, { transform: "translateY(100%)" }, { duration: 0 })
+                openSequence.push(
+                    [headTxt.words, { transform: "none" }, { duration: .4, delay: stagger(.02), at: .2 }],
+                    [contentTxt.words, { transform: "none" }, { duration: .4, delay: stagger(.008), at: .3 }],
+                )
+                infoSplit.push(headTxt, contentTxt)
+            })
+
+
+            inView('.nav-info', () => {
+                timeline(openSequence).finished.then(() => {
+                    footerTxt.revert()
+                    infoSplit.forEach(item => item.revert())
+                })
+            })
+            // Anim Main
+            const navMain = document.querySelector('.nav-main')
+
+            const mainSequence = []
+            const mainSplit = []
+
+            const mainItem = document.querySelectorAll('.nav-main-wrap .nav-main-item').forEach((el, idx) => {
+                const headTxt = new SplitType(el.querySelector('.nav-main-item-head-txt'), { types: "lines, words, chars", lineClass: 'split-line' })
+                const icon = el.querySelector('.nav-main-item-head-ic')
+                const line = el.querySelector('.line')
+                animate(headTxt.chars, { transform: "translateY(100%)" }, { duration: 0 })
+                animate(line, { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+
+                icon && animate(icon, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+                const elements = [...headTxt.chars];
+                if (icon) {
+                    elements.push(icon);
+                }
+                mainSequence.push(
+                    [line, { scaleX: 1 }, { duration: 1, at: idx * .05 }],
+                    [elements, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.005), at: .2 + idx * .05 }],
+                );
+                mainSplit.push(headTxt)
+            })
+
+            inView('.nav-main', () => {
+                timeline(mainSequence).finished.then(() => {
+                    mainSplit.forEach(el => el.revert())
+                    document.querySelectorAll('.nav-main-item-head-ic').forEach(el => el.removeAttribute('style'))
+                    document.querySelectorAll('.nav-main-wrap .nav-main-item .line').forEach(el => el.removeAttribute('style'))
+                })
+            })
+        },
+        close: () => {
+            const navInfo = document.querySelector('.nav-info')
+            const navMain = document.querySelector('.nav-main')
+        }
+    }
     function menuOnClick(e, idx) {
         e.preventDefault()
 
@@ -44,7 +134,7 @@ function HeaderGlobal(props) {
             dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
             dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
         } else {
-            let slideEl = document.querySelector(`.nav-main-item-dropdown[data-dropdown="${e.target.getAttribute('data-dropdown')}"]`)
+            let slideEl = document.querySelector(`.nav-main-item-dropdown[data-dropdown-idx="${idx}"]`)
 
             if (!slideEl.classList.contains('active')) {
                 document.querySelectorAll('.nav-main-item-dropdown').forEach(item => {
@@ -99,7 +189,7 @@ function HeaderGlobal(props) {
                             <div className="line"></div>
                         </div>
                     </div>
-                    <div className="header-sub">
+                    <div className={`header-sub ${isSubHide ? "isHide" : ""}`}>
                         <div className="ic ic-32">
                             {props.recycleIc}
                         </div>
@@ -112,7 +202,7 @@ function HeaderGlobal(props) {
                     </div>
                     <div className={`header-toggle ${navOpen ? 'active' : ''}`}>
                         <button className="txt txt-16 txt-semi txt-up header-toggle-link" onClick={() => (setNavOpen(!navOpen))}>
-                            <span className="header-toggle-link-txt header-toggle-link-txt-open active">
+                            <span className="header-toggle-link-txt header-toggle-link-txt-open">
                                 Menu
                             </span>
                             <span className="header-toggle-link-txt header-toggle-link-txt-close">
@@ -187,7 +277,7 @@ function HeaderGlobal(props) {
                             <div className="nav-main-wrap">
                                 {props.pages.map((page, idx) => (
                                     <div href='#' className="nav-main-item" key={idx}>
-                                        <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown={page.name} onClick={page.type == 'dropdown' ? (e) => { menuOnClick(e) } : null} className="nav-main-item-head">
+                                        <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown-idx={idx} onClick={page.type == 'dropdown' ? (e) => { menuOnClick(e, idx) } : null} className="nav-main-item-head">
                                             <span className="heading h3 txt-black txt-up nav-main-item-head-txt">{page.name}</span>
                                             {page.type == "dropdown" && (
                                                 <div className="nav-main-item-head-ic">
@@ -198,7 +288,7 @@ function HeaderGlobal(props) {
                                             )}
                                         </a>
                                         {page.type == "dropdown" && (
-                                            <div className="nav-main-item-dropdown" data-dropdown={page.name}>
+                                            <div className="nav-main-item-dropdown" data-dropdown-idx={idx} >
                                                 <div className="nav-main-item-dropdown-inner">
                                                     {page.sub_menu.map((el, elIdx) => (
                                                         <a href={el.url} className="heading h5 txt-black txt-up nav-main-item-dropdown-item" key={elIdx}>
