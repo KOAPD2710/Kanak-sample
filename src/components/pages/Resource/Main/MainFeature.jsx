@@ -2,42 +2,39 @@ import { useEffect, useState, useRef } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
 import { convertDate } from "@utils/text.js"
-
 import SplitType from 'split-type';
 import { animate, timeline, stagger, inView } from "motion";
-
 
 function FeatItem({ ...props }) {
     const itemRef = useRef()
     useEffect(() => {
+        if (!props.isAnim) return;
+
         const item = itemRef.current
+        const category = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-cate-txt'), { types: 'lines, words', lineClass: 'split-line' })
+        const title = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-title'), { types: 'lines, words', lineClass: 'split-line' })
+        const date = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-date'), { types: 'lines, words', lineClass: 'split-line' })
 
-        if (props.firstItem) {
-            const category = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-cate-txt'), { types: 'lines, words', lineClass: 'split-line' })
-            const title = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-title'), { types: 'lines, words', lineClass: 'split-line' })
-            const date = new SplitType(item.querySelector('.resource-main-fea-main-inner-item-date'), { types: 'lines, words', lineClass: 'split-line' })
+        animate(item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 0, scale: .8, transformOrigin: "left bottom" }, { duration: 0 })
+        animate(category.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
-            animate(item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 0, scale: .8, transformOrigin: "left bottom" }, { duration: 0 })
-            animate(category.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-            animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-            animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        const itemSequence = [
+            [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: 0 }],
+            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .1 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at: .3 }],
+            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.4" }],
+        ]
 
-            const itemSequence = [
-                [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: 0 }],
-                [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .1 }],
-                [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at: .3 }],
-                [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.4" }],
-            ]
-
-            inView(item, () => {
-                timeline(itemSequence).finished.then(() => {
-                    category.revert()
-                    title.revert()
-                    date.revert()
-                    item.querySelector('.resource-main-fea-main-inner-item-img').removeAttribute('style')
-                })
+        inView(item, () => {
+            timeline(itemSequence).finished.then(() => {
+                category.revert()
+                title.revert()
+                date.revert()
+                item.querySelector('.resource-main-fea-main-inner-item-img').removeAttribute('style')
             })
-        }
+        })
     }, [])
     return (
         <div className="keen-slider__slide resource-main-fea-main-inner-item" ref={itemRef}>
@@ -99,9 +96,6 @@ function ResourceMainFeature(props) {
         animate('.resource-main-fea-main-nav .line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
         animate('.resource-main-fea-main-nav-item .ic', { opacity: 0, scale: .6 }, { duration: 0 })
 
-
-        console.log(document.querySelectorAll('.resource-main-fea-main-nav .line-ver').length);
-
         const sequence = [
             ['.resource-main-fea .line-mid', { scaleY: 1 }, { duration: .8, at: 0 }],
             ['.resource-main-fea-main-line-bot', { scaleX: 1 }, { duration: 1, at: 0 }],
@@ -139,7 +133,7 @@ function ResourceMainFeature(props) {
         <div className="resource-main-fea">
             <div className="resource-main-fea-main">
                 <div className="keen-slider resource-main-fea-main-inner" ref={sliderRef}>
-                    {props.data.map((item, idx) => <FeatItem uid={item.uid} image={item.data.feature_image} category={item.data.category} title={item.data.title} date={item.last_publication_date} key={idx} firstItem={idx == 0 && true} />)}
+                    {props.data.map((item, idx) => <FeatItem uid={item.uid} image={item.data.feature_image} category={item.data.category} title={item.data.title} date={item.last_publication_date} key={idx} isAnim={idx === 0} />)}
                 </div>
                 <div className="resource-main-fea-main-control">
                     <div className="line"></div>

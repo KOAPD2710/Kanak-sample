@@ -8,7 +8,6 @@ import SplitType from 'split-type';
 import { animate, timeline, stagger, inView } from "motion";
 
 function ResourceMain({ allList, featureList, popularList, ...props }) {
-
     useEffect(() => {
         animate('.resource-main-line.line-top', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.resource-main-line.line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })

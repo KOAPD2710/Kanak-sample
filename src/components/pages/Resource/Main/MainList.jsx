@@ -5,7 +5,6 @@ import { convertDate } from "@utils/text.js"
 
 import SplitType from 'split-type';
 import { animate, timeline, stagger, inView } from "motion";
-import { sequence } from "astro:middleware";
 
 function FilterItem(props) {
     return (
@@ -20,7 +19,6 @@ function FilterItem(props) {
         </button>
     )
 }
-
 
 function ArticleItem({ data, idx }) {
     const itemRef = useRef()
@@ -37,23 +35,17 @@ function ArticleItem({ data, idx }) {
         animate(des.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(item.querySelector('.line'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        item.querySelector('.line-ver') && animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
 
-        const itemSequence = []
-        if (item.querySelectorAll('.line-ver').length) {
-            animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
-            itemSequence.push(
-                [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: 0 }]
-            )
-        }
-
-        itemSequence.push(
+        const itemSequence = [
+            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: 0 }],
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
             [item.querySelector('.resource-main-list-main-item-img-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .2 }],
             [cate.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: 0 }],
             [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at: .2 }],
             [des.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .5 }],
-            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.02), at: "-.4" }],
-        )
+            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.02), at: "-.4" }]
+        ]
 
         inView(item, () => {
             timeline(itemSequence).finished.then(() => {
@@ -61,6 +53,8 @@ function ArticleItem({ data, idx }) {
                 title.revert()
                 des.revert()
                 item.querySelector('.resource-main-list-main-item-img-inner').removeAttribute('style')
+                item.querySelector('.line-ver')?.removeAttribute('style')
+                item.querySelector('.line').removeAttribute('style')
             })
         })
     }, [])
@@ -190,13 +184,9 @@ function ResourceMainList(props) {
 
         inView('.resource-main-list', () => {
             timeline(sequence).finished.then(() => {
-                title.revert()
-                filterArray.map((el, idx) => {
-                    el.revert()
-                })
-                countArray.map((el, idx) => {
-                    el.removeAttribute('style')
-                })
+                title.revert();
+                filterArray.forEach((el) => el.revert());
+                countArray.forEach((el) => el.removeAttribute('style'));
                 document.querySelector('.resource-main-list-line').removeAttribute('style')
             })
         })
