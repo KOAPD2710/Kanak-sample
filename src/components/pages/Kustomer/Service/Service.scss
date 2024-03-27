@@ -2,6 +2,7 @@
 @use '@styles/mixins' as *;
 
 .kustomer-service {
+    padding-bottom: 18rem;
 
     &-line {
         grid-column: 1/-1;
