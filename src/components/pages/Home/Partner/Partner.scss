@@ -2,16 +2,11 @@
 .home-part {
     --content-compare-height: 0;
 
-    margin-top: calc(-4.8rem - 1rem);
-    padding-top: 4.8rem;
+    padding-top: 10rem;
     contain: paint;
     margin-bottom: -200vh;
     height: calc(500vh + 200vh + 11rem);
     position: relative;
-    @include md {
-        margin-top: calc((var( --content-compare-height) + 4.3rem) * -1);
-        padding-top: calc(var( --content-compare-height) + 4.3rem);
-    }
     @include sm {
         margin-top: 0;
         margin-bottom: 0;
