@@ -31,6 +31,12 @@
                     padding-right: 4.6rem;
                     padding-bottom: 3.2rem;
 
+                    &-content {
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                    }
+
                     &-img {
                         width: 100%;
                         height: 47.5rem;
@@ -114,14 +120,19 @@
                 display: flex;
 
                 &-item {
+                    position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-left: solid .2rem var(--cl-txt);
                     width: 10.2rem;
                     height: 10rem;
                     transition: color 400ms ease;
                     margin-right: -.2rem;
+
+                    .line-ver {
+                        right: auto;
+                        left: -.1rem;
+                    }
 
                     &-prev {
                         svg {
@@ -140,7 +151,7 @@
                     &[disabled] {
                         pointer-events: none;
 
-                        .ic {
+                        .ic svg {
                             opacity: .2;
                         }
                     }
@@ -171,6 +182,7 @@
                 color: var(--cl-txt);
                 display: flex;
                 flex-direction: column;
+                align-items: start;
 
                 &-cate {
                     margin-bottom: 1.6rem;
@@ -452,11 +464,18 @@
                         }
 
                         &-img {
-                            height: 25.8rem;
+                            height: 100%;
+                            // height: 25.8rem;
                         }
 
                         &-content {
                             padding-left: 2.4rem;
+
+                            &-link-wrap {
+                                display: flex;
+                                flex-direction: column;
+                                height: 100%;
+                            }
                         }
 
                         &-cate {
@@ -475,6 +494,10 @@
                         &-title {
                             @include text(h4);
                             margin-bottom: 1.6rem;
+                        }
+
+                        &-date {
+                            margin-bottom: 5rem;
                         }
                     }
                 }
@@ -503,6 +526,10 @@
 
                         @include size(3.5rem, 3.4rem);
                         border-bottom: .2rem solid var(--cl-txt);
+
+                        .line {
+                            display: block
+                        }
 
                         .ic {
                             @include size(1.6rem);

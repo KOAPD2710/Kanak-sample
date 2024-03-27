@@ -13,8 +13,8 @@ function ResourceHero({ ...props }) {
         animate(subtitle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const sequence = [
-            [title.chars, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.015), at: .2 }],
-            [subtitle.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .4 }],
+            [title.chars, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.015), at: 0 }],
+            [subtitle.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .2 }],
         ]
 
         inView('.resource-hero', () => {

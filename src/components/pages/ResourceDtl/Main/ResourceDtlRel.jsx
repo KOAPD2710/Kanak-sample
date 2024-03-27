@@ -30,10 +30,10 @@ function RelItem({ ...props }) {
             [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: .2 }],
             [item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 1, scale: 1 }, { duration: 1, at: "<" }],
             [label.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.03), at: .3 }],
-            [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.04), at: "-.4" }],
-            [describle.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: "-.4" }],
-            [date.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: "-.6" }],
-            [item.querySelector('.line:not(.line-ver)'), { scaleX: 1 }, { duration: .8, at: "-1" }],
+            [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .4 }],
+            [describle.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: .6 }],
+            [date.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: .8 }],
+            [item.querySelector('.line:not(.line-ver)'), { scaleX: 1 }, { duration: .8, at: 0 }],
         ]
 
         inView(item, () => {

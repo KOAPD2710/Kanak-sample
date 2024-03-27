@@ -21,15 +21,15 @@ function ResourceCateHero({ ...props }) {
             }
         })
 
-        const title = new SplitType('.resource-cate-hero-head-title', { types: 'lines, words, chars', lineClass: 'split-line' })
+        const title = new SplitType('.resource-cate-hero-head-title', { types: 'lines, words', lineClass: 'split-line' })
         const quote = new SplitType('.resource-cate-hero-head-quote', { types: 'lines, words', lineClass: 'split-line' })
 
-        animate(title.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(quote.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const sequence = [
             [allText, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.04), at: .1 }],
-            [title.chars, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.02), at: .2 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.02), at: .2 }],
             [quote.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .4 }],
         ]
 

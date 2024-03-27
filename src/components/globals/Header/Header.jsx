@@ -1,56 +1,164 @@
 import './Header.scss'
+import cn from 'clsx';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { parseRem} from '@/js/utils';
+import { parseRem } from '@/js/utils';
 import { getLenis } from '@/components/core/lenis';
+import useOutsideAlerter from '@hooks/useOutsideAlerter';
+
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
+
 function HeaderGlobal(props) {
-    const [navOpen, setNavOpen] = useState(false)
+    const dropdownRef = useRef();
+    const [navOpen, setNavOpen] = useState(false);
+    const [dropdownIdx, setDropdownIdx] = useState(-1);
+    const [isHide, setIsHide] = useState(false);
+    const [isSubHide, setIsSubHide] = useState(false);
+
+
+    useOutsideAlerter(dropdownRef, () => setDropdownIdx(-1));
     useEffect(() => {
-        document.querySelector('.header-div-main').classList.remove('on-hide')
-        document.querySelector('.header-div-sub').classList.remove('on-hide')
-        getLenis().on('scroll', function(inst) {
+        getLenis().on('scroll', function (inst) {
             if (inst.direction == 1) {
                 if (inst.scroll >= document.querySelector('.header').clientHeight) {
-                    document.querySelector('.header-div-main').classList.add('on-hide')
-                    document.querySelector('.header-div-sub').classList.add('on-hide')
-                    document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-                    document.querySelector('.header').classList.remove('on-open')
+                    setIsHide(true);
+                    setDropdownIdx(-1);
                 } else {
-                    document.querySelector('.header-div-main').classList.remove('on-hide')
-                    document.querySelector('.header-div-sub').classList.remove('on-hide')
+                    setIsHide(false);
                 }
             } else if (inst.direction == -1) {
-                document.querySelector('.header-div-main').classList.remove('on-hide')
-                document.querySelector('.header-div-sub').classList.remove('on-hide')
+                setIsHide(false);
             }
         })
-        window.addEventListener('click', function (e) {
-            if (document.querySelector('.header-dropdowns').contains(e.target) || document.querySelector('.header-main').contains(e.target)) {
+    }, [])
+    useEffect(() => {
+        if (window.innerWidth < 992) {
+            if (navOpen) {
+                getLenis().stop()
+                navAnim.open()
+
+                if (window.innerWidth < 768) {
+                    setIsSubHide(true)
+                }
 
             } else {
-                if (document.querySelectorAll('.header-dropdown.active').length == 1) {
-                    document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-                    document.querySelector('.header').classList.remove('on-open')
-                }
+                getLenis().start()
+                setIsSubHide(false)
             }
-        });
-    }, [])
-    function menuOnClick(e) {
-        e.preventDefault()
-        let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown="${e.target.getAttribute('data-dropdown')}"]`)
-        if (!dropdownEl.classList.contains('active')) {
-            document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-            document.querySelector('.header').classList.add('on-open')
-            dropdownEl.classList.add('active')
-        } else {
-            document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-            document.querySelector('.header').classList.remove('on-open')
         }
-        dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
-        dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
+    }, [navOpen])
+
+    const navAnim = {
+        open: () => {
+            // Anim Info
+            const navInfo = document.querySelector('.nav-info')
+            const footerTxt = new SplitType(navInfo.querySelector('.nav-info-footer'), { types: "lines, words", lineClass: 'split-line' })
+
+            animate(navInfo.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+            animate(navInfo.querySelector('.nav-info-btn'), { opacity: 0, transform: "translateY(2rem)" }, { duration: 0 })
+            animate(footerTxt.words, { transform: "translateY(100%)" }, { duration: 0 })
+
+
+            const openSequence = [
+                [navInfo.querySelector('.line-ver'), { scaleY: 1 }, { duration: .8, at: .2 }],
+                [navInfo.querySelector('.nav-info-btn'), { opacity: 1, transform: "none" }, { duration: .6, at: .4 }],
+                [footerTxt.words, { transform: "none" }, { duration: .4, delay: stagger(.03), at: .5 }],
+            ]
+            const infoSplit = []
+            navInfo.querySelectorAll('.nav-info-item').forEach((item, idx) => {
+                const headTxt = new SplitType(item.querySelector('.nav-info-item-head'), { types: "lines, words", lineClass: 'split-line' })
+                const contentTxt = new SplitType(item.querySelector('.nav-info-item-content'), { types: "lines, words", lineClass: 'split-line' })
+
+                animate(headTxt.words, { transform: "translateY(100%)" }, { duration: 0 })
+                animate(contentTxt.words, { transform: "translateY(100%)" }, { duration: 0 })
+                openSequence.push(
+                    [headTxt.words, { transform: "none" }, { duration: .4, delay: stagger(.02), at: .2 }],
+                    [contentTxt.words, { transform: "none" }, { duration: .4, delay: stagger(.008), at: .3 }],
+                )
+                infoSplit.push(headTxt, contentTxt)
+            })
+
+
+            inView('.nav-info', () => {
+                timeline(openSequence).finished.then(() => {
+                    footerTxt.revert()
+                    infoSplit.forEach(item => item.revert())
+                })
+            })
+            // Anim Main
+            const navMain = document.querySelector('.nav-main')
+
+            const mainSequence = []
+            const mainSplit = []
+
+            const mainItem = document.querySelectorAll('.nav-main-wrap .nav-main-item').forEach((el, idx) => {
+                const headTxt = new SplitType(el.querySelector('.nav-main-item-head-txt'), { types: "lines, words, chars", lineClass: 'split-line' })
+                const icon = el.querySelector('.nav-main-item-head-ic')
+                const line = el.querySelector('.line')
+                animate(headTxt.chars, { transform: "translateY(100%)" }, { duration: 0 })
+                animate(line, { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+
+                icon && animate(icon, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+                const elements = [...headTxt.chars];
+                if (icon) {
+                    elements.push(icon);
+                }
+                mainSequence.push(
+                    [line, { scaleX: 1 }, { duration: 1, at: idx * .05 }],
+                    [elements, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.005), at: .2 + idx * .05 }],
+                );
+                mainSplit.push(headTxt)
+            })
+
+            inView('.nav-main', () => {
+                timeline(mainSequence).finished.then(() => {
+                    mainSplit.forEach(el => el.revert())
+                    document.querySelectorAll('.nav-main-item-head-ic').forEach(el => el.removeAttribute('style'))
+                    document.querySelectorAll('.nav-main-wrap .nav-main-item .line').forEach(el => el.removeAttribute('style'))
+                })
+            })
+        },
+        close: () => {
+            const navInfo = document.querySelector('.nav-info')
+            const navMain = document.querySelector('.nav-main')
+        }
+    }
+    function menuOnClick(e, idx) {
+        e.preventDefault()
+
+        if (window.innerWidth > 991) {
+            let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown-idx="${idx}"]`)
+            setDropdownIdx(idx);
+            setIsHide(false);
+            dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
+            dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
+        } else {
+            let slideEl = document.querySelector(`.nav-main-item-dropdown[data-dropdown-idx="${idx}"]`)
+
+            if (!slideEl.classList.contains('active')) {
+                document.querySelectorAll('.nav-main-item-dropdown').forEach(item => {
+                    item.style.setProperty('height', "0")
+                    item.classList.remove('active')
+                })
+                document.querySelectorAll('.nav-main-item-head').forEach(item => { item.classList.remove("active") })
+
+                let height = slideEl.querySelector('.nav-main-item-dropdown-inner').clientHeight
+                slideEl.style.setProperty('height', `${height}px`)
+                slideEl.classList.add('active')
+                e.target.classList.add('active')
+            } else {
+                document.querySelectorAll('.nav-main-item-dropdown').forEach(item => {
+                    item.style.setProperty('height', "0")
+                    item.classList.remove('active')
+                })
+                document.querySelectorAll('.nav-main-item-head').forEach(item => { item.classList.remove("active") })
+            }
+        }
     }
     return (
         <>
-            <header className="header header-div-main on-hide">
+            <header className={cn("header header-div-main", { "on-open": dropdownIdx >= 0, "on-hide": isHide })}>
                 <div className="container grid">
                     <div className="header-main">
                         <div className="header-main-inner">
@@ -61,7 +169,14 @@ function HeaderGlobal(props) {
                                 {props.pages.map((page, idx) => (
                                     <Fragment key={idx}>
                                         <div className="header-menu-item">
-                                            <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown={page.name} className="header-menu-item-link txt-link" onClick={page.type == 'dropdown' ? (e) => { menuOnClick(e) } : null}>
+                                            <a
+                                                href={page.type == 'dropdown' ? '#' : page.link}
+                                                data-dropdown-idx={idx}
+                                                className="header-menu-item-link txt-link"
+                                                onClick={(e) => {
+                                                    if (page.type != 'dropdown') return;
+                                                    menuOnClick(e, idx);
+                                                }}>
                                                 <span className="txt txt-14 txt-up txt-semi">{page.name}</span>
                                             </a>
                                         </div>
@@ -74,7 +189,7 @@ function HeaderGlobal(props) {
                             <div className="line"></div>
                         </div>
                     </div>
-                    <div className="header-sub">
+                    <div className={`header-sub ${isSubHide ? "isHide" : ""}`}>
                         <div className="ic ic-32">
                             {props.recycleIc}
                         </div>
@@ -87,7 +202,7 @@ function HeaderGlobal(props) {
                     </div>
                     <div className={`header-toggle ${navOpen ? 'active' : ''}`}>
                         <button className="txt txt-16 txt-semi txt-up header-toggle-link" onClick={() => (setNavOpen(!navOpen))}>
-                            <span className="header-toggle-link-txt header-toggle-link-txt-open active">
+                            <span className="header-toggle-link-txt header-toggle-link-txt-open">
                                 Menu
                             </span>
                             <span className="header-toggle-link-txt header-toggle-link-txt-close">
@@ -97,11 +212,11 @@ function HeaderGlobal(props) {
                     </div>
                 </div>
             </header>
-            <div className="header-dropdowns">
+            <div className="header-dropdowns" ref={dropdownRef}>
                 {props.pages.map((page, idx) => {
                     if (page.type == 'dropdown') {
                         return (
-                            <div className="header-dropdown" key={idx} data-dropdown={page.name}>
+                            <div className={cn("header-dropdown", { "active": idx === dropdownIdx })} key={idx} data-dropdown-idx={idx}>
                                 <div className="header-dropdown-inner bg-light">
                                     {page.sub_menu.map((el, idx) => (
                                         <a href={el.url} className="header-dropdown-item" key={idx}>
@@ -119,7 +234,7 @@ function HeaderGlobal(props) {
                     }
                 })}
             </div>
-            <div className="header header-div-sub on-hide">
+            <div className={cn("header header-div-sub", { "on-hide": isHide })}>
                 <div className="container grid">
                     <a href="/contact" className="header-cta" data-cursor="hide">
                         <div className="header-cta-head">
@@ -134,26 +249,59 @@ function HeaderGlobal(props) {
                     </a>
                 </div>
             </div>
-            <div className="nav ">
+            <div className="nav">
                 <div className={`nav-inner bg-light ${navOpen ? 'active' : ''}`}>
                     <div className="container grid">
                         <div className="nav-info">
-                            <div className="nav-info-item">
-                                <div className="txt txt-14 txt-med nav-info-item-head">Get in touch</div>
-                                <a href="mailto:info@kanaknaturals.com" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">info@kanaknaturals.com</a>
+                            <div className="line line-ver"></div>
+                            <div className="nav-info-wrap">
+                                <div className="nav-info-item">
+                                    <div className="txt txt-14 txt-med nav-info-item-head">Get in touch</div>
+                                    <a href="mailto:info@kanaknaturals.com" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">info@kanaknaturals.com</a>
+                                </div>
+                                <div className="nav-info-item">
+                                    <div className="txt txt-14 txt-med nav-info-item-head">Contact</div>
+                                    <a href="tel:+1 (260) 490 4790" className="heading h6 txt-black txt-up nav-info-item-content">+1 (260) 490 4790</a>
+                                </div>
+                                <div className="nav-info-item">
+                                    <div className="txt txt-14 txt-med nav-info-item-head">Headquarters</div>
+                                    <a href="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">321 Hovan Drive, Fort Wayne, IN 46825, US</a>
+                                </div>
+                                <a href="/contact" className="btn btn-lg btn-wide nav-info-btn">
+                                    <div className="heading txt-16 txt-black txt-up">Request a quote</div>
+                                </a>
                             </div>
-                            <div className="nav-info-item">
-                                <div className="txt txt-14 txt-med nav-info-item-head">Contact</div>
-                                <a href="tel:+1 (260) 490 4790" className="heading h6 txt-black txt-up nav-info-item-content">+1 (260) 490 4790</a>
+                            <div className="txt txt-16 txt-semi nav-info-footer">⁠©⁠ {props.currYear} KANAK NATURALS </div>
+                        </div>
+                        <div className="nav-main" data-lenis-prevent="#">
+                            <div className="nav-main-wrap">
+                                {props.pages.map((page, idx) => (
+                                    <div href='#' className="nav-main-item" key={idx}>
+                                        <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown-idx={idx} onClick={page.type == 'dropdown' ? (e) => { menuOnClick(e, idx) } : null} className="nav-main-item-head">
+                                            <span className="heading h3 txt-black txt-up nav-main-item-head-txt">{page.name}</span>
+                                            {page.type == "dropdown" && (
+                                                <div className="nav-main-item-head-ic">
+                                                    <div className="ic">
+                                                        {props.icDropdown}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </a>
+                                        {page.type == "dropdown" && (
+                                            <div className="nav-main-item-dropdown" data-dropdown-idx={idx} >
+                                                <div className="nav-main-item-dropdown-inner">
+                                                    {page.sub_menu.map((el, elIdx) => (
+                                                        <a href={el.url} className="heading h5 txt-black txt-up nav-main-item-dropdown-item" key={elIdx}>
+                                                            {el.name}
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                        <div className="line"></div>
+                                    </div>
+                                ))}
                             </div>
-                            <div className="nav-info-item">
-                                <div className="txt txt-14 txt-med nav-info-item-head">Headquarters</div>
-                                <a href="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">321 Hovan Drive, Fort Wayne, IN 46825, US</a>
-                            </div>
-                            <a href="/contact" className="btn btn-lg btn-wide nav-info-btn">
-                                <div className="heading txt-16 txt-black txt-up">Request a quote</div>
-                            </a>
-                            {/* <div className="nav-info-footer">⁠©⁠ {props.currentyear} KANAK NATURALS </div> */}
                         </div>
                     </div>
                 </div>

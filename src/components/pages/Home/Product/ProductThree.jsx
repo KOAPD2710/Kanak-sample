@@ -78,7 +78,7 @@ function Content({...props}) {
                                                     material={<CustomMaterial color='#EAD6B3' needsUpdate={true} isActive={idx == index}
                                                 />} />
                                             )}
-                                            
+
                                         </mesh>
                                     )
                                 }

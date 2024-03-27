@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { animate, timeline, stagger, inView } from "motion";
 import SplitType from 'split-type';
+import { parseRem } from "@/js/utils";
 
 function CommitItem({ title, describle, ...props }) {
     const itemRef = useRef()
@@ -47,31 +48,37 @@ function KustomerCommitMain({ ...props }) {
     const lerp = (a, b, t = 0.08) => {
         return a + (b - a) * t;
     }
-
-    let thumbItem = useRef()
     useEffect(() => {
-        const thumb = thumbItem.current
+        const thumb = document.querySelector('.kustomer-commit-main-thumb-wrapper')
         let thumbReq;
+        let targetX = 0
+        let targetY = 0
+
         function thumbMove() {
+            let curX = new DOMMatrixReadOnly(getComputedStyle(thumb).transform).m41
+            let curY = new DOMMatrixReadOnly(getComputedStyle(thumb).transform).m42
+
             let cursorX = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cursor-left'))
             let cursorY = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cursor-top'))
-            let curX = thumb.getBoundingClientRect().left
-            let curY = thumb.getBoundingClientRect().top
-            let wrapTop = document.querySelector(".kustomer-commit-main-wrapper").getBoundingClientRect().top
-            let wrapLeft = document.querySelector(".kustomer-commit-main-wrapper").getBoundingClientRect().left
+            let wrapTop = document.querySelector(".kustomer-commit-main-thumb").getBoundingClientRect().top
+            let wrapLeft = document.querySelector(".kustomer-commit-main-thumb").getBoundingClientRect().left
 
-            let targetX = 0
-            let targetY = 0
             if (document.querySelector('.kustomer-commit-main:hover')) {
-                targetX = lerp(curX, cursorX - wrapLeft, .1)
-                targetY = lerp(curY, cursorY - wrapTop, .1)
+                // targetX = cursorX - wrapLeft - thumb.offsetWidth / 2 - document.querySelector(".kustomer-commit-main-thumb").offsetWidth / 2
+                // targetY = - thumb.offsetHeight / 2 + (cursorY - wrapTop) / (document.querySelector(".kustomer-commit-main-thumb").offsetHeight) * parseRem(300)
+                targetX = - thumb.offsetWidth / 2 + ((cursorX - wrapLeft) / (document.querySelector(".kustomer-commit-main-thumb").offsetWidth) - .5) * parseRem(300)
+                targetY = cursorY - wrapTop - thumb.offsetHeight / 2 - document.querySelector(".kustomer-commit-main-thumb").offsetHeight / 2
             }
-            // thumb.style.transform = `translate(100px, ${targetY}px)`
+            thumb.style.transform = `translate(${lerp(curX, targetX, .03)}px, ${lerp(curY, targetY, .03)}px)`
             thumbReq = requestAnimationFrame(thumbMove)
         }
-        thumbReq = requestAnimationFrame(thumbMove)
+
+        inView('.kustomer-commit-main', () => {
+            thumbReq = requestAnimationFrame(thumbMove)
+        })
 
         return () => {
+            cancelAnimationFrame(thumbReq)
         }
     }, [])
 
@@ -89,7 +96,7 @@ function KustomerCommitMain({ ...props }) {
                 )}
             </div>
             <div className="kustomer-commit-main-thumb">
-                <div className="kustomer-commit-main-thumb-wrapper" ref={thumbItem}>
+                <div className="kustomer-commit-main-thumb-wrapper">
                     {thumbList.map((thumb, thumbIdx) => (
                         <div className={`kustomer-commit-main-thumb-item ${activeIc == thumb.tag ? 'active' : ''}`} key={thumbIdx}>
                             <img src={thumb.thumb.src} alt="" className="img" />

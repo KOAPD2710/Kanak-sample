@@ -1,0 +1,270 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+.home-comp {
+    position: relative;
+    padding-top: 16rem;
+    @include md {
+        padding-top: 12rem;
+    }
+    @include sm {
+        contain: paint;
+        padding-top: 8rem;
+    }
+    &-title-wrap {
+        grid-column: 7/17;
+        @include md {
+            grid-column: 1/-1;
+        }
+        .line {
+            transform-origin: left;
+        }
+    }
+    &-title {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        padding-bottom: 8rem;
+        @include md {
+            padding-bottom: 6rem;
+        }
+        @include sm {
+            padding-bottom: 4rem;
+            .h2 {
+                @include text(h3);
+            }
+            .h0 {
+                @include text(h1);
+            }
+        }
+        @include sm {
+            padding-bottom: 4rem;
+            .h2 {
+                @include text(h4);
+            }
+            .h0 {
+                @include text(h2);
+            }
+        }
+    }
+    &-sub-wrap {
+        grid-column: 7/17;
+        padding-block: 6rem;
+
+        display: flex;
+        align-items: center;
+        gap: 0 6rem;
+        @include md {
+            grid-column: 4/13;
+            gap: 0 3rem;
+            padding-block: 5.2rem;
+        }
+        @include sm {
+            display: none
+        }
+    }
+    &-sub {
+        flex-basis: 50%;
+        @include md {
+            @include text(18);
+        }
+    }
+    &-main {
+        grid-column: 1/-1;
+        @include sm {
+            grid-template-columns: repeat(4, 1fr);
+            padding-bottom: 0;
+        }
+        &-slide {
+            overflow: visible !important;
+            &-item {
+                grid-template-columns: repeat(16, 1fr);
+                padding-block: 6rem;
+                align-items: center;
+                @include md {
+                    grid-template-columns: repeat(12, 1fr);
+                    padding-block: 5.2rem;
+                    align-items: start;
+                }
+                @include sm {
+                    display: block;
+                    margin-bottom: 1.6rem;
+                    --width-slide: calc(100% - 5.3rem) !important;
+                    min-width: var(--width-slide);
+                    max-width: var(--width-slide);
+                    border-right: .2rem solid var(--cl-txt);
+                    border-top: .2rem solid var(--cl-txt);
+                    border-bottom: .2rem solid var(--cl-txt);
+                    margin: -.2rem 0;
+                    min-height: calc(100% + .4rem) !important;
+                    padding: 0;
+                    &:first-of-type {
+                        border-left: .2rem solid var(--cl-txt);
+                    }
+                    & > *:not(.home-comp-main-slide-title) {
+                        opacity: .5;
+                        transition: opacity 400ms ease;
+                    }
+                    .home-comp-main-slide-title {
+                        .heading {
+                            opacity: .5;
+                            transition: opacity 400ms ease;
+                        }
+                    }
+                    &.active {
+                        > * {
+                            opacity: 1;
+                        }
+                        .home-comp-main-slide-title {
+                            .heading {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+            &-title {
+                grid-column: 1/7;
+                max-width: 44rem;
+                display: flex;
+                align-items: center;
+                gap: 0 4rem;
+                @include md {
+                    gap: 1.2rem 0;
+                    flex-direction: column;
+                    align-items: start;
+                }
+                &-ic {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    @include md {
+                        @include size(2.8rem);
+                    }
+                    @include sm {
+                        display: none;
+                    }
+                }
+                @include md {
+                    grid-column: 1/4;
+                    .heading {
+                        @include text(18);
+                    }
+                }
+                @include sm {
+                    padding: 2rem 1.6rem;
+                    border-bottom: .2rem solid var(--cl-txt);
+                    max-width: initial;
+                    .heading {
+                        min-height: calc(2.4rem * 1.1 * 2);
+                        max-height: calc(2.4rem * 1.1 * 2);
+                        overflow: hidden;
+                        display: flex;
+                        align-items: center;
+                        @include text(h5);
+                    }
+                }
+            }
+            &-list {
+                grid-column: 7/17;
+                display: flex;
+                gap: 0 6rem;
+                @include md {
+                    grid-column: 4/13;
+                    gap: 0 3rem;
+                }
+                @include sm {
+                    padding: 2.4rem 1.6rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3rem 0;
+                }
+            }
+            &-detail {
+                flex-basis: 50%;
+                display: flex;
+                align-items: center;
+                gap: 0 1.6rem;
+                @include md {
+                    gap: 1.2rem;
+                    align-items: start;
+                    flex-direction: column;
+                }
+                @include sm {
+                    display: flex;
+                    align-items: start;
+                }
+                &-title {
+                    display: none;
+                    @include sm {
+                        display: inline-block;
+                        max-width: 30rem;
+                        margin-bottom: 1.2rem;
+                    }
+                }
+                &-content {
+                    @include md {
+                        @include text(14);
+                    }
+                    @include sm {
+                        height: calc(1.6rem * 1.3 * 4);
+                        max-height: calc(1.6rem * 1.3 * 4);
+                        overflow: hidden;
+                        @include text(16);
+                    }
+                }
+                &-ic {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    @include sm {
+                        margin-bottom: 1.2rem;
+                    }
+                    .ic {
+                        @include md {
+                            @include size(2.8rem);
+                        }
+                        @include sm {
+                            @include size(4.8rem);
+                        }
+                    }
+                }
+            }
+            &-pagination {
+                display: none;
+                @include sm {
+                    margin-top: 2rem;
+                    display: block;
+                }
+                .dots {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center
+                }
+                .dot {
+                    padding: .3rem;
+                    span {
+                        display: block;
+                        @include size(.7rem);
+                        background-color: rgba($cl-txt, .6);
+                        border-radius: 50%;
+                        transition: background-color 0.4s ease;
+                    }
+                    &.active {
+                        span {
+                            background-color: var(--cl-orange);
+                        }
+                    }
+                }
+            }
+            .line {
+                display: block;
+                transform-origin: left;
+                @include sm {
+                    display: none;
+                }
+            }
+        }
+    }
+}

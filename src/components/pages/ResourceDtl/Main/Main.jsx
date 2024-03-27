@@ -22,13 +22,16 @@ function ResourceMain({ ...props }) {
 
         cleanText(document.querySelector('.resource-dtl-title'))
 
+
         let allText = []
-        let splitList = []
+        let heroSplitList = []
+
+        // Hero Anim
         const allItem = document.querySelectorAll(".resource-dtl-bread-link-wrap")
         allItem.forEach((item, idx) => {
             const breadTxt = new SplitType(item.querySelector('.resource-dtl-bread-link'), { types: 'lines, words', lineClass: 'split-line' })
             animate(breadTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-            splitList.push(breadTxt)
+            heroSplitList.push(breadTxt)
             if (idx != allItem.length - 1) {
                 const slash = item.querySelector('.resource-dtl-bread-div')
                 animate(slash, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
@@ -37,15 +40,30 @@ function ResourceMain({ ...props }) {
                 allText.push(...breadTxt.words)
             }
         })
+        const title = new SplitType('.resource-dtl-title', { types: 'lines, words', lineClass: 'split-line' })
+        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
-        const title = new SplitType('.resource-dtl-title', { types: 'lines, words, chars', lineClass: 'split-line' })
-        animate(title.chars, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        const heroSequence = [
+            [allText, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.04), at: .1 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.02), at: "-.8" }],
+        ]
+
+        inView(".resource-dtl-title", () => {
+            timeline(heroSequence).finished.then(() => {
+                title.revert()
+                heroSplitList.forEach(item => item.revert())
+            })
+        })
+        // End Hero Anim
+
+        // Info Slide Anim
+
+        let infoSplitList = []
+
         animate('.resource-dtl-line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.resource-dtl-richtxt .line-ver', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
 
         const sequence = [
-            [allText, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.04), at: .1 }],
-            [title.chars, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.005), at: "-.8" }],
             ['.resource-dtl-line', { scaleX: 1 }, { duration: 1, at: "-1" }],
             ['.resource-dtl-richtxt .line-ver', { scaleY: 1 }, { duration: 1, at: "-.8" }],
         ]
@@ -64,26 +82,26 @@ function ResourceMain({ ...props }) {
                 [head.words, { transform: "none" }, { duration: .8, at: .4 }],
                 [content.words, { transform: "none" }, { duration: .8, at: "-.7" }],
             )
+            infoSplitList.push(head, content )
         })
 
         const allLink = document.querySelectorAll('.resource-dtl-info-stick .resource-dtl-info-item.link .resource-dtl-info-item-link');
 
-        allLink.forEach((el, idx) => {
-            animate(el, { opacity: 0, transform: "translateX(-20px) scale(.6)" }, { duration: 0 })
-
-            sequence.push(
-                [el, { opacity: 1, transform: 'none' }, { duration: .4, at: "-.3" }]
-            )
-        })
+        animate(allLink, { opacity: 0, transform: "translateX(-20px) scale(.6)" }, { duration: 0 })
+        sequence.push(
+            [allLink, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.08), at: .8 }]
+        )
 
         inView('.resource-dtl', () => {
             timeline(sequence).finished.then(() => {
-                title.revert()
-                splitList.forEach(el => el.revert())
+                infoSplitList.forEach(el => el.revert())
+                allLink.forEach(item => item.removeAttribute('style'))
             })
         })
 
-        // RichText Anim
+        // End Info Slide Anim
+
+        // Sapo Anim
 
         const sapo = new SplitType('.resource-dtl-richtxt-premble-sapo', { types: 'lines, words', lineClass: 'split-line' })
 
@@ -95,27 +113,42 @@ function ResourceMain({ ...props }) {
             [sapo.words, { transform: "none" }, { duration: .6, delay: stagger(.01), at: "-.7" }],
         ]
 
-        const richTxt = document.querySelectorAll('.resource-dtl-richtxt-main *:not(astro-slot, ul)')
-
-        const splitArray = []
-        richTxt.forEach((el, idx) => {
-            animate(el, { opacity: 0, transform: "translateY(30px)" }, { duration: 0 })
-
-            richtxtSequence.push(
-                [el, { opacity: 1, transform: "none" }, { duration: .6, at: .4 }]
-            )
-            splitArray.push(el)
-
-        })
-
         inView('.resource-dtl-richtxt', () => {
             timeline(richtxtSequence).finished.then(() => {
                 sapo.revert()
                 document.querySelector('.resource-dtl-richtxt').removeAttribute('style')
                 document.querySelector('.resource-dtl-richtxt-premble-img').removeAttribute('style')
-                splitArray.forEach(el => el.removeAttribute('style'))
+                // splitArray.forEach(el => el.removeAttribute('style'))
             })
         })
+        // End Sapo Anim
+
+        // RichText Anim
+        const richTxt = document.querySelectorAll('.resource-dtl-richtxt-main *:not(astro-slot, ul, .block-img-caption)')
+
+        const splitArray = []
+
+        richTxt.forEach((el, idx) => {
+            animate(el, { opacity: 0, transform: "translateY(30px)" }, { duration: 0 })
+
+            const inlineRichTxtSequence = [
+                [el, { opacity: 1, transform: "none" }, { duration: .6, at: .1 + idx * .05 }]
+            ]
+
+            inView(el, () => {
+                timeline(inlineRichTxtSequence).finished.then(() => {
+                    el.removeAttribute('style')
+                })
+            })
+        })
+        // richTxt.forEach((el, idx) => {
+        //     animate(el, { opacity: 0, transform: "translateY(30px)" }, { duration: 0 })
+
+        //     richtxtSequence.push(
+        //         [el, { opacity: 1, transform: "none" }, { duration: .6, at: .4 }]
+        //     )
+        //     splitArray.push(el)
+        // })
     }, [])
 
     function copyClipboard(e) {

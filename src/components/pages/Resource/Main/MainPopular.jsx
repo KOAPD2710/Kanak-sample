@@ -18,29 +18,23 @@ function PopItem({ ...props }) {
         animate(category.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        item.querySelector('.line-ver') && animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
 
         const itemSequence = [
-            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: 0 }],
-            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.8" }],
-            [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.6  " }],
-            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.6" }],
+            [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: props.idx * .25 }],
+            [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: .3 + props.idx * .25 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at:  .4 + props.idx * .25 }],
+            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at:  .7 + props.idx * .25 }],
+            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: .8 }]
         ]
 
-        if (props.idx % 2 == 0) {
-            animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
-            itemSequence.push(
-                [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: .8 }],
-            )
-        }
         inView(item, () => {
             timeline(itemSequence).finished.then(() => {
                 category.revert()
                 title.revert()
                 date.revert()
                 item.querySelector('.line').removeAttribute('style')
-                if (props.idx % 2 == 0) {
-                    item.querySelector('.line-ver').removeAttribute('style')
-                }
+                item.querySelector('.line-ver')?.removeAttribute('style')
             })
         })
     })
@@ -73,7 +67,8 @@ function ResourceMainPopular(props) {
 
         inView('.resource-main-pop', () => {
             timeline(sequence).finished.then(() => {
-                heading.revert()
+                heading.revert();
+                document.querySelector('.resource-main-pop-line').removeAttribute('style');
             })
         })
     }, [])
