@@ -16,10 +16,10 @@ function HomeValue(props) {
             let dis1 = allItems[0].clientWidth - (offset / 2);
             let dis2 = totalDis - disWrap
             const itemSequence = [
-                [[allItems[1], allItems[2]], {x: -dis1}, {easing: 'linear'}],
-                [[...allItems[1].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, {easing: 'linear', at: '<'}],
-                [allItems[2], {x: -dis2}, {easing: 'linear'}],
-                [[...allItems[2].childNodes].filter(child => !child.classList.contains('line')), {x: -ut.parseRem(25)}, {easing: 'linear', at: '<'}],
+                [[allItems[1], allItems[2]], {x: [0, -dis1]}, {easing: 'linear'}],
+                [[...allItems[1].childNodes].filter(child => !child.classList.contains('line')), {x: [0, -ut.parseRem(25)]}, {easing: 'linear', at: '<'}],
+                [allItems[2], {x: [0, -dis2]}, {easing: 'linear'}],
+                [[...allItems[2].childNodes].filter(child => !child.classList.contains('line')), {x: [0, -ut.parseRem(25)]}, {easing: 'linear', at: '<'}],
             ]
             scroll(timeline(itemSequence), {
                 target: document.querySelector('.home-val'),
@@ -80,7 +80,7 @@ function HomeValue(props) {
                     idx != 0 && el.querySelector('.line.line-left').removeAttribute('style')
                     itemNumber.revert()
                     itemTitle.revert()
-                    // itemSub.revert()
+                    itemSub.revert()
                     itemLink.revert()
                 })
             }, {margin: "-30% -10% -30% -10%"})

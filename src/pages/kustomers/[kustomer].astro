@@ -12,6 +12,7 @@ import CaseStudy from "@pages/Kustomer/CaseStudies/Casestudies.astro";
 import Value from "@pages/Kustomer/Value/Value.astro";
 import Award from "@pages/Kustomer/Award/Award.astro";
 import CTA from "@pages/Kustomer/CTA/CTA.astro";
+import Benefit from "@pages/Kustomer/Benefit/Benefit.astro";
 
 import ImgSer1 from "@assets/kustomer-service1.jpg";
 import ImgSer2 from "@assets/kustomer-service2.jpg";
@@ -35,7 +36,7 @@ export async function getStaticPaths() {
 
 const { kustomer } = Astro.params;
 const { item } = Astro.props;
-const { data } = await getPage("home");
+const homeData = await getPage("home");
 
 const serviceData = [
     {
@@ -156,19 +157,20 @@ const filterCaseStudy = listCaseStudy.filter(
     <Hero />
     <Premble />
     <Client
-        title={data.client_title[0].text}
-        sub_title={data.client_sub_title[0].text}
-        client_list={data.client_list}
+        title={homeData.data.client_title[0].text}
+        sub_title={homeData.data.client_sub_title[0].text}
+        client_list={homeData.data.client_list}
     />
     <Service list={serviceData} />
     <Sustainable />
+    <Benefit />
     <Explore list={exploreData} />
     <Commitment list={commitData} />
     <CaseStudy list={filterCaseStudy} />
     <Value
-        label={data.values_label[0].text}
-        title={data.values_title[0].text}
-        value_list={data.values_list}
+        label={homeData.data.values_label[0].text}
+        title={homeData.data.values_title[0].text}
+        value_list={homeData.data.values_list}
     />
     <Award />
     <CTA />

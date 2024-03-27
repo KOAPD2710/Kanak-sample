@@ -1,41 +1,34 @@
 import { useRef, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
+import { suspend } from 'suspend-react'
 import { animate, scroll } from "motion"
 import gsap from 'gsap';
 import { Fork } from './Fork.jsx';
-import { Environment, useEnvironment } from "@react-three/drei";
+import { Environment, ContactShadows, AdaptiveDpr} from "@react-three/drei";
 import { FoodContainer } from "./FoodContainer.jsx";
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import { GetModel } from "../../../common/GetModel.jsx";
 import * as ut from '@/js/utils.js'
 import './HeroThree.scss';
-function CustomMaterial({...props}) {
 
+const warehouse = import('/envMap/warehouse.hdr?url').then((module) => module.default)
+function CustomMaterial({...props}) {
     return (<meshStandardMaterial color={props.color} roughness={props.roughness}/>)
 }
 function Content({...props}) {
-    const envMap = useEnvironment({files: '/envMap/brown_photostudio_02_1k.hdr'})
     const wrap = useRef()
+    const contactShadow = useRef(null)
     const productsWrap = useRef()
     const products = useRef()
     const forkWrap = useRef()
     const fork = useRef()
     const index = useStore(productIndex);
     const [scaleOffset, setScaleOffset] = useState(1);
+    const [degraded, degrade] = useState(false)
     const clock = useThree(state => state.clock);
     let isLock = false;
-    scroll(({y}) => {
-        if (y.progress >= .9) {
-            isLock = true;
-        } else {
-            isLock = false;
-        }
-    }, {
-        target: document.querySelector('.home-prod-cards-inner'),
-        offset: ["start end", "center center"]
-    })
     useFrame((state, delta) => {
         if (!products.current) return;
         if (isLock) {
@@ -43,13 +36,26 @@ function Content({...props}) {
             products.current.rotation.y += .006
         } else {
             products.current.rotation.x += (0 - products.current.rotation.x + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
-            products.current.rotation.y += (0 - products.current.rotation.y + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
+            products.current.rotation.y += (0 - (products.current.rotation.y % Math.PI * 2) + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
         }
         if (!fork.current) return;
         fork.current.rotation.x = Math.cos(clock.elapsedTime / 2) * Math.PI * .02 * -1
         fork.current.rotation.y = Math.sin(clock.elapsedTime / 2) * Math.PI * .04 * -1
     })
     useEffect(() => {
+        scroll(({y}) => {
+            if (y.progress >= .9) {
+                isLock = true;
+            } else {
+                isLock = false;
+            }
+            if (contactShadow) {
+                contactShadow.current.position.y = animThreeVal(-3 / scaleOffset, -.4 / scaleOffset, y.progress)
+            }
+        }, {
+            target: document.querySelector('.home-prod-cards-inner'),
+            offset: ["start end", "center center"]
+        })
         products.current.children.forEach((el, idx) => {
             if (idx == index) {
                 // animate(
@@ -147,9 +153,9 @@ function Content({...props}) {
                             if (item.data.file.url) {
                                 return (
                                     <Suspense key={idx}>
-                                        <mesh
+                                        <mesh 
                                             scale={idx == 0 ? [1,1,1] : [0,0,0]}
-                                            position={item.uid == 'kups' ? [0,-.04,0] : item.uid == 'klamshells' ? [0,-.01,0] : [0,0,0]}
+                                            position={item.uid == 'kups' ? [0,-.02,0] : item.uid == 'klamshells' ? [0,-.01,0] : [0,0,0]}
                                         >
                                             {item.uid == 'bowls' ? (
                                                 <GetModel file='/glb/bowls-65-transformed.glb'/>
@@ -160,7 +166,7 @@ function Content({...props}) {
                                             ) : item.uid == 'kutlery' ? (
                                                 <GetModel file='/glb/kutlery-spoon-transformed.glb'/>
                                             ) : item.uid == 'kups' ? (
-                                                <GetModel file='/glb/kup-5-transformed.glb'/>
+                                                <GetModel file='/glb/kup-5-transformed.glb' scale={[.8,.8,.8]}/>
                                             ) : item.uid == 'klamshells' ? (
                                                 <GetModel file='/glb/klamshell-79-transformed.glb' />
                                             ) : (
@@ -175,6 +181,10 @@ function Content({...props}) {
                         })}
                     </group>
                 </group>
+                <spotLight intensity={1} angle={.1} penumbra={1} position={[0, 10, 0]} castShadow />
+                <ContactShadows opacity={.2} ref={contactShadow}
+                    scale={[7 / scaleOffset, 7 / scaleOffset, 7 / scaleOffset]} 
+                    position={[0, -.4 / scaleOffset, 0]}  blur={2} far={1.2} />
                 <Suspense>
                     <group ref={forkWrap} scale={[11 / scaleOffset, 11 / scaleOffset, 11 / scaleOffset]}
                         position={[1.4 / scaleOffset, 1.2 / scaleOffset, -.4 / scaleOffset]}
@@ -185,8 +195,8 @@ function Content({...props}) {
                     </group>
                 </Suspense>
             </group>
-            <ambientLight intensity={.2 } />
-            <Environment map={envMap} />
+            {/* <ambientLight intensity={.2 } /> */}
+            <Environment files={suspend(warehouse)} frames={degraded ? 1 : Infinity} resolution={256}/>
             {/* <directionalLight intensity={1.5}/>
             <directionalLight intensity={1.15} position={[props.width * .25, 0,100]}/>
             <directionalLight intensity={1.15} position={[-props.width * .25, 0,100]}/> */}
@@ -206,8 +216,9 @@ function HomeHeroThree({...props}) {
             <div className="home-hero-three" ref={threeRef}>
                 <div className="home-hero-three-stick">
                     <div className="home-hero-three-stick-inner">
-                        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} >
+                        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows>
                             <Content width={width} height={height} list={props.list}/>
+                            <AdaptiveDpr pixelated />
                         </Canvas>
                     </div>
                 </div>
