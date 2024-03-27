@@ -1,22 +1,48 @@
 import { useRef, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
+import { suspend } from 'suspend-react'
 import { animate, scroll } from "motion"
 import gsap from 'gsap';
 import { Fork } from './Fork.jsx';
-import { Environment, useEnvironment } from "@react-three/drei";
+import { Environment, Lightformer, Float} from "@react-three/drei";
 import { FoodContainer } from "./FoodContainer.jsx";
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import { GetModel } from "../../../common/GetModel.jsx";
 import * as ut from '@/js/utils.js'
 import './HeroThree.scss';
-function CustomMaterial({...props}) {
 
+const warehouse = import('/envMap/warehouse.hdr?url').then((module) => module.default)
+function CustomMaterial({...props}) {
     return (<meshStandardMaterial color={props.color} roughness={props.roughness}/>)
 }
+// function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
+//     const group = useRef()
+//     useFrame((state, delta) => (group.current.position.z += delta * 10) > 20 && (group.current.position.z = -60))
+//     return (
+//       <>
+//         {/* Ceiling */}
+//         <Lightformer intensity={0.75} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={[10, 10, 1]} />
+//         <group rotation={[0, 0.5, 0]}>
+//           <group ref={group}>
+//             {positions.map((x, i) => (
+//               <Lightformer key={i} form="circle" intensity={2} rotation={[Math.PI / 2, 0, 0]} position={[x, 4, i * 4]} scale={[3, 1, 1]} />
+//             ))}
+//           </group>
+//         </group>
+//         {/* Sides */}
+//         <Lightformer intensity={4} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[20, 0.1, 1]} />
+//         <Lightformer rotation-y={Math.PI / 2} position={[-5, -1, -1]} scale={[20, 0.5, 1]} />
+//         <Lightformer rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={[20, 1, 1]} />
+//         {/* Accent (red) */}
+//         <Float speed={5} floatIntensity={2} rotationIntensity={2}>
+//           <Lightformer form="ring" color="red" intensity={1} scale={10} position={[-15, 4, -18]} target={[0, 0, 0]} />
+//         </Float>
+//       </>
+//     )
+//   }
 function Content({...props}) {
-    const envMap = useEnvironment({files: '/envMap/brown_photostudio_02_1k.hdr'})
     const wrap = useRef()
     const productsWrap = useRef()
     const products = useRef()
@@ -186,7 +212,9 @@ function Content({...props}) {
                 </Suspense>
             </group>
             <ambientLight intensity={.2 } />
-            <Environment map={envMap} />
+            <Environment files={suspend(warehouse)}> 
+            {/* <Lightformers/> */}
+            </Environment>
             {/* <directionalLight intensity={1.5}/>
             <directionalLight intensity={1.15} position={[props.width * .25, 0,100]}/>
             <directionalLight intensity={1.15} position={[-props.width * .25, 0,100]}/> */}
