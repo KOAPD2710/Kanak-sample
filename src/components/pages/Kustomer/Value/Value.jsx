@@ -16,10 +16,10 @@ function KustomerValue(props) {
             let dis1 = allItems[0].clientWidth - (offset / 2);
             let dis2 = totalDis - disWrap
             const itemSequence = [
-                [[allItems[1], allItems[2]], { x: -dis1 }, { easing: 'linear' }],
-                [[...allItems[1].childNodes].filter(child => !child.classList.contains('line')), { x: -ut.parseRem(25) }, { easing: 'linear', at: '<' }],
-                [allItems[2], { x: -dis2 }, { easing: 'linear' }],
-                [[...allItems[2].childNodes].filter(child => !child.classList.contains('line')), { x: -ut.parseRem(25) }, { easing: 'linear', at: '<' }],
+                [[allItems[1], allItems[2]], { x: [0, -dis1] }, { easing: 'linear' }],
+                [[...allItems[1].childNodes].filter(child => !child.classList.contains('line')), { x: [0, -ut.parseRem(25)] }, { easing: 'linear', at: '<' }],
+                [allItems[2], { x: [0, -dis2] }, { easing: 'linear' }],
+                [[...allItems[2].childNodes].filter(child => !child.classList.contains('line')), { x: [0, -ut.parseRem(25)] }, { easing: 'linear', at: '<' }],
             ]
             scroll(timeline(itemSequence), {
                 target: document.querySelector('.kustomer-val'),
@@ -61,7 +61,7 @@ function KustomerValue(props) {
             const sequence = [
                 [itemNumber.chars, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.01) }],
                 [itemTitle.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.01), at: .1 }],
-                [itemSub.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.008), at: .3 }],
+                [itemSub.lines, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.04), at: .3}],
                 [itemLink.chars, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.008), at: .2 }],
                 [el.querySelector('.kustomer-val-main-item-ic'), { opacity: 1, scale: 1 }, { duration: 1, at: .5 }],
                 [idx != 0 && el.querySelector('.line.line-left'), { scaleY: 1 }, { duration: 1, at: 0 }]

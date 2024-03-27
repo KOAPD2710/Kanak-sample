@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 
 const { kustomer } = Astro.params;
 const { item } = Astro.props;
-const { data } = await getPage("home");
+const homeData = await getPage("home");
 
 const serviceData = [
     {
@@ -156,9 +156,9 @@ const filterCaseStudy = listCaseStudy.filter(
     <Hero />
     <Premble />
     <Client
-        title={data.client_title[0].text}
-        sub_title={data.client_sub_title[0].text}
-        client_list={data.client_list}
+        title={homeData.data.client_title[0].text}
+        sub_title={homeData.data.client_sub_title[0].text}
+        client_list={homeData.data.client_list}
     />
     <Service list={serviceData} />
     <Sustainable />
@@ -166,9 +166,9 @@ const filterCaseStudy = listCaseStudy.filter(
     <Commitment list={commitData} />
     <CaseStudy list={filterCaseStudy} />
     <Value
-        label={data.values_label[0].text}
-        title={data.values_title[0].text}
-        value_list={data.values_list}
+        label={homeData.data.values_label[0].text}
+        title={homeData.data.values_title[0].text}
+        value_list={homeData.data.values_list}
     />
     <Award />
     <CTA />
