@@ -1,56 +1,41 @@
 import './Header.scss'
+import cn from 'clsx';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { parseRem} from '@/js/utils';
+import { parseRem } from '@/js/utils';
 import { getLenis } from '@/components/core/lenis';
+import useOutsideAlerter from '@hooks/useOutsideAlerter';
 function HeaderGlobal(props) {
-    const [navOpen, setNavOpen] = useState(false)
+    const dropdownRef = useRef();
+    const [navOpen, setNavOpen] = useState(false);
+    const [dropdownIdx, setDropdownIdx] = useState(-1);
+    const [isHide, setIsHide] = useState(false);
+
+    useOutsideAlerter(dropdownRef, () => setDropdownIdx(-1));
     useEffect(() => {
-        document.querySelector('.header-div-main').classList.remove('on-hide')
-        document.querySelector('.header-div-sub').classList.remove('on-hide')
         getLenis().on('scroll', function(inst) {
             if (inst.direction == 1) {
                 if (inst.scroll >= document.querySelector('.header').clientHeight) {
-                    document.querySelector('.header-div-main').classList.add('on-hide')
-                    document.querySelector('.header-div-sub').classList.add('on-hide')
-                    document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-                    document.querySelector('.header').classList.remove('on-open')
+                    setIsHide(true);
+                    setDropdownIdx(-1);
                 } else {
-                    document.querySelector('.header-div-main').classList.remove('on-hide')
-                    document.querySelector('.header-div-sub').classList.remove('on-hide')
+                    setIsHide(false);
                 }
             } else if (inst.direction == -1) {
-                document.querySelector('.header-div-main').classList.remove('on-hide')
-                document.querySelector('.header-div-sub').classList.remove('on-hide')
+                setIsHide(false);
             }
         })
-        window.addEventListener('click', function (e) {
-            if (document.querySelector('.header-dropdowns').contains(e.target) || document.querySelector('.header-main').contains(e.target)) {
-
-            } else {
-                if (document.querySelectorAll('.header-dropdown.active').length == 1) {
-                    document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-                    document.querySelector('.header').classList.remove('on-open')
-                }
-            }
-        });
     }, [])
-    function menuOnClick(e) {
+    function menuOnClick(e, idx) {
         e.preventDefault()
-        let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown="${e.target.getAttribute('data-dropdown')}"]`)
-        if (!dropdownEl.classList.contains('active')) {
-            document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-            document.querySelector('.header').classList.add('on-open')
-            dropdownEl.classList.add('active')
-        } else {
-            document.querySelectorAll('.header-dropdown').forEach(el => el.classList.remove('active'))
-            document.querySelector('.header').classList.remove('on-open')
-        }
+        let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown-idx="${idx}"]`)
+        setDropdownIdx(idx);
+        setIsHide(false);
         dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
         dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
     }
     return (
         <>
-            <header className="header header-div-main on-hide">
+            <header className={cn("header header-div-main", { "on-open": dropdownIdx >= 0, "on-hide": isHide })}>
                 <div className="container grid">
                     <div className="header-main">
                         <div className="header-main-inner">
@@ -61,7 +46,14 @@ function HeaderGlobal(props) {
                                 {props.pages.map((page, idx) => (
                                     <Fragment key={idx}>
                                         <div className="header-menu-item">
-                                            <a href={page.type == 'dropdown' ? '#' : page.link} data-dropdown={page.name} className="header-menu-item-link txt-link" onClick={page.type == 'dropdown' ? (e) => { menuOnClick(e) } : null}>
+                                            <a
+                                                href={page.type == 'dropdown' ? '#' : page.link}
+                                                data-dropdown-idx={idx}
+                                                className="header-menu-item-link txt-link"
+                                                onClick={(e) => {
+                                                    if (page.type != 'dropdown') return;
+                                                    menuOnClick(e, idx);
+                                                }}>
                                                 <span className="txt txt-14 txt-up txt-semi">{page.name}</span>
                                             </a>
                                         </div>
@@ -97,11 +89,11 @@ function HeaderGlobal(props) {
                     </div>
                 </div>
             </header>
-            <div className="header-dropdowns">
+            <div className="header-dropdowns" ref={dropdownRef}>
                 {props.pages.map((page, idx) => {
                     if (page.type == 'dropdown') {
                         return (
-                            <div className="header-dropdown" key={idx} data-dropdown={page.name}>
+                            <div className={cn("header-dropdown", { "active": idx === dropdownIdx })} key={idx} data-dropdown-idx={idx}>
                                 <div className="header-dropdown-inner bg-light">
                                     {page.sub_menu.map((el, idx) => (
                                         <a href={el.url} className="header-dropdown-item" key={idx}>
@@ -119,7 +111,7 @@ function HeaderGlobal(props) {
                     }
                 })}
             </div>
-            <div className="header header-div-sub on-hide">
+            <div className={cn("header header-div-sub", { "on-hide": isHide })}>
                 <div className="container grid">
                     <a href="/contact" className="header-cta" data-cursor="hide">
                         <div className="header-cta-head">

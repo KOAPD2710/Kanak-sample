@@ -3,9 +3,12 @@ import { useEffect, useRef } from 'react';
 import { inView, timeline, animate } from "motion"
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
+import useDebounceCallback from '@hooks/useDebounce';
 
 function HomeProductList(props) {
     const index = useStore(productIndex);
+    const debounceHover = useDebounceCallback(productIndex.set, 200);
+
     useEffect(() => {
         const allItems = document.querySelectorAll(".home-prod-main-item")
         allItems.forEach((el,idx) => {
@@ -47,7 +50,7 @@ function HomeProductList(props) {
                         key={idx}
                         href='#'
                         className={`home-prod-main-item${idx == index ? ' active' : ''}`}
-                        onMouseEnter={() => productIndex.set(idx)}
+                        onMouseEnter={() => debounceHover(idx)}
                     >
                         <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
                             {item.data.title}

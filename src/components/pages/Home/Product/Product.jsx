@@ -83,7 +83,7 @@ function HomeProduct(props) {
                 <a href="#" className="home-prod-pdf-link">
                     <div className="home-prod-pdf-link-ic">
                         <div className="ic ic-32">
-                            {props.PDFIcon}    
+                            {props.PDFIcon}
                         </div>
                     </div>
                     <div className="txt txt-20 txt-med home-prod-pdf-link-txt">
@@ -92,7 +92,7 @@ function HomeProduct(props) {
                 </a>
             </div>
         </>
-                
+
     )
 }
 export default HomeProduct;
