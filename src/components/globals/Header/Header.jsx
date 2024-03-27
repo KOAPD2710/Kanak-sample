@@ -38,7 +38,6 @@ function HeaderGlobal(props) {
         e.preventDefault()
 
         if (window.innerWidth > 991) {
-            e.preventDefault()
             let dropdownEl = document.querySelector(`.header-dropdown[data-dropdown-idx="${idx}"]`)
             setDropdownIdx(idx);
             setIsHide(false);
