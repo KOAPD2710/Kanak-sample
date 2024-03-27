@@ -1,5 +1,5 @@
 ---
-const { product_list } = Astro.props;
+const { product_kategory_list } = Astro.props;
 
 import { Image } from 'astro:assets';
 import arrIcon from '@assets/arr-right.svg?raw';
@@ -11,18 +11,25 @@ import HomeProduct from './Product';
 import HomeProductList from './ProductList'
 
 const list = await Promise.all(
-    product_list.map(async (product: any) => {
-        let item = getByUID('product', product.item.uid)
-        return item
+    product_kategory_list.map(async (product_group: any) => {
+        let group = getByUID('product_group', product_group.item.uid)
+        return group
+    })
+)
+let standardList = list.filter(el => !el.data.is_sustainables)
+let featuredItemList = await Promise.all(
+    standardList.map(async (product_group: any) => {
+        let featuredItem = getByUID('product', product_group.data.product_list.filter((el: any) => el.is_featured)[0].product.uid)
+        return featuredItem;
     })
 )
 ---
 <section class="home-prod">
     <div class="container grid">
         <HomeProductTitle prod_sub_title={Astro.props.prod_sub_title} client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
-        <HomeProductList list={list} client:media="(min-width: 767px)" client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
+        <HomeProductList list={standardList} client:media="(min-width: 767px)" client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
 
-        <HomeProduct list={list} client:load>
+        <HomeProduct list={standardList} itemList={featuredItemList} client:load>
             <Fragment set:html={arrIcon} slot='arrIcon'/>
             <Image src={sampleQR} alt="" class="ic ic-80" width={sampleQR.width / 2} slot='sampleQR'/>
             <Fragment set:html={PDFIcon} slot='PDFIcon'/>

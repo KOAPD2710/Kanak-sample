@@ -53,7 +53,7 @@ function HomeProductList(props) {
                         onMouseEnter={() => debounceHover(idx)}
                     >
                         <h3 className="heading h6 txt-up txt-black home-prod-main-item-title">
-                            {item.data.title}
+                            {item.data.name}
                         </h3>
                         <div className="txt txt-20 txt-bold home-prod-main-item-label">
                             {(idx + 1) < 10 ? '0' + (idx + 1) : idx + 1}

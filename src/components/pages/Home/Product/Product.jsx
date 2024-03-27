@@ -17,7 +17,7 @@ function HomeProduct(props) {
     useEffect(() => {
         console.log('init')
         scroll(({y}) => {
-            if (document.querySelectorAll('.home-prod-cards-inner').length == 1) {
+            if (document.querySelectorAll('.home-prod-cards-inner').length >= 1) {
                 if (y.progress >= .9) {
                     document.querySelector('.home-prod-cards-inner').classList.add('active')
                 } else {
@@ -58,14 +58,14 @@ function HomeProduct(props) {
                         <div className="home-prod-cards-bottom-txt-wrap">
                             {props.list.map((item, idx) => (
                                 <div className={`heading h5 txt-up txt-black home-prod-cards-bottom-txt${idx == index ? ' active' : ''}`} key={idx}>
-                                    {item.data.title}
+                                    {item.data.name}
                                 </div>
                             ))}
                         </div>
                         <div className="home-prod-cards-qr-wrap">
-                            {props.list.map((_, idx) => (
+                            {props.itemList.map((item, idx) => (
                                 <div className={`home-prod-cards-qr${idx == index ? ' active' : ''}`} key={idx}>
-                                    {props.sampleQR}
+                                    <img src={item.data.qr_code.url} alt="" className="ic ic-80" />
                                 </div>
                             ))}
                         </div>
