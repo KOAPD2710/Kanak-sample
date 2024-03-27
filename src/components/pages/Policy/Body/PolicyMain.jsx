@@ -10,6 +10,9 @@ import { animate, timeline, stagger, inView, createStyleString } from "motion";
 
 function PolicyMain({ ...props }) {
     const [activeToc, setActiveToc] = useState(0)
+    const [richTxtIdx, setRichTxtIdx] = useState(0)
+    const [richTxtAnim, setRichTxtAnim] = useState(false)
+
 
     function activeScrollTo(e) {
         let header = ut.dom('.header-div-main')
@@ -33,32 +36,36 @@ function PolicyMain({ ...props }) {
     useEffect(() => {
         ActiveTocFunc();
 
-
         const updateDate = new SplitType('.policy-update-txt', { types: 'lines, words', lineClass: 'split-line' })
         const naviTxt = new SplitType('.policy-navtitle-txt', { types: 'lines, words, chars', lineClass: 'split-line' })
+        const linkList = document.querySelectorAll('.policy-nav-list .policy-nav-item')
 
         animate('.line-top', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.line-mid', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.line-ver', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
         animate(updateDate.words, { transform: "translateY(100%)" }, { duration: 0 })
         animate(naviTxt.chars, { transform: "translateY(100%)" }, { duration: 0 })
+        animate(linkList, { opacity: 0, transform: "translateX(10px)" }, { duration: 0 })
 
         const sequence = [
             ['.line-top', { scaleX: 1 }, { duration: 1, at: 0 }],
-            ['.line-mid', { scaleX: 1 }, { duration: .9, at: "-.85" }],
-            ['.line-ver', { scaleY: 1 }, { duration: 1.8, at: "-.4" }],
-            [updateDate.words, { transform: "none" }, { duration: .4, delay: stagger(.04), at: .5 }],
-            [naviTxt.chars, { transform: "none" }, { duration: .4, delay: stagger(.01), at: .5 }],
+            ['.line-mid', { scaleX: 1 }, { duration: .9, at: .2 }],
+            ['.line-ver', { scaleY: 1 }, { duration: 1.8, at: .6 }],
+            [updateDate.words, { transform: "none" }, { duration: .4, delay: stagger(.015), at: .5 }],
+            [naviTxt.chars, { transform: "none" }, { duration: .4, delay: stagger(.005), at: .7 }],
+            [linkList, { opacity: 1, transform: "none" }, { duration: .35, delay: stagger(.04), at: .85 }],
         ]
 
-        const linkList = document.querySelectorAll('.policy-nav-list .policy-nav-item')
         const splitArrayNav = []
-        linkList.forEach((el, idx) => {
-            animate(el, { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
-            sequence.push(
-                [el, { opacity: 1, transform: "none" }, { duration: .4, at: "-.35" }],
-            )
-            splitArrayNav.push(el)
+
+
+
+        // linkList.forEach((el, idx) => {
+            // animate(el, { opacity: 0, transform: "translateX(10px)" }, { duration: 0 })
+            // sequence.push(
+            //     [el, { opacity: 1, transform: "none" }, { duration: .4, at: "-.35" }],
+            // )
+            // splitArrayNav.push(el)
 
             // animate(el.querySelector('.dot'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
             // animate(el.querySelector('.policy-nav-item-link'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
@@ -67,7 +74,7 @@ function PolicyMain({ ...props }) {
             //     [el.querySelector('.dot'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.3" }],
             //     [el.querySelector('.policy-nav-item-link'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.4" }]
             // )
-        })
+        // })
 
         inView('.policy-main', () => {
             timeline(sequence).finished.then(() => {
@@ -85,30 +92,35 @@ function PolicyMain({ ...props }) {
 
         const items = document.querySelectorAll('.policy-body-main-richtxt *:not(astro-slot, ul)')
 
-        const itemSequence = []
         const splitArray = []
 
         items.forEach((el, idx) => {
-            // const splitTxt = new SplitType(el, { types: 'lines, words', lineClass: 'split-line' })
-            // animate(splitTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            const splitTxt = new SplitType(el, { types: 'lines, words', lineClass: 'split-line' })
+            animate(splitTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            const itemSequence = [
+                [splitTxt.words, { opacity: 1, transform: "none" }, { duration: .4, at: idx * .05 }]
+            ]
+
+            inView(el, () => {
+                timeline(itemSequence).finished.then(() => {
+                    splitTxt.revert()
+                })
+            }, {margin: "-10% 0px -10% 0px"})
+
+            // animate(el, { opacity: 0, transform: "translateY(30px)" }, { duration: 0 })
+
             // itemSequence.push(
-            //     [splitTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.003), at: .2 }]
+            //     [el, { opacity: 1, transform: "none" }, { duration: .6, at: .4 }]
             // )
-
-            animate(el, { opacity: 0, transform: "translateY(30px)" }, { duration: 0 })
-
-            itemSequence.push(
-                [el, { opacity: 1, transform: "none" }, { duration: .6, at: .4 }]
-            )
-            splitArray.push(el)
+            // splitArray.push(el)
         })
 
 
-        inView('.policy-body-main-richtxt', () => {
-            timeline(itemSequence).finished.then(() => {
-                splitArray.forEach(el => el.removeAttribute('style'))
-            })
-        })
+        // inView('.policy-body-main-richtxt', () => {
+        //     timeline(itemSequence).finished.then(() => {
+        //         splitArray.forEach(el => el.removeAttribute('style'))
+        //     })
+        // })
 
         // End RichTxt Anim
 
@@ -131,7 +143,7 @@ function PolicyMain({ ...props }) {
                         {props.title_list.map((el, idx) => (
                             <li key={idx} className={`policy-nav-item ${idx == activeToc ? 'active' : ''}`}>
                                 <div className="dot"></div>
-                                <button className='txt txt-18 txt-med policy-nav-item-link' onClick={(e) => { activeScrollTo(e) }} data-scrollto={encodeURI(el.content)}>{el.content.charAt(0).toUpperCase() + el.content.substring(1).toLowerCase()}</button>
+                                <button className='txt txt-18 txt-med policy-nav-item-link' onClick={(e) => { activeScrollTo(e) }} data-scrollto={encodeURI(el.content)} data-cursor="txtLink">{el.content.charAt(0).toUpperCase() + el.content.substring(1).toLowerCase()}</button>
                             </li>
                         ))}
                     </ul>

@@ -1,5 +1,4 @@
 ---
-
 import { Image } from "astro:assets";
 import { getImage } from "astro:assets";
 import kanakLogo from "@assets/kanak-logo.svg";
@@ -7,7 +6,8 @@ import recycleIc from "@assets/recycle.svg";
 import headFlag from "@assets/head-flag.svg";
 import bodyFlag from "@assets/body-flag.svg";
 import tailFlag from "@assets/tail-flag.svg";
-import extIcon from "@assets/ext-arr-menu.svg?raw"
+import extIcon from "@assets/ext-arr-menu.svg?raw";
+import icDropdown from "@assets/ic-arrow-down.svg";
 import { getAllByType } from "@/prismic";
 import HeaderGlobal from "./Header";
 const currYear = new Date().getFullYear()
@@ -34,10 +34,16 @@ const pages = [
 const bodyFlagIc = await getImage({ src: bodyFlag, format: "svg" });
 ---
 
-<HeaderGlobal pages={pages} bodyFlag={bodyFlagIc.src} currYear={currYear} client:load>
+<HeaderGlobal
+    pages={pages}
+    bodyFlag={bodyFlagIc.src}
+    currYear={currYear}
+    client:load
+>
     <Image src={kanakLogo} alt="Kanak Logo" slot="logo" class="img-h" />
     <Image src={recycleIc} alt="Recycle Icon" slot="recycleIc" />
     <Image src={headFlag} alt="" slot="headFlag" />
     <Image src={tailFlag} alt="" slot="tailFlag" />
+    <Fragment set:html={extIcon} slot="extIcon" />
     <Fragment set:html={extIcon} slot="extIcon" />
 </HeaderGlobal>

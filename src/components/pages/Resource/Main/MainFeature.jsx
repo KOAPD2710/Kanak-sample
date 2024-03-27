@@ -23,10 +23,10 @@ function FeatItem({ ...props }) {
             animate(date.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
             const itemSequence = [
-                [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: "<" }],
-                [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: "-.4" }],
-                [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.01), at: "-.3" }],
-                [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.45" }],
+                [item.querySelector('.resource-main-fea-main-inner-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: 0 }],
+                [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .1 }],
+                [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at: .3 }],
+                [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: "-.4" }],
             ]
 
             inView(item, () => {
@@ -91,17 +91,24 @@ function ResourceMainFeature(props) {
     useEffect(() => {
         if (!loaded) return
 
-        animate('.resource-main-fea .line-ver', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate('.resource-main-fea .line-mid', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
         animate('.resource-main-fea-main-control .line', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.resource-main-fea-main-nav', { opacity: 0 }, { duration: 0 })
         animate('.resource-main-fea-main-line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate('.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item', { opacity: 0 }, { duration: 0 })
+        animate('.resource-main-fea-main-nav .line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+        animate('.resource-main-fea-main-nav-item .ic', { opacity: 0, scale: .6 }, { duration: 0 })
+
+
+        console.log(document.querySelectorAll('.resource-main-fea-main-nav .line-ver').length);
 
         const sequence = [
-            ['.resource-main-fea .line-ver', { scaleY: 1 }, { duration: 1, at: 0 }],
+            ['.resource-main-fea .line-mid', { scaleY: 1 }, { duration: .8, at: 0 }],
             ['.resource-main-fea-main-line-bot', { scaleX: 1 }, { duration: 1, at: 0 }],
             ['.resource-main-fea-main-control .line', { scaleX: 1 }, { duration: 1, at: "-1" }],
-            ['.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item', { opacity: 1 }, { duration: .6, delay: stagger(.03), at: 1 }],
+            ['.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item', { opacity: 1 }, { duration: .4, delay: stagger(.06), at: 1 }],
+            ['.resource-main-fea-main-nav .line-ver', { scaleY: 1 }, { duration: .5, delay: stagger(.1), at: .8 }],
+            ['.resource-main-fea-main-nav-item .ic', { opacity: 1, scale: 1 }, { duration: .6, at: 1 }],
         ]
 
         if (window.innerWidth > 991) {
@@ -116,9 +123,11 @@ function ResourceMainFeature(props) {
 
         inView('.resource-main-fea', () => {
             timeline(sequence).finished.then(() => {
-                document.querySelector('.resource-main-fea .line-ver').removeAttribute('style')
+                document.querySelector('.resource-main-fea .line-mid').removeAttribute('style')
+                document.querySelector('.resource-main-fea-main-line-bot').removeAttribute('style')
                 document.querySelector('.resource-main-fea-main-control .line').removeAttribute('style')
-                document.querySelector('.resource-main-fea-main-nav').removeAttribute('style')
+                document.querySelectorAll('.resource-main-fea-main-nav .line-ver').forEach(item => item.removeAttribute('style'))
+                document.querySelectorAll('.resource-main-fea-main-nav-item .ic').forEach(item => item.removeAttribute('style'))
                 document.querySelectorAll('.resource-main-fea-main-pagi .resource-main-fea-main-pagi-item').forEach((el, idx) => {
                     el.removeAttribute('style')
                 })
@@ -154,6 +163,7 @@ function ResourceMainFeature(props) {
                                     onClick={() => { instanceRef.current.prev() }}
                                     disabled={instanceRef.current.track.details.rel === 0}
                                     data-cursor="hide">
+                                    <div className="line line-ver"></div>
                                     <div className="ic ic-40">
                                         {props.arrIcon}
                                     </div>
@@ -162,6 +172,7 @@ function ResourceMainFeature(props) {
                                     onClick={() => { instanceRef.current.next() }}
                                     disabled={instanceRef.current.track.details.rel === instanceRef.current.track.details.maxIdx}
                                     data-cursor="hide">
+                                    <div className="line line-ver"></div>
                                     <div className="ic ic-40">
                                         {props.arrIcon}
                                     </div>
@@ -170,7 +181,7 @@ function ResourceMainFeature(props) {
                         )}
                     </div>
                 </div>
-                <div className="line line-ver"></div>
+                <div className="line line-ver line-mid"></div>
                 <div className="line resource-main-fea-main-line-bot"></div>
             </div>
         </div>

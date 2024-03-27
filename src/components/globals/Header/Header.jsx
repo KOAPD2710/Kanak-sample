@@ -33,6 +33,7 @@ function HeaderGlobal(props) {
         dropdownEl.style.top = `${document.querySelector('.header-main').getBoundingClientRect().height}px`
         dropdownEl.style.left = `${e.target.getBoundingClientRect().left - parseRem(20)}px`
     }
+    console.log(props);
     return (
         <>
             <header className={cn("header header-div-main", { "on-open": dropdownIdx >= 0, "on-hide": isHide })}>
@@ -130,22 +131,38 @@ function HeaderGlobal(props) {
                 <div className={`nav-inner bg-light ${navOpen ? 'active' : ''}`}>
                     <div className="container grid">
                         <div className="nav-info">
-                            <div className="nav-info-item">
-                                <div className="txt txt-14 txt-med nav-info-item-head">Get in touch</div>
-                                <a href="mailto:info@kanaknaturals.com" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">info@kanaknaturals.com</a>
+                            <div className="line line-ver"></div>
+                            <div className="nav-info-wrap">
+                                <div className="nav-info-item">
+                                    <div className="txt txt-14 txt-med nav-info-item-head">Get in touch</div>
+                                    <a href="mailto:info@kanaknaturals.com" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">info@kanaknaturals.com</a>
+                                </div>
+                                <div className="nav-info-item">
+                                    <div className="txt txt-14 txt-med nav-info-item-head">Contact</div>
+                                    <a href="tel:+1 (260) 490 4790" className="heading h6 txt-black txt-up nav-info-item-content">+1 (260) 490 4790</a>
+                                </div>
+                                <div className="nav-info-item">
+                                    <div className="txt txt-14 txt-med nav-info-item-head">Headquarters</div>
+                                    <a href="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">321 Hovan Drive, Fort Wayne, IN 46825, US</a>
+                                </div>
+                                <a href="/contact" className="btn btn-lg btn-wide nav-info-btn">
+                                    <div className="heading txt-16 txt-black txt-up">Request a quote</div>
+                                </a>
                             </div>
-                            <div className="nav-info-item">
-                                <div className="txt txt-14 txt-med nav-info-item-head">Contact</div>
-                                <a href="tel:+1 (260) 490 4790" className="heading h6 txt-black txt-up nav-info-item-content">+1 (260) 490 4790</a>
+                            <div className="txt txt-16 txt-semi nav-info-footer">⁠©⁠ {props.currYear} KANAK NATURALS </div>
+                        </div>
+                        <div className="nav-main" data-lenis-prevent="#">
+                            <div className="nav-main-wrap">
+                                {props.pages.map((page, idx) => (
+                                    <div className="nav-main-item" key={idx}>
+                                        <div className="nav-main-item-head">
+                                            <h2 className="heading h3 txt-black txt-up nav-main-item-head-txt">{page.name}</h2>
+
+                                        </div>
+                                        <div className="line"></div>
+                                    </div>
+                                ))}
                             </div>
-                            <div className="nav-info-item">
-                                <div className="txt txt-14 txt-med nav-info-item-head">Headquarters</div>
-                                <a href="https://maps.app.goo.gl/YxM91MZmzBCW5F1C6" target='_blank' className="heading h6 txt-black txt-up nav-info-item-content">321 Hovan Drive, Fort Wayne, IN 46825, US</a>
-                            </div>
-                            <a href="/contact" className="btn btn-lg btn-wide nav-info-btn">
-                                <div className="heading txt-16 txt-black txt-up">Request a quote</div>
-                            </a>
-                            {/* <div className="nav-info-footer">⁠©⁠ {props.currentyear} KANAK NATURALS </div> */}
                         </div>
                     </div>
                 </div>

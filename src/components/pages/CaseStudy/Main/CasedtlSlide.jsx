@@ -21,17 +21,17 @@ function CasedtlSlide({ ...props }) {
         if (!loaded) return
         animate('.casedtl-slide-line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
         animate('.casedtl-slide-stick-line, .casedtl-slide-main-control > .line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
-        animate('.casedtl-slide-main', { opacity: 0}, { duration: 0 })
+        animate('.casedtl-slide-main', { opacity: 0 }, { duration: 0 })
         animate('.casedtl-slide-main-pagi-item', { opacity: 0, scale: .6 }, { duration: 0 })
-        animate('.casedtl-slide-main-nav-item .line-ver', {scaleY: 0, transformOrigin: 'top'}, {duration: 0})
+        animate('.casedtl-slide-main-nav-item .line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
 
         const sequence = [
             ['.casedtl-slide .casedtl-slide-line-ver', { scaleY: 1 }, { duration: 1, at: 0 }],
             ['.casedtl-slide-stick-line', { scaleX: 1 }, { duration: .8, at: .2 }],
             ['.casedtl-slide-main', { opacity: 1 }, { duration: .8, at: .2 }],
-            ['.casedtl-slide-main-control > .line', {scaleX: 1}, {duration: .6, at: .3}],
-            ['.casedtl-slide-main-pagi-item', {opacity: 1, scale: 1}, {duration: .4, delay: stagger(.06), at: .3}],
-            ['.casedtl-slide-main-nav-item .line-ver', {scaleY: 1}, {duration: .5, delay: stagger(.1), at: .4}]
+            ['.casedtl-slide-main-control > .line', { scaleX: 1 }, { duration: .6, at: .3 }],
+            ['.casedtl-slide-main-pagi-item', { opacity: 1, scale: 1 }, { duration: .4, delay: stagger(.06), at: .3 }],
+            ['.casedtl-slide-main-nav-item .line-ver', { scaleY: 1 }, { duration: .5, delay: stagger(.1), at: .4 }]
         ]
         inView('.casedtl-slide', () => {
             timeline(sequence).finished.then(() => {
