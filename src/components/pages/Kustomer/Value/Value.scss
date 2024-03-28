@@ -10,6 +10,7 @@
     justify-content: end;
     height: calc((53vw * 3 * 1.5) + var(--offsetMargin));
     margin-bottom: calc(var(--offsetMargin) * -1);
+    padding-top: 17.6rem;
     z-index: 3;
 
     @include md {
@@ -21,64 +22,24 @@
         margin-bottom: 0;
     }
 
-    &-arr {
-        display: flex;
-        align-items: end;
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-        z-index: 2;
-        margin-bottom: -1px;
-
-        &-inner {
-            width: 100%;
-            margin-bottom: -18%;
-
-            svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: auto;
-            }
-        }
-    }
-
     &-stick {
         position: sticky;
         bottom: 0;
     }
 
     &-title-wrap {
-        padding-top: 32rem;
-        padding-bottom: 21.5rem;
-        width: 100%;
-        max-width: 122.8rem;
-        margin: 0 auto;
-        text-align: center;
-
-        @include md {
-            padding-top: 12rem;
-            padding-bottom: 10rem;
-        }
-
-        @include sm {
-            padding-top: 8rem;
-            padding-bottom: 6rem;
-        }
-
-        .txt-180 {
-            @include md {
-                @include text(h0);
-            }
-
-            @include sm {
-                @include text(h2);
-            }
-        }
+        display: grid;
+        margin-bottom: 18rem;
+        grid-template-columns: repeat(12, 1fr);
     }
 
     &-title {
+        grid-column: 1/9;
+
+        span {
+            display: inline;
+        }
+
         @include md {
             @include text(h1)
         }
@@ -86,6 +47,11 @@
         @include sm {
             @include text(h5);
         }
+    }
+
+    &-subtitle {
+        grid-column: 9/-1;
+        align-self: end;
     }
 
     &-label {

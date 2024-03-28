@@ -24,22 +24,19 @@ function CaseStudiesItem({ ...props }) {
         animate(item.querySelector('.kustomer-kasestu-main-item-bot-readmore .ic svg'), { opacity: 0, transform: "translate(-100%, 100%)" }, { duration: 0 })
 
         const sequence = [
-            [item.querySelector('.line-top'), { scaleX: 1 }, { duration: 1.4, at: .1 }],
-            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: .6, at: "<" }],
-            [item.querySelector('.line-bot'), { scaleX: 1 }, { duration: 1, at: "-.1" }],
-            [label.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.04), at: "<" }],
-            [title.words, { transform: "none" }, { duration: .4, delay: stagger(.04), at: "-.1" }],
+            [item.querySelector('.line-top'), { scaleX: 1 }, { duration: .4, at: .1 }],
+            [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: .5, at: .1 }],
+            [item.querySelector('.line-bot'), { scaleX: 1 }, { duration: .8, at: .4 }],
+            [label.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.04), at: .1 }],
+            [title.words, { transform: "none" }, { duration: .4, delay: stagger(.04), at: .2 }],
+            [item.querySelector('.kustomer-kasestu-main-item-bot-img img'), { opacity: 1, scale: 1 }, { duration: .6, at: .3 }],
+            [readMore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .4 }],
+            [item.querySelector('.kustomer-kasestu-main-item-bot-readmore .ic svg'), { opacity: 1, transform: "none" }, { duration: .6, at: .5 }]
         ]
-
-        sequence.push(
-            [item.querySelector('.kustomer-kasestu-main-item-bot-img img'), { opacity: 1, scale: 1 }, { duration: .6, at: "-.2" }],
-            [readMore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: "-.5" }],
-            [item.querySelector('.kustomer-kasestu-main-item-bot-readmore .ic svg'), { opacity: 1, transform: "none" }, { duration: .6, at: "-.4" }]
-        )
         if (props.lastItem) {
             animate(item.querySelector('.line-right'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
             sequence.push(
-                [item.querySelector('.line-right'), { scaleY: 1 }, { duration: 1, at: 1.15 }],
+                [item.querySelector('.line-right'), { scaleY: 1 }, { duration: .8, at: .5 }],
             )
         }
 
@@ -56,8 +53,8 @@ function CaseStudiesItem({ ...props }) {
     }, [])
 
     return (
-        <a href={`/kase-studies/${props.data.uid}`} className="keen-slider__slide kustomer-kasestu-main-item" ref={itemRef}>
-            <div className="txt txt-20 txt-med kustomer-kasestu-main-item-label">{props.data.data.category}</div>
+        <a href={`/kase-studies/${props.data.uid}`} className="keen-slider__slide kustomer-kasestu-main-item" ref={itemRef} data-cursor="ext">
+            <div className="txt txt-20 txt-bold kustomer-kasestu-main-item-label">{props.data.data.category}</div>
             <h2 className="heading h3 txt-black txt-up kustomer-kasestu-main-item-title">{props.data.data.title[0].text}</h2>
             <div className="kustomer-kasestu-main-item-bot">
                 <div className="kustomer-kasestu-main-item-bot-img">

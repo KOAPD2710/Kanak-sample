@@ -3,10 +3,14 @@ import { animate, timeline, stagger, inView, scroll } from "motion"
 import * as ut from '@/js/utils.js';
 import SplitType from 'split-type';
 import { useEffect, useRef } from 'react';
+import { cleanText } from '@/components/utils/text';
 
 function KustomerValue(props) {
     const ref = useRef()
     useEffect(() => {
+
+        // cleanText()
+
         let allItems = ut.dom('.kustomer-val-main-item');
         if (window.innerWidth > 767) {
             let totalDis = 0;
@@ -25,26 +29,23 @@ function KustomerValue(props) {
                 target: document.querySelector('.kustomer-val'),
                 offset: [`${document.querySelector('.kustomer-val-main').offsetTop}px start`, `${1 - window.innerHeight / ref.current.clientHeight} end`]
             })
-            // scroll(
-            //     animate('.kustomer-val-arr-inner', { scale: [.2, 1], transformOrigin: 'center top' }, { easing: 'linear' }), {
-            //     target: document.querySelector('.kustomer-val-arr'),
-            //     offset: ['start end', `end ${window.innerWidth > 991 ? document.querySelector('.kustomer-val-arr').clientHeight * 1.05 + 'px' : 'end'}`]
-            // })
-        }
-
-        if (window.innerWidth > 991) {
-            scroll(
-                animate('.kustomer-val-title', { scale: [.5, 1], y: [(window.innerHeight * .5), 0] }, { easing: 'linear' }), {
-                target: document.querySelector('.kustomer-val-title-wrap'),
-                offset: ['start end', 'end end']
-            })
         }
 
         let mainTitle = new SplitType('.kustomer-val-title', { types: 'lines, words', lineClass: 'split-line' })
+        let subTitle = new SplitType('.kustomer-val-subtitle', { types: 'lines, words', lineClass: 'split-line' })
+
         animate(mainTitle.words, { transform: 'translateY(100%)', opacity: 0 }, { duration: 0 })
+        animate(subTitle.words, { transform: 'translateY(100%)', opacity: 0 }, { duration: 0 })
+
+        const titleSequence = [
+            [mainTitle.words, { transform: 'none', opacity: 1 }, { duration: .6, delay: stagger(.03) }],
+            [subTitle.words, { transform: 'none', opacity: 1 }, { duration: .8, delay: stagger(.006), at: .1 }],
+        ]
         inView('.kustomer-val-title-wrap', () => {
-            animate(mainTitle.words, { transform: 'none', opacity: 1 }, { duration: .6, delay: stagger(.03) }).finished.then(() => {
+            timeline(titleSequence).finished.then(() => {
                 mainTitle.revert()
+                subTitle.revert()
+
             })
         }, { margin: "-30% 0px -30% 0px" })
 
@@ -61,7 +62,7 @@ function KustomerValue(props) {
             const sequence = [
                 [itemNumber.chars, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.01) }],
                 [itemTitle.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.01), at: .1 }],
-                [itemSub.lines, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.04), at: .3}],
+                [itemSub.lines, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .3 }],
                 [itemLink.chars, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.008), at: .2 }],
                 [el.querySelector('.kustomer-val-main-item-ic'), { opacity: 1, scale: 1 }, { duration: 1, at: .5 }],
                 [idx != 0 && el.querySelector('.line.line-left'), { scaleY: 1 }, { duration: 1, at: 0 }]
@@ -85,8 +86,9 @@ function KustomerValue(props) {
                     <div className="container">
                         <div className="kustomer-val-title-wrap">
                             <h2 className="heading h0 txt-up txt-black kustomer-val-title">
-                                {props.label} <br /><span className="txt txt-180">{props.title}</span>
+                                Raise Your Brand to <span className='txt-green'>Eco-</span><span className='txt-green'>Excellence</span>
                             </h2>
+                            <p className='heading h6 txt-black txt-up kustomer-val-subtitle'>Roll out the green carpet! Kanak Naturals is redefining the packaging playbook, one eco-friendly solution at a time. Here, sustainability marries innovation, creating packaging solutions that don't just meet your expectations; they dare to exceed them. We're committed to fueling your brand's growth with packaging that speaks volumes of your dedication to the environment.</p>
                         </div>
                     </div>
                     <div className="kustomer-val-main">

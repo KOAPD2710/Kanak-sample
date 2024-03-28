@@ -1,0 +1,39 @@
+@use '@styles/colors' as *;
+@use '@styles/mixins' as *;
+
+
+.kustomer-cata {
+    &-title-wrap {
+        grid-column: 1/12;
+    }
+
+    &-title {
+        max-width: 99rem;
+    }
+
+    &-label {
+        margin-bottom: 2rem;
+    }
+
+    &-des {
+        grid-column: 13/16;
+        align-self: end;
+
+        span {
+            display: inline;
+        }
+    }
+
+    &-main {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-column), 1fr);
+        column-gap: var(--grid-gap);
+
+        // &-content {
+        //     display: grid;
+        //     grid-template-columns: repeat(9, 1fr);
+        //     column-gap: var(--grid-gap);
+        // }
+    }
+}
