@@ -54,26 +54,6 @@ function PolicyMain({ ...props }) {
             [linkList, { opacity: 1, transform: "none" }, { duration: .35, delay: stagger(.04), at: .85 }],
         ]
 
-        const splitArrayNav = []
-
-
-
-        // linkList.forEach((el, idx) => {
-        // animate(el, { opacity: 0, transform: "translateX(10px)" }, { duration: 0 })
-        // sequence.push(
-        //     [el, { opacity: 1, transform: "none" }, { duration: .4, at: "-.35" }],
-        // )
-        // splitArrayNav.push(el)
-
-        // animate(el.querySelector('.dot'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
-        // animate(el.querySelector('.policy-nav-item-link'), { opacity: 0, transform: "translateX(-10px)" }, { duration: 0 })
-
-        // sequence.push(
-        //     [el.querySelector('.dot'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.3" }],
-        //     [el.querySelector('.policy-nav-item-link'), { opacity: 1, transform: "none" }, { duration: .4, at: "-.4" }]
-        // )
-        // })
-
         inView('.policy-main', () => {
             timeline(sequence).finished.then(() => {
                 document.querySelector('.line-top').removeAttribute('style')
@@ -81,25 +61,24 @@ function PolicyMain({ ...props }) {
                 document.querySelector('.line-ver').removeAttribute('style')
                 updateDate.revert()
                 naviTxt.revert()
-                splitArrayNav.forEach(item => item.removeAttribute('style'))
             })
         })
 
-
         // RichTxt Anim
-
         const items = document.querySelectorAll('.policy-body-main-richtxt *:not(astro-slot, ul)')
 
         const splitArray = []
-
         items.forEach((el, idx) => {
             const splitTxt = new SplitType(el, { types: 'lines, words', lineClass: 'split-line' })
+
             animate(splitTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
             const itemSequence = [
-                [splitTxt.words, { opacity: 1, transform: "none" }, { duration: .4, at: idx * .05 }]
+                [splitTxt.words, { opacity: 1, transform: "none" }, { duration: .4, at: .05 }],
             ]
-
             inView(el, () => {
+                if (el.tagName == 'LI') {
+                    el.classList.add('show')
+                }
                 timeline(itemSequence).finished.then(() => {
                     splitTxt.revert()
                 })
@@ -112,14 +91,6 @@ function PolicyMain({ ...props }) {
             // )
             // splitArray.push(el)
         })
-
-
-        // inView('.policy-body-main-richtxt', () => {
-        //     timeline(itemSequence).finished.then(() => {
-        //         splitArray.forEach(el => el.removeAttribute('style'))
-        //     })
-        // })
-
         // End RichTxt Anim
 
     }, [])
