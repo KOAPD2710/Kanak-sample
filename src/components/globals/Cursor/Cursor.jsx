@@ -2,16 +2,21 @@ import { useEffect, useRef } from 'react';
 import { parseRem } from '@/js/utils';
 import './cursor.scss';
 
+let pointer = {
+    x: 0,
+    y: 0
+}
+function getPointer() {
+    return pointer
+}
 function CursorMain({ ...props }) {
     const cursor = useRef();
     const cursorInner = useRef();
     const lerp = (a, b, t = 0.08) => {
         return a + (b - a) * t;
     }
-    let pointer = {
-        x: 0,
-        y: 0
-    }
+    
+    
     function getCursor(e) {
         pointer.x = e.clientX;
         pointer.y = e.clientY;
@@ -46,7 +51,7 @@ function CursorMain({ ...props }) {
                     case 'hide':
                         cursorInner.current.classList.add('on-hide')
                         break;
-                    case 'txtLink':
+                    case 'txtlink':
                         cursorInner.current.classList.add('on-hover-sm')
                         if (document.querySelector('[data-cursor]:hover').getAttribute('data-cursor-txtlink') == 'child') {
                             targetEl = document.querySelector('[data-cursor]:hover').querySelector('[data-cursor-txtlink-child]')
@@ -87,4 +92,4 @@ function CursorMain({ ...props }) {
         </div>
     )
 }
-export default CursorMain
+export {CursorMain, getPointer}

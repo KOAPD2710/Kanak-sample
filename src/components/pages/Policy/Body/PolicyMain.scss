@@ -123,7 +123,6 @@
                     li {
                         display: flex;
                         align-items: flex-start;
-
                         &::before {
                             content: "";
                             position: relative;
@@ -134,6 +133,16 @@
                             border-radius: 100vmax;
                             margin-top: 1rem;
                             margin-right: 2rem;
+                            opacity: 0;
+                            transform: translateY(100%);
+                            transition: all 400ms;
+                            transition-delay: 200ms;
+                        }
+                        &.show {
+                            &::before {
+                                opacity: 1;
+                                transform: none;
+                            }
                         }
                     }
                 }
