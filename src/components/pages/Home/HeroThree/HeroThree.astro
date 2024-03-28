@@ -20,6 +20,7 @@ let featuredItemList = await Promise.all(
         return featuredItem;
     })
 )
+console.log(featuredItemList)
 ---
 
 <HomeHeroThree list={featuredItemList} client:load />

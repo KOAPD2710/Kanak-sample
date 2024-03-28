@@ -46,7 +46,7 @@ function CursorMain({ ...props }) {
                     case 'hide':
                         cursorInner.current.classList.add('on-hide')
                         break;
-                    case 'txtLink':
+                    case 'txtlink':
                         cursorInner.current.classList.add('on-hover-sm')
                         if (document.querySelector('[data-cursor]:hover').getAttribute('data-cursor-txtlink') == 'child') {
                             targetEl = document.querySelector('[data-cursor]:hover').querySelector('[data-cursor-txtlink-child]')

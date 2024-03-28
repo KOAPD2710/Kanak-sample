@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
+import { Environment, ContactShadows, AdaptiveDpr} from "@react-three/drei";
 import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
+import { suspend } from 'suspend-react'
 import { useGSAP } from '@gsap/react';
 import { GetModel } from "../../../common/GetModel.jsx";
 import { useStore } from '@nanostores/react';
@@ -12,8 +14,10 @@ function CustomMaterial({...props}) {
     </>
     )
 }
+const warehouse = import('/envMap/warehouse.hdr?url').then((module) => module.default)
 function Content({...props}) {
     const activeIndex = useStore(brandIndex);
+    const [degraded, degrade] = useState(false)
     const wrap = useRef()
     const brandsWrap = useRef()
     const brands = useRef()
@@ -77,9 +81,9 @@ function Content({...props}) {
                     </group>
                 </group>
             </group>            
-            <ambientLight intensity={.65} />
-            <directionalLight intensity={2} position={[-.2, .2,.2]} lookAt={[0,0,.3]}/>
-            <directionalLight intensity={1} position={[.2, 0,.2]} lookAt={[0,0,.3]}/>
+            <directionalLight intensity={.2} position={[-.2, .2,.2]} lookAt={[0,0,.3]}/>
+            <directionalLight intensity={.2} position={[.2, 0,.2]} lookAt={[0,0,.3]}/>
+            <Environment files={suspend(warehouse)} frames={degraded ? 1 : Infinity} resolution={256}/>
         </>
     )
 }
@@ -95,13 +99,15 @@ function HomeBrandThree({...props}) {
         return (
             <>
             <div className={`home-brand-canvas-inner-item ${activeIndex == 1 ? 'blur' : ''}`}>
-                <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
+                <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows>
                     <Content width={width} height={height} list={props.list} top={true}/>
+                    <AdaptiveDpr pixelated />
                 </Canvas>                
             </div>
             <div className={`home-brand-canvas-inner-item ${activeIndex == 0 ? 'blur' : ''}`}>
-                <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }}>
+                <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows>
                     <Content width={width} height={height} list={props.list} top={false}/>
+                    <AdaptiveDpr pixelated />
                 </Canvas>                
             </div>
             </>
