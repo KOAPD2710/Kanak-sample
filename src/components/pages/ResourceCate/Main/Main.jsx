@@ -1,12 +1,11 @@
-import { convertDate } from "@utils/text.js"
 import './Main.scss';
+import { convertDate } from "@utils/text.js"
 import { useEffect, useState, useRef } from 'react';
 
 import SplitType from 'split-type';
 import { animate, timeline, stagger, inView, createStyleString } from "motion";
 
-
-function CatelistItem({ ...props }) {
+function CateListItem(props) {
     const itemRef = useRef()
 
     useEffect(() => {
@@ -109,7 +108,7 @@ function ResourceCateList(props) {
                 <div className="line resource-cate-main-line"></div>
                 <div className={`resource-cate-main-grid ${limit >= allItem.length ? 'all-loaded' : ''}`}>
                     {allItem.map((item, idx) => (
-                        idx < limit && <CatelistItem {...item} idx={idx} key={idx} lineVer={(idx > 0 && (idx + 1) % 2 === 0) && true} />
+                        idx < limit && <CateListItem {...item} idx={idx} key={idx} lineVer={(idx > 0 && (idx + 1) % 2 === 0) && true} />
                     ))}
                 </div>
                 {/* <div className={`line resource-cate-main-line ${limit >= allItem.length ? 'hidden' : ''}`}></div> */}
