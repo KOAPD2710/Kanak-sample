@@ -172,8 +172,7 @@ function Content({...props}) {
                                             ) : item.uid == 'carry-out-bags' ? (
                                                 <GetModel file='/glb/62-freebirds-clean-transformed.glb' scale={[.8,.8,.8]} position={[0,-.01,0]}/>
                                             ) : (
-                                                <GetModel file={item.data.file.url}
-                                                    material={<CustomMaterial color='#F6DCAF' roughness={.8} needsUpdate={true} isActive={idx == index}/>} 
+                                                <GetModel file='/glb/m_box-clean-transformed.glb' scale={[.8,.8,.8]} position={[0,.01,0]}
                                                 />
                                             )}
                                         </mesh>
