@@ -22,26 +22,25 @@ function Content({...props}) {
     const brandsWrap = useRef()
     const brands = useRef()
     useEffect(() => {
-        console.log('init three')
         if (activeIndex == 1) {
             gsap.to(brandsWrap.current.rotation, {x: Math.PI * 1,  duration: .8})
             if (brands.current.children[0].name == 'private-label') {
-                gsap.to(brands.current.children[0].children[0].position, {x: -.1, z: .2, duration: .8})
-                gsap.to(brands.current.children[0].children[0].rotation, {x: Math.PI * -3, duration: .8})
+                gsap.to(brands.current.children[0].position, {x: -0.03, y: -.12, z: .14, duration: .8})
+                gsap.to(brands.current.children[0].rotation, {x: Math.PI * -2.86, y: Math.PI * .5, z: Math.PI * .01, duration: .8})
             }
             if (brands.current.children[0].name == 'kustom-packaging-solutions') {
-                gsap.to(brands.current.children[0].children[0].position, {x: 0,z: -.23, duration: .8})
-                gsap.to(brands.current.children[0].children[0].rotation, {x: Math.PI * -3, duration: .8})
+                gsap.to(brands.current.children[0].position, {x: .006, y: -.01, z: -.23, duration: .8})
+                gsap.to(brands.current.children[0].rotation, {x: Math.PI * -2.95, y: Math.PI * .5, z: Math.PI * .02, duration: .8})
             }
         } else {
             gsap.to(brandsWrap.current.rotation, {x: Math.PI * 0, duration: .8})
             if (brands.current.children[0].name == 'private-label') {
-                gsap.to(brands.current.children[0].children[0].position, {x: .02, z: .28, duration: .8})
-                gsap.to(brands.current.children[0].children[0].rotation, {x: Math.PI * 0, duration: .8})
+                gsap.to(brands.current.children[0].position, {x: .016, y: .02, z: .284, duration: .8})
+                gsap.to(brands.current.children[0].rotation, {x: Math.PI * 0, y: -Math.PI * .5, z: 0, duration: .8})
             }
             if (brands.current.children[0].name == 'kustom-packaging-solutions') {
-                gsap.to(brands.current.children[0].children[0].position, {x: -.1, z: -.2, duration: .8})
-                gsap.to(brands.current.children[0].children[0].rotation, {x: Math.PI * 0, duration: .8})
+                gsap.to(brands.current.children[0].position, {x: -.05, y: .1, z: -.1, duration: .8})
+                gsap.to(brands.current.children[0].rotation, {x: Math.PI * .1, y: -Math.PI * .5, z: 0, duration: .8})
             }
         }
     }, [activeIndex])
@@ -56,10 +55,11 @@ function Content({...props}) {
                             if (item.data.file.url && props.top) {
                                 if (idx == 0) {
                                     return (
-                                        <mesh key={idx} name={item.uid}>
-                                            <GetModel file={item.data.file.url}  visible={props.top ? true : false}
-                                                position={[.02,0,.28]} 
-                                                rotation={[0, -Math.PI * .5,0]}
+                                        <mesh key={idx} name={item.uid} position={[.016,.02,.284]} rotation={[0, -Math.PI * .5,0]}>
+                                            <GetModel file='/glb/m_box-clean-transformed.glb'  visible={props.top ? true : false}
+                                            scale={[.82,.82,.82]} 
+                                            position={[-.03,0,0.01]}
+                                            rotation={[Math.PI * 0,Math.PI * .6,Math.PI * .05]}
                                             />
                                         </mesh>
                                     )
@@ -67,11 +67,11 @@ function Content({...props}) {
                             } else {
                                 if (idx == 1) {
                                     return (
-                                        <mesh key={idx} name={item.uid}>
-                                            <GetModel file={item.data.file.url} visible={props.top ? false : true}
-                                                position={[-.1,0,-.2]} 
-                                                rotation={[0,Math.PI * .5, 0]} 
-                                                material={<CustomMaterial color='#EAD6B3'/>}
+                                        <mesh key={idx} name={item.uid} position={[-.05,.1,-.1]} rotation={[Math.PI * .1,-Math.PI * .5, 0]}>
+                                            <GetModel file='/glb/klamshell-79-transformed.glb' visible={props.top ? false : true}
+                                            scale={[.86,.86,.86]} 
+                                            position={[-.02,0,0]}
+                                            rotation={[Math.PI * 0,Math.PI * -.7,Math.PI * .05]}
                                             />
                                         </mesh>
                                     )
