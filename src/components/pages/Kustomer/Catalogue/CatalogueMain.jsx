@@ -2,7 +2,9 @@
 
 function ListItem() {
     return (
-        <div className="kustomer-cata-main-content-list-item"></div>
+        <div className="kustomer-cata-main-content-list-item">
+            <div className="heading h4 txt-black txt-up kustomer-cata-main-content-list-item-inner">Bowls</div>
+        </div>
     )
 }
 

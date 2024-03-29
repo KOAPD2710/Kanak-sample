@@ -30,10 +30,22 @@
         grid-template-columns: repeat(var(--grid-column), 1fr);
         column-gap: var(--grid-gap);
 
-        // &-content {
-        //     display: grid;
-        //     grid-template-columns: repeat(9, 1fr);
-        //     column-gap: var(--grid-gap);
-        // }
+        &-content {
+            grid-column: 1/10;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            column-gap: var(--grid-gap);
+
+            &-des {
+                grid-column: 1/4;
+            }
+
+            &-list {
+                grid-column: 6/-1;
+                margin-left: calc(var(--grid-gap) * -1);
+                // height: 30rem;
+                // background-color: blue;
+            }
+        }
     }
 }
