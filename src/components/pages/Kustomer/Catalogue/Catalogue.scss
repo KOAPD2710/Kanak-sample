@@ -29,12 +29,21 @@
         display: grid;
         grid-template-columns: repeat(var(--grid-column), 1fr);
         column-gap: var(--grid-gap);
+        margin-top: 13rem;
+
+        &-content-wrap {
+            grid-column: 1/10;
+        }
 
         &-content {
-            grid-column: 1/10;
             display: grid;
             grid-template-columns: repeat(9, 1fr);
             column-gap: var(--grid-gap);
+            margin-bottom: 16rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
 
             &-des {
                 grid-column: 1/4;
@@ -43,9 +52,127 @@
             &-list {
                 grid-column: 6/-1;
                 margin-left: calc(var(--grid-gap) * -1);
-                // height: 30rem;
-                // background-color: blue;
+
+                &-item {
+                    position: relative;
+                    width: 100%;
+                    padding: 3rem 0px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .line {
+                        position: absolute;
+                        bottom: -.1rem;
+                        left: 0;
+                    }
+                }
             }
+        }
+    }
+
+    &-card {
+        position: relative;
+        grid-column: 11/16;
+        height: fit-content;
+
+        &-inner {
+
+        }
+        &-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &-txt {
+                padding: 0 3.2rem;
+            }
+        }
+
+        &-nav {
+            display: flex;
+
+            &-item {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @include size(10rem);
+
+                .line-ver {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+
+                &.prev {
+                    .ic svg {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                &.disable {
+                    .ic svg {
+                        opacity: .2;
+                    }
+                }
+            }
+        }
+
+        &-middle {
+            height: 46.3rem;
+        }
+
+        &-bottom {
+            display: flex;
+            justify-content: space-between;
+
+            &-txt-wrap {
+                display: flex;
+                align-items: center;
+                padding: 1.7rem 3.2rem;
+            }
+            &-txt {
+            }
+        }
+        &-qr-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .line-ver {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+        &-qr {
+            padding: 1rem;
+
+            img {
+                @include size(10rem);
+            }
+        }
+
+        .line-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .line-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .line-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .line-bot {
+            position: absolute;
+            bottom: 0;
+            left: 0;
         }
     }
 }

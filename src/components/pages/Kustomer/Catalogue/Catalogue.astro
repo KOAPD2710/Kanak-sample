@@ -1,5 +1,11 @@
 ---
+import Image from "astro/components/Image.astro";
 import KustomerCatalogue from "./Catalogue";
+import arrIcon from "@assets/arr-right.svg?raw";
+import qr from "@assets/kustomer-qr.png";
 ---
 
-<KustomerCatalogue />
+<KustomerCatalogue>
+  <Fragment set:html={arrIcon} slot="arrIcon" />
+  <Image src={qr} alt="" slot="qr" class="img img-fill" />
+</KustomerCatalogue>
