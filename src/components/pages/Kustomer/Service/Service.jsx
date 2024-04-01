@@ -5,7 +5,6 @@ import SplitType from 'split-type';
 
 import ServiceMain from "./ServiceMain";
 function KustomerService({ ...props }) {
-
     useEffect(() => {
         const title = new SplitType(".kustomer-service-title", { types: 'lines, words', lineClass: 'split-line' })
 
@@ -24,14 +23,13 @@ function KustomerService({ ...props }) {
             })
         }, { margin: "-20% 0px -20% 0px" })
     }, [])
-
     return (
         <section className="kustomer-service">
             <div className="container grid">
                 <div className="kustomer-service-title-wrapper">
-                    <h1 className="heading h0 txt-black txt-up kustomer-service-title">Serving Every Shelf with Excellence</h1>
+                    <h1 className="heading h0 txt-black txt-up kustomer-service-title">{props.title}</h1>
                 </div>
-                <ServiceMain listItem={props.list}></ServiceMain>
+                <ServiceMain list={props.list}></ServiceMain>
                 <div className="line kustomer-service-line"></div>
             </div>
         </section>

@@ -1,11 +1,14 @@
 ---
 import Image from "astro/components/Image.astro";
 import KustomerCatalogue from "./Catalogue";
+
 import arrIcon from "@assets/arr-right.svg?raw";
 import qr from "@assets/kustomer-qr.png";
+import image from "@assets/kustomer-hero-left.png";
 ---
 
-<KustomerCatalogue>
+<KustomerCatalogue client:visible={{ rootMargin: "50% 0% 50% 0%" }}>
   <Fragment set:html={arrIcon} slot="arrIcon" />
   <Image src={qr} alt="" slot="qr" class="img img-fill" />
+  <Image src={image} alt="" slot="image" class="img img-fill" />
 </KustomerCatalogue>

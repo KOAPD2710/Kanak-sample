@@ -15,9 +15,6 @@ import CTA from "@pages/Kustomer/CTA/CTA.astro";
 import Benefit from "@pages/Kustomer/Benefit/Benefit.astro";
 import Catalogue from "@pages/Kustomer/Catalogue/Catalogue.astro";
 
-import ImgSer1 from "@assets/kustomer-service1.jpg";
-import ImgSer2 from "@assets/kustomer-service2.jpg";
-import ImgSer3 from "@assets/kustomer-service3.jpg";
 import icPremium from "@assets/kustomer-premium.svg";
 import icInsight from "@assets/kustomer-insight.svg";
 import icInspect from "@assets/kustomer-inspect.svg";
@@ -39,26 +36,11 @@ const { kustomer } = Astro.params;
 const { item } = Astro.props;
 const homeData = await getPage("home");
 
-const serviceData = [
-    {
-        title: "Grocery stores",
-        describe:
-            "Elevating your aisles, our eco-friendly dinnerware meets the needs of today's conscious consumer.",
-        image: ImgSer1,
-    },
-    {
-        title: "Mass retailers",
-        describe:
-            "Scale your impact and sustainability efforts with products designed for the diverse needs of a broad customer base.",
-        image: ImgSer2,
-    },
-    {
-        title: "Club retailers",
-        describe:
-            "Enhance club members' experience with bulk, eco-friendly options that don't compromise on quality.",
-        image: ImgSer3,
-    },
-];
+const serviceItem = [];
+item.data.service_sub_items.forEach((el, idx) => {
+    el.item.uid && serviceItem.push(el.item.uid);
+});
+
 const commitData = [
     {
         tag: "premium",
@@ -155,17 +137,37 @@ const filterCaseStudy = listCaseStudy.filter(
 ---
 
 <Layout title={item.data.title}>
-    <Hero />
-    <Premble />
+    <Hero label={item.data.hero_label} title={item.data.hero_title[0].text} />
+    {item.data.hero_subtitle && <Premble title={item.data.hero_subtitle} />}
     <Client
         title={homeData.data.client_title[0].text}
         sub_title={homeData.data.client_sub_title[0].text}
         client_list={homeData.data.client_list}
     />
-    <Service list={serviceData} />
-    <Sustainable />
-    <Benefit />
-    <Catalogue />
+    {
+        item.data.service_title && (
+            <Service
+                title={item.data.service_title[0].text}
+                listItems={serviceItem}
+            />
+        )
+    }
+    {
+        item.data.sustainable_subtitle != "" && (
+            <>
+                <Sustainable
+                    subtitle={item.data.sustainable_subtitle[0].text}
+                    list={item.data.sustainable_list}
+                />
+                <Benefit
+                    title={item.data.benefit_title[0].text}
+                    list={item.data.benefit_list.map((el) => el.item.uid)}
+                    {item}
+                />
+                <Catalogue />
+            </>
+        )
+    }
     <Explore list={exploreData} />
     <Commitment list={commitData} />
     <CaseStudy list={filterCaseStudy} />

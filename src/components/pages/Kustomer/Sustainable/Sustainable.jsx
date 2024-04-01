@@ -5,12 +5,10 @@ import "./Sustainable.scss"
 function SustainableItem({ ...props }) {
     useEffect(() => {
     }, [])
-
     return (
         <a href="#" className="kustomer-sus-main-table-item">
             <div className="kustomer-sus-main-table-item-img">
-                <img src={props.data.thumbnail.url} alt={props.data.thumbnail.alt} />
-                {/* width={props.data.thumbnail.dimensions.width} */}
+                <img src={props.data.thumbnail.url} alt={props.data.thumbnail.alt} width={props.data.thumbnail.dimensions.width} className="img" />
             </div>
             <div className="kustomer-sus-main-table-item-info">
                 <div className="line line-mid"></div>
@@ -47,9 +45,6 @@ function KustomerSustain({ ...props }) {
         let currentItems = allItem.filter(item => currentList.includes(item.uid));
         setItemList(currentItems)
     }, [filter])
-
-    useEffect(() => {
-    }, [])
     return (
         <section className="kustomer-sus">
             <div className="container grid">
@@ -58,7 +53,7 @@ function KustomerSustain({ ...props }) {
                         {props.sustainable}
                     </div>
                     <span className="heading h6 txt-black txt-up kustomer-sus-head-sub">
-                        our premier line of dinnerware crafted from premium sugarcane bagasse.
+                        {props.subtitle}
                     </span>
                 </div>
                 <div className="kustomer-sus-main">

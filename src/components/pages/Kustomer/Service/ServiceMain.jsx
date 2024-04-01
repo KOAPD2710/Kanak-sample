@@ -34,20 +34,19 @@ function ServiceItem({ ...props }) {
 
             })
         }, { margin: "-20% 0px -20% 0px" })
-
     }, [])
     return (
         <div className="kustomer-service-main-item" ref={itemRef}>
             <div className="kustomer-service-main-item-img">
-                <img src={props.image.src} alt="" className="img img-fill" />
+                <img src={props.data.image.url} alt={props.data.image.alt} width={props.data.image.dimensions.width} className="img img-fill" />/
             </div>
             <div className="kustomer-service-main-item-content">
                 <h3 className="heading h4 txt-black txt-up kustomer-service-main-item-content-title">
-                    {props.title}
+                    {props.data.title}
                 </h3>
                 <div className="kustomer-service-main-item-content-info">
                     <div className="txt txt-18 txt-med kustomer-service-main-item-content-des">
-                        {props.describe}
+                        {props.data.describle}
                     </div>
                     <a href="#" className="txt txt-18 txt-bold kustomer-service-main-item-content-link">Learn More</a>
                 </div>
@@ -58,7 +57,7 @@ function ServiceItem({ ...props }) {
 }
 
 function ServiceMain({ ...props }) {
-    const allItem = props.listItem
+    const allItem = props.list
 
     return (
         <div className="kustomer-service-main">

@@ -13,7 +13,7 @@ function KustomerCatalogue({ ...props }) {
                 <div className="kustomer-cata-des">
                     <p className="txt txt-18 txt-med">Explore our full range of <span className="txt-green">national brand-equivalent</span> dinnerware, made with up to 100% recycled materials, reflecting our commitment to quality and the environment. All designed with sustainability in mind.</p>
                 </div>
-                <CatalogueMain arrIcon={props.arrIcon} qr={props.qr}/>
+                <CatalogueMain arrIcon={props.arrIcon} qr={props.qr} img={props.image} />
             </div>
         </section>
     )

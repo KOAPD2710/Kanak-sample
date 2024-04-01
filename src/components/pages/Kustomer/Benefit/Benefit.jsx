@@ -4,11 +4,11 @@ function BenefitItem({ ...props }) {
     return (
         <div className="kustomer-benefit-item kustomer-benefit-item-frag">
             <div className="ic kustomer-benefit-item-frag-ic">
-                {props.ic}
+                <img src={props.data.icon.url} alt={props.data.icon.alt} width={props.data.icon.dimensions.width} className="img img-fill" />
             </div>
             <div className="kustomer-benefit-item-frag-content">
-                <h5 className="heading h5 txt-black txt-up kustomer-benefit-item-frag-content-title">Renewable Revolution</h5>
-                <p className="txt txt-18 txt-med kustomer-benefit-item-frag-content-des">Back to earth, forward to future.</p>
+                <h5 className="heading h5 txt-black txt-up kustomer-benefit-item-frag-content-title">{props.data.title[0].text}</h5>
+                <p className="txt txt-18 txt-med kustomer-benefit-item-frag-content-des">{props.data.subtitle}</p>
             </div>
             <div className="line line-top"></div>
             <div className="line line-ver line-right"></div>
@@ -23,12 +23,12 @@ function KusomterBenefit({ ...props }) {
         <section className="kustomer-benefit">
             <div className="container">
                 <div className="kustomer-benefit-grid">
-                    {[...Array(5)].map((item, idx) => (
-                        <BenefitItem key={idx} ic={props.ic} />
+                    {props.itemList.map((item, idx) => (
+                        <BenefitItem key={idx} {...item} />
                     ))}
                     <div className="kustomer-benefit-item kustomer-benefit-item-title">
                         <h3 className="heading h4 txt-black txt-up kustomer-benefit-item-title-txt">
-                            Our versatile pack sizes and shelf-ready options offer an easy, CARBON-CONSCIOUS choice for single-use dinnerware.
+                            {props.title}
                         </h3>
                     </div>
                 </div>
