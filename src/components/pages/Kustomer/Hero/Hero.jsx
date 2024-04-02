@@ -72,15 +72,6 @@ function KustomerHero(props) {
             </div>
             <div className="kustomer-hero-slide" ref={trackRef} data-percentage={0} data-prev-percentage={0}>
                 <KustomerHeroThree list={productArr} onDrag={onDrag} currentPos={currentPos} currentIdx={currentIdx} />
-                {/* <div className="kustomer-hero-img-middle">
-                    {props.MiddleImg}
-                </div>
-                <div className="kustomer-hero-img-left">
-                    {props.LeftImg}
-                </div>
-                <div className="kustomer-hero-img-right">
-                    {props.RightImg}
-                </div> */}
             </div>
         </section>
     )

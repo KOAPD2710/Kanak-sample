@@ -1,11 +1,6 @@
 ---
 const title = Astro.props.title;
-import { Image } from "astro:assets";
 import KustomerHero from "./Hero";
-
-import MiddleImg from "@assets/kustomer-hero-mid.png";
-import LeftImg from "@assets/kustomer-hero-left.png";
-import RightImg from "@assets/kustomer-hero-right.png";
 
 let replaceWord = title.split(",")[title.split(",").length - 1];
 const renderWords = replaceWord
@@ -16,9 +11,6 @@ const renderWords = replaceWord
 let newTitle = title.replace(replaceWord, renderWords);
 ---
 
-<KustomerHero label={Astro.props.label}>
+<KustomerHero label={Astro.props.label} client:load>
     <Fragment set:html={newTitle} slot="title" />
-    <Image src={MiddleImg} alt="" slot="MiddleImg" />
-    <Image src={LeftImg} alt="" slot="LeftImg" />
-    <Image src={RightImg} alt="" slot="RightImg" />
 </KustomerHero>
