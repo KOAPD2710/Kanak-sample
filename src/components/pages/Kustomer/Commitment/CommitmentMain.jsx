@@ -78,6 +78,8 @@ function KustomerCommitMain({ ...props }) {
             if (document.querySelector('.kustomer-commit-main:hover')) {
                 targetX = - thumb.offsetWidth / 2 + ((cursorX - wrapLeft) / (document.querySelector(".kustomer-commit-main-thumb").offsetWidth) - .5) * parseRem(300)
                 targetY = cursorY - wrapTop - thumb.offsetHeight / 2 - document.querySelector(".kustomer-commit-main-thumb").offsetHeight / 2
+            } else {
+                setActiveIc(-1)
             }
             thumb.style.transform = `translate(${lerp(curX, targetX, .03)}px, ${lerp(curY, targetY, .03)}px)`
             thumbReq = requestAnimationFrame(thumbMove)

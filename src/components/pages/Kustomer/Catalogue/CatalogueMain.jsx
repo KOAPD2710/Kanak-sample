@@ -25,6 +25,10 @@ function CatalogueMain({ ...props }) {
     const [index, setIndex] = useState(0)
     const [currName, setCurrName] = useState('Bowls')
 
+    function navOnClick(dir) {
+        document.querySelectorAll('.kustomer-cata-main-content-list-item').forEach(el => el.classList.remove('active'))
+        setIndex(dir == 'next' ? index + 1 : index - 1)
+    }
     return (
         <div className="kustomer-cata-main">
             <div className="kustomer-cata-main-content-wrap">
@@ -113,13 +117,13 @@ function CatalogueMain({ ...props }) {
                                 Product Kategories
                             </div>
                             <div className="kustomer-cata-card-nav">
-                                <button className={`kustomer-cata-card-nav-item prev${index == 0 ? ' disable' : ''}`} onClick={(e) => setIndex(index - 1)}>
+                                <button className={`kustomer-cata-card-nav-item prev${index == 0 ? ' disable' : ''}`} onClick={(e) => navOnClick('prev')}>
                                     <div className="line line-ver"></div>
                                     <div className="ic ic-40">
                                         {props.arrIcon}
                                     </div>
                                 </button>
-                                <button className={`kustomer-cata-card-nav-item next${index == 4 ? ' disable' : ''}`} onClick={(e) => setIndex(index + 1)}>
+                                <button className={`kustomer-cata-card-nav-item next${index == 4 ? ' disable' : ''}`} onClick={(e) => navOnClick('next')}>
                                     <div className="line line-ver"></div>
                                     <div className="ic ic-40">
                                         {props.arrIcon}

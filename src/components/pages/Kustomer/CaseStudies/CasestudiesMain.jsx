@@ -62,7 +62,7 @@ function CaseStudiesItem({ ...props }) {
                 </div>
                 <div className="txt txt-18 txt-bold kustomer-kasestu-main-item-bot-readmore">
                     <span>Read more</span>
-                    <div className="ic ic-20">
+                    <div className="ic ic-16">
                         <ArrowUpRight />
                     </div>
                 </div>

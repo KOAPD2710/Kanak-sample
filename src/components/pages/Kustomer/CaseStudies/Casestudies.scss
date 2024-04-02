@@ -19,13 +19,22 @@
     &-des {
         grid-column: 12/-1;
         align-self: end;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
 
         &-content {
             margin-bottom: 4rem;
         }
 
         &-link {
-            color: var(--cl-orange);
+            color: var(--cl-txt);
+            display: flex;
+            align-items: center;
+            column-gap: .8rem;
+            .ic {
+                contain: paint;
+            }
         }
     }
 
@@ -71,6 +80,7 @@
                 &-readmore {
                     align-self: end;
                     display: flex;
+                    align-items: center;
                     column-gap: .8rem;
                 }
             }

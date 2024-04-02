@@ -46,6 +46,7 @@
             padding-left: var(--container-padding);
             padding-right: var(--container-padding);
             z-index: 1;
+            min-height: 19.2rem;
 
             &>* {
                 z-index: 2;
@@ -61,7 +62,9 @@
                 grid-column: 12/17;
                 opacity: .6;
                 width: 100%;
+                max-width: 48.6rem;
                 font-kerning: none;
+                justify-self: end;
             }
 
             &-bg {
