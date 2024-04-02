@@ -3,12 +3,15 @@
 
 
 .kustomer-hero {
-    padding-top: 23.1rem;
     // background-color: var(--cl-bg-dark);
     // background: var(--bg-txt-dark) repeat;
     background-size: 20rem auto;
-
+    position: relative;
+    height: 100vh;
+    contain: paint;
+    padding-bottom: 5rem;
     &-subtitle {
+        padding-top: 18.75vh;
         grid-column: 4/14;
         text-align: center;
         margin-bottom: 1.6rem;
@@ -22,11 +25,22 @@
         // color: var(--cl-txt-light);
     }
 
-    &-img {
+    &-slide {
         display: flex;
-        padding-bottom: 5rem;
         align-items: end;
-        margin-top: 10rem;
+        position: absolute;
+        height: 100%;
+        // inset: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: calc(100vh - 56.49vh);
+        cursor: grab;
+        canvas {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
 
         &-middle {
             order: 2;

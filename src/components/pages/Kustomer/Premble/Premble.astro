@@ -1,11 +1,8 @@
 ---
 const title = Astro.props.title;
 
-import { Image } from "astro:assets";
 import KustomerPremble from "./Premble";
-import PrembleBadge from "./PrembleBadge";
-import icBadgeInside from "@assets/badge-inside.png";
-import icBadgeOuside from "@assets/badge-outside.svg";
+import VideoBadge from "@components/globals/BadgeVideo/Badge.astro";
 
 let newHtml = "";
 title.forEach((el, elIdx) => {
@@ -22,9 +19,6 @@ title.forEach((el, elIdx) => {
 ---
 
 <KustomerPremble>
+    <VideoBadge slot="badge"/>
     <Fragment set:html={newHtml} slot="title" />
 </KustomerPremble>
-<PrembleBadge>
-    <Image src={icBadgeInside} alt="" class="img" slot="icBadgeInside" />
-    <Image src={icBadgeOuside} alt="" class="img" slot="icBadgeOutside" />
-</PrembleBadge>

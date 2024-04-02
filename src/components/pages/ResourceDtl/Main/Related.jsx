@@ -7,19 +7,19 @@ import SplitType from 'split-type';
 import { animate, timeline, stagger, inView, createStyleString } from "motion";
 
 
-function RelItem({ ...props }) {
+function Article(props) {
     const itemRef = useRef()
     useEffect(() => {
         const item = itemRef.current
 
         const label = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-cate'), { types: 'lines, words', lineClass: 'split-line' })
         const titleItem = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-title'), { types: 'lines, words', lineClass: 'split-line' })
-        const describle = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-des'), { types: 'lines, words', lineClass: 'split-line' })
+        const desc = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-des'), { types: 'lines, words', lineClass: 'split-line' })
         const date = new SplitType(item.querySelector('.resource-dtl-rel-main-inner-group-item-content-date'), { types: 'lines, words', lineClass: 'split-line' })
 
         animate(label.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(titleItem.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
-        animate(describle.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
+        animate(desc.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(date.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         animate(item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 0, scale: 0.8, transformOrigin: "left bottom" }, { duration: 0 })
         animate(item.querySelector('.line-ver'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
@@ -31,7 +31,7 @@ function RelItem({ ...props }) {
             [item.querySelector('.resource-dtl-rel-main-inner-group-item-img img'), { opacity: 1, scale: 1 }, { duration: 1, at: "<" }],
             [label.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.03), at: .3 }],
             [titleItem.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .4 }],
-            [describle.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: .6 }],
+            [desc.words, { opacity: 1, transform: 'none' }, { duration: .4, delay: stagger(.01), at: .6 }],
             [date.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.012), at: .8 }],
             [item.querySelector('.line:not(.line-ver)'), { scaleX: 1 }, { duration: .8, at: 0 }],
         ]
@@ -39,7 +39,7 @@ function RelItem({ ...props }) {
         inView(item, () => {
             timeline(itemSequence).finished.then(() => {
                 titleItem.revert()
-                describle.revert()
+                desc.revert()
                 label.revert()
                 date.revert()
                 item.querySelector('.line').removeAttribute('style')
@@ -75,7 +75,7 @@ function RelItem({ ...props }) {
     )
 }
 
-function ResDtlRel(props) {
+function RelatedArticle(props) {
     const [loaded, setLoaded] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [limit, setLimit] = useState(999);
@@ -189,7 +189,7 @@ function ResDtlRel(props) {
                     {newList.map((chunk, idx) =>
                         idx < limit && (
                             <div className="keen-slider__slide resource-dtl-rel-main-inner-group" key={idx}>
-                                {chunk.map((item, itemIdx) => <RelItem {...item} key={itemIdx} />)}
+                                {chunk.map((item, itemIdx) => <Article {...item} key={itemIdx} />)}
                             </div>
                         )
                     )}
@@ -211,4 +211,4 @@ function ResDtlRel(props) {
     )
 }
 
-export default ResDtlRel
+export default RelatedArticle

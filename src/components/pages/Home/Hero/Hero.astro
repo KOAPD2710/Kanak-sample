@@ -2,22 +2,11 @@
 import { Image } from "astro:assets";
 import HomeHero from './Hero';
 import HomeHeroAbout from './HeroAbout';
-import HomeHeroBadge from './HeroBadge';
-import icBadgeInside from '@assets/badge-inside.png';
-import icBadgeOuside from '@assets/badge-outside.svg';
-import icPlay from '@assets/ic-play.svg';
+import VideoBadge from "@components/globals/BadgeVideo/Badge.astro";
 ---
 <HomeHero {...Astro.props} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
-    <HomeHeroBadge slot="badgeMb">
-        <Image src={icBadgeInside} alt="" class="img" slot='icBadgeInside' />
-        <Image src={icBadgeOuside} alt="" class="img" slot='icBadgeOutside'/>
-        <Image src={icPlay} alt="" class="img" slot='icPlay'/>
-    </HomeHeroBadge>
+    <VideoBadge slot="badgeMb"/>
 </HomeHero>
-<HomeHeroBadge> 
-    <Image src={icBadgeInside} alt="" class="img" slot='icBadgeInside' />
-    <Image src={icBadgeOuside} alt="" class="img" slot='icBadgeOutside'/>
-    <Image src={icPlay} alt="" class="img" slot='icPlay'/>
-</HomeHeroBadge>
+<VideoBadge />
 <HomeHeroAbout {...Astro.props} client:visible={{rootMargin: "100% 0px 100% 0px"}}/>
 

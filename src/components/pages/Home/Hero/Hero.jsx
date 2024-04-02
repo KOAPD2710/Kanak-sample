@@ -8,12 +8,12 @@ function HomeHero(props) {
         const title = new SplitType('.home-hero-title', { types: 'lines, words', lineClass: "split-line" });
         const subTitle = new SplitType('.home-hero-sub-top p', { types: 'lines, words', lineClass: "split-line" });;
         const sequence = [
-            [title.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"] }, { duration: .8, delay: stagger(.05) }],
-            ['.home-hero-sub', { opacity: [0, 1], transform: ["translateY(12px)", "none"] }, { duration: .8, at: '-.5' }],
-            [subTitle.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"] }, { duration: .6, delay: stagger(.01), at: "<" }],
-            ['.home-hero-sub-btn-wrap .btn', { opacity: [0, 1] }, { duration: .6, at: '<' }],
-            ['.home-hero-sub-cta-wrap .txt', { opacity: [0, 1], transform: ["translateY(10px)", "none"] }, { duration: .6, at: '<' }],
-            ['.home-hero-badge', { opacity: [0, 1], transform: ["scale(.8)", "none"] }, { duration: 1, at: '<' }],
+            [title.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"]}, {duration: .8, delay: stagger(.05)}],
+            ['.home-hero-sub', { opacity: [0, 1], transform: ["translateY(12px)", "none"]}, {duration: .8, at: '-.5'}],
+            [subTitle.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"]}, {duration: .6, delay: stagger(.01), at: "<"}],
+            ['.home-hero-sub-btn-wrap .btn', { opacity: [0, 1]}, {duration: .6, at: '<'}],
+            ['.home-hero-sub-cta-wrap .txt', { opacity: [0, 1], transform: ["translateY(10px)", "none"]}, {duration: .6, at: '<'}],
+            ['.video-badge', { opacity: [0, 1], transform: ["scale(.8)", "none"]}, {duration: 1, at: '<'}],
         ]
         timeline(sequence).finished.then(() => {
             title.revert()
@@ -21,7 +21,7 @@ function HomeHero(props) {
             document.querySelector('.home-hero-sub').removeAttribute('style')
             document.querySelector('.home-hero-sub-btn-wrap .btn').removeAttribute('style')
             document.querySelector('.home-hero-sub-cta-wrap .txt').removeAttribute('style')
-            document.querySelector('.home-hero-badge').removeAttribute('style')
+            document.querySelector('.video-badge').removeAttribute('style')
         })
     }, [])
 
