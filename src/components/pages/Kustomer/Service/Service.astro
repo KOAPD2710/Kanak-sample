@@ -9,4 +9,4 @@ const newList = listService.filter((item) =>
 );
 ---
 
-<KustomerService {...Astro.props} list={newList} client:visible />
+<KustomerService {...Astro.props} list={newList} client:visible={{ rootMargin: "100% 0px 100% 0px" }} />

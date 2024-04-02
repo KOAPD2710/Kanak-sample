@@ -13,4 +13,4 @@ uidList.map((el) => {
 });
 ---
 
-<KustomerCommitment {...Astro.props} listItem={newList} client:load />
+<KustomerCommitment {...Astro.props} listItem={newList} client:visible={{ rootMargin: "100% 0px 100% 0px" }} />
