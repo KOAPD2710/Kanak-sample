@@ -8,10 +8,145 @@
     &-head {
         grid-column: 4/14;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 8rem;
 
         &-img {
             margin-bottom: 2rem;
-            max-width: 96.2%;
+            width: 96.2%;
+            max-width: 96.2rem;
+        }
+    }
+
+
+    &-main {
+        position: relative;
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-column), 1fr);
+        column-gap: var(--grid-gap);
+
+        &-line-top {
+            grid-column: 1/-1;
+        }
+
+        &-cate {
+            grid-column: 1/5;
+
+            &-list {
+                padding-top: 4rem;
+                display: flex;
+                flex-direction: column;
+                row-gap: 2.8rem;
+
+                &-item {
+                    display: flex;
+
+                    &-inner {
+                        display: flex;
+                        justify-content: start;
+                    }
+
+                    .dot {
+                        background-color: var(--cl-bg-dark);
+                        @include size(1.2rem);
+                        border-radius: 100vmax;
+                        margin-top: .6rem;
+                        margin-right: 2rem;
+                    }
+
+                    &-txt {}
+                }
+            }
+        }
+
+        &-table {
+            grid-column: 5/-1;
+            margin-left: calc(var(--grid-gap) * -1);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            &-item {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+
+                &-img {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 4rem;
+                    aspect-ratio: 1;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        max-height: 100%;
+                        object-fit: contain;
+                    }
+                }
+
+                &-info {
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    align-self: end;
+                    width: 100%;
+                    flex: 1;
+
+                    &-name {
+                        display: inline-flex;
+                        align-items: center;
+                        padding: 2.6rem 0;
+                        margin: 0 3.2rem;
+                    }
+
+                    &-qr {
+                        position: relative;
+                        flex-shrink: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 1rem;
+
+                        &-inner {
+                            @include size(10rem);
+                        }
+                    }
+                }
+
+                .line-qr {
+                    position: absolute;
+                    left: 0;
+                    left: -.1rem;
+                }
+
+                .line-left {
+                    position: absolute;
+                    top: -.1rem;
+                    left: -.1rem;
+                }
+
+                .line-mid {
+                    position: absolute;
+                    top: 0;
+                }
+
+                .line-right {
+                    position: absolute;
+                    top: 0;
+                    right: -.1rem;
+                }
+
+                .line-bot {
+                    position: absolute;
+                    bottom: -.1rem;
+                }
+            }
         }
     }
 }

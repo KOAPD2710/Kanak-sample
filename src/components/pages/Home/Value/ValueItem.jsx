@@ -1,4 +1,4 @@
-function HomeValueItem({...props}) {
+function HomeValueItem({ ...props }) {
     return (
         <div className="home-val-main-item bg-dark">
             <div className="home-val-main-item-head">
@@ -16,7 +16,7 @@ function HomeValueItem({...props}) {
                 <p className="txt txt-18 txt-med home-val-main-item-sub">
                     {props.sub_title}
                 </p>
-                <a href="#" className="txt txt-18 txt-med txt-orange home-val-main-item-link txt-link" data-cursor="txtlink">
+                <a href="#" className="txt txt-18 txt-med txt-orange home-val-main-item-link txt-link" data-cursor="txtLink">
                     Learn more
                 </a>
             </div>

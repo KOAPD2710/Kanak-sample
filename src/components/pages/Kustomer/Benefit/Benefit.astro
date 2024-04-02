@@ -1,10 +1,19 @@
 ---
+import { getAllByType } from "@/prismic.js";
+
 import Image from "astro/components/Image.astro";
 import KusomterBenefit from "./Benefit";
 
-import ic from "@assets/kustomer-sus-ic.svg";
+const listCaseStudy = await getAllByType("benefit");
+
+const astroUIDs = new Set(Astro.props.list.map((item) => item.uid));
+const newList = [];
+
+Astro.props.list.map((el) => {
+    listCaseStudy.forEach((item) => {
+        item.uid == el && newList.push(item);
+    });
+});
 ---
 
-<KusomterBenefit>
-    <Image src={ic} alt="" slot="ic" class="img img-fill" />
-</KusomterBenefit>
+<KusomterBenefit {...Astro.props} itemList={newList} client:visible />

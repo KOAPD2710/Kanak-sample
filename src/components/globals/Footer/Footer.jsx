@@ -8,7 +8,7 @@ const ContactItem = ({ label, content, link = "#", target }) => {
     return (
         <div className="ft-left-body-list-item">
             <div className="txt txt-18 txt-med ft-left-body-label">{label}</div>
-            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt txt-link" target={target} data-cursor="txtlink">
+            <a href={link} className="heading h6 txt-up txt-black ft-left-body-txt txt-link" target={target} data-cursor="txtLink">
                 {content}
             </a>
         </div>
@@ -16,7 +16,7 @@ const ContactItem = ({ label, content, link = "#", target }) => {
 }
 const MenuItem = ({ link = "#", children }) => {
     return (
-        <a href={link} className="ft-right-body-link txt-link-child" data-cursor="txtlink" data-cursor-txtlink="child">
+        <a href={link} className="ft-right-body-link txt-link-child" data-cursor="txtLink" data-cursor-txtlink="child">
             <div className="dot"></div>
             <div className="txt txt-18 txt-med ft-right-body-link-txt" data-cursor-txtlink-child>{children}</div>
         </a>

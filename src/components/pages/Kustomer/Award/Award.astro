@@ -2,13 +2,24 @@
 import KustomerAward from "./Award";
 import Image from "astro/components/Image.astro";
 
-import imgAward from "@assets/kustomer-awward.png";
-import imgQr from "@assets/kustomer-qr.png";
 import imgPlate from "@assets/kustomer-plate.png";
+
+const { title, describle } = Astro.props;
+const newTitle = title.replace(
+    "BEST PLATE AWARD",
+    `<span class="txt-green">Best Plate Award</span>`,
+);
+const newDes = describle.replace(/\n/g, "<br>");
 ---
 
-<KustomerAward>
-    <Image src={imgAward} alt="" slot="imgAward" class="img img-fill" />
-    <Image src={imgQr} alt="" slot="imgQr" />
+<KustomerAward
+    label={Astro.props.label}
+    btn={Astro.props.btn}
+    medal={Astro.props.medal}
+    qr={Astro.props.qr}
+    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+>
+    <Fragment set:html={newTitle} slot="title" />
+    <Fragment set:html={newDes} slot="describle" />
     <Image src={imgPlate} alt="" slot="imgPlate" />
 </KustomerAward>
