@@ -20,7 +20,10 @@ describe.forEach((el, elIdx) => {
 		subString[idx] = bodyText.substring(hl.start, hl.end);
 	});
 	subString.forEach((el, idx) => {
-		bodyText = bodyText.replace(el, `<span class="txt-green">${el}</span>`);
+		bodyText = bodyText.replace(
+			el,
+			`<span class="txt-green txt-bold">${el}</span>`,
+		);
 	});
 	newDescribe += bodyText;
 });

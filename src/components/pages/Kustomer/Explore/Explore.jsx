@@ -23,6 +23,7 @@ function KustomerExplore({ ...props }) {
             })
         }, { margin: "-20% 0px -20% 0px" })
     }, [])
+    console.log(props);
     return (
         <section className="kustomer-explore">
             <div className="container grid">
@@ -33,7 +34,7 @@ function KustomerExplore({ ...props }) {
                             title={item.title}
                             label={item.label}
                             list={item.list}
-                            img={props.img}
+                            img={idx == 0 ? props.img1 : props.img2}
                             key={idx}
                         />
                     )}
