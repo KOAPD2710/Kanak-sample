@@ -1,7 +1,13 @@
 import "./CTA.scss"
+import { useEffect } from "react"
+import SplitType from 'split-type';
+import { animate, timeline, stagger, inView } from "motion";
 
 function KustomerCta({ ...props }) {
-    console.log(props);
+    useEffect(() => {
+        
+    }, [])
+
     return (
         <section className="kustomer-cta">
             <div className="kustomer-cta-bg">

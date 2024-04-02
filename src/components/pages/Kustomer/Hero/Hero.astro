@@ -12,7 +12,7 @@ const renderWords = replaceWord
     .trim()
     .split(" ")
     .map((word) => `<span class="txt-green">${word}</span>`)
-    .join("");
+    .join(" ");
 let newTitle = title.replace(replaceWord, renderWords);
 ---
 

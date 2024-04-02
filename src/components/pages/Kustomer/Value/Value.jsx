@@ -83,7 +83,7 @@ function KustomerValue(props) {
                             <h2 className="heading h0 txt-up txt-black kustomer-val-title">
                                 {props.title}
                             </h2>
-                            <p className='heading h6 txt-black txt-up kustomer-val-subtitle'>{props.describle}</p>
+                            <p className='heading h6 txt-black txt-up kustomer-val-subtitle'>{props.describe}</p>
                         </div>
                     </div>
                     <div className="kustomer-val-main">
