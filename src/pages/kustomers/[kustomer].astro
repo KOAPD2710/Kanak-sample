@@ -121,7 +121,7 @@ const filterCaseStudy = listCaseStudy.filter(
                 <Catalogue
                     label={item.data.katalog_label}
                     title={item.data.katalog_title[0].text}
-                    describle={item.data.katalog_des}
+                    describe={item.data.katalog_des}
                 />
             </>
         )
@@ -148,10 +148,9 @@ const filterCaseStudy = listCaseStudy.filter(
     {
         item.data.value_title[0] !== undefined && (
             <Value
-                describle={item.data.value_describle}
+                describe={item.data.value_describe}
                 title={item.data.value_title[0].text}
                 value_list={item.data.value_list.map(({ item }) => item.uid)}
-                {item}
             />
         )
     }
@@ -159,7 +158,7 @@ const filterCaseStudy = listCaseStudy.filter(
         item.data.award_title[0] !== undefined && (
             <Award
                 title={item.data.award_title[0].text}
-                describle={item.data.award_describle}
+                describe={item.data.award_describe}
                 label={item.data.award_label}
                 btn={item.data.award_button}
                 medal={item.data.award_medal}

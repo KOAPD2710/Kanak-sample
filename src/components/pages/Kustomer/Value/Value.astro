@@ -13,7 +13,6 @@ const list = await Promise.all(
         return item;
     }),
 );
-console.log(list);
 
 const OpBgTextureDark = await getImage({
     src: bgTextureDark,
@@ -29,7 +28,7 @@ const newTitle = title.replace(
 
 <KustomerValue
     bgText={OpBgTextureDark}
-    describle={Astro.props.describle}
+    describe={Astro.props.describe}
     client:visible={{ rootMargin: "100% 0% 100% 0%" }}
 >
     <Fragment set:html={newTitle} slot="title" />

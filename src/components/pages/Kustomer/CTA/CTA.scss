@@ -22,12 +22,13 @@
 
     &-main {
         grid-column: 1/7;
+        max-width: 52rem;
         align-self: end;
         border: solid .2rem var(--cl-txt);
         background-color: var(--cl-bg);
 
         &-head {
-            padding: 2rem;
+            padding: 1.8rem;
         }
 
         &-tail {
