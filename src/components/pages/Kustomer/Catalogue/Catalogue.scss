@@ -141,6 +141,7 @@
 
         &-nav {
             display: flex;
+            margin-right: .1rem;
 
             &-item {
                 position: relative;
@@ -230,7 +231,7 @@
             padding: 1rem;
 
             img {
-                @include size(10rem);
+                @include size(8rem);
             }
         }
 
