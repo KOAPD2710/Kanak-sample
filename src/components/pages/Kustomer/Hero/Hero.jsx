@@ -3,17 +3,27 @@ import KustomerHeroThree from "./HeroThree"
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 
 function KustomerHero(props) {
-    const [currentIdx, setCurrentIdx] = useState(0);
+    const [currentIdx, setCurrentIdx] = useState(1);
     const [currentPos, setCurrentPos] = useState(0);
     const [onDrag, setOnDrag] = useState(false);
     const trackRef = useRef();
 
     const productArr = [
-        { url: '/glb/bowls-65-transformed.glb' },
-        { url: '/glb/kup-5-transformed.glb' },
-        { url: '/glb/soup-6-transformed.glb' },
-        { url: '/glb/plates-80-transformed.glb' },
-        { url: '/glb/kutlery-spoon-transformed.glb' }
+        {
+            url: '/glb/58-bowl-clean-transformed.glb',
+            scale: [.38, .38, .38],
+            rotation: [0, Math.PI * .3, Math.PI * -.035]
+        },
+        {
+            url: '/glb/42-ramen-grip-clean-transformed.glb',
+            scale: [.8, .8, .8],
+            rotation: [0, Math.PI * .25, 0]
+        },
+        {
+            url: '/glb/13-burger-box-clean-transformed.glb',
+            scale: [1.1, 1.1, 1.1],
+            rotation: [0, Math.PI * -.065, Math.PI * .02]
+        },
     ]
 
     const handleOnDown = (e) => {
@@ -32,24 +42,25 @@ function KustomerHero(props) {
         if (track.dataset.mouseDownAt === "0") return;
 
         const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX;
-        const maxDelta = window.innerWidth;
-        const percentage = (mouseDelta / maxDelta) * -1;
+        const maxDelta = window.innerWidth / 2;
+        const percentage = (mouseDelta / maxDelta) * -100;
         const nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage;
         const nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
         track.dataset.percentage = nextPercentage;
 
-        setCurrentPos(nextPercentage * .8 * 10 || currentIdx);
+        // setCurrentPos(nextPercentage / 100 * 2 || currentIdx);
+        setCurrentIdx(-nextPercentage / 100 * 2 || currentIdx);
     }
 
     useEffect(() => {
-        trackRef.current.onmousedown = (e) => handleOnDown(e);
-        trackRef.current.ontouchstart = (e) => handleOnDown(e.touches[0]);
+        // trackRef.current.onmousedown = (e) => handleOnDown(e);
+        // trackRef.current.ontouchstart = (e) => handleOnDown(e.touches[0]);
 
-        trackRef.current.onmouseup = (e) => handleOnUp(e);
-        trackRef.current.ontouchend = (e) => handleOnUp(e.touches[0]);
+        // trackRef.current.onmouseup = (e) => handleOnUp(e);
+        // trackRef.current.ontouchend = (e) => handleOnUp(e.touches[0]);
 
-        trackRef.current.onmousemove = (e) => handleOnMove(e);
-        trackRef.current.ontouchmove = (e) => handleOnMove(e.touches[0]);
+        // trackRef.current.onmousemove = (e) => handleOnMove(e);
+        // trackRef.current.ontouchmove = (e) => handleOnMove(e.touches[0]);
     }, [trackRef, currentIdx]);
 
     return (

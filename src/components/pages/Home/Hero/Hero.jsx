@@ -13,7 +13,7 @@ function HomeHero(props) {
             [subTitle.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"]}, {duration: .6, delay: stagger(.01), at: "<"}],
             ['.home-hero-sub-btn-wrap .btn', { opacity: [0, 1]}, {duration: .6, at: '<'}],
             ['.home-hero-sub-cta-wrap .txt', { opacity: [0, 1], transform: ["translateY(10px)", "none"]}, {duration: .6, at: '<'}],
-            ['.home-hero-badge', { opacity: [0, 1], transform: ["scale(.8)", "none"]}, {duration: 1, at: '<'}],
+            ['.video-badge', { opacity: [0, 1], transform: ["scale(.8)", "none"]}, {duration: 1, at: '<'}],
         ]
         timeline(sequence).finished.then(() => {
             title.revert()
@@ -21,7 +21,7 @@ function HomeHero(props) {
             document.querySelector('.home-hero-sub').removeAttribute('style')
             document.querySelector('.home-hero-sub-btn-wrap .btn').removeAttribute('style')
             document.querySelector('.home-hero-sub-cta-wrap .txt').removeAttribute('style')
-            document.querySelector('.home-hero-badge').removeAttribute('style')
+            document.querySelector('.video-badge').removeAttribute('style')
         })
     }, [])
 
@@ -44,7 +44,7 @@ function HomeHero(props) {
                     </div>
                     <div className="home-hero-sub-cta-wrap">
                         <div className="txt txt-18 txt-med">
-                            Scroll <span className="hide-dk">Down</span><span className="hide-mb">to Explore</span> 
+                            Scroll <span className="hide-dk">Down</span><span className="hide-mb">to Explore</span>
                         </div>
                     </div>
                 </div>

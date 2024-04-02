@@ -1,5 +1,5 @@
 @use '@styles/mixins' as *;
-.home-hero {
+.video {
     &-badge-wrap {
         position: absolute;
         top: 0;
@@ -23,6 +23,11 @@
             margin: 0 auto;
             justify-content: center;
             align-items: center;
+        }
+    }
+    @include md {
+        .video-badge-wrap {
+            display: flex;
         }
     }
     &-badge {
@@ -102,13 +107,13 @@
             }
         }
         &:hover {
-            .home-hero-badge-inside img {
+            .video-badge-inside img {
                 transform: scale(1.1);
             }
             .overlay {
                 opacity: 1;
             }
-            .home-hero-badge-ic {
+            .video-badge-ic {
                 &-inner {
                     opacity: 1;
                     transform: scale(1);
