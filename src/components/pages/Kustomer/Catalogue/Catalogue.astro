@@ -5,10 +5,34 @@ import KustomerCatalogue from "./Catalogue";
 import arrIcon from "@assets/arr-right.svg?raw";
 import qr from "@assets/kustomer-qr.png";
 import image from "@assets/kustomer-hero-left.png";
+
+const { title, describle } = Astro.props;
+const newTitle = title.replace(
+	"RETAILERS",
+	`<span class="txt-green">RETAILERS</span>`,
+);
+
+let newDescrible = "";
+describle.forEach((el, elIdx) => {
+	let bodyText = el.text;
+	let subString = [];
+	el.spans.forEach((hl, idx) => {
+		subString[idx] = bodyText.substring(hl.start, hl.end);
+	});
+	subString.forEach((el, idx) => {
+		bodyText = bodyText.replace(el, `<span class="txt-green">${el}</span>`);
+	});
+	newDescrible += bodyText;
+});
 ---
 
-<KustomerCatalogue client:visible={{ rootMargin: "50% 0% 50% 0%" }}>
-  <Fragment set:html={arrIcon} slot="arrIcon" />
-  <Image src={qr} alt="" slot="qr" class="img img-fill" />
-  <Image src={image} alt="" slot="image" class="img img-fill" />
+<KustomerCatalogue
+	label={Astro.props.label}
+	client:visible={{ rootMargin: "50% 0% 50% 0%" }}
+>
+	<Fragment set:html={newTitle} slot="title" />
+	<Fragment set:html={newDescrible} slot="describle" />
+	<Fragment set:html={arrIcon} slot="arrIcon" />
+	<Image src={qr} alt="" slot="qr" class="img img-fill" />
+	<Image src={image} alt="" slot="image" class="img img-fill" />
 </KustomerCatalogue>

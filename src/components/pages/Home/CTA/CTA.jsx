@@ -7,19 +7,19 @@ import { useEffect } from 'react';
 function HomeCTA(props) {
     useEffect(() => {
         const title = new SplitType('.home-cta-title', { types: 'lines, words', lineClass: 'split-line' })
-        animate('.home-cta-main', {opacity: 0, transform: 'translateY(10%)'}, {duration: 0})
-        animate(title.words, {transform: 'translateY(100%)', opacity: 0}, {duration: 0})
-        animate('.home-cta-main-tail-btn', {opacity: 0}, {duration: 0})
-        animate('.home-cta-main-tail .line', {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
+        animate('.home-cta-main', { opacity: 0, transform: 'translateY(10%)' }, { duration: 0 })
+        animate(title.words, { transform: 'translateY(100%)', opacity: 0 }, { duration: 0 })
+        animate('.home-cta-main-tail-btn', { opacity: 0 }, { duration: 0 })
+        animate('.home-cta-main-tail .line', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
         const sequence = [
-            ['.home-cta-main', {transform: 'none', opacity: 1}, {duration: .8}],
-            [title.words, {transform: 'none', opacity: 1}, {duration: .8, delay: stagger(0.06), at: .1}],
-            ['.home-cta-main-tail .line', {scaleX: 1}, {duration: .6, at: .1}],
-            ['.home-cta-main-tail-btn', {opacity: 1}, {duration: .8, at: .2}]
+            ['.home-cta-main', { transform: 'none', opacity: 1 }, { duration: .8 }],
+            [title.words, { transform: 'none', opacity: 1 }, { duration: .8, delay: stagger(0.06), at: .1 }],
+            ['.home-cta-main-tail .line', { scaleX: 1 }, { duration: .6, at: .1 }],
+            ['.home-cta-main-tail-btn', { opacity: 1 }, { duration: .8, at: .2 }]
         ]
         inView('.home-cta-main', () => {
             timeline(sequence)
-        }, {margin: '-30% 0px -30% 0px'})
+        }, { margin: '-30% 0px -30% 0px' })
     }, [])
     return (
         <section className="home-cta">
@@ -35,7 +35,7 @@ function HomeCTA(props) {
                     </div>
                     <div className="home-cta-main-tail">
                         <div className="line"></div>
-                        <a href="/contact" className="btn btn-lg btn-wide home-cta-main-tail-btn" data-cursor="txtlink" data-cursor-txtlink="child">
+                        <a href="/contact" className="btn btn-lg btn-wide home-cta-main-tail-btn" data-cursor="txtLink" data-cursor-txtlink="child">
                             <div className="txt txt-18 txt-med txt-up" data-cursor-txtlink-child>
                                 Request a quote
                             </div>

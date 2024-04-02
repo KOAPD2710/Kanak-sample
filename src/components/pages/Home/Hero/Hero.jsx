@@ -8,12 +8,12 @@ function HomeHero(props) {
         const title = new SplitType('.home-hero-title', { types: 'lines, words', lineClass: "split-line" });
         const subTitle = new SplitType('.home-hero-sub-top p', { types: 'lines, words', lineClass: "split-line" });;
         const sequence = [
-            [title.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"]}, {duration: .8, delay: stagger(.05)}],
-            ['.home-hero-sub', { opacity: [0, 1], transform: ["translateY(12px)", "none"]}, {duration: .8, at: '-.5'}],
-            [subTitle.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"]}, {duration: .6, delay: stagger(.01), at: "<"}],
-            ['.home-hero-sub-btn-wrap .btn', { opacity: [0, 1]}, {duration: .6, at: '<'}],
-            ['.home-hero-sub-cta-wrap .txt', { opacity: [0, 1], transform: ["translateY(10px)", "none"]}, {duration: .6, at: '<'}],
-            ['.home-hero-badge', { opacity: [0, 1], transform: ["scale(.8)", "none"]}, {duration: 1, at: '<'}],
+            [title.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"] }, { duration: .8, delay: stagger(.05) }],
+            ['.home-hero-sub', { opacity: [0, 1], transform: ["translateY(12px)", "none"] }, { duration: .8, at: '-.5' }],
+            [subTitle.words, { opacity: [0, 1], transform: ["translateY(100%)", "none"] }, { duration: .6, delay: stagger(.01), at: "<" }],
+            ['.home-hero-sub-btn-wrap .btn', { opacity: [0, 1] }, { duration: .6, at: '<' }],
+            ['.home-hero-sub-cta-wrap .txt', { opacity: [0, 1], transform: ["translateY(10px)", "none"] }, { duration: .6, at: '<' }],
+            ['.home-hero-badge', { opacity: [0, 1], transform: ["scale(.8)", "none"] }, { duration: 1, at: '<' }],
         ]
         timeline(sequence).finished.then(() => {
             title.revert()
@@ -38,13 +38,13 @@ function HomeHero(props) {
                         </p>
                     </div>
                     <div className="home-hero-sub-btn-wrap">
-                        <a href="/contact" className="btn btn-main" data-cursor="txtlink" data-cursor-txtlink="child">
+                        <a href="/contact" className="btn btn-main" data-cursor="txtLink" data-cursor-txtlink="child">
                             <div className="txt txt-18 txt-med txt-up" data-cursor-txtlink-child=''>Kontact us</div>
                         </a>
                     </div>
                     <div className="home-hero-sub-cta-wrap">
                         <div className="txt txt-18 txt-med">
-                            Scroll <span className="hide-dk">Down</span><span className="hide-mb">to Explore</span> 
+                            Scroll <span className="hide-dk">Down</span><span className="hide-mb">to Explore</span>
                         </div>
                     </div>
                 </div>

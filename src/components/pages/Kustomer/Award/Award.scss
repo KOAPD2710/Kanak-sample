@@ -27,10 +27,17 @@
         }
 
         &-img {
+            position: relative;
             grid-column: 1/2;
             grid-row: 1/2;
+            align-self: start;
             margin: 3.6rem;
             z-index: 3;
+
+            &-three {
+                position: absolute;
+                @include size(100%)
+            }
         }
 
         &-qr {
@@ -76,6 +83,7 @@
         }
 
         &-btn {
+            display: inline-flex;
             margin-top: 5.2rem;
 
             &-inner {

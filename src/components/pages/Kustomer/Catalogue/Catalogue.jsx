@@ -3,15 +3,16 @@ import "./Catalogue.scss"
 import CatalogueMain from "./CatalogueMain"
 
 function KustomerCatalogue({ ...props }) {
+    // console.log(props);
     return (
         <section className="kustomer-cata">
             <div className="container grid">
                 <div className="kustomer-cata-title-wrap">
-                    <div className="heading h3 txt-black txt-up kustomer-cata-label">Product Katalog</div>
-                    <h1 className="heading h0 txt-black txt-up kustomer-cata-title">Other Curated Products For <span className="txt-green">Retailers</span></h1>
+                    <div className="heading h3 txt-black txt-up kustomer-cata-label">{props.label}</div>
+                    <h1 className="heading h0 txt-black txt-up kustomer-cata-title">{props.title}</h1>
                 </div>
                 <div className="kustomer-cata-des">
-                    <p className="txt txt-18 txt-med">Explore our full range of <span className="txt-green">national brand-equivalent</span> dinnerware, made with up to 100% recycled materials, reflecting our commitment to quality and the environment. All designed with sustainability in mind.</p>
+                    <p className="txt txt-18 txt-med">{props.describle}</p>
                 </div>
                 <CatalogueMain arrIcon={props.arrIcon} qr={props.qr} img={props.image} />
             </div>

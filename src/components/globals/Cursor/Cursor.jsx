@@ -15,8 +15,8 @@ function CursorMain({ ...props }) {
     const lerp = (a, b, t = 0.08) => {
         return a + (b - a) * t;
     }
-    
-    
+
+
     function getCursor(e) {
         pointer.x = e.clientX;
         pointer.y = e.clientY;
@@ -51,7 +51,7 @@ function CursorMain({ ...props }) {
                     case 'hide':
                         cursorInner.current.classList.add('on-hide')
                         break;
-                    case 'txtlink':
+                    case 'txtLink':
                         cursorInner.current.classList.add('on-hover-sm')
                         if (document.querySelector('[data-cursor]:hover').getAttribute('data-cursor-txtlink') == 'child') {
                             targetEl = document.querySelector('[data-cursor]:hover').querySelector('[data-cursor-txtlink-child]')
@@ -68,7 +68,7 @@ function CursorMain({ ...props }) {
             } else {
                 cursorInner.current.classList.remove('on-hover', 'on-hide', 'on-hover-sm')
             }
-            
+
             cursor.current.style.transform = `translate(${lerp(cursorX, targetX, speed)}px, ${lerp(cursorY, targetY, speed)}px)`
             myReq = requestAnimationFrame(moveCursor)
         }
@@ -92,4 +92,4 @@ function CursorMain({ ...props }) {
         </div>
     )
 }
-export {CursorMain, getPointer}
+export { CursorMain, getPointer }

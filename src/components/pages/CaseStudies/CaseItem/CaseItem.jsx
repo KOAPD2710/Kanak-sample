@@ -24,7 +24,7 @@ function CaseItem({ ...props }) {
             [itemRef.current.querySelector('.line-ver'), { scaleY: 1 }, { duration: .8, at: .2 }],
             [label.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .1 }],
             [title.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.03), at: .2 }],
-            [itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 1, transform: 'none'}, { duration: .6, at: .4 }],
+            [itemRef.current.querySelector('.case-list-item-img-inner'), { opacity: 1, transform: 'none' }, { duration: .6, at: .4 }],
             [readmore.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .5 }],
             [itemRef.current.querySelector('.case-list-item-link-ic svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: .6 }]
         ]
@@ -47,7 +47,7 @@ function CaseItem({ ...props }) {
 
     return (
         <div className="case-list-item" ref={itemRef}>
-            <a href={`/kase-studies/${props.data.category.toLowerCase().replaceAll(' ', '-')}`} className="txt txt-20 txt-bold case-list-item-label txt-link" data-cursor="txtlink">
+            <a href={`/kase-studies/${props.data.category.toLowerCase().replaceAll(' ', '-')}`} className="txt txt-20 txt-bold case-list-item-label txt-link" data-cursor="txtLink">
                 {props.data.category}
             </a>
             <a href={`/kase-studies/${props.uid}`} className="case-list-item-inner" data-cursor="ext">

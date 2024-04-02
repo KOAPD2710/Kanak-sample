@@ -1,5 +1,16 @@
 ---
+import { getAllByType } from "@/prismic";
 import KustomerCommitment from "./Commitment";
+const listCommit = await getAllByType("commitment");
+const { list } = Astro.props;
+
+let newList = [];
+const uidList = list.map(({ item }) => item.uid);
+uidList.map((el) => {
+    listCommit.forEach((item) => {
+        item.uid == el && newList.push(item);
+    });
+});
 ---
 
-<KustomerCommitment {...Astro.props} client:load />
+<KustomerCommitment {...Astro.props} listItem={newList} client:load />

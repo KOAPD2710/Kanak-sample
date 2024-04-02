@@ -13,16 +13,23 @@ function CommitItem({ title, describle, ...props }) {
 
         animate(title.words, { transform: "translateY(100%)" }, { duration: 0 })
         animate(describe.lines, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(item.querySelectorAll(".line-inner"), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
 
+
+        let lineList = []
+        item.querySelectorAll(".line-inner").forEach((el, idx) => {
+            lineList.push(el)
+        })
         const itemSequence = [
+            [lineList, { scaleX: 1 }, { duration: .8, delay: stagger(.4), at: 0 }],
             [title.words, { transform: "none" }, { duration: .6, delay: stagger(.04), at: 0 }],
-            [describe.lines, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: "-.2" }],
+            [describe.lines, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .25 }],
         ]
 
         inView(item, () => {
             timeline(itemSequence).finished.then(() => {
                 title.revert()
-                // describe.revert()
+                describe.revert()
             })
         }, { margin: "-10% 0px -10% 0px" })
     }, [])
@@ -33,17 +40,22 @@ function CommitItem({ title, describle, ...props }) {
                 <p>{describle}</p>
             </div>
             <div className="kustomer-commit-main-item-bg"></div>
-            <div className="line"></div>
-            <div className="line"></div>
+            <div className="line">
+                <div className="line-inner"></div>
+            </div>
+            <div className="line">
+                <div className="line-inner"></div>
+            </div>
         </div>
     )
 }
 
 function KustomerCommitMain({ ...props }) {
     const allItem = props.listItem
-    const thumbList = allItem.map(item => ({ tag: item.tag, thumb: item.thumb }));
+    const contentList = allItem.map((item, idx) => ({ title: item.data.title, describle: item.data.describle, idx: idx }));
+    const thumbList = allItem.map((item, idx) => ({ image: item.data.image, idx: idx }));
 
-    const [activeIc, setActiveIc] = useState('')
+    const [activeIc, setActiveIc] = useState(-1)
 
     const lerp = (a, b, t = 0.08) => {
         return a + (b - a) * t;
@@ -64,8 +76,6 @@ function KustomerCommitMain({ ...props }) {
             let wrapLeft = document.querySelector(".kustomer-commit-main-thumb").getBoundingClientRect().left
 
             if (document.querySelector('.kustomer-commit-main:hover')) {
-                // targetX = cursorX - wrapLeft - thumb.offsetWidth / 2 - document.querySelector(".kustomer-commit-main-thumb").offsetWidth / 2
-                // targetY = - thumb.offsetHeight / 2 + (cursorY - wrapTop) / (document.querySelector(".kustomer-commit-main-thumb").offsetHeight) * parseRem(300)
                 targetX = - thumb.offsetWidth / 2 + ((cursorX - wrapLeft) / (document.querySelector(".kustomer-commit-main-thumb").offsetWidth) - .5) * parseRem(300)
                 targetY = cursorY - wrapTop - thumb.offsetHeight / 2 - document.querySelector(".kustomer-commit-main-thumb").offsetHeight / 2
             }
@@ -81,25 +91,24 @@ function KustomerCommitMain({ ...props }) {
             cancelAnimationFrame(thumbReq)
         }
     }, [])
-
     return (
         <div className="kustomer-commit-main">
             <div className="kustomer-commit-main-wrapper">
-                {allItem.map((item, idx) =>
+                {contentList.map((item, idx) =>
                     <CommitItem
-                        title={item.title}
+                        title={item.title[0].text}
                         describle={item.describle}
                         key={idx}
-                        onMouseEnter={() => { setActiveIc(item.tag) }}
-                        onMouseLeave={() => { setActiveIc('') }}
+                        onMouseEnter={() => { setActiveIc(item.idx) }}
+                        onMouseLeave={() => { setActiveIc(-1) }}
                     />
                 )}
             </div>
             <div className="kustomer-commit-main-thumb">
                 <div className="kustomer-commit-main-thumb-wrapper">
                     {thumbList.map((thumb, thumbIdx) => (
-                        <div className={`kustomer-commit-main-thumb-item ${activeIc == thumb.tag ? 'active' : ''}`} key={thumbIdx}>
-                            <img src={thumb.thumb.src} alt="" className="img" />
+                        <div className={`kustomer-commit-main-thumb-item ${activeIc == thumb.idx ? 'active' : ''}`} key={thumbIdx}>
+                            <img src={thumb.image.url} alt={thumb.image.alt} width={thumb.image.dimensions.width} className="img" />
                         </div>
                     ))}
                 </div>

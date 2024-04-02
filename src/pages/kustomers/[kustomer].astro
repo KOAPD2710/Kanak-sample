@@ -40,51 +40,6 @@ const serviceItem = [];
 item.data.service_sub_items.forEach((el, idx) => {
     el.item.uid && serviceItem.push(el.item.uid);
 });
-
-const commitData = [
-    {
-        tag: "premium",
-        title: "Custom-Sized Premium Packaging",
-        describle:
-            "Tailored to perfection, our packaging is custom-sized to match your servings, enhancing your product presentation and customer experience.",
-        thumb: icPremium,
-    },
-    {
-        tag: "awward",
-        title: "Unmatched Quality and Punctuality",
-        describle:
-            "Experience our commitment to excellence with a guarantee of the highest quality and on-time delivery, backed by a solid track record.",
-        thumb: icAwward,
-    },
-    {
-        tag: "inspect",
-        title: "Rigorous Inspection for Flawless Results",
-        describle:
-            "Rest assured, every product from Kanak Naturals undergoes 100% inspection, ensuring impeccable quality every time.",
-        thumb: icInspect,
-    },
-    {
-        tag: "formula",
-        title: "Industry-Leading No Added PFAS Formula",
-        describle:
-            "Leading the charge since 2019, our No Added PFAS formula sets industry benchmarks, offering you the safest, most sustainable packaging solutions.",
-        thumb: icFormula,
-    },
-    {
-        tag: "insight",
-        title: "Insights to Keep You Ahead",
-        describle:
-            "Stay at the forefront of retail trends with our regular updates on market intelligence, keeping your offerings fresh and competitive.",
-        thumb: icInsight,
-    },
-    {
-        tag: "heart",
-        title: "Stable Pricing, Reliable Planning",
-        describle:
-            "Benefit from our long-term price commitments, giving you the financial stability to plan for the future with confidence.",
-        thumb: icHeart,
-    },
-];
 const exploreData = [
     {
         label: "private label",
@@ -162,20 +117,63 @@ const filterCaseStudy = listCaseStudy.filter(
                 <Benefit
                     title={item.data.benefit_title[0].text}
                     list={item.data.benefit_list.map((el) => el.item.uid)}
-                    {item}
                 />
-                <Catalogue />
+                <Catalogue
+                    label={item.data.katalog_label}
+                    title={item.data.katalog_title[0].text}
+                    describle={item.data.katalog_des}
+                />
             </>
         )
     }
     <Explore list={exploreData} />
-    <Commitment list={commitData} />
-    <CaseStudy list={filterCaseStudy} />
-    <Value
-        label={homeData.data.values_label[0].text}
-        title={homeData.data.values_title[0].text}
-        value_list={homeData.data.values_list}
-    />
-    <Award />
-    <CTA />
+    {
+        item.data.commitment_title[0] !== undefined && (
+            <Commitment
+                label={item.data.commitment_label}
+                title={item.data.commitment_title[0].text}
+                list={item.data.commitment_list}
+            />
+        )
+    }
+    {
+        item.data.kase_study_title[0] !== undefined && (
+            <CaseStudy
+                label={item.data.kase_study_label}
+                title={item.data.kase_study_title[0].text}
+                list={filterCaseStudy}
+            />
+        )
+    }
+    {
+        item.data.value_title[0] !== undefined && (
+            <Value
+                describle={item.data.value_describle}
+                title={item.data.value_title[0].text}
+                value_list={item.data.value_list.map(({ item }) => item.uid)}
+                {item}
+            />
+        )
+    }
+    {
+        item.data.award_title[0] !== undefined && (
+            <Award
+                title={item.data.award_title[0].text}
+                describle={item.data.award_describle}
+                label={item.data.award_label}
+                btn={item.data.award_button}
+                medal={item.data.award_medal}
+                qr={item.data.award_qr}
+            />
+        )
+    }
+    {
+        item.data.cta_title[0] !== undefined && (
+            <CTA
+                title={item.data.cta_title[0].text}
+                background={item.data.cta_background}
+                btn={item.data.cta_button}
+            />
+        )
+    }
 </Layout>

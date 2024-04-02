@@ -8,22 +8,17 @@ import { cleanText } from '@/components/utils/text';
 function KustomerValue(props) {
     const ref = useRef()
     useEffect(() => {
-
-        // cleanText()
-
         let allItems = ut.dom('.kustomer-val-main-item');
         if (window.innerWidth > 767) {
             let totalDis = 0;
             allItems.forEach(el => totalDis += el.clientWidth)
             let disWrap = ut.dom('.kustomer-val-main-inner').clientWidth
             let offset = disWrap - allItems[allItems.length - 1].clientWidth
-            let dis1 = allItems[0].clientWidth - (offset / 2);
-            let dis2 = totalDis - disWrap
+            // let dis1 = allItems[0].clientWidth - (offset / 2);
+            let dis1 = totalDis - disWrap
             const itemSequence = [
-                [[allItems[1], allItems[2]], { x: [0, -dis1] }, { easing: 'linear' }],
+                [[allItems[1]], { x: [0, -dis1] }, { easing: 'linear' }],
                 [[...allItems[1].childNodes].filter(child => !child.classList.contains('line')), { x: [0, -ut.parseRem(25)] }, { easing: 'linear', at: '<' }],
-                [allItems[2], { x: [0, -dis2] }, { easing: 'linear' }],
-                [[...allItems[2].childNodes].filter(child => !child.classList.contains('line')), { x: [0, -ut.parseRem(25)] }, { easing: 'linear', at: '<' }],
             ]
             scroll(timeline(itemSequence), {
                 target: document.querySelector('.kustomer-val'),
@@ -86,9 +81,9 @@ function KustomerValue(props) {
                     <div className="container">
                         <div className="kustomer-val-title-wrap">
                             <h2 className="heading h0 txt-up txt-black kustomer-val-title">
-                                Raise Your Brand to <span className='txt-green'>Eco-</span><span className='txt-green'>Excellence</span>
+                                {props.title}
                             </h2>
-                            <p className='heading h6 txt-black txt-up kustomer-val-subtitle'>Roll out the green carpet! Kanak Naturals is redefining the packaging playbook, one eco-friendly solution at a time. Here, sustainability marries innovation, creating packaging solutions that don't just meet your expectations; they dare to exceed them. We're committed to fueling your brand's growth with packaging that speaks volumes of your dedication to the environment.</p>
+                            <p className='heading h6 txt-black txt-up kustomer-val-subtitle'>{props.describle}</p>
                         </div>
                     </div>
                     <div className="kustomer-val-main">
