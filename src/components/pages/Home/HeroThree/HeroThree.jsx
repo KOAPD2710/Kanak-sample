@@ -6,7 +6,6 @@ import { animate, scroll } from "motion"
 import gsap from 'gsap';
 import { Fork } from './Fork.jsx';
 import { Environment, ContactShadows, AdaptiveDpr} from "@react-three/drei";
-import { FoodContainer } from "./FoodContainer.jsx";
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import { GetModel } from "../../../common/GetModel.jsx";
@@ -36,7 +35,7 @@ function Content({...props}) {
             products.current.rotation.y += .006
         } else {
             products.current.rotation.x += (0 - products.current.rotation.x + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
-            products.current.rotation.y += (0 - (products.current.rotation.y % Math.PI * 2) + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
+            products.current.rotation.y += (0 - products.current.rotation.y + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
         }
         if (!fork.current) return;
         fork.current.rotation.x = Math.cos(clock.elapsedTime / 2) * Math.PI * .02 * -1
@@ -153,25 +152,27 @@ function Content({...props}) {
                             if (item.data.file.url) {
                                 return (
                                     <Suspense key={idx}>
-                                        <mesh
-                                            scale={idx == 0 ? [1,1,1] : [0,0,0]}
-                                            position={item.uid == 'kups' ? [0,-.02,0] : item.uid == 'klamshells' ? [0,-.01,0] : [0,0,0]}
-                                        >
+                                        <mesh scale={idx == 0 ? [1,1,1] : [0,0,0]}>
                                             {item.uid == 'bowls' ? (
-                                                <GetModel file='/glb/bowls-65-transformed.glb'/>
+                                                <GetModel file='/glb/58-bowl-clean-transformed.glb' scale={[.36,.36,.36]}/>
+                                            ) : item.uid == 'trays' ? (
+                                                <GetModel file='/glb/44-3-compartment-tray-clean-transformed.glb'/>
                                             ) : item.uid == 'plates-platters' ? (
-                                                <GetModel file='/glb/plates-80-transformed.glb' material={<CustomMaterial color='#ffffff' roughness={.8} needsUpdate={true} isActive={idx == index}/>} />
+                                                <GetModel file='/glb/plates-80-transformed.glb' scale={[.9,.9,.9]} position={[0,.01,0]}/>
                                             ) : item.uid == 'soup-containers' ? (
-                                                <GetModel file='/glb/soup-6-transformed.glb'/>
+                                                <GetModel file='/glb/41-ramen-clean-transformed.glb' scale={[.68,.68,.68]} position={[0,-.015,0]}/>
+                                            ) : item.uid == 'produce' ? (
+                                                <GetModel file='/glb/48-monte-tray-clean-transformed.glb' scale={[1.2,1.2,1.2]}/>
                                             ) : item.uid == 'kutlery' ? (
-                                                <GetModel file='/glb/kutlery-spoon-transformed.glb'/>
+                                                <GetModel file='/glb/22-wooden-fork-clean-transformed.glb'/>
                                             ) : item.uid == 'kups' ? (
-                                                <GetModel file='/glb/kup-5-transformed.glb' scale={[.8,.8,.8]}/>
+                                                <GetModel file='/glb/kup-5-transformed.glb' scale={[.76,.76,.76]} position={[0,-.02,0]}/>
                                             ) : item.uid == 'klamshells' ? (
-                                                <GetModel file='/glb/klamshell-79-transformed.glb' />
+                                                <GetModel file='/glb/klamshell-79-transformed.glb' scale={[.8,.8,.8]} position={[0,-.01,0]}/>
+                                            ) : item.uid == 'carry-out-bags' ? (
+                                                <GetModel file='/glb/62-freebirds-clean-transformed.glb' scale={[.8,.8,.8]} position={[0,-.01,0]}/>
                                             ) : (
-                                                <GetModel file={item.data.file.url}
-                                                    material={<CustomMaterial color='#F6DCAF' roughness={.8} needsUpdate={true} isActive={idx == index}/>}
+                                                <GetModel file='/glb/m_box-clean-transformed.glb' scale={[.8,.8,.8]} position={[0,.01,0]}
                                                 />
                                             )}
                                         </mesh>
@@ -195,11 +196,7 @@ function Content({...props}) {
                     </group>
                 </Suspense>
             </group>
-            {/* <ambientLight intensity={.2 } /> */}
             <Environment files={suspend(warehouse)} frames={degraded ? 1 : Infinity} resolution={256}/>
-            {/* <directionalLight intensity={1.5}/>
-            <directionalLight intensity={1.15} position={[props.width * .25, 0,100]}/>
-            <directionalLight intensity={1.15} position={[-props.width * .25, 0,100]}/> */}
         </>
     )
 }

@@ -66,8 +66,9 @@ function KustomerHero(props) {
     return (
         <section className="kustomer-hero bg-white">
             <div className="container grid">
-                <div className="heading h6 txt-black txt-up txt-green kustomer-hero-subtitle">Affordable Eco-Dinnerware For Modern Retailers</div>
-                <h1 className="heading h0 txt-black txt-up kustomer-hero-title">Sustainably Crafted, Retail Ready</h1>
+                <div className="heading h6 txt-black txt-up kustomer-hero-subtitle">{props.label}</div>
+                <h1 className="heading h0 txt-black txt-up kustomer-hero-title">{props.title}</h1>
+                {/* <h1 className="heading h0 txt-black txt-up kustomer-hero-title">Sustainably Crafted, Retail Ready</h1> */}
             </div>
             <div className="kustomer-hero-slide" ref={trackRef} data-percentage={0} data-prev-percentage={0}>
                 <KustomerHeroThree list={productArr} onDrag={onDrag} currentPos={currentPos} currentIdx={currentIdx} />

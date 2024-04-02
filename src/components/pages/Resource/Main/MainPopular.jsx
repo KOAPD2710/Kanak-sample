@@ -23,8 +23,8 @@ function PopItem({ ...props }) {
         const itemSequence = [
             [item.querySelector('.line'), { scaleX: 1 }, { duration: 1, at: props.idx * .25 }],
             [category.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.05), at: .3 + props.idx * .25 }],
-            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at:  .4 + props.idx * .25 }],
-            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at:  .7 + props.idx * .25 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.03), at: .4 + props.idx * .25 }],
+            [date.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .7 + props.idx * .25 }],
             [item.querySelector('.line-ver'), { scaleY: 1 }, { duration: 1, at: .8 }]
         ]
 

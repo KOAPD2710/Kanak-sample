@@ -2,4 +2,9 @@
 import KustomerCaseStudies from "./Casestudies";
 ---
 
-<KustomerCaseStudies {...Astro.props} client:visible />
+<KustomerCaseStudies
+    list={Astro.props.list}
+    title={Astro.props.title}
+    label={Astro.props.label}
+    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+/>

@@ -1,11 +1,24 @@
 ---
-import { Image } from "astro:assets";
+const title = Astro.props.title;
+
 import KustomerPremble from "./Premble";
-import PrembleBadge from "./PrembleBadge";
-import icBadgeInside from "@assets/badge-inside.png";
-import icBadgeOuside from "@assets/badge-outside.svg";
 import VideoBadge from "@components/globals/BadgeVideo/Badge.astro";
+
+let newHtml = "";
+title.forEach((el, elIdx) => {
+    let bodyText = el.text;
+    let subString = [];
+    el.spans.forEach((hl, idx) => {
+        subString[idx] = bodyText.substring(hl.start, hl.end);
+    });
+    subString.forEach((el, idx) => {
+        bodyText = bodyText.replace(el, `<span class="txt-green">${el}</span>`);
+    });
+    newHtml += bodyText;
+});
 ---
+
 <KustomerPremble>
     <VideoBadge slot="badge"/>
+    <Fragment set:html={newHtml} slot="title" />
 </KustomerPremble>

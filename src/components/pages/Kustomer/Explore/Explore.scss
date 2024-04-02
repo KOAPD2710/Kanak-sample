@@ -3,7 +3,6 @@
 
 
 .kustomer-explore {
-    margin-top: 20rem;
 
     &-title {
         grid-column: 3/15;
@@ -51,6 +50,7 @@
                 display: flex;
                 flex-direction: column;
                 transition: color .4s ease;
+                background-color: var(--cl-bg);
 
                 &-label {
                     margin-bottom: 3.2rem;
@@ -61,7 +61,7 @@
                 }
 
                 &-img {
-                    @include size(22.3rem, 31rem);
+                    @include size(28.9rem, 40.1rem);
                     align-self: end;
                     margin-top: auto;
                     transform-origin: right bottom;
@@ -74,7 +74,7 @@
                         color: var(--cl-orange);
 
                         .kustomer-explore-main-item-main-img {
-                            transform: scale(1.98);
+                            transform: scale(1.4);
                         }
                     }
                 }

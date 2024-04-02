@@ -139,9 +139,7 @@ function HomeCompare(props) {
                                     return (
                                     <button
                                         key={idx}
-                                        onClick={() => {
-                                            instanceRef.current?.moveToIdx(idx)
-                                        }}
+                                        onClick={() => {instanceRef.current?.moveToIdx(idx)}}
                                         className={"dot" + (currentSlide === idx ? " active" : "")}
                                         ><span></span>
                                     </button>

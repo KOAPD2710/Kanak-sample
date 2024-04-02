@@ -46,10 +46,11 @@
             flex-shrink: 0;
             padding: 6rem;
             width: 75.4rem !important;
-            height: 57.1rem !important;
+            // height: 57.1rem !important;
 
             &-title {
                 margin-top: 3.2rem;
+                margin-bottom: 6rem;
                 transition: color .4s ease;
             }
 

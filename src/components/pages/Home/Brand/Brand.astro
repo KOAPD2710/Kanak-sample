@@ -1,34 +1,31 @@
 ---
 const { title, brand_list } = Astro.props;
-import HomeBrandThree from './BrandThree';
-import {getByUID} from '@/prismic.js';
-import { Image } from 'astro:assets';
-import arrIconDesk from '@assets/arr-ext-21.svg';
-import arrIconMob from '@assets/arrow-small.svg';
-import HomeBrand from './Brand';
+import HomeBrandThree from "./BrandThree";
+import { getByUID } from "@/prismic.js";
+import { Image } from "astro:assets";
+import arrIconDesk from "@assets/arr-ext-21.svg";
+import arrIconMob from "@assets/arrow-small.svg";
+import HomeBrand from "./Brand";
 
-let replaceWord = title.split(',')[title.split(',').length - 1]
-const renderWords = replaceWord.trim().split(" ").map(word => (
-    `<span class="txt-green">${word}</span>`
-)).join('');
-let newTitle = title.replace(replaceWord, renderWords)
+let replaceWord = title.split(",")[title.split(",").length - 1];
+const renderWords = replaceWord
+    .trim()
+    .split(" ")
+    .map((word) => `<span class="txt-green">${word}</span>`)
+    .join("");
+let newTitle = title.replace(replaceWord, renderWords);
 
 const list = await Promise.all(
     brand_list.map(async (brand: any) => {
-        let item = getByUID('brand', brand.item.uid)
-        return item
-    })
-)
+        let item = getByUID("brand", brand.item.uid);
+        return item;
+    }),
+);
 ---
 
-<HomeBrand list={list} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
-    <HomeBrandThree list={list} slot='brandThree' client:idle/>
-    <Fragment set:html={newTitle} slot="title"/>
-    <Image src={arrIconDesk} alt='' slot='arrIconDesk'/>
-    <Image src={arrIconMob} alt='' slot='arrIconMob'/>
+<HomeBrand list={list} client:visible={{ rootMargin: "100% 0px 100% 0px" }}>
+    <HomeBrandThree list={list} slot="brandThree" client:idle />
+    <Fragment set:html={newTitle} slot="title" />
+    <Image src={arrIconDesk} alt="" slot="arrIconDesk" />
+    <Image src={arrIconMob} alt="" slot="arrIconMob" />
 </HomeBrand>
-
-
-
-
-

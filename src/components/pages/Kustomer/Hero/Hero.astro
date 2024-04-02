@@ -1,33 +1,23 @@
 ---
-const { product_kategory_list } = Astro.props;
+const title = Astro.props.title;
 import { Image } from "astro:assets";
 import KustomerHero from "./Hero";
-import { getByUID } from "@/prismic.js";
 
 import MiddleImg from "@assets/kustomer-hero-mid.png";
 import LeftImg from "@assets/kustomer-hero-left.png";
 import RightImg from "@assets/kustomer-hero-right.png";
-const list = await Promise.all(
-    product_kategory_list.map(async (product_group: any) => {
-        let group = getByUID("product_group", product_group.item.uid);
-        return group;
-    }),
-);
-let standardList = list.filter((el) => !el.data.is_sustainables);
-let featuredItemList = await Promise.all(
-    standardList.map(async (product_group: any) => {
-        let featuredItem = getByUID(
-            "product",
-            product_group.data.product_list.filter(
-                (el: any) => el.is_featured,
-            )[0].product.uid,
-        );
-        return featuredItem;
-    })
-)
+
+let replaceWord = title.split(",")[title.split(",").length - 1];
+const renderWords = replaceWord
+    .trim()
+    .split(" ")
+    .map((word) => `<span class="txt-green">${word}</span>`)
+    .join(" ");
+let newTitle = title.replace(replaceWord, renderWords);
 ---
 
-<KustomerHero list={featuredItemList} client:load>
+<KustomerHero label={Astro.props.label}>
+    <Fragment set:html={newTitle} slot="title" />
     <Image src={MiddleImg} alt="" slot="MiddleImg" />
     <Image src={LeftImg} alt="" slot="LeftImg" />
     <Image src={RightImg} alt="" slot="RightImg" />

@@ -1,14 +1,55 @@
 ---
 import Image from "astro/components/Image.astro";
+import { getAllByType } from "@/prismic";
 
 import KustomerSustain from "./Sustainable";
 
 import ic from "@assets/kustomer-sus-ic.svg";
 import sustainable from "@assets/ic-sustainable.svg";
 import img from "@assets/404-img5.png";
+import qr from "@assets/kustomer-qr.png";
+
+const susList = Astro.props.list.map((item) => item.sustainable_item.uid);
+const productGroup = await getAllByType("product_group");
+
+let sustainList = productGroup.filter(
+    ({ uid, data }) => data.is_sustainables_ === true && susList.includes(uid),
+);
+
+const products = await getAllByType("product");
+const cateList = [];
+sustainList.map(({ data, uid }, idx) => {
+    const uidList = data.product_list.map((item) => item.product.uid);
+
+    !cateList.includes(data.name) &&
+        cateList.push({
+            name: data.name,
+            uid: uid,
+            list: uidList,
+        });
+});
+const productUidFilter = [];
+sustainList.map(({ data }) => {
+    data.product_list.forEach((el) => {
+        productUidFilter.push(el.product.uid);
+    });
+});
+
+const productList = [];
+products.map((item) =>
+    productUidFilter.forEach((el) => {
+        item.uid == el && productList.push(item);
+    }),
+);
 ---
 
-<KustomerSustain client:visible>
+<KustomerSustain
+    client:load
+    subtitle={Astro.props.subtitle}
+    cateList={cateList}
+    productList={productList}
+>
+    <Image src={qr} alt="" slot="qr" class="img img-fill" />
     <Image src={img} alt="" slot="img" class="img img-fill" />
     <Image src={ic} alt="" slot="ic" class="img img-fill" />
     <Image src={sustainable} alt="" slot="sustainable" class="img img-fill" />

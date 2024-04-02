@@ -2,41 +2,58 @@
 const { label, title, industry_list } = Astro.props;
 
 import { Image } from "astro:assets";
-import arrIcon from '@assets/arr-ext.svg';
-import ctaTxt from '@assets/cta-txt.svg';
-import {getByUID} from '@/prismic.js';
-import HomeIndustry from './Industry';
+import arrIcon from "@assets/arr-ext.svg";
+import ctaTxt from "@assets/cta-txt.svg";
+import { getByUID } from "@/prismic.js";
+import HomeIndustry from "./Industry";
 
 const list = await Promise.all(
-industry_list.map(async (industry: any) => {
-        let item = getByUID('industry', industry.item.uid)
-        return item
-    })
-)
+    industry_list.map(async (industry: any) => {
+        let item = getByUID("industry", industry.item.uid);
+        return item;
+    }),
+);
 ---
-<HomeIndustry label={label} title={title} client:visible={{rootMargin: "100% 0px 100% 0px"}}>
-    <Image src={arrIcon} alt="arr icon" class="ic ic-36" slot="arrIcon"/>
-    <Image src={ctaTxt} alt="arr icon" class="ic" slot="ctaTxt"/>
+
+<HomeIndustry
+    label={label}
+    title={title}
+    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+>
+    <Image src={arrIcon} alt="arr icon" class="ic ic-36" slot="arrIcon" />
+    <Image src={ctaTxt} alt="arr icon" class="ic" slot="ctaTxt" />
     <Fragment slot="listServices">
-        {list.map((item, idx) => (
-            <div class="grid home-indus-main-item">
-                <div class="home-indus-main-item-ic">
-                    <Image src={item.data.icon.url} alt={item.data.icon.alt} class="ic ic-100" width={item.data.icon.dimensions.width} height={item.data.icon.dimensions.height}/>
+        {
+            list.map((item, idx) => (
+                <div class="grid home-indus-main-item">
+                    <div class="home-indus-main-item-ic">
+                        <Image
+                            src={item.data.icon.url}
+                            alt={item.data.icon.alt}
+                            class="ic ic-100"
+                            width={item.data.icon.dimensions.width}
+                            height={item.data.icon.dimensions.height}
+                        />
+                    </div>
+                    <div class="home-indus-main-item-content">
+                        <h3 class="heading h4 txt-up txt-black home-indus-main-item-title">
+                            {item.data.title}
+                        </h3>
+                        <p class="txt txt-18 txt-med home-indus-main-item-sub">
+                            {item.data.sub_title}
+                        </p>
+                        <a
+                            href={"/kustomers/" + item.uid}
+                            data-cursor="txtLink"
+                            class="txt txt-18 txt-med txt-orange home-indus-main-item-link txt-link"
+                        >
+                            Learn more
+                        </a>
+                    </div>
+                    <div class="line" />
+                    {idx == list.length - 1 && <div class="line line-bottom" />}
                 </div>
-                <div class="home-indus-main-item-content">
-                    <h3 class="heading h4 txt-up txt-black home-indus-main-item-title">
-                        {item.data.title}
-                    </h3>
-                    <p class="txt txt-18 txt-med home-indus-main-item-sub">
-                        {item.data.sub_title}
-                    </p>
-                    <a href={'/kustomers/' + item.uid} data-cursor="txtlink" class="txt txt-18 txt-med txt-orange home-indus-main-item-link txt-link">
-                        Learn more
-                    </a>
-                </div>
-                <div class="line"></div>
-                {idx == list.length - 1 && <div class="line line-bottom"></div>}
-            </div>
-        ))}
+            ))
+        }
     </Fragment>
 </HomeIndustry>

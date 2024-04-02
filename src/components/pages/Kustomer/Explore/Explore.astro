@@ -2,10 +2,11 @@
 import Image from "astro/components/Image.astro";
 
 import KustomerExplore from "./Explore";
-
-import img from "@assets/kustomer-explore-img.jpg";
+import explorImg1 from "@assets/kustomer-explore-img.jpg";
+import explorImg2 from "@assets/kustomer-explore-img1.jpg";
 ---
 
 <KustomerExplore {...Astro.props} client:visible>
-    <Image src={img} alt="" slot="img" class="img img-fill" />
+    <Image src={explorImg1} alt="" slot="img1" />
+    <Image src={explorImg2} alt="" slot="img2" />
 </KustomerExplore>

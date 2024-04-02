@@ -27,7 +27,7 @@ function HomeBrand(props) {
                 },
                 breakpoints: {
                     '(max-width: 767px)': {
-                      disabled: false
+                        disabled: false
                     },
                 },
                 slideChanged(slider) {
@@ -38,17 +38,17 @@ function HomeBrand(props) {
         }
 
         const title = new SplitType('.home-brand-title [name="title"]', { types: 'lines, words', lineClass: 'split-line' })
-        animate(title.words, {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+        animate(title.words, { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
         inView('.home-brand-title', () => {
-            animate(title.words, {opacity: 1, transform: 'none'}, {duration: .8, delay: stagger(.05)}).finished.then(() => {
+            animate(title.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.05) }).finished.then(() => {
                 title.revert()
             })
         }, { margin: "-30% 0px -30% 0px" })
-        animate('.home-brand .line-ver', {scaleY: 0, transformOrigin: 'top'}, {duration: 0})
-        animate('.home-brand .line-bot', {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
+        animate('.home-brand .line-ver', { scaleY: 0, transformOrigin: 'top' }, { duration: 0 })
+        animate('.home-brand .line-bot', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
         const sequence = [
-            ['.home-brand .line-ver', {scaleY: 1}, {duration: 1.2, at: '<'}],
-            ['.home-brand .line-bot', {scaleX: 1}, {duration: 1, at: .2}],
+            ['.home-brand .line-ver', { scaleY: 1 }, { duration: 1.2, at: '<' }],
+            ['.home-brand .line-bot', { scaleX: 1 }, { duration: 1, at: .2 }],
         ]
         inView('.home-brand-canvas', () => {
             timeline(sequence).finished.then(() => {
@@ -58,18 +58,18 @@ function HomeBrand(props) {
         }, { margin: "-30% 0px -30% 0px" })
 
         const allItems = document.querySelectorAll('.home-brand-main-item')
-        allItems.forEach((el,idx) => {
+        allItems.forEach((el, idx) => {
             const itemTitle = new SplitType(el.querySelector('.home-brand-main-item-title'), { types: 'lines, words', lineClass: 'split-line' })
             const itemSub = new SplitType(el.querySelector('.home-brand-main-item-sub'), { types: 'lines, words', lineClass: 'split-line' })
 
-            animate(el.querySelector('.line'), {scaleX: 0, transformOrigin: 'left'}, {duration: 0})
-            animate(el.querySelector('.home-brand-main-item-ic'), {opacity: 0, transform: 'scale(.8) translateY(20%)'}, {duration: 0})
-            animate([...itemTitle.words, ...itemSub.words], {opacity: 0, transform: 'translateY(100%)'}, {duration: 0})
+            animate(el.querySelector('.line'), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+            animate(el.querySelector('.home-brand-main-item-ic'), { opacity: 0, transform: 'scale(.8) translateY(20%)' }, { duration: 0 })
+            animate([...itemTitle.words, ...itemSub.words], { opacity: 0, transform: 'translateY(100%)' }, { duration: 0 })
             const sequence = [
-                [el.querySelector('.line'), {scaleX: 1}, {duration: 1}],
-                [el.querySelector('.home-brand-main-item-ic'), {opacity: .8, transform: 'none'}, {duration: .8, at: .1}],
-                [itemTitle.words, {opacity: 1, transform: 'none'}, {duration: .7, delay: stagger(.008), at: .2}],
-                [itemSub.words, {opacity: 1, transform: 'none'}, {duration: .6, delay: stagger(.006), at: .3}],
+                [el.querySelector('.line'), { scaleX: 1 }, { duration: 1 }],
+                [el.querySelector('.home-brand-main-item-ic'), { opacity: .8, transform: 'none' }, { duration: .8, at: .1 }],
+                [itemTitle.words, { opacity: 1, transform: 'none' }, { duration: .7, delay: stagger(.008), at: .2 }],
+                [itemSub.words, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.006), at: .3 }],
             ]
             inView(el, () => {
                 timeline(sequence).finished.then(() => {
@@ -99,7 +99,7 @@ function HomeBrand(props) {
                                 data-cursor="ext"
                                 href="#"
                                 className={`home-brand-main-item keen-slider__slide ${currentSlide == idx ? 'active' : ''}`}
-                                onMouseOver={() => {brandIndex.set(idx)}}
+                                onMouseOver={() => { brandIndex.set(idx) }}
                             >
                                 <div className="home-brand-main-item-head">
                                     <h3 className="heading h4 txt-up txt-black home-brand-main-item-title">
