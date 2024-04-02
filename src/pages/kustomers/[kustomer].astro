@@ -154,7 +154,7 @@ const filterCaseStudy = listCaseStudy.filter(
 ---
 
 <Layout title={item.data.title}>
-    <Hero />
+    <Hero product_kategory_list={homeData.data.product_kategory_list}/>
     <Premble />
     <Client
         title={homeData.data.client_title[0].text}
