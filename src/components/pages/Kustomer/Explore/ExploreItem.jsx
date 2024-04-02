@@ -6,7 +6,6 @@ import SplitType from 'split-type';
 
 function ExploreItem({ title, label, list, ...props }) {
     const itemRef = useRef()
-
     useEffect(() => {
         const item = itemRef.current
 
@@ -42,7 +41,7 @@ function ExploreItem({ title, label, list, ...props }) {
     return (
         <div className="kustomer-explore-main-item" ref={itemRef}>
             <div className="line kustomer-explore-main-item-line"></div>
-            <a href="" className="kustomer-explore-main-item-main" data-cursor="ext">
+            <a href="" className="kustomer-explore-main-item-main bg-light" data-cursor="ext">
                 <div className="heading h5 txt-black txt-up kustomer-explore-main-item-main-label">{label}</div>
                 <h2 className="heading h1 txt-black txt-up kustomer-explore-main-item-main-title">{title}</h2>
                 <div className="kustomer-explore-main-item-main-img">

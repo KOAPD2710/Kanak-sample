@@ -2,7 +2,7 @@ import "./Main.scss";
 import * as prismicH from "@prismicio/client";
 import { useEffect, useState } from 'react';
 import { convertDate, cleanText } from "@utils/text.js"
-import ResDtlRel from "./ResourceDtlRel";
+import RelatedArticle from "./Related";
 
 import SplitType from 'split-type';
 import { animate, timeline, stagger, inView, createStyleString } from "motion";
@@ -236,12 +236,12 @@ function ResourceMain({ ...props }) {
                     </div>
                 </div>
                 <div className="line resource-dtl-line"></div>
-                <ResDtlRel
+                <RelatedArticle
                     list={props.relList}
                     icArrow={props.arrIcon}
                     icDropdown={props.icDropDown}
                     client:visible>
-                </ResDtlRel>
+                </RelatedArticle>
             </div>
         </section>
     )

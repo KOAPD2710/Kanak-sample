@@ -1,0 +1,12 @@
+---
+import { Image } from "astro:assets";
+import icBadgeInside from '@assets/badge-inside.png';
+import icBadgeOuside from '@assets/badge-outside.svg';
+import icPlay from '@assets/ic-play.svg';
+import VideoBadge from './Badge';
+---
+<VideoBadge {...Astro.props}>
+    <Image src={icBadgeInside} alt="" class="img" slot='icBadgeInside' />
+    <Image src={icBadgeOuside} alt="" class="img" slot='icBadgeOutside'/>
+    <Image src={icPlay} alt="" class="img" slot='icPlay'/>
+</VideoBadge>

@@ -59,9 +59,20 @@ function ServiceItem({ ...props }) {
 function ServiceMain({ ...props }) {
     const allItem = props.list
 
+    useEffect(() => {
+        animate('.kustomer-service-main-line', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        const sequence = [
+            ['.kustomer-service-main-line', { scaleY: 1 }, { duration: 2 }],
+        ]
+        inView(".kustomer-service-main", () => {
+            timeline(sequence).finished.then(() => {
+                document.querySelector('.kustomer-service-main-line').removeAttribute('style')
+            })
+        })
+    }, [])
     return (
         <div className="kustomer-service-main">
-            <div className="line line-ver"></div>
+            <div className="line line-ver kustomer-service-main-line"></div>
             <div className="kustomer-service-main-inner">
                 {allItem.map((item, idx) => (
                     <ServiceItem {...item} key={idx} />

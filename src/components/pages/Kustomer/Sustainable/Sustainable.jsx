@@ -39,6 +39,7 @@ function KustomerSustain({ ...props }) {
         e.preventDefault();
         setFilter(uid)
         setCurrentList(list)
+        console.log(uid);
     }
 
     useEffect(() => {
@@ -62,9 +63,9 @@ function KustomerSustain({ ...props }) {
                         <ul className="kustomer-sus-main-cate-list">
                             {props.cateList.map((el, idx) => (
                                 <li className="kustomer-sus-main-cate-list-item" key={idx}>
-                                    <a href="#" className="kustomer-sus-main-cate-list-item-inner" data-cursor="txtLink" onClick={(e) => { filterList(e, el.uid, el.list) }}>
+                                    <a href="#" className={`kustomer-sus-main-cate-list-item-inner ${filter == el.uid ? 'active' : ''}`} data-cursor="txtLink" data-cursor-txtlink="child" onClick={(e) => { filterList(e, el.uid, el.list) }}>
                                         <div className="dot"></div>
-                                        <span className="heading h6 txt-black txt-up kustomer-sus-main-cate-item-txt">{el.name}</span>
+                                        <span className="heading h6 txt-black txt-up kustomer-sus-main-cate-item-txt" data-cursor-txtlink-child="true">{el.name}</span>
                                     </a>
                                 </li>
                             ))}

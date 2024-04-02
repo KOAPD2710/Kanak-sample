@@ -102,7 +102,7 @@ function Content({...props}) {
         let scrollDis = ut.offset(ut.dom('.home-prod-cards')).top - ((window.innerHeight - ut.dom('.home-prod-cards-inner').clientHeight) / 2);
         scroll(({y}) => {
             if (!productsWrap.current) return;
-            if (y.progress >= 0 && y.progress < 1) { 
+            if (y.progress >= 0 && y.progress < 1) {
                 productsWrap.current.position.set(animThreeVal(1.2 / scaleOffset, -.3 / scaleOffset, y.progress), animThreeVal(-.65 / scaleOffset, 0 / scaleOffset, y.progress), 0)
                 productsWrap.current.rotation.set(animThreeValRot(.25, -1, y.progress), animThreeValRot(-.28, 0, y.progress), animThreeValRot(.165, -.05, y.progress))
             }
@@ -113,7 +113,7 @@ function Content({...props}) {
         }, {
             offset: ['start start', `${scrollDis * .4}px start`]
         })
-        
+
         scroll(({y}) => {
             if (y.progress > 0 && y.progress <= 1) {
                 if (!productsWrap.current) return;
@@ -125,7 +125,7 @@ function Content({...props}) {
             offset: [`${scrollDis * .4}px start`, `${scrollDis}px start`]
         })
         scroll(({y}) => {
-            if (y.progress >= 0 && y.progress < 1) { 
+            if (y.progress >= 0 && y.progress < 1) {
                 if (!productsWrap.current) return;
                 productsWrap.current.scale.set(animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress))
             }
@@ -144,8 +144,8 @@ function Content({...props}) {
     return (
         <>
             <group ref={wrap}>
-                <group ref={productsWrap} scale={[11 /scaleOffset, 11 /scaleOffset, 11 /scaleOffset]} 
-                    position={[1.2 / scaleOffset, -.65 / scaleOffset, 0]} 
+                <group ref={productsWrap} scale={[11 /scaleOffset, 11 /scaleOffset, 11 /scaleOffset]}
+                    position={[1.2 / scaleOffset, -.65 / scaleOffset, 0]}
                     rotation={[Math.PI * .25, -Math.PI * .28, Math.PI * .165]}>
                     <group ref={products}>
                         {props.list.map((item, idx) => {
@@ -184,7 +184,7 @@ function Content({...props}) {
                 </group>
                 <spotLight intensity={1} angle={.1} penumbra={1} position={[0, 10, 0]} castShadow />
                 <ContactShadows opacity={.2} ref={contactShadow}
-                    scale={[7 / scaleOffset, 7 / scaleOffset, 7 / scaleOffset]} 
+                    scale={[7 / scaleOffset, 7 / scaleOffset, 7 / scaleOffset]}
                     position={[0, -.4 / scaleOffset, 0]}  blur={2} far={1.2} />
                 <Suspense>
                     <group ref={forkWrap} scale={[11 / scaleOffset, 11 / scaleOffset, 11 / scaleOffset]}
