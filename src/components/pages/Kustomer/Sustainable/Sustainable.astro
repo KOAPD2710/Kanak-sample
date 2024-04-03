@@ -26,18 +26,14 @@ sustainList.map(({ data, uid }, idx) => {
             list: uidList,
         });
 });
-const productUidFilter = [];
-sustainList.map(({ data }) => {
-    data.product_list.forEach((el) => {
-        productUidFilter.push(el.product.uid);
-    });
-});
 
 const productList = await Promise.all(
-    productUidFilter.map(async (uid: any) => {
-        let item = getByUID("product", uid);
-        return item;
-    }),
+    sustainList
+        .reduce((acc, curr) => acc.concat(curr.data.product_list), [])
+        .map(async (data: any) => {
+            let item = getByUID("product", data.product.uid);
+            return item;
+        }),
 );
 ---
 

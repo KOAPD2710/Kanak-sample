@@ -11,6 +11,7 @@ uidList.map((el) => {
         item.uid == el && newList.push(item);
     });
 });
+
 ---
 
 <KustomerCommitment {...Astro.props} listItem={newList} client:visible={{ rootMargin: "100% 0px 100% 0px" }} />

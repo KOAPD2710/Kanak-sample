@@ -19,11 +19,12 @@
     &-title-wrap {
         display: grid;
         margin-bottom: 18rem;
-        grid-template-columns: repeat(12, 1fr);
+        grid-template-columns: repeat(16, 1fr);
+        column-gap: 2rem;
     }
 
     &-title {
-        grid-column: 1/9;
+        grid-column: 1/10;
 
         span {
             display: inline;
@@ -39,7 +40,7 @@
     }
 
     &-subtitle {
-        grid-column: 9/-1;
+        grid-column: 12/-1;
         align-self: end;
         opacity: .6;
     }

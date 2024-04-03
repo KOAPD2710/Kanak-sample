@@ -4,13 +4,16 @@
 .case-main {
     position: relative;
     z-index: 6; //Higher than footer
+
     .case {
         &-filter {
             &-inner {
                 padding: {
                     top: 3rem;
                     bottom: 3rem;
-                };
+                }
+
+                ;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -75,6 +78,7 @@
 
                     &.active {
                         pointer-events: none;
+
                         .ic {
                             opacity: .2;
                         }
@@ -109,10 +113,12 @@
                         grid-template-columns: repeat(16, 1fr);
                         column-gap: 2rem;
                         position: relative;
+
                         &-inner {
                             grid-column: span 13;
                             display: grid;
                             margin-top: 0;
+
                             @media (hover: hover) {
                                 &:hover {
                                     .case-list-item-img {
@@ -122,6 +128,7 @@
                                 }
                             }
                         }
+
                         &:nth-child(odd) {
                             padding-right: 0rem;
                         }
@@ -169,7 +176,7 @@
                         &-link {
                             display: none;
                         }
-                        
+
                     }
                 }
             }
@@ -180,9 +187,11 @@
                 align-items: start;
                 padding-top: 6rem;
                 position: relative;
+                background-color: var(--cl-bg);
 
                 &:nth-child(odd) {
                     padding-right: 5rem;
+
                     .line-ver {
                         display: none;
                     }
@@ -226,6 +235,7 @@
                     column-gap: .8rem;
                     overflow: hidden;
                 }
+
                 &-inner {
                     width: 100%;
                     margin-top: 3.2rem;
@@ -234,9 +244,11 @@
                     justify-content: space-between;
                     height: 100%;
                     transition: color 400ms ease;
+
                     @media (hover: hover) {
                         &:hover {
                             color: var(--cl-orange);
+
                             .case-list-item-img {
                                 transform: scale(1.98);
                             }
@@ -287,6 +299,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+
                         .ic {
                             contain: paint;
                         }
@@ -324,10 +337,13 @@
                         z-index: 3;
                         display: flex;
                         align-items: center;
+
                         padding: {
                             top: 2.4rem;
                             bottom: 2.4rem;
-                        };
+                        }
+
+                        ;
                         column-gap: .8rem;
 
                         &-ic {
@@ -347,6 +363,7 @@
                         margin-top: .2rem;
                         contain: paint;
                         pointer-events: none;
+
                         &-inner {
                             display: flex;
                             flex-direction: column;
@@ -354,7 +371,7 @@
                             background: var(--bg-txt) repeat;
                             background-size: 40rem auto;
                             background-color: var(--cl-bg);
-                            width: 25.7rem;                            
+                            width: 25.7rem;
                             opacity: 0;
                             transform: translateY(-2rem);
                             overflow: hidden;
@@ -362,8 +379,10 @@
                             border: .2rem solid var(--cl-txt);
                             border-top: none;
                         }
+
                         &.active {
                             pointer-events: auto;
+
                             .case-filter-list-dropdown-inner {
                                 opacity: 1;
                                 transform: none;
@@ -385,6 +404,7 @@
                         bottom: 0;
                         left: 0;
                     }
+
                     &:last-child {
                         .line {
                             display: none;
@@ -409,9 +429,11 @@
 
                 &-item {
                     padding-top: 2.4rem;
+
                     &-inner {
                         margin-top: 1.2rem;
                     }
+
                     &-label {
                         @include text(16);
                     }
@@ -471,14 +493,18 @@
 
                                     padding: {
                                         top: 3.2rem;
-                                    };
+                                    }
+
+                                    ;
 
                                     &-label {
                                         grid-column: 1/3;
                                     }
+
                                     &-inner {
                                         margin-top: 1.2rem;
                                     }
+
                                     &-title {
                                         grid-column: 4/-1;
                                         margin-left: 0;
@@ -524,6 +550,7 @@
 
                     &-dropdown {
                         width: 100%;
+
                         &-inner {
                             width: 100%;
                         }
