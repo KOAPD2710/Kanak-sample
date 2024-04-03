@@ -10,19 +10,14 @@ import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import { GetModel } from "../../../common/GetModel.jsx";
 import * as ut from '@/js/utils.js'
-import './HeroThree.scss';
+import './CatalogThree.scss';
 
 const warehouse = import('/envMap/warehouse.hdr?url').then((module) => module.default)
-function CustomMaterial({...props}) {
-    return (<meshStandardMaterial color={props.color} roughness={props.roughness}/>)
-}
 function Content({...props}) {
     const wrap = useRef()
     const contactShadow = useRef(null)
     const productsWrap = useRef()
     const products = useRef()
-    const forkWrap = useRef()
-    const fork = useRef()
     const index = useStore(productIndex);
     const [scaleOffset, setScaleOffset] = useState(1);
     const [degraded, degrade] = useState(false)
@@ -30,55 +25,13 @@ function Content({...props}) {
     let isLock = false;
     useFrame((state, delta) => {
         if (!products.current) return;
-        if (isLock) {
-            products.current.rotation.x += (0 - products.current.rotation.x) * .08
-            products.current.rotation.y += .006
-        } else {
-            products.current.rotation.x += (0 - products.current.rotation.x + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
-            products.current.rotation.y += (0 - products.current.rotation.y + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
-        }
-        if (!fork.current) return;
-        fork.current.rotation.x = Math.cos(clock.elapsedTime / 2) * Math.PI * .02 * -1
-        fork.current.rotation.y = Math.sin(clock.elapsedTime / 2) * Math.PI * .04 * -1
+        products.current.rotation.y += .006
     })
     useEffect(() => {
-        scroll(({y}) => {
-            if (y.progress >= .9) {
-                isLock = true;
-            } else {
-                isLock = false;
-            }
-            if (contactShadow) {
-                contactShadow.current.position.y = animThreeVal(-3 / scaleOffset, -.4 / scaleOffset, y.progress)
-            }
-        }, {
-            target: document.querySelector('.home-prod-cards-inner'),
-            offset: ["start end", "center center"]
-        })
         products.current.children.forEach((el, idx) => {
             if (idx == index) {
-                // animate(
-                //     (progress) => {
-                //         products.current.children[index].scale.set(
-                //             animThreeVal(0, 1, progress),
-                //             animThreeVal(0, 1, progress),
-                //             animThreeVal(0, 1, progress)
-                //         )
-                //     }, { duration: 0.8}
-                // )
                 gsap.to(products.current.children[index].scale, {x: 1, y: 1, z: 1, duration: .8, ease: 'expo.out', overwrite: true})
             } else {
-                // if (products.current.children[idx].scale.x != 0) {
-                //     animate(
-                //         (progress) => {
-                //             products.current.children[idx].scale.set(
-                //                 animThreeVal(products.current.children[idx].scale.x, 0, progress),
-                //                 animThreeVal(products.current.children[idx].scale.y, 0, progress),
-                //                 animThreeVal(products.current.children[idx].scale.y, 0, progress)
-                //             )
-                //         }, { duration: 0.4}
-                //     )
-                // }
                 gsap.to(products.current.children[idx].scale, {x: 0, y: 0, z: 0, duration: .8, ease: 'expo.out', overwrite: true})
             }
         })
@@ -97,49 +50,6 @@ function Content({...props}) {
         } else {
             setScaleOffset(1.5)
         }
-
-        let leftOffset = window.innerWidth > 767 ? ut.offset(ut.dom('.home-prod-cards')).left + ut.dom('.home-prod-cards').clientWidth / 2 - window.innerWidth / 2 : 0;
-        let scrollDis = ut.offset(ut.dom('.home-prod-cards')).top - ((window.innerHeight - ut.dom('.home-prod-cards-inner').clientHeight) / 2);
-        scroll(({y}) => {
-            if (!productsWrap.current) return;
-            if (y.progress >= 0 && y.progress < 1) {
-                productsWrap.current.position.set(animThreeVal(1.2 / scaleOffset, -.3 / scaleOffset, y.progress), animThreeVal(-.65 / scaleOffset, 0 / scaleOffset, y.progress), 0)
-                productsWrap.current.rotation.set(animThreeValRot(.25, -1, y.progress), animThreeValRot(-.28, 0, y.progress), animThreeValRot(.165, -.05, y.progress))
-            }
-            if (!forkWrap.current) return;
-            forkWrap.current.scale.set(animThreeVal(11 / scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 / scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 / scaleOffset, 5 / scaleOffset, y.progress))
-            forkWrap.current.position.set(animThreeVal(1.4 / scaleOffset, 2 / scaleOffset, y.progress), animThreeVal(1.2 / scaleOffset, 3 / scaleOffset, y.progress), animThreeVal(-.4 / scaleOffset, -1 / scaleOffset, y.progress))
-            forkWrap.current.rotation.set(animThreeValRot(.6, .75, y.progress),animThreeValRot(-.1, .2, y.progress), animThreeValRot(.2, .4, y.progress))
-        }, {
-            offset: ['start start', `${scrollDis * .4}px start`]
-        })
-
-        scroll(({y}) => {
-            if (y.progress > 0 && y.progress <= 1) {
-                if (!productsWrap.current) return;
-                animate('.home-hero-three-stick-inner', {x: leftOffset * y.progress}, {duration: 0})
-                productsWrap.current.position.set(animThreeVal(-.3 / scaleOffset, 0 / scaleOffset, y.progress), animThreeVal(0 / scaleOffset, -.15 / scaleOffset, y.progress), 0)
-                productsWrap.current.rotation.set(animThreeValRot(-1, -1.91, y.progress), animThreeValRot(0, .33, y.progress), animThreeValRot(-.05, 0, y.progress))
-            }
-        }, {
-            offset: [`${scrollDis * .4}px start`, `${scrollDis}px start`]
-        })
-        scroll(({y}) => {
-            if (y.progress >= 0 && y.progress < 1) {
-                if (!productsWrap.current) return;
-                productsWrap.current.scale.set(animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress), animThreeVal(11 /scaleOffset, 5 / scaleOffset, y.progress))
-            }
-        }, {
-            offset: ['start start', `${scrollDis * .6}px start`]
-        })
-        scroll(({y}) => {
-            if (y.progress > 0 && y.progress <= 1) {
-                if (!productsWrap.current) return;
-                productsWrap.current.scale.set(animThreeVal(5 / scaleOffset, 7 / scaleOffset, y.progress), animThreeVal(5 / scaleOffset, 7 / scaleOffset, y.progress), animThreeVal(5 / scaleOffset, 7 / scaleOffset, y.progress))
-            }
-        }, {
-            offset: [`${scrollDis * .6}px start`, `${scrollDis}px start`]
-        })
     }, [scaleOffset])
     return (
         <>
@@ -186,22 +96,13 @@ function Content({...props}) {
                 <ContactShadows opacity={.2} ref={contactShadow}
                     scale={[7 / scaleOffset, 7 / scaleOffset, 7 / scaleOffset]}
                     position={[0, -.4 / scaleOffset, 0]}  blur={2} far={1.2} />
-                <Suspense>
-                    <group ref={forkWrap} scale={[11 / scaleOffset, 11 / scaleOffset, 11 / scaleOffset]}
-                        position={[1.4 / scaleOffset, 1.2 / scaleOffset, -.4 / scaleOffset]}
-                        rotation={[Math.PI * .6, -Math.PI * .1, Math.PI * .2]}>
-                        <mesh ref={fork}>
-                            <Fork material={<CustomMaterial color='#F9833A' roughness={.2} />} />
-                        </mesh>
-                    </group>
-                </Suspense>
             </group>
             <Environment files={suspend(warehouse)} frames={degraded ? 1 : Infinity} resolution={256}/>
         </>
     )
 }
 
-function HomeHeroThree({...props}) {
+function CatalogThreeMain({...props}) {
     const { width, height } = useWindowSize();
     const threeRef = useRef();
     if (width == 0) {
@@ -223,4 +124,4 @@ function HomeHeroThree({...props}) {
         )
     }
 }
-export default HomeHeroThree;
+export default CatalogThreeMain;
