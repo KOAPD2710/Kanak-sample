@@ -92,7 +92,8 @@ function KustomerSustain({ ...props }) {
         inView('.kustomer-sus', () => {
             timeline(sequence).finished.then(() => {
                 subtitle.revert()
-                document.querySelector('.kustomer-sus-head-img').removeAttribute('style')
+                document.querySelector('.kustomer-sus-head-img').removeAttribute('style');
+                document.querySelector('.kustomer-sus-main-line-top').removeAttribute('style');
             })
         })
     }, [])

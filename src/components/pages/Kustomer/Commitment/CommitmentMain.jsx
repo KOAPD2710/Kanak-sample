@@ -50,8 +50,8 @@ function CommitItem({ title, describle, ...props }) {
     )
 }
 
-function KustomerCommitMain({ ...props }) {
-    const allItem = props.listItem
+function KustomerCommitMain(props) {
+    let allItem = props.list;
     const contentList = allItem.map((item, idx) => ({ title: item.data.title, describle: item.data.describle, idx: idx }));
     const thumbList = allItem.map((item, idx) => ({ image: item.data.image, idx: idx }));
 

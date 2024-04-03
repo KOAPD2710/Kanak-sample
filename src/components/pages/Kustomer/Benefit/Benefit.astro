@@ -1,19 +1,17 @@
 ---
-import { getAllByType } from "@/prismic.js";
+import { getByUID } from "@/prismic.js";
+import KustomerBenefit from "./Benefit";
 
-import Image from "astro/components/Image.astro";
-import KusomterBenefit from "./Benefit";
-
-const listCaseStudy = await getAllByType("benefit");
-
-const astroUIDs = new Set(Astro.props.list.map((item) => item.uid));
-const newList = [];
-
-Astro.props.list.map((el) => {
-    listCaseStudy.forEach((item) => {
-        item.uid == el && newList.push(item);
-    });
-});
+const list = await Promise.all(
+    Astro.props.list
+        .map(async (uid: any) => {
+            let item = getByUID("benefit", uid);
+            return item;
+        })
+);
 ---
-
-<KusomterBenefit {...Astro.props} itemList={newList} client:visible={{ rootMargin: "100% 0px 100% 0px" }} />
+<KustomerBenefit
+    {...Astro.props}
+    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+    list={list}
+/>

@@ -112,19 +112,14 @@ const filterCaseStudy = listCaseStudy.filter(
                 />
                 <Benefit
                     title={item.data.benefit_title[0].text}
-                    list={item.data.benefit_list.map((el) => el.item.uid)}
+                    list={item.data.benefit_list.map(({ item }) => item.uid)}
+                />
+                <Catalogue
+                    label={item.data.katalog_label}
+                    title={item.data.katalog_title[0].text}
+                    describe={item.data.katalog_des}
                 />
             </>
-        )
-    }
-
-    {
-        item.data.katalog_title[0] !== undefined && (
-            <Catalogue
-                label={item.data.katalog_label}
-                title={item.data.katalog_title[0].text}
-                describe={item.data.katalog_des}
-            />
         )
     }
     <Explore list={exploreData} />
@@ -133,7 +128,7 @@ const filterCaseStudy = listCaseStudy.filter(
             <Commitment
                 label={item.data.commitment_label}
                 title={item.data.commitment_title[0].text}
-                list={item.data.commitment_list}
+                list={item.data.commitment_list.map(({ item }) => item.uid)}
             />
         )
     }
