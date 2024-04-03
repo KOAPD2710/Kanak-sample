@@ -11,7 +11,7 @@ import Cursor from '@/components/globals/Cursor/Cursor.astro';
 
 const OpBgTexture = await getImage({src: bgTexture, format: 'webp', width: bgTexture.width / 2})
 const OpBgTextureDark = await getImage({src: bgTextureDark, format: 'webp', width: bgTextureDark.width})
-const { title, hideNav = false } = Astro.props;
+const { title, hideNav = false, footer_cta, footer_bg } = Astro.props;
 ---
 <html lang="en">
 	<BaseHead title={title}/>
@@ -22,13 +22,13 @@ const { title, hideNav = false } = Astro.props;
 			<div class="main on-load">
 				<slot />
 			</div>
-		{!hideNav && <Footer />}
+		{!hideNav && <Footer title={footer_cta} bg={footer_bg}/>}
 	</body>
 </html>
 <script>
 	import main from '@/js/main'
 	setTimeout(() => {
-		document.querySelector('.main').classList.remove('on-load')	
+		document.querySelector('.main').classList.remove('on-load')
 	}, 200);
 	main()
 </script>

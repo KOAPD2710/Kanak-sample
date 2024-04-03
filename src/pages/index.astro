@@ -16,7 +16,11 @@ import { getPage } from "@/prismic.js";
 const { data } = await getPage("home");
 ---
 
-<Layout title="Homepage">
+<Layout
+	title="Homepage"
+	footer_cta={data.cta_title}
+	footer_bg={data.cta_bg}
+	>
 	<div class="home-hero-three-wrap">
 		<Hero title={data.hero_title[0].text} sub_title={data.hero_sub_tilte} />
 		<HeroThree product_kategory_list={data.product_kategory_list} />
@@ -46,5 +50,5 @@ const { data } = await getPage("home");
 		title={data.values_title[0].text}
 		value_list={data.values_list}
 	/>
-	<CTA title={data.cta_title} cta_bg={data.cta_bg} />
+	<!-- <CTA title={data.cta_title} cta_bg={data.cta_bg} /> -->
 </Layout>

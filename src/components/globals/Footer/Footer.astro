@@ -2,11 +2,19 @@
 import { Image } from "astro:assets"
 import logo from '@assets/kanak-logo.svg';
 import linkedIn from '@assets/ic-linkedin-ft.svg';
-const currYear = new Date().getFullYear()
-import { getAllByType } from '@/prismic.js';
-const industryList = await getAllByType('industry')
 import GlobalFooter from './Footer';
+import GlobalCTA from '@/components/globals/CTA'
+import { getAllByType } from '@/prismic.js';
+
+const { title, bg } = Astro.props;
+const currYear = new Date().getFullYear()
+const industryList = await getAllByType('industry')
 ---
+{title && bg && (
+    <GlobalCTA title={Astro.props.title} client:visible={{rootMargin: "100% 0% 100% 0%"}}>
+        <Image src={Astro.props.bg.url} alt="" slot="background" class="img img-fill" width={Astro.props.bg.dimensions.width} height={Astro.props.bg.dimensions.height}/>
+    </GlobalCTA>
+)}
 <GlobalFooter currYear={currYear} list={industryList} client:visible={{rootMargin: "50% 0% 50% 0%"}}>
     <Image src={logo} alt="kanak logo" class="img img-h" slot="logo"/>
     <Image src={linkedIn} alt="Linkedin" class="ic ic-24" slot="imgLinkedIn"/>

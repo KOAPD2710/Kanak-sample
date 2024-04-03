@@ -1,10 +1,8 @@
-import "./Commitment.scss"
-import KustomerCommitMain from "./CommitmentMain"
 import { useEffect } from 'react';
 import { animate, timeline, stagger, inView } from "motion";
 import SplitType from 'split-type';
 
-function KustomerCommitment({ ...props }) {
+function KustomerCommitHead(props) {
     useEffect(() => {
         const subtitle = new SplitType(".kustomer-commit-subtitle", { types: 'lines, words', lineClass: 'split-line' })
         const title = new SplitType(".kustomer-commit-title", { types: 'lines, words', lineClass: 'split-line' })
@@ -24,14 +22,11 @@ function KustomerCommitment({ ...props }) {
         }, { margin: "-40% 0px -40% 0px" })
     }, [])
     return (
-        <section className="kustomer-commit">
-            <div className="container grid">
-                <div className="heading h3 txt-black txt-up kustomer-commit-subtitle">{props.label}</div>
-                <h1 className="heading h0 txt-black txt-up kustomer-commit-title">{props.title}</h1>
-                <KustomerCommitMain listItem={props.listItem} />
-            </div>
-        </section>
+        <>
+            <div className="heading h3 txt-black txt-up kustomer-commit-subtitle">{props.label}</div>
+            <h1 className="heading h0 txt-black txt-up kustomer-commit-title">{props.title}</h1>
+        </>
     )
 }
 
-export default KustomerCommitment
+export default KustomerCommitHead;
