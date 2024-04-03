@@ -13,7 +13,7 @@ import Value from "@pages/Kustomer/Value/Value.astro";
 import Award from "@pages/Kustomer/Award/Award.astro";
 import CTA from "@pages/Kustomer/CTA/CTA.astro";
 import Benefit from "@pages/Kustomer/Benefit/Benefit.astro";
-import Catalogue from "@pages/Kustomer/Catalogue/Catalogue.astro";
+import Catalog from "@/components/pages/Kustomer/Catalog/Catalog.astro";
 
 export async function getStaticPaths() {
     const list = await getAllByType("industry");
@@ -153,11 +153,25 @@ const filterCaseStudy = listCaseStudy.filter(
 
     {
         item.data.katalog_title[0] !== undefined && (
-            <Catalogue
+            <Catalog
                 label={item.data.katalog_label}
                 title={item.data.katalog_title[0].text}
                 describe={item.data.katalog_des}
                 data={cataData}
+                group1={
+                    item.data.katalog_grp_1_title ? {
+                        title: item.data.katalog_grp_1_title,
+                        sub: item.data.katalog_grp_1_sub,
+                        list: item.data.katalog_grp_1_list
+                    }: null
+                }
+                group2={
+                    item.data.katalog_grp_2_title ? {
+                        title: item.data.katalog_grp_2_title,
+                        sub: item.data.katalog_grp_2_sub,
+                        list: item.data.katalog_grp_2_list
+                    }: null
+                }
                 {item}
             />
         )

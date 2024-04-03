@@ -32,9 +32,36 @@ function CatalogueMain({ ...props }) {
         // document.querySelectorAll('.kustomer-cata-main-content-list-item').forEach(el => el.classList.remove('active'))
         setIndex(dir == 'next' ? index + 1 : index - 1)
     }
+    console.log(props);
     return (
         <div className="kustomer-cata-main">
             <div className="kustomer-cata-main-content-wrap">
+                {props.group1 !== null && (
+                    <div className="kustomer-cata-main-content">
+                        <div className="kustomer-cata-main-content-des">
+                            <h3 className="heading h4 txt-black txt-up kustomer-cata-main-content-des-title">{props.group1.title[0].text}</h3>
+                            <p className="txt txt-18 txt-med kustomer-cata-main-content-des-subtitle">{props.group1.sub}</p>
+                        </div>
+                        <div className="kustomer-cata-main-content-list">
+                            {/* {item.list.map((el, idx) => (
+                            <a href="#" className={`kustomer-cata-main-content-list-item ${index == (list.findIndex(listItem => listItem.uid == el.uid)) ? "active" : ''}`}
+                                onMouseEnter={(e) => { setIndex(list.findIndex(listItem => listItem.uid == el.uid)) }}
+                                key={idx}>
+                                <h3 className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
+                                    {el.name}
+                                </h3>
+                                <div className="txt txt-20 txt-bold kustomer-cata-main-content-list-item-count">
+                                    {(idx + 1).toString().padStart(2, '0')}
+                                </div>
+                                <div className="line">
+                                    <div className="line-inner"></div>
+                                </div>
+                            </a>
+                        ))} */}
+                        </div>
+                    </div>
+                )}
+                {/* {props.item} */}
                 {props.list.map((item, idx) => (
                     <div className="kustomer-cata-main-content" key={idx}>
                         <div className="kustomer-cata-main-content-des">
@@ -129,7 +156,6 @@ function CatalogueMain({ ...props }) {
                             <div className="line">
                                 <div className="line-inner"></div>
                             </div>
-                            <div className="line line-bot"></div>
                         </a>
                     </div>
                 </div> */}

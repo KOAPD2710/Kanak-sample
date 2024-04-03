@@ -1,6 +1,6 @@
 ---
 import Image from "astro/components/Image.astro";
-import KustomerCatalogue from "./Catalogue";
+import KustomerCatalog from "./Catalog";
 
 import arrIcon from "@assets/arr-right.svg?raw";
 import qr from "@assets/kustomer-qr.png";
@@ -29,7 +29,7 @@ describe.forEach((el, elIdx) => {
 });
 ---
 
-<KustomerCatalogue
+<KustomerCatalog
 	{...Astro.props}
 	client:visible={{ rootMargin: "100% 0px 100% 0px" }}
 >
@@ -38,4 +38,4 @@ describe.forEach((el, elIdx) => {
 	<Fragment set:html={arrIcon} slot="arrIcon" />
 	<Image src={qr} alt="" slot="qr" class="img img-fill" />
 	<Image src={image} alt="" slot="image" class="img img-fill" />
-</KustomerCatalogue>
+</KustomerCatalog>
