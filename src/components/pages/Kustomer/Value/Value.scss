@@ -135,6 +135,7 @@
             }
 
             &-head {
+                position: relative;
                 display: flex;
                 align-items: start;
                 justify-content: space-between;
@@ -149,9 +150,7 @@
                 }
             }
 
-            &-num {
-                font-size: 8rem;
-                line-height: 1em;
+            &-label {
                 color: rgba($cl-txt-light, .8);
 
                 @include md {
@@ -164,7 +163,7 @@
             }
 
             &-title {
-                max-width: 79rem;
+                max-width: 66rem;
                 margin-bottom: 4rem;
 
                 @include md {
@@ -189,12 +188,24 @@
             }
 
             &-link {
+                display: flex;
+                align-items: center;
+                column-gap: .8rem;
+
                 @include md {
                     @include text(16);
+                }
+
+                svg {
+                    @include size(1.6rem)
                 }
             }
 
             &-ic {
+                position: absolute;
+                top: 0;
+                right: 0;
+
                 .ic-150 {
                     @include md {
                         @include size(10.2rem);

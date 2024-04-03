@@ -38,7 +38,7 @@ function CatalogueMain({ ...props }) {
                         <p className="txt txt-18 txt-med kustomer-cata-main-content-des-subtitle">Made from sturdy, compostable bagasse, suitable for any retail setting.</p>
                     </div>
                     <div className="kustomer-cata-main-content-list">
-                        <a href="#" className={`kustomer-cata-main-content-list-item ${currName == 'Bowls' || index == 0 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('Bowls'), setIndex(0) }}>
+                        <a href="#" className={`kustomer-cata-main-content-list-item ${index == 0 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('Bowls'), setIndex(0) }}>
                             <div className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
                                 Bowls
                             </div>
@@ -49,7 +49,7 @@ function CatalogueMain({ ...props }) {
                                 <div className="line-inner"></div>
                             </div>
                         </a>
-                        <a href="#" className={`kustomer-cata-main-content-list-item ${currName == 'PLATES & Platters' || index == 1 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('PLATES & Platters'), setIndex(1) }}>
+                        <a href="#" className={`kustomer-cata-main-content-list-item ${index == 1 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('PLATES & Platters'), setIndex(1) }}>
                             <div className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
                                 PLATES & Platters
                             </div>
@@ -60,7 +60,7 @@ function CatalogueMain({ ...props }) {
                                 <div className="line-inner"></div>
                             </div>
                         </a>
-                        <a href="#" className={`kustomer-cata-main-content-list-item ${currName == 'CUPS' || index == 2 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('CUPS'), setIndex(2) }}>
+                        <a href="#" className={`kustomer-cata-main-content-list-item ${index == 2 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('CUPS'), setIndex(2) }}>
                             <div className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
                                 CUPS
                             </div>
@@ -80,7 +80,7 @@ function CatalogueMain({ ...props }) {
                         <p className="txt txt-18 txt-med kustomer-cata-main-content-des-subtitle">Catering to all your dining needs with a sustainable touch</p>
                     </div>
                     <div className="kustomer-cata-main-content-list">
-                        <a href="#" className={`kustomer-cata-main-content-list-item ${currName == 'Kutlery' || index == 3 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('Kutlery'), setIndex(3) }}>
+                        <a href="#" className={`kustomer-cata-main-content-list-item ${index == 3 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('Kutlery'), setIndex(3) }}>
                             <div className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
                                 Kutlery
                             </div>
@@ -91,7 +91,7 @@ function CatalogueMain({ ...props }) {
                                 <div className="line-inner"></div>
                             </div>
                         </a>
-                        <a href="#" className={`kustomer-cata-main-content-list-item ${currName == 'Straws' || index == 4 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('Straws'), setIndex(4) }}>
+                        <a href="#" className={`kustomer-cata-main-content-list-item ${index == 4 ? 'active' : ''}`} onMouseEnter={(e) => { setCurrName('Straws'), setIndex(4) }}>
                             <div className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
                                 Straws
                             </div>

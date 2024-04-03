@@ -41,6 +41,7 @@ const newTitle = title.replace(
                             idx={idx}
                             key={idx}
                             sub_title={item.data.sub_title}
+                            label={item.data.label}
                         >
                             <Fragment
                                 set:html={item.data.title[0].text.replaceAll(
