@@ -9,22 +9,21 @@ function KustomerValue(props) {
     const ref = useRef()
     useEffect(() => {
         let allItems = ut.dom('.kustomer-val-main-item');
-        if (window.innerWidth > 767) {
-            let totalDis = 0;
-            allItems.forEach(el => totalDis += el.clientWidth)
-            let disWrap = ut.dom('.kustomer-val-main-inner').clientWidth
-            let offset = disWrap - allItems[allItems.length - 1].clientWidth
-            // let dis1 = allItems[0].clientWidth - (offset / 2);
-            let dis1 = totalDis - disWrap
-            const itemSequence = [
-                [[allItems[1]], { x: [0, -dis1] }, { easing: 'linear' }],
-                [[...allItems[1].childNodes].filter(child => !child.classList.contains('line')), { x: [0, -ut.parseRem(25)] }, { easing: 'linear', at: '<' }],
-            ]
-            scroll(timeline(itemSequence), {
-                target: document.querySelector('.kustomer-val'),
-                offset: [`${document.querySelector('.kustomer-val-main').offsetTop}px start`, `${1 - window.innerHeight / ref.current.clientHeight * 1.1} end`]
-            })
-        }
+        // if (window.innerWidth > 767) {
+        //     let totalDis = 0;
+        //     allItems.forEach(el => totalDis += el.clientWidth)
+        //     let disWrap = ut.dom('.kustomer-val-main-inner').clientWidth
+        //     let offset = disWrap - allItems[allItems.length - 1].clientWidth
+        //     let dis1 = totalDis - disWrap
+        //     const itemSequence = [
+        //         [[allItems[1]], { x: [0, -dis1] }, { easing: 'linear' }],
+        //         [[...allItems[1].childNodes].filter(child => !child.classList.contains('line')), { x: [0, -ut.parseRem(25)] }, { easing: 'linear', at: '<' }],
+        //     ]
+        //     scroll(timeline(itemSequence), {
+        //         target: document.querySelector('.kustomer-val'),
+        //         offset: [`${document.querySelector('.kustomer-val-main').offsetTop}px start`, `${1 - window.innerHeight / ref.current.clientHeight * 1.1} end`]
+        //     })
+        // }
 
         let mainTitle = new SplitType('.kustomer-val-title', { types: 'lines, words', lineClass: 'split-line' })
         let subTitle = new SplitType('.kustomer-val-subtitle', { types: 'lines, words', lineClass: 'split-line' })

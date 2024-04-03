@@ -17,7 +17,7 @@
         grid-row: 2/3;
 
         &-item {
-            --fr-width: 4.7rem;
+            --fr-width: 4rem;
 
             position: relative;
             display: grid;
@@ -98,7 +98,6 @@
 
                     &-title {
                         margin-bottom: 4rem;
-                        max-width: 46.8rem;
                     }
 
                     &-des {

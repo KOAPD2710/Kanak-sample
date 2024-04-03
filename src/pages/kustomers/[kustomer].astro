@@ -49,7 +49,7 @@ const exploreData = [
                     "Always stocked, always ready—meet demand spikes or market shifts without breaking a sweat.",
             },
             {
-                title: "Mix, match, and ship—fast!",
+                title: "Mix, match, and ship-fast!",
                 describle:
                     "All products are packaged in our Fort Wayne clean room using top-quality, domestically sourced materials, with same-day order processing and allocation.",
             },
@@ -73,6 +73,42 @@ const exploreData = [
                 title: "Brand-Centric Approach",
                 describle:
                     "Your brand story is our guide. Every product reflects your brand's promise, going above and beyond.",
+            },
+        ],
+    },
+];
+
+const cataData = [
+    {
+        title: "VERSATILE DINNERWARE",
+        subtitle:
+            "Made from sturdy, compostable bagasse, suitable for any retail setting.",
+        list: [
+            {
+                uid: "bowls",
+                name: "Bowls",
+            },
+            {
+                uid: "plates--platters",
+                name: "Plates & Platters",
+            },
+            {
+                uid: "cups",
+                name: "Cups",
+            },
+        ],
+    },
+    {
+        title: "COMPLEMENTARY ITEMS",
+        subtitle: "Catering to all your dining needs with a sustainable touch",
+        list: [
+            {
+                uid: "kutlery",
+                name: "Kutlery",
+            },
+            {
+                uid: "straws",
+                name: "Straws",
             },
         ],
     },
@@ -111,12 +147,19 @@ const filterCaseStudy = listCaseStudy.filter(
                     title={item.data.benefit_title[0].text}
                     list={item.data.benefit_list.map((el) => el.item.uid)}
                 />
-                <Catalogue
-                    label={item.data.katalog_label}
-                    title={item.data.katalog_title[0].text}
-                    describe={item.data.katalog_des}
-                />
             </>
+        )
+    }
+
+    {
+        item.data.katalog_title[0] !== undefined && (
+            <Catalogue
+                label={item.data.katalog_label}
+                title={item.data.katalog_title[0].text}
+                describe={item.data.katalog_des}
+                data={cataData}
+                {item}
+            />
         )
     }
     <Explore list={exploreData} />

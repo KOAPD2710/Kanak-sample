@@ -41,6 +41,7 @@ const newTitle = title.replace(
                             idx={idx}
                             key={idx}
                             sub_title={item.data.sub_title}
+                            label={item.data.label}
                         >
                             <Fragment
                                 set:html={item.data.title[0].text.replaceAll(
@@ -52,7 +53,7 @@ const newTitle = title.replace(
                             <Image
                                 src={item.data.icon.url}
                                 alt=""
-                                class="ic ic-150"
+                                class="ic ic-120"
                                 slot="ic"
                                 width={item.data.icon.dimensions.width}
                                 height={item.data.icon.dimensions.height}

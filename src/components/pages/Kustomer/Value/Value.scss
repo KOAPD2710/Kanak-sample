@@ -8,23 +8,12 @@
     display: flex;
     flex-direction: column;
     justify-content: end;
-    height: calc((53vw * 2 * 1.25) + var(--offsetMargin));
-    margin-bottom: calc(var(--offsetMargin) * -1);
     padding-top: 17.6rem;
     z-index: 3;
-
-    @include md {
-        height: calc(200vh + var(--offsetMargin));
-    }
 
     @include sm {
         height: auto;
         margin-bottom: 0;
-    }
-
-    &-stick {
-        position: sticky;
-        bottom: 0;
     }
 
     &-title-wrap {
@@ -95,10 +84,10 @@
             flex: none;
             padding-top: 5.7rem;
             padding-bottom: 10rem;
-            padding-right: 8rem;
-            padding-left: 16.5rem;
             position: relative;
-            width: calc(48vw + 16.5rem + 8rem);
+            width: 50%;
+            display: flex;
+            flex-direction: column;
             will-change: transform;
 
             @include md {
@@ -112,13 +101,11 @@
 
             @include sm {
                 border-top: 0.2rem solid var(--cl-txt);
-                padding: 6rem 0;
                 width: 100%;
             }
 
             &:first-child {
-                padding-left: 0;
-                width: calc(48vw + 8rem);
+                padding-right: 7.4rem;
 
                 @include sm {
                     width: 100%;
@@ -126,15 +113,11 @@
             }
 
             &:last-child {
-                width: calc(48vw + 16rem);
-                padding-right: 0;
-
-                @include sm {
-                    width: 100%;
-                }
+                padding-left: var(--container-padding);
             }
 
             &-head {
+                position: relative;
                 display: flex;
                 align-items: start;
                 justify-content: space-between;
@@ -149,9 +132,14 @@
                 }
             }
 
-            &-num {
-                font-size: 8rem;
-                line-height: 1em;
+            &-body {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+            }
+
+            &-label {
                 color: rgba($cl-txt-light, .8);
 
                 @include md {
@@ -164,7 +152,7 @@
             }
 
             &-title {
-                max-width: 79rem;
+                max-width: 66rem;
                 margin-bottom: 4rem;
 
                 @include md {
@@ -179,6 +167,7 @@
 
             &-sub {
                 max-width: 80rem;
+                margin-top: auto;
                 margin-bottom: 4rem;
                 color: rgba($cl-txt-light, .6);
 
@@ -189,13 +178,25 @@
             }
 
             &-link {
+                display: flex;
+                align-items: center;
+                column-gap: .8rem;
+
                 @include md {
                     @include text(16);
+                }
+
+                svg {
+                    @include size(1.6rem)
                 }
             }
 
             &-ic {
-                .ic-150 {
+                position: absolute;
+                top: 0;
+                right: 0;
+
+                .ic-120 {
                     @include md {
                         @include size(10.2rem);
                     }

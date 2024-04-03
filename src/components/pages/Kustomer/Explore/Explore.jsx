@@ -23,7 +23,6 @@ function KustomerExplore({ ...props }) {
             })
         }, { margin: "-20% 0px -20% 0px" })
     }, [])
-    console.log(props);
     return (
         <section className="kustomer-explore">
             <div className="container grid">

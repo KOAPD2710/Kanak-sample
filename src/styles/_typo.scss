@@ -5,30 +5,36 @@
     font-weight: normal;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'HelveticaNowDisplay';
     src: url('/fonts/HelveticaNowDisplayMedium.woff') format('woff');
     font-weight: 500;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'HelveticaNowDisplay';
     src: url('/fonts/HelveticaNowDisplayBold.woff') format('woff');
     font-weight: 700;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'HelveticaNowDisplay';
     src: url('/fonts/HelveticaNowDisplayBlack.woff') format('woff');
     font-weight: 900;
     font-display: swap;
 }
+
 html {
     // font-size: 0.6944444444vw;
     font-size: calc(0.5787037037vw * 1);
+
     @media screen and (min-width: 991px) {
         @media screen and (min-width: 1728px) {
             font-size: calc(0.5787037037vw * .9);
+
             @media screen and (min-aspect-ratio: 1600 / 800) {
                 font-size: 1.1vh;
             }
@@ -38,19 +44,22 @@ html {
     @media screen and (max-width: 991px) {
         font-size: 1.1990407674vw;
     }
+
     @media screen and (max-width: 767px) {
         font-size: 1.8vw;
     }
+
     @media screen and (max-width: 476px) {
         font-size: 2.667vw;
     }
 }
+
 html {
     font-family: 'Inter Variable', sans-serif;
     color: var(--cl-txt);
 }
 
-    // Heading
+// Heading
 :root {
     --fs-h0: 11rem;
     --lh-h0: 1em;
@@ -147,38 +156,48 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
     &-reg {
         font-weight: 400 !important;
     }
+
     &-med {
         font-weight: 500;
     }
+
     &-semi {
         font-weight: 600;
     }
+
     &-bold {
         font-weight: 700;
     }
+
     &-black {
         font-weight: 900;
     }
+
     &-up {
         text-transform: uppercase;
     }
+
     &-green {
         color: var(--cl-green);
         display: inline-block;
     }
+
     &-orange {
         color: var(--cl-orange);
     }
+
     @each $size in $txtSizes {
         &-#{$size} {
             @include text(#{$size});
         }
     }
+
     &-link {
         display: inline-block;
         vertical-align: bottom;
         transition: color 400ms ease;
         position: relative;
+
         &:after {
             pointer-events: none;
             content: '';
@@ -192,22 +211,27 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
             transform-origin: right;
             @include transition(transform .5s ease);
         }
+
         &:hover {
             color: var(--cl-orange);
+
             &:after {
                 @include transform(scaleX(1));
                 transform-origin: left;
             }
         }
+
         &-child {
             .dot {
                 transition: background-color 400ms ease;
             }
+
             .txt {
                 display: inline-block;
                 vertical-align: bottom;
                 transition: color 400ms ease;
                 position: relative;
+
                 &:after {
                     pointer-events: none;
                     content: '';
@@ -222,12 +246,15 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
                     @include transition(transform .5s ease);
                 }
             }
+
             &:hover {
                 .dot {
                     background-color: var(--cl-orange);
                 }
+
                 .txt {
                     color: var(--cl-orange);
+
                     &:after {
                         @include transform(scaleX(1));
                         transform-origin: left;
@@ -236,39 +263,53 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
 
             }
         }
+
         &-bold {
             transition: color 400ms ease;
+
             &:hover {
                 color: var(--cl-orange);
             }
         }
     }
+
     &-bg-link {
         transition: background-color 400ms ease;
+
         &:hover {
             background-color: var(--cl-orange);
         }
     }
 }
+
 .richtext {
     @for $i from 0 through 6 {
-        h#{$i}, .h#{$i} {
+
+        h#{$i},
+        .h#{$i} {
             text-transform: uppercase;
             font-weight: 900
         }
     }
-    & > *:last-child {
+
+    &>*:last-child {
         margin-bottom: 0;
     }
-    p, ul, li {
+
+    p,
+    ul,
+    li {
         @include text(20);
     }
+
     ul {
         margin-left: 0px;
         list-style: none;
         padding-left: 1.8rem;
+
         li {
             position: relative;
+
             &::after {
                 content: '';
                 position: absolute;
@@ -279,9 +320,11 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
                 border-radius: 50%;
                 background-color: var(--cl-txt);
             }
+
             &:first-child {
                 margin-top: 0;
             }
+
             &:last-child {
                 margin-bottom: 0;
             }
@@ -291,54 +334,60 @@ $txtSizes: 10, 12, 14, 16, 18, 20, 36, 180;
 
 //Icon
 .ic {
-display: flex;
-align-items: center;
-justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-&-16 {
-    @include size(1.6rem);
-}
+    &-16 {
+        @include size(1.6rem);
+    }
 
-&-20 {
-    @include size(2rem);
-}
+    &-20 {
+        @include size(2rem);
+    }
 
-&-24 {
-    @include size(2.4rem);
-}
-
-&-32 {
-    @include size(3.2rem);
-}
-
-&-36 {
-    @include size(3.6rem);
-}
-
-&-40 {
-    @include size(4rem);
-
-    @include md {
+    &-24 {
         @include size(2.4rem);
     }
-}
-&-48 {
-    @include size(4.8rem);
-}
-&-80 {
-    @include size(8rem);
-}
 
-&-100 {
-    @include size(10rem);
-}
+    &-32 {
+        @include size(3.2rem);
+    }
 
-&-150 {
-    @include size(15rem);
-}
+    &-36 {
+        @include size(3.6rem);
+    }
+
+    &-40 {
+        @include size(4rem);
+
+        @include md {
+            @include size(2.4rem);
+        }
+    }
+
+    &-48 {
+        @include size(4.8rem);
+    }
+
+    &-80 {
+        @include size(8rem);
+    }
+
+    &-100 {
+        @include size(10rem);
+    }
+
+    &-120 {
+        @include size(12rem);
+    }
+
+    &-150 {
+        @include size(15rem);
+    }
 }
 
 .split-line {
-contain: paint;
-will-change: transform;
+    contain: paint;
+    will-change: transform;
 }
