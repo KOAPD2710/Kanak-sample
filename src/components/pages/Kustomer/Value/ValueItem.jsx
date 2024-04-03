@@ -1,9 +1,11 @@
+import ArrowUpRight from "@/components/globals/IcArrow/ArrowUpRight"
+
 function KustomerValueItem({ ...props }) {
     return (
         <div className="kustomer-val-main-item bg-dark">
             <div className="kustomer-val-main-item-head">
-                <div className="heading txt-up txt-black kustomer-val-main-item-num">
-                    {props.idx + 1 + '.'}
+                <div className="heading h5 txt-up txt-black kustomer-val-main-item-label">
+                    {props.label}
                 </div>
                 <div className="kustomer-val-main-item-ic">
                     {props.ic}
@@ -18,6 +20,7 @@ function KustomerValueItem({ ...props }) {
                 </p>
                 <a href="#" className="txt txt-18 txt-med txt-orange kustomer-val-main-item-link txt-link" data-cursor="txtLink">
                     Learn more
+                    <ArrowUpRight />
                 </a>
             </div>
             {props.idx != 0 && <div className="line line-left"></div>}

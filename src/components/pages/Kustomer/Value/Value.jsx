@@ -14,7 +14,6 @@ function KustomerValue(props) {
             allItems.forEach(el => totalDis += el.clientWidth)
             let disWrap = ut.dom('.kustomer-val-main-inner').clientWidth
             let offset = disWrap - allItems[allItems.length - 1].clientWidth
-            // let dis1 = allItems[0].clientWidth - (offset / 2);
             let dis1 = totalDis - disWrap
             const itemSequence = [
                 [[allItems[1]], { x: [0, -dis1] }, { easing: 'linear' }],

@@ -111,12 +111,17 @@ const filterCaseStudy = listCaseStudy.filter(
                     title={item.data.benefit_title[0].text}
                     list={item.data.benefit_list.map((el) => el.item.uid)}
                 />
-                <Catalogue
-                    label={item.data.katalog_label}
-                    title={item.data.katalog_title[0].text}
-                    describe={item.data.katalog_des}
-                />
             </>
+        )
+    }
+
+    {
+        item.data.katalog_title[0] !== undefined && (
+            <Catalogue
+                label={item.data.katalog_label}
+                title={item.data.katalog_title[0].text}
+                describe={item.data.katalog_des}
+            />
         )
     }
     <Explore list={exploreData} />
