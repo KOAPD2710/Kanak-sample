@@ -39,7 +39,6 @@ function KustomerSustain({ ...props }) {
         e.preventDefault();
         setFilter(uid)
         setCurrentList(list)
-        console.log(uid);
     }
 
     useEffect(() => {

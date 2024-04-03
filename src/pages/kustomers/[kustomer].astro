@@ -83,8 +83,11 @@ const filterCaseStudy = listCaseStudy.filter(
     (item) => item.data.category.toLowerCase().replace(" ", "-") === kustomer,
 );
 ---
-
-<Layout title={item.data.title}>
+<Layout
+    title={item.data.title}
+    footer_cta={item.data.cta_title[0]?.text}
+    footer_bg={item.data.cta_background}
+    >
     <Hero label={item.data.hero_label} title={item.data.hero_title[0].text} />
     {item.data.hero_subtitle && <Premble title={item.data.hero_subtitle} />}
     <Client
@@ -156,15 +159,6 @@ const filterCaseStudy = listCaseStudy.filter(
                 btn={item.data.award_button}
                 medal={item.data.award_medal}
                 qr={item.data.award_qr}
-            />
-        )
-    }
-    {
-        item.data.cta_title[0] !== undefined && (
-            <CTA
-                title={item.data.cta_title[0].text}
-                background={item.data.cta_background}
-                btn={item.data.cta_button}
             />
         )
     }
