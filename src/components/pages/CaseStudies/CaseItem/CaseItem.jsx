@@ -46,7 +46,7 @@ function CaseItem({ ...props }) {
     }, [])
 
     return (
-        <div className="case-list-item" ref={itemRef}>
+        <div className="case-list-item bg-light" ref={itemRef}>
             <a href={`/kase-studies/${props.data.category.toLowerCase().replaceAll(' ', '-')}`} className="txt txt-20 txt-bold case-list-item-label txt-link" data-cursor="txtLink">
                 {props.data.category}
             </a>

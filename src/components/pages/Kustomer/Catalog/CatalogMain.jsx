@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
+import { getByUID } from "@/prismic";
+
 
 function ListItem({ ...props }) {
     return (
@@ -23,16 +25,50 @@ function ListItem({ ...props }) {
 
 function CatalogueMain({ ...props }) {
     const [index, setIndex] = useState(0)
-    const [currName, setCurrName] = useState('Bowls')
+    let list = []
+    props.list.forEach((item, idx) => {
+        list.push(...item.list)
+    })
 
     function navOnClick(dir) {
-        document.querySelectorAll('.kustomer-cata-main-content-list-item').forEach(el => el.classList.remove('active'))
+        // document.querySelectorAll('.kustomer-cata-main-content-list-item').forEach(el => el.classList.remove('active'))
         setIndex(dir == 'next' ? index + 1 : index - 1)
     }
+    useEffect(() => {
+        console.log(props);
+    }, [])
     return (
         <div className="kustomer-cata-main">
             <div className="kustomer-cata-main-content-wrap">
-                <div className="kustomer-cata-main-content">
+                {props.list.map((item, idx) => (
+                    <div className="kustomer-cata-main-content" key={idx}>
+                        <div className="kustomer-cata-main-content-des">
+                            <h3 className="heading h4 txt-black txt-up kustomer-cata-main-content-des-title">{item.title}</h3>
+                            <p className="txt txt-18 txt-med kustomer-cata-main-content-des-subtitle">{item.subtitle}</p>
+                        </div>
+                        <div className="kustomer-cata-main-content-list">
+                            {item.list.map((el, idx) => (
+                                <a href="#" className={`kustomer-cata-main-content-list-item ${index == (list.findIndex(listItem => listItem.uid == el.uid)) ? "active" : ''}`}
+                                    onMouseEnter={(e) => { setIndex(list.findIndex(listItem => listItem.uid == el.uid)) }}
+                                    key={idx}>
+                                    <h3 className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
+                                        {el.name}
+                                    </h3>
+                                    <div className="txt txt-20 txt-bold kustomer-cata-main-content-list-item-count">
+                                        {(idx + 1).toString().padStart(2, '0')}
+                                    </div>
+                                    <div className="line">
+                                        <div className="line-inner"></div>
+                                    </div>
+                                    {idx === item.list.length - 1 && (
+                                        <div className="line line-bot"></div>
+                                    )}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+                {/* <div className="kustomer-cata-main-content">
                     <div className="kustomer-cata-main-content-des">
                         <h3 className="heading h4 txt-black txt-up kustomer-cata-main-content-des-title">Versatile Dinnerware</h3>
                         <p className="txt txt-18 txt-med kustomer-cata-main-content-des-subtitle">Made from sturdy, compostable bagasse, suitable for any retail setting.</p>
@@ -101,10 +137,9 @@ function CatalogueMain({ ...props }) {
                             <div className="line">
                                 <div className="line-inner"></div>
                             </div>
-                            <div className="line line-bot"></div>
                         </a>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="kustomer-cata-card">
                 <div className="kustomer-cata-card-stick">
@@ -123,18 +158,12 @@ function CatalogueMain({ ...props }) {
                                         {props.arrIcon}
                                     </div>
                                 </button>
-                                <button className={`kustomer-cata-card-nav-item next${index == 4 ? ' disable' : ''}`} onClick={(e) => navOnClick('next')}>
+                                <button className={`kustomer-cata-card-nav-item next${index == list.length - 1 ? ' disable' : ''}`} onClick={(e) => navOnClick('next')}>
                                     <div className="line line-ver"></div>
                                     <div className="ic ic-40">
                                         {props.arrIcon}
                                     </div>
                                 </button>
-                                {/* <button className={`kustomer-cata-card-nav-item next${index == props.list.length - 1 ? ' disable':''}`} onClick={onClickNavNext}>
-                                <div className="line line-ver"></div>
-                                <div className="ic ic-40">
-                                    {props.arrIcon}
-                                </div>
-                            </button> */}
                             </div>
                         </div>
                         <div className="line line-top-mid"></div>
@@ -146,21 +175,11 @@ function CatalogueMain({ ...props }) {
                         <div className="line line-bot-mid"></div>
                         <div className="kustomer-cata-card-bottom">
                             <div className="kustomer-cata-card-bottom-txt-wrap">
-                                <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt ${index == 0 ? 'active' : ''}`}>
-                                    Bowls
-                                </div>
-                                <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt ${index == 1 ? 'active' : ''}`}>
-                                    PLATES & Platters
-                                </div>
-                                <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt ${index == 2 ? 'active' : ''}`}>
-                                    CUPS
-                                </div>
-                                <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt ${index == 3 ? 'active' : ''}`}>
-                                    Kutlery
-                                </div>
-                                <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt ${index == 4 ? 'active' : ''}`}>
-                                    Straws
-                                </div>
+                                {list.map((el, idx) => (
+                                    <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`} key={idx}>
+                                        {el.name}
+                                    </div>
+                                ))}
                                 {/* {props.list.map((item, idx) => (
                                 <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`} key={idx}>
                                     {item.data.name}

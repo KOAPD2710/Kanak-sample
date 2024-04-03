@@ -1,8 +1,8 @@
-import "./Catalogue.scss"
+import "./Catalog.scss"
 
-import CatalogueMain from "./CatalogueMain"
+import CatalogMain from "./CatalogMain"
 
-function KustomerCatalogue({ ...props }) {
+function KustomerCatalog({ ...props }) {
     return (
         <section className="kustomer-cata">
             <div className="container grid">
@@ -13,7 +13,7 @@ function KustomerCatalogue({ ...props }) {
                 <div className="kustomer-cata-des">
                     <p className="txt txt-18 txt-med">{props.describe}</p>
                 </div>
-                <CatalogueMain arrIcon={props.arrIcon} qr={props.qr} img={props.image} />
+                <CatalogMain arrIcon={props.arrIcon} qr={props.qr} img={props.image} list={props.data} {...props} />
             </div>
         </section>
     )
@@ -21,4 +21,4 @@ function KustomerCatalogue({ ...props }) {
 
 
 
-export default KustomerCatalogue
+export default KustomerCatalog

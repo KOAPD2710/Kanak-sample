@@ -1,24 +1,24 @@
 ---
-const title = Astro.props.title;
-
+import { convertHighlight } from "@utils/text";
 import KustomerPremble from "./Premble";
 import VideoBadge from "@components/globals/BadgeVideo/Badge.astro";
 
-let newHtml = "";
-title.forEach((el, elIdx) => {
-    let bodyText = el.text;
-    let subString = [];
-    el.spans.forEach((hl, idx) => {
-        subString[idx] = bodyText.substring(hl.start, hl.end);
-    });
-    subString.forEach((el, idx) => {
-        bodyText = bodyText.replace(el, `<span class="txt-green">${el}</span>`).replaceAll('\n','<br/>');
-    });
-    newHtml += bodyText;
-});
+let title = convertHighlight(Astro.props.title);
+// let newHtml = "";
+// title.forEach((el, elIdx) => {
+//     let bodyText = el.text;
+//     let subString = [];
+//     el.spans.forEach((hl, idx) => {
+//         subString[idx] = bodyText.substring(hl.start, hl.end);
+//     });
+//     subString.forEach((el, idx) => {
+//         bodyText = bodyText.replace(el, `<span class="txt-green">${el}</span>`).replaceAll('\n','<br/>');
+//     });
+//     newHtml += bodyText;
+// });
 ---
 
 <KustomerPremble>
-    <VideoBadge slot="badge"/>
-    <Fragment set:html={newHtml} slot="title" />
+    <VideoBadge slot="badge" />
+    <Fragment set:html={title} slot="title" />
 </KustomerPremble>
