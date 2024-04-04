@@ -40,7 +40,7 @@ function KustomerAward({ ...props }) {
                 document.querySelector('.kustomer-award-product-qr-wrap').removeAttribute('style')
                 document.querySelector('.kustomer-award-content-btn').removeAttribute('style')
             })
-        }, { margin: "-10% 0px -20% 0px" })
+        }, { margin: "-40% 0px -40% 0px" })
     }, [])
     return (
         <section className="kustomer-award">
