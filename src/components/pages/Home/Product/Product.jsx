@@ -65,7 +65,7 @@ function HomeProduct(props) {
                         <div className="home-prod-cards-qr-wrap">
                             {props.itemList.map((item, idx) => (
                                 <div className={`home-prod-cards-qr${idx == index ? ' active' : ''}`} key={idx}>
-                                    <img src={item.data.qr_code.url} alt="" className="ic ic-80" />
+                                    <img src={item.data.qr.url} alt="" className="ic ic-80" />
                                 </div>
                             ))}
                         </div>

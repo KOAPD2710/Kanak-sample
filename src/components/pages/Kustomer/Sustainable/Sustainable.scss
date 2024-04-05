@@ -68,11 +68,10 @@
                         column-gap: 0.8rem;
                         transition: color .4s ease;
 
-                        &.active {
-                            color: var(--cl-orange);
-
+                        &:hover {
                             .dot {
                                 opacity: 1;
+                                transition-delay: .8s;
                             }
 
                             .kustomer-sus-main-cate-list-item-txt {
@@ -80,10 +79,13 @@
                             }
                         }
 
-                        &:hover {
+                        &.active {
+                            color: var(--cl-orange);
+
                             .dot {
                                 opacity: 1;
-                                transition-delay: .4s;
+                                transition-duration: .4s !important;
+                                transition-delay: 0ms !important;
                             }
 
                             .kustomer-sus-main-cate-list-item-txt {
@@ -113,7 +115,7 @@
                     align-items: center;
                     justify-content: center;
                     padding: 4rem;
-                    aspect-ratio: 1;
+                    aspect-ratio: 1.068;
                     overflow: hidden;
 
                     img {
@@ -171,7 +173,8 @@
 
                 .line-right {
                     position: absolute;
-                    top: 0;
+                    height: calc(100% + .2rem);
+                    top: -.1rem;
                     right: -.1rem;
                 }
 

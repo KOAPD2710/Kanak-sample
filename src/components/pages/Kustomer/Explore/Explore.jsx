@@ -7,7 +7,6 @@ import ExploreItem from "./ExploreItem"
 
 function KustomerExplore({ ...props }) {
     const allItem = props.list
-
     useEffect(() => {
         const title = new SplitType(".kustomer-explore-title", { types: 'lines, words', lineClass: 'split-line' })
 
@@ -26,15 +25,15 @@ function KustomerExplore({ ...props }) {
     return (
         <section className="kustomer-explore">
             <div className="container grid">
-                <h1 className="heading h0 txt-black txt-up kustomer-explore-title">Explore our <span className="txt-green">customizable</span><span className="txt-green">offers</span></h1>
+                <h1 className="heading h0 txt-black txt-up kustomer-explore-title">{props.title}</h1>
                 <div className="kustomer-explore-main">
-                    {allItem.map((item, idx) =>
+                    {props.groupItems.map(item =>
                         <ExploreItem
-                            title={item.title}
-                            label={item.label}
-                            list={item.list}
-                            img={idx == 0 ? props.img1 : props.img2}
-                            key={idx}
+                            key={item.uid}
+                            title={item.data.title}
+                            label={item.data.name}
+                            solutions={item.list}
+                            img={item.data.thumbnail}
                         />
                     )}
                 </div>

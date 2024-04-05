@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import { animate, timeline, stagger, inView } from "motion";
 import SplitType from 'split-type';
 
-function ExploreItem({ title, label, list, ...props }) {
+function ExploreItem({ ...props }) {
     const itemRef = useRef()
     useEffect(() => {
         const item = itemRef.current
@@ -37,21 +37,20 @@ function ExploreItem({ title, label, list, ...props }) {
             })
         }, { margin: "-10% 0px -10% 0px" })
     }, [])
-
     return (
         <div className="kustomer-explore-main-item" ref={itemRef}>
             <div className="line kustomer-explore-main-item-line"></div>
             <a href="" className="kustomer-explore-main-item-main bg-light" data-cursor="ext">
-                <div className="heading h5 txt-black txt-up kustomer-explore-main-item-main-label">{label}</div>
-                <h2 className="heading h1 txt-black txt-up kustomer-explore-main-item-main-title">{title}</h2>
+                <div className="heading h5 txt-black txt-up kustomer-explore-main-item-main-label">{props.label[0].text}</div>
+                <h2 className="heading h1 txt-black txt-up kustomer-explore-main-item-main-title">{props.title[0].text}</h2>
                 <div className="kustomer-explore-main-item-main-img">
-                    {props.img}
+                    <img src={props.img.url} alt={props.img.alt} width={props.img.dimensions.width} className="img img-fill" />
                 </div>
             </a>
             <div className="kustomer-explore-main-item-list">
                 <div className="line line-ver kustomer-explore-main-item-list-line"></div>
-                {list.map((item, idx) =>
-                    <ExploreInner list={item} key={idx} />
+                {props.solutions.map((item) =>
+                    <ExploreInner key={item[0].uid} {...item[0]} />
                 )}
             </div>
         </div>

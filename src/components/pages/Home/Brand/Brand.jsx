@@ -103,7 +103,7 @@ function HomeBrand(props) {
                             >
                                 <div className="home-brand-main-item-head">
                                     <h3 className="heading h4 txt-up txt-black home-brand-main-item-title">
-                                        {data.title[0].text}
+                                        {data.name[0].text}
                                     </h3>
                                     <div className='ic ic-20 home-brand-main-item-ic'>
                                         {props.arrIconDesk}

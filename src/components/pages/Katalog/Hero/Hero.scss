@@ -1,0 +1,17 @@
+@use '@styles/mixins' as *;
+
+.katalog-hero {
+    padding-top: 24rem;
+    padding-bottom: 8rem;
+
+    &-title {
+        grid-column: 1/7;
+    }
+
+    &-subtitle {
+        grid-column: 11/-1;
+        align-self: end;
+        margin-bottom: .9rem;
+        margin-left: -1rem;
+    }
+}
