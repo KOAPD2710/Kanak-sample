@@ -30,7 +30,7 @@ const { item } = Astro.props;
 const homeData = await getPage("home");
 
 const serviceItem = [];
-item.data.service_sub_items.forEach((el, idx) => {
+item.data.service_sub_items.forEach((el: any, idx: number) => {
     el.item.uid && serviceItem.push(el.item.uid);
 });
 const cataData = [
@@ -134,7 +134,6 @@ const filterCaseStudy = listCaseStudy.filter(
                           }
                         : null
                 }
-                {item}
             />
         )
     }

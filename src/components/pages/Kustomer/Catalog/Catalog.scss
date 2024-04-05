@@ -237,6 +237,7 @@
             border-top: none;
 
             &-inner {
+                user-select: none;
                 img {
                     margin-left: -25%;
                     width: 150%;
