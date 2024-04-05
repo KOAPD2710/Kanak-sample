@@ -13,22 +13,31 @@ const allCate = await getAllByType("product_group");
 const cateNotSustainable = [];
 allCate.map(
     (item) =>
-        item.data.is_sustainables_ == false && cateNotSustainable.push(item),
+        item.data.is_sustainables_ === false && cateNotSustainable.push(item),
 );
 const cateList = cateNotSustainable.reduce(
     (acc, curr) => acc.concat(curr.data.name),
     [],
 );
-const listUIDItem = [];
-cateNotSustainable
-    .reduce((acc, curr) => acc.concat(curr.data.product_list), [])
-    .map(({ product }) => listUIDItem.push(product.uid));
-
-const productList = await Promise.all(
-    listUIDItem.map(async (uid: any) => {
-        let item = await getByUID("product", uid);
-        return { ...item, cate: uid };
-    }),
+const productList = [];
+await Promise.all(
+    cateNotSustainable
+        .reduce(
+            (acc, curr) =>
+                acc.concat({
+                    list: curr.data.product_list,
+                    name: curr.data.name,
+                }),
+            [],
+        )
+        .map(async (data: any) => {
+            await Promise.all(
+                data.list.map(async (el: any) => {
+                    const item = await getByUID("product", el.product.uid);
+                    productList.push({ ...item, cate: data.name });
+                }),
+            );
+        }),
 );
 ---
 
@@ -36,6 +45,5 @@ const productList = await Promise.all(
     tagList={tagList}
     cateList={cateList}
     allItem={productList}
-    check={listUIDItem}
-    client:visible
+    client:load
 />

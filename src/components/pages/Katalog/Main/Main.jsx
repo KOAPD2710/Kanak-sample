@@ -50,25 +50,29 @@ function FilterCate({ ...props }) {
 }
 
 function KatalogMain({ ...props }) {
-    const { list: allItem } = props;
+    const { allItem: allItem } = props;
     const [filter, setFilter] = useState('All');
     const [category, setCategory] = useState(props.cateList[0]);
-    // const [itemList, setItemList] = useState(allItem);
-    // const [limit, setLimit] = useState(4);
-    const toggleRef = useRef();
 
+    let newList = allItem.filter((item) => {
+        if (filter == "All") {
+            return item.cate === category && item;
+        } else {
+            return item.data.tag_grp.some(tag => tag.tags === filter) && item.cate === category && item
+        }
+    });
     const renderFilterTag = useMemo(() => {
         return (
             <>
                 <FilterTag name={'All'}
                     // count={allItem.length}
                     isActive={filter == 'All'}
-                    onClick={(e) => { filterTag(e) }} />
+                    onClick={(e) => { filterList(e) }} />
                 {props.tagList.map((el, idx) => (
                     <FilterTag name={el}
                         // count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterTag(e) }}
+                        onClick={(e) => { filterList(e) }}
                         key={idx} />
                 ))}
             </>
@@ -81,32 +85,31 @@ function KatalogMain({ ...props }) {
                 <FilterCate
                     key={el}
                     data={el}
-                    onClick={(e) => { filterCate(e) }}
+                    onClick={(e) => { filterList(e) }}
                     isActive={category == el}
                 />
             ))
         )
     }, [category])
 
-    function filterTag(e) {
-        const targetTag = e.target.getAttribute('data-filter')
-        setFilter(targetTag)
-    }
-    function filterCate(e) {
-        const targetTag = e.target.getAttribute('data-cate')
-        setCategory(targetTag)
-    }
-    // useEffect(() => {
-    //     console.log(filter);
-    // }, [filter])
-    // useEffect(() => {
-    //     console.log(category);
-    // }, [category])
+    const renderListItem = useMemo(() => {
+        return (
+            newList.map((item, idx) => (
+                <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
+            ))
+        )
+    }, [newList, category, filter])
 
-    useEffect(() => {
-        console.log(props.check);
-        console.log(props.allItem[0]);
-    }, [])
+    function filterList(e) {
+        let target = e.target
+        if (target.hasAttribute('data-filter')) {
+            let data = e.target.getAttribute('data-filter')
+            setFilter(data)
+        } else if (target.hasAttribute('data-cate')) {
+            let data = e.target.getAttribute('data-cate')
+            setCategory(data)
+        }
+    }
     return (
         <section className="katalog-main">
             <div className="container grid">
@@ -142,9 +145,7 @@ function KatalogMain({ ...props }) {
                     </ul>
                 </div>
                 <div className="katalog-main-list">
-                    {props.allItem.map((item, idx) => (
-                        <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
-                    ))}
+                    {renderListItem}
                 </div>
             </div>
         </section>

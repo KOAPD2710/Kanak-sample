@@ -73,7 +73,6 @@ const listCaseStudy = await getAllByType("case_study");
 const filterCaseStudy = listCaseStudy.filter(
     (item) => item.data.category.toLowerCase().replace(" ", "-") === kustomer,
 );
-console.log(item.data.commitment_list);
 ---
 
 <Layout
