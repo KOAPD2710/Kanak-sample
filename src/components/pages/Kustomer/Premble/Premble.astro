@@ -18,7 +18,7 @@ let title = convertHighlight(Astro.props.title);
 // });
 ---
 
-<KustomerPremble>
+<KustomerPremble client:visible={{ rootMargin: "100% 0px 100% 0px" }}>
     <VideoBadge slot="badge" />
     <Fragment set:html={title} slot="title" />
 </KustomerPremble>

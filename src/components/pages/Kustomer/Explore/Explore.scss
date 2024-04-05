@@ -82,6 +82,9 @@
 
             &-list {
                 position: relative;
+                display: flex;
+                flex-direction: column;
+                row-gap: 5.2rem;
                 grid-column: 11/-1;
                 margin-left: var(--fr-width);
                 padding-left: calc(var(--fr-width) + var(--grid-gap));
@@ -94,7 +97,6 @@
                 }
 
                 &-inner {
-                    margin-bottom: 5.2rem;
 
                     &-title {
                         margin-bottom: 4rem;

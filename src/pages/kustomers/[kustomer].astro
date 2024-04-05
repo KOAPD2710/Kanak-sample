@@ -119,11 +119,12 @@ const filterCaseStudy = listCaseStudy.filter(
     (item) => item.data.category.toLowerCase().replace(" ", "-") === kustomer,
 );
 ---
+
 <Layout
     title={item.data.title}
     footer_cta={item.data.cta_title[0]?.text}
     footer_bg={item.data.cta_background}
-    >
+>
     <Hero label={item.data.hero_label} title={item.data.hero_title[0].text} />
     {item.data.hero_subtitle && <Premble title={item.data.hero_subtitle} />}
     <Client
@@ -161,18 +162,22 @@ const filterCaseStudy = listCaseStudy.filter(
                 describe={item.data.katalog_des}
                 data={cataData}
                 group1={
-                    item.data.katalog_grp_1_title ? {
-                        title: item.data.katalog_grp_1_title,
-                        sub: item.data.katalog_grp_1_sub,
-                        list: item.data.katalog_grp_1_list
-                    }: null
+                    item.data.katalog_grp_1_title
+                        ? {
+                              title: item.data.katalog_grp_1_title,
+                              sub: item.data.katalog_grp_1_sub,
+                              list: item.data.katalog_grp_1_list,
+                          }
+                        : null
                 }
                 group2={
-                    item.data.katalog_grp_2_title ? {
-                        title: item.data.katalog_grp_2_title,
-                        sub: item.data.katalog_grp_2_sub,
-                        list: item.data.katalog_grp_2_list
-                    }: null
+                    item.data.katalog_grp_2_title
+                        ? {
+                              title: item.data.katalog_grp_2_title,
+                              sub: item.data.katalog_grp_2_sub,
+                              list: item.data.katalog_grp_2_list,
+                          }
+                        : null
                 }
                 {item}
             />

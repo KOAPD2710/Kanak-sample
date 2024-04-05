@@ -18,8 +18,8 @@ function KustomerValueItem({ ...props }) {
                 <p className="txt txt-18 txt-med kustomer-val-main-item-sub">
                     {props.sub_title}
                 </p>
-                <a href="#" className="txt txt-18 txt-med txt-orange kustomer-val-main-item-link txt-link" data-cursor="txtLink">
-                    Learn more
+                <a href="#" className="txt-orange kustomer-val-main-item-link txt-link" data-cursor="txtLink">
+                    <div className="txt txt-18 txt-med">Learn more</div>
                     <ArrowUpRight />
                 </a>
             </div>

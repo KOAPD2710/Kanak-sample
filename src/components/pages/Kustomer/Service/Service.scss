@@ -36,13 +36,13 @@
             column-gap: var(--grid-gap);
             grid-template-columns: repeat(8, 1fr);
             padding-left: calc(var(--grid-gap)/2);
-            padding-top: 2rem;
-            padding-bottom: 2rem;
+            row-gap: 6rem;
+            padding-top: 8rem;
+            padding-bottom: 3rem;
         }
 
         &-item {
             grid-column: 2/-1;
-            padding-top: 6rem;
 
             &:last-child {
                 .line {

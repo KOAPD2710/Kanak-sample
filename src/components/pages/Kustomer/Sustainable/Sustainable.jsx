@@ -17,9 +17,11 @@ function SustainableItem({ ...props }) {
         animate(item.querySelector('.line-qr'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
         animate(name.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(item.querySelector('.kustomer-sus-main-table-item-info-qr-inner'), { opacity: 0, scale: .9 }, { duration: 0 })
+        animate(item.querySelector('.kustomer-sus-main-table-item-img'), { opacity: 0, scale: .9 }, { duration: 0 })
 
         const sequence = [
             [item.querySelector('.line-left'), { scaleY: 1 }, { duration: .6, at: 0 }],
+            [item.querySelector('.kustomer-sus-main-table-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: .2 }],
             [item.querySelector('.line-mid'), { scaleX: 1 }, { duration: .4, at: .35 }],
             [item.querySelector('.line-bot'), { scaleX: 1 }, { duration: .45, at: .5 }],
             [item.querySelector('.line-right'), { scaleY: 1 }, { duration: .5, at: .6 }],
@@ -32,6 +34,7 @@ function SustainableItem({ ...props }) {
             timeline(sequence).finished.then(() => {
                 name.revert()
                 item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'))
+                item.querySelector('.kustomer-sus-main-table-item-img').removeAttribute('style')
             })
         })
 
@@ -67,6 +70,7 @@ function KustomerSustain({ ...props }) {
     const [currentList, setCurrentList] = useState(props.cateList[0].list)
 
     function filterList(e, uid, list) {
+        setItemList([])
         e.preventDefault();
         setFilter(uid)
         setCurrentList(list)
@@ -84,11 +88,18 @@ function KustomerSustain({ ...props }) {
         animate(subtitle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate('.kustomer-sus-main-line-top', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
 
+        const listItems = []
+        document.querySelectorAll(".kustomer-sus-main-cate-list-item").forEach((el, idx) => {
+            animate(el, { opacity: 0, transform: "translateX(20px)" }, { duration: 0 })
+            listItems.push(el)
+        })
         const sequence = [
             ['.kustomer-sus-head-img', { opacity: 1, transform: "none" }, { duration: .6, at: 0 }],
             [subtitle.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.0085), at: .15 }],
             ['.kustomer-sus-main-line-top', { scaleX: 1 }, { duration: .6, at: .2 }],
+            [listItems, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: .2 }]
         ]
+
         inView('.kustomer-sus', () => {
             timeline(sequence).finished.then(() => {
                 subtitle.revert()
