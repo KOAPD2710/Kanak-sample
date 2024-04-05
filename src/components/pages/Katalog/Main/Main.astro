@@ -1,0 +1,46 @@
+---
+import Image from "astro/components/Image.astro";
+import { getAllByType, getByUID } from "@/prismic";
+import KatalogMain from "./Main";
+import img from "@assets/kustomer-hero-right.png";
+import qr from "@assets/kustomer-qr.png";
+
+const allTag = await getAllByType("case_study");
+const tagList = [];
+allTag.map((el, idx) => {
+    !tagList.includes(el.data.category) && tagList.push(el.data.category);
+});
+
+const allCate = await getAllByType("product_group");
+const cateNotSustainable = [];
+allCate.map(
+    (item) =>
+        item.data.is_sustainables_ == false && cateNotSustainable.push(item),
+);
+const cateList = cateNotSustainable.reduce(
+    (acc, curr) => acc.concat(curr.data.name),
+    [],
+);
+const listUIDItem = [];
+cateNotSustainable
+    .reduce((acc, curr) => acc.concat(curr.data.product_list), [])
+    .map(({ product }) => listUIDItem.push(product.uid));
+
+const productList = await Promise.all(
+    listUIDItem.map(async (uid: any) => {
+        let item = getByUID("product", uid);
+        return item;
+    }),
+);
+---
+
+<KatalogMain
+    tagList={tagList}
+    cateList={cateList}
+    allItem={listUIDItem}
+    check={productList}
+    client:visible
+>
+    <Image src={img} alt="" slot="img" class="img" />
+    <Image src={qr} alt="" slot="qr" class="img" />
+</KatalogMain>

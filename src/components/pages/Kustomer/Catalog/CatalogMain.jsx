@@ -34,9 +34,6 @@ function CatalogueMain({ ...props }) {
         // document.querySelectorAll('.kustomer-cata-main-content-list-item').forEach(el => el.classList.remove('active'))
         setIndex(dir == 'next' ? index + 1 : index - 1)
     }
-    useEffect(() => {
-        console.log(props);
-    }, [])
     return (
         <div className="kustomer-cata-main">
             <div className="kustomer-cata-main-content-wrap">
