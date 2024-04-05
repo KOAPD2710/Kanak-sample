@@ -5,20 +5,17 @@ function Item({ ...props }) {
     return (
         <a href="#" className="katalog-main-list-item" >
             <div className="katalog-main-list-item-img">
-                {props.img}
-                {/* <img src={props.data.thumbnail.url} alt={props.data.thumbnail.alt} width={props.data.thumbnail.dimensions.width} className="img" /> */}
+                <img src={props.img.url} alt={props.img.alt} width={props.img.dimensions.width} className="img" />
             </div>
             <div className="katalog-main-list-item-info">
                 <div className="line line-mid"></div>
                 <h4 className="heading h6 txt-black txt-up katalog-main-list-item-info-name">
-                    {/* {props.data.title} */}
-                    Bowls
+                    {props.name}
                 </h4>
                 <div className="katalog-main-list-item-info-qr">
                     <div className="line line-ver line-qr"></div>
                     <div className="katalog-main-list-item-info-qr-inner">
-                        {/* <img src={props.data.qr_code.url} alt={props.data.qr_code.alt} width={props.data.qr_code.dimensions.width} /> */}
-                        {props.qr}
+                        <img src={props.qr.url} alt={props.qr.alt} width={props.qr.dimensions.width} />
                     </div>
                 </div>
             </div>
@@ -107,8 +104,8 @@ function KatalogMain({ ...props }) {
     // }, [category])
 
     useEffect(() => {
-        console.log(props.allItem);
         console.log(props.check);
+        console.log(props.allItem[0]);
     }, [])
     return (
         <section className="katalog-main">
@@ -146,7 +143,7 @@ function KatalogMain({ ...props }) {
                 </div>
                 <div className="katalog-main-list">
                     {props.allItem.map((item, idx) => (
-                        <Item key={idx} {...item} img={props.img} qr={props.qr} ></Item>
+                        <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
                     ))}
                 </div>
             </div>
