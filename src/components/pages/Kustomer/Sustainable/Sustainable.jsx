@@ -1,13 +1,23 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useMemo } from "react"
 import { getAllByType } from "@/prismic"
 import "./Sustainable.scss"
 import { animate, timeline, stagger, inView } from "motion";
 import SplitType from 'split-type';
 
-function SustainableItem({ ...props }) {
+function SustainableItem(props) {
     const itemRef = useRef()
+    const [animationStarted, setAnimationStarted] = useState(false);
+
     useEffect(() => {
         const item = itemRef.current
+
+        if (animationStarted) {
+            timeline().cancel();
+            name.revert();
+            item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'));
+            item.querySelector('.kustomer-sus-main-table-item-img').removeAttribute('style');
+            item.querySelector('.kustomer-sus-main-table-item-info-qr-inner').removeAttribute('style');
+        }
 
         const name = new SplitType(item.querySelector('.kustomer-sus-main-table-item-info-name'), { types: "lines,words", lineClass: 'split-line' })
         animate(item.querySelector('.line-left'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
@@ -32,13 +42,16 @@ function SustainableItem({ ...props }) {
 
         inView(item, () => {
             timeline(sequence).finished.then(() => {
-                name.revert()
-                item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'))
-                item.querySelector('.kustomer-sus-main-table-item-img').removeAttribute('style')
+                setAnimationStarted(false);
+                setTimeout(() => {
+                    name.revert();
+                    item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'));
+                    item.querySelector('.kustomer-sus-main-table-item-img').removeAttribute('style');
+                    item.querySelector('.kustomer-sus-main-table-item-info-qr-inner').removeAttribute('style');
+                }, 1000)
             })
         })
-
-    }, [])
+    }, [props.filter])
     return (
         <a href="#" className="kustomer-sus-main-table-item" ref={itemRef}>
             <div className="kustomer-sus-main-table-item-img">
@@ -52,7 +65,7 @@ function SustainableItem({ ...props }) {
                 <div className="kustomer-sus-main-table-item-info-qr">
                     <div className="line line-ver line-qr"></div>
                     <div className="kustomer-sus-main-table-item-info-qr-inner">
-                        <img src={props.data.qr_code.url} alt={props.data.qr_code.alt} width={props.data.qr_code.dimensions.width} />
+                        <img src={props.data.qr.url} alt={props.data.qr.alt} width={props.data.qr.dimensions.width} />
                     </div>
                 </div>
             </div>
@@ -63,23 +76,23 @@ function SustainableItem({ ...props }) {
     )
 }
 
-function KustomerSustain({ ...props }) {
+function KustomerSustain(props) {
     const allItem = props.productList
-    const [filter, setFilter] = useState(props.cateList[0].uid)
-    const [itemList, setItemList] = useState(allItem);
-    const [currentList, setCurrentList] = useState(props.cateList[0].list)
+    const [filter, setFilter] = useState(0);
 
-    function filterList(e, uid, list) {
-        setItemList([])
-        e.preventDefault();
-        setFilter(uid)
-        setCurrentList(list)
-    }
-
-    useEffect(() => {
-        let currentItems = allItem.filter(item => currentList.includes(item.uid));
-        setItemList(currentItems)
+    const renderList = useMemo(() => {
+        let list = props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0]);
+        return (
+            <>
+                {list.map((item, idx) => (
+                    <SustainableItem {...item} img={props.img} qr={props.qr} key={idx} filter={filter} />
+                ))}
+            </>
+        )
     }, [filter])
+    useEffect(() => {
+        console.log(filter)
+    }, [filter]);
 
     useEffect(() => {
         const subtitle = new SplitType('.kustomer-sus-head-sub', { types: "lines,words", lineClass: 'split-line' })
@@ -87,24 +100,21 @@ function KustomerSustain({ ...props }) {
         animate('.kustomer-sus-head-img', { opacity: 0, transform: "translateY(30%) scale(.9)" }, { duration: 0 })
         animate(subtitle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate('.kustomer-sus-main-line-top', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate(".kustomer-sus-main-cate-list-item", { opacity: 0, transform: "translateX(20px)" }, { duration: 0 })
 
-        const listItems = []
-        document.querySelectorAll(".kustomer-sus-main-cate-list-item").forEach((el, idx) => {
-            animate(el, { opacity: 0, transform: "translateX(20px)" }, { duration: 0 })
-            listItems.push(el)
-        })
         const sequence = [
             ['.kustomer-sus-head-img', { opacity: 1, transform: "none" }, { duration: .6, at: 0 }],
             [subtitle.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.0085), at: .15 }],
             ['.kustomer-sus-main-line-top', { scaleX: 1 }, { duration: .6, at: .2 }],
-            [listItems, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: .2 }]
+            [".kustomer-sus-main-cate-list-item", { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: .2 }]
         ]
 
         inView('.kustomer-sus', () => {
             timeline(sequence).finished.then(() => {
-                subtitle.revert()
+                subtitle.revert();
                 document.querySelector('.kustomer-sus-head-img').removeAttribute('style');
                 document.querySelector('.kustomer-sus-main-line-top').removeAttribute('style');
+                document.querySelector('.kustomer-sus-main-cate-list-item').removeAttribute('style');
             })
         })
     }, [])
@@ -126,18 +136,19 @@ function KustomerSustain({ ...props }) {
                         <ul className="kustomer-sus-main-cate-list">
                             {props.cateList.map((el, idx) => (
                                 <li className="kustomer-sus-main-cate-list-item" key={idx}>
-                                    <a href="#" className={`kustomer-sus-main-cate-list-item-inner ${filter == el.uid ? 'active' : ''}`} data-cursor="txtLink" data-cursor-txtlink="child" onClick={(e) => { filterList(e, el.uid, el.list) }}>
+                                    <button className={`kustomer-sus-main-cate-list-item-inner ${filter == idx ? 'active' : ''}`}
+                                        data-cursor="txtLink"
+                                        data-cursor-txtlink="child"
+                                        onClick={() => setFilter(idx)}>
                                         <div className="dot"></div>
                                         <span className="heading h6 txt-black txt-up kustomer-sus-main-cate-list-item-txt" data-cursor-txtlink-child="true">{el.name}</span>
-                                    </a>
+                                    </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                     <div className="kustomer-sus-main-table">
-                        {itemList.map((item, idx) => (
-                            <SustainableItem {...item} img={props.img} qr={props.qr} key={idx} />
-                        ))}
+                        {renderList}
                     </div>
                 </div>
             </div>

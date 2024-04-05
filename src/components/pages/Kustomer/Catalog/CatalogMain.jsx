@@ -80,7 +80,7 @@ function CatalogueMain({ ...props }) {
                             <div className="kustomer-cata-card-bottom-txt-wrap">
                                 {list.map((el, idx) => (
                                     <div
-                                        key={list.uid}
+                                        key={idx}
                                         className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`}>
                                         {el.name}
                                     </div>

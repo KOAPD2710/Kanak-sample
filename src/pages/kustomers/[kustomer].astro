@@ -11,7 +11,6 @@ import Commitment from "@pages/Kustomer/Commitment/Commitment.astro";
 import CaseStudy from "@pages/Kustomer/CaseStudies/Casestudies.astro";
 import Value from "@pages/Kustomer/Value/Value.astro";
 import Award from "@pages/Kustomer/Award/Award.astro";
-import CTA from "@pages/Kustomer/CTA/CTA.astro";
 import Benefit from "@pages/Kustomer/Benefit/Benefit.astro";
 import Catalog from "@/components/pages/Kustomer/Catalog/Catalog.astro";
 
@@ -118,6 +117,7 @@ const listCaseStudy = await getAllByType("case_study");
 const filterCaseStudy = listCaseStudy.filter(
     (item) => item.data.category.toLowerCase().replace(" ", "-") === kustomer,
 );
+console.log(item.data.commitment_list);
 ---
 
 <Layout
