@@ -2,41 +2,14 @@ import { useEffect, useState } from "react"
 import { useStore } from '@nanostores/react';
 import { productIndex } from '@contexts/StoreGlobal';
 import { getByUID } from "@/prismic";
-
-
-function ListItem({ ...props }) {
-    return (
-        <a href="#" className={`kustomer-cata-main-content-list-item`} onMouseEnter={(e) => { setCurrName(props.title) }}>
-            <div className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
-                {props.title}
-            </div>
-            <div className="txt txt-20 txt-bold kustomer-cata-main-content-list-item-count">
-                {props.idx.toString().padStart(2, '0')}
-            </div>
-            <div className="line">
-                <div className="line-inner"></div>
-            </div>
-            {props.isLast && (
-                <div className="line line-bot"></div>
-            )}
-        </a>
-    )
-}
+import useDebounceCallback from "@hooks/useDebounce";
 
 function CatalogueMain({ ...props }) {
     const [index, setIndex] = useState(0)
-    let list = []
-    props.list.forEach((item, idx) => {
-        list.push(...item.list)
-    })
+    let list = props.list.reduce((acc, curr) => acc.concat(curr.list), []);
 
-    function navOnClick(dir) {
-        // document.querySelectorAll('.kustomer-cata-main-content-list-item').forEach(el => el.classList.remove('active'))
-        setIndex(dir == 'next' ? index + 1 : index - 1)
-    }
-    useEffect(() => {
-        console.log(props);
-    }, [])
+    const debounceHover = useDebounceCallback(setIndex, 200);
+    console.log(list)
     return (
         <div className="kustomer-cata-main">
             <div className="kustomer-cata-main-content-wrap">
@@ -48,9 +21,11 @@ function CatalogueMain({ ...props }) {
                         </div>
                         <div className="kustomer-cata-main-content-list">
                             {item.list.map((el, idx) => (
-                                <a href="#" className={`kustomer-cata-main-content-list-item ${index == (list.findIndex(listItem => listItem.uid == el.uid)) ? "active" : ''}`}
-                                    onMouseEnter={(e) => { setIndex(list.findIndex(listItem => listItem.uid == el.uid)) }}
-                                    key={idx}>
+                                <a
+                                    key={el.uid}
+                                    href="#"
+                                    className={`kustomer-cata-main-content-list-item ${index == (list.findIndex(listItem => listItem.uid == el.uid)) ? "active" : ''}`}
+                                    onMouseEnter={() => debounceHover(list.findIndex(listItem => listItem.uid == el.uid)) }>
                                     <h3 className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
                                         {el.name}
                                     </h3>
@@ -80,13 +55,13 @@ function CatalogueMain({ ...props }) {
                                 Product Kategories
                             </div>
                             <div className="kustomer-cata-card-nav">
-                                <button className={`kustomer-cata-card-nav-item prev${index == 0 ? ' disable' : ''}`} onClick={(e) => navOnClick('prev')}>
+                                <button className={`kustomer-cata-card-nav-item prev${index == 0 ? ' disable' : ''}`} onClick={() => setIndex(index - 1)}>
                                     <div className="line line-ver"></div>
                                     <div className="ic ic-40">
                                         {props.arrIcon}
                                     </div>
                                 </button>
-                                <button className={`kustomer-cata-card-nav-item next${index == list.length - 1 ? ' disable' : ''}`} onClick={(e) => navOnClick('next')}>
+                                <button className={`kustomer-cata-card-nav-item next${index == list.length - 1 ? ' disable' : ''}`} onClick={() => setIndex(index + 1)}>
                                     <div className="line line-ver"></div>
                                     <div className="ic ic-40">
                                         {props.arrIcon}
@@ -104,7 +79,9 @@ function CatalogueMain({ ...props }) {
                         <div className="kustomer-cata-card-bottom">
                             <div className="kustomer-cata-card-bottom-txt-wrap">
                                 {list.map((el, idx) => (
-                                    <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`} key={idx}>
+                                    <div
+                                        key={list.uid}
+                                        className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`}>
                                         {el.name}
                                     </div>
                                 ))}
