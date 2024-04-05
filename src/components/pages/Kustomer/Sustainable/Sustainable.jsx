@@ -11,6 +11,7 @@ function SustainableItem(props) {
     useEffect(() => {
         const item = itemRef.current
 
+        const name = new SplitType(item.querySelector('.kustomer-sus-main-table-item-info-name'), { types: "lines,words", lineClass: 'split-line' })
         if (animationStarted) {
             timeline().cancel();
             name.revert();
@@ -19,7 +20,6 @@ function SustainableItem(props) {
             item.querySelector('.kustomer-sus-main-table-item-info-qr-inner').removeAttribute('style');
         }
 
-        const name = new SplitType(item.querySelector('.kustomer-sus-main-table-item-info-name'), { types: "lines,words", lineClass: 'split-line' })
         animate(item.querySelector('.line-left'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
         animate(item.querySelector('.line-bot'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
         animate(item.querySelector('.line-right'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
@@ -83,15 +83,10 @@ function KustomerSustain(props) {
     const renderList = useMemo(() => {
         let list = props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0]);
         return (
-            <>
-                {list.map((item, idx) => (
-                    <SustainableItem {...item} img={props.img} qr={props.qr} key={idx} filter={filter} />
-                ))}
-            </>
+            list.map((item, idx) => (
+                <SustainableItem {...item} img={props.img} qr={props.qr} key={idx} filter={filter} />
+            ))
         )
-    }, [filter])
-    useEffect(() => {
-        console.log(filter)
     }, [filter]);
 
     useEffect(() => {

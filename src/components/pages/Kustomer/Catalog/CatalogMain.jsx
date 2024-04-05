@@ -83,22 +83,12 @@ function CatalogueMain({ ...props }) {
                                         {el.name}
                                     </div>
                                 ))}
-                                {/* {props.list.map((item, idx) => (
-                                <div className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`} key={idx}>
-                                    {item.data.name}
-                                </div>
-                            ))} */}
                             </div>
                             <div className="kustomer-cata-card-qr-wrap">
                                 <div className="line line-ver"></div>
                                 <div className={`kustomer-cata-card-qr`}>
                                     {props.qr}
                                 </div>
-                                {/* {props.itemList.map((item, idx) => (
-                                <div className={`kustomer-cata-card-qr${idx == index ? ' active' : ''}`} key={idx}>
-                                    <img src={item.data.qr_code.url} alt="" className="ic ic-80" />
-                                </div>
-                            ))} */}
                             </div>
                         </div>
                     </div>
