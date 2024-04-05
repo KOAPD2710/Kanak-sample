@@ -6,12 +6,12 @@ import { useEffect, useRef } from 'react';
 import { cleanText } from '@/components/utils/text';
 
 function KustomerValue(props) {
-    const ref = useRef()
+    const ref = useRef();
     useEffect(() => {
         let allItems = ut.dom('.kustomer-val-main-item');
 
-        let mainTitle = new SplitType('.kustomer-val-title', { types: 'lines, words', lineClass: 'split-line' })
-        let subTitle = new SplitType('.kustomer-val-subtitle', { types: 'lines, words', lineClass: 'split-line' })
+        let mainTitle = new SplitType('.kustomer-val-title', { types: 'lines, words', lineClass: 'split-line' });
+        let subTitle = new SplitType('.kustomer-val-subtitle', { types: 'lines, words', lineClass: 'split-line' });
 
         animate(mainTitle.words, { transform: 'translateY(100%)', opacity: 0 }, { duration: 0 })
         animate(subTitle.words, { transform: 'translateY(100%)', opacity: 0 }, { duration: 0 })

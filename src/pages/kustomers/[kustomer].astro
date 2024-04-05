@@ -30,7 +30,7 @@ const { item } = Astro.props;
 const homeData = await getPage("home");
 
 const serviceItem = [];
-item.data.service_sub_items.forEach((el, idx) => {
+item.data.service_sub_items.forEach((el: any, idx: number) => {
     el.item.uid && serviceItem.push(el.item.uid);
 });
 const cataData = [
@@ -73,7 +73,6 @@ const listCaseStudy = await getAllByType("case_study");
 const filterCaseStudy = listCaseStudy.filter(
     (item) => item.data.category.toLowerCase().replace(" ", "-") === kustomer,
 );
-console.log(item.data.commitment_list);
 ---
 
 <Layout
@@ -135,7 +134,6 @@ console.log(item.data.commitment_list);
                           }
                         : null
                 }
-                {item}
             />
         )
     }

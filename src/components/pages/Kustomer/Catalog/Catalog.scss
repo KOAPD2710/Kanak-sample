@@ -3,7 +3,14 @@
 
 
 .kustomer-cata {
-    padding-bottom: 20rem;
+    --btnHeight: 16.8rem;
+    --HomeProductCardHeight: 66.2rem;
+    --SectionPadBot: 28.8rem;
+
+
+    // padding-bottom: 20rem;
+    padding-bottom: var(--SectionPadBot);
+    contain: paint;
 
     &-title-wrap {
         grid-column: 1/12;
@@ -124,54 +131,95 @@
         position: relative;
         grid-column: 11/16;
 
-        &-stick {
+        &-inner {
             position: relative;
-        }
+            height: var(--HomeProductCardHeight);
+            top: calc((100vh - var(--HomeProductCardHeight)) / 2);
+            position: sticky;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: opacity 400ms ease;
+            // opacity: 0;
+            // pointer-events: none;
 
-        &-inner {}
+            &.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .img {
+                pointer-events: none;
+                user-select: none;
+            }
+
+            .testne {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw;
+                height: 70vh;
+                // background-color: teal;
+                pointer-events: none;
+                user-select: none;
+            }
+        }
 
         &-top {
             display: flex;
-            align-items: center;
+            height: 10rem;
             justify-content: space-between;
+            border-bottom: solid .2rem var(--cl-txt);
+            align-items: center;
+            border: solid .2rem var(--cl-txt);
 
             &-txt {
-                padding: 0 3.2rem;
+                margin-left: 3.2rem;
+                max-width: 13.6rem;
             }
         }
 
         &-nav {
             display: flex;
-            margin-right: .1rem;
+            // margin-right: .1rem;
 
             &-item {
-                position: relative;
+                @include size(10.2rem, 10rem);
+                border-left: solid .2rem var(--cl-txt);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                @include size(10rem);
+                color: var(--cl-txt);
 
-                .ic svg {
-                    transition: all .4s ease;
+                .ic {
+                    transition: all 200ms ease;
                 }
 
-                .line-ver {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
+                &:not(.disable):hover {
+                    color: var(--cl-orange)
                 }
 
-
-                &.prev {
-                    .ic svg {
-                        transform: rotate(180deg);
+                &:not(.disable):active {
+                    .ic {
+                        transform: translateX(.5rem);
                     }
+
+                    &:first-child {
+                        .ic {
+                            transform: rotate(180deg) translateX(.5rem);
+                        }
+                    }
+                }
+
+                &:first-child .ic {
+                    transform: rotate(180deg);
                 }
 
                 &.disable {
                     pointer-events: none;
 
-                    .ic svg {
+                    .ic {
                         opacity: .2;
                     }
                 }
@@ -183,10 +231,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 46.3rem;
-            z-index: 2;
+            height: 100%;
+            border: solid .2rem var(--cl-txt);
+            border-bottom: none;
+            border-top: none;
 
             &-inner {
+                user-select: none;
                 img {
                     margin-left: -25%;
                     width: 150%;
@@ -196,69 +247,52 @@
 
         &-bottom {
             display: flex;
+            height: 10rem;
             justify-content: space-between;
+            align-items: center;
+            border: solid .2rem var(--cl-txt);
 
             &-txt-wrap {
+                margin-left: 3.2rem;
+                margin-right: 3.2rem;
                 display: grid;
                 align-items: center;
-                padding: 1.7rem 3.2rem;
-
             }
 
             &-txt {
-                opacity: 0;
                 grid-column: 1/2;
                 grid-row: 1/2;
+                opacity: 0;
+                pointer-events: none;
                 transition: opacity .4s ease;
 
                 &.active {
                     opacity: 1;
+                    pointer-events: auto;
                 }
             }
         }
 
-        &-qr-wrap {
-            position: relative;
+        &-qr {
+            border-left: solid .2rem var(--cl-txt);
             display: flex;
             align-items: center;
+            justify-content: center;
+            grid-area: 1/1/2/2;
+            // opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            @include size(10.2rem, 10rem);
 
-            .line-ver {
-                position: absolute;
-                top: 0;
-                left: 0;
+            &.active {
+                opacity: 1;
+                pointer-events: auto;
             }
-        }
 
-        &-qr {
-            padding: 1rem;
-
-            img {
-                @include size(8rem);
+            &-wrap {
+                display: grid;
+                grid-template-columns: 1fr;
             }
-        }
-
-        .line-top {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .line-left {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .line-right {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-
-        .line-bot {
-            position: absolute;
-            bottom: 0;
-            left: 0;
         }
     }
 }

@@ -16,7 +16,7 @@ function HomeProduct(props) {
     }
     useEffect(() => {
         console.log('init')
-        scroll(({y}) => {
+        scroll(({ y }) => {
             if (document.querySelectorAll('.home-prod-cards-inner').length >= 1) {
                 if (y.progress >= .9) {
                     document.querySelector('.home-prod-cards-inner').classList.add('active')
@@ -39,12 +39,12 @@ function HomeProduct(props) {
                             Product Kategories
                         </div>
                         <div className="home-prod-cards-nav">
-                            <button className={`home-prod-cards-nav-item prev${index == 0 ? ' disable':''}`} onClick={onClickNavPrev}>
+                            <button className={`home-prod-cards-nav-item prev${index == 0 ? ' disable' : ''}`} onClick={onClickNavPrev}>
                                 <div className="ic ic-40">
                                     {props.arrIcon}
                                 </div>
                             </button>
-                            <button className={`home-prod-cards-nav-item next${index == props.list.length - 1 ? ' disable':''}`} onClick={onClickNavNext}>
+                            <button className={`home-prod-cards-nav-item next${index == props.list.length - 1 ? ' disable' : ''}`} onClick={onClickNavNext}>
                                 <div className="ic ic-40">
                                     {props.arrIcon}
                                 </div>
@@ -73,7 +73,7 @@ function HomeProduct(props) {
                 </div>
                 <div className='home-prod-cards-pagination'>
                     {props.list.map((_, idx) => (
-                        <button className={`home-prod-cards-pagination-dot${idx == index ? ' active' : ''}`}key={idx}>
+                        <button className={`home-prod-cards-pagination-dot${idx == index ? ' active' : ''}`} key={idx}>
                             <span></span>
                         </button>
                     ))}
