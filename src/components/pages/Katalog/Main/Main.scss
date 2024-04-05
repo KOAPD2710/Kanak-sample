@@ -83,7 +83,7 @@
             list-style-type: none;
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            row-gap: 2.8rem;
             // padding-bottom: 6rem;
         }
 
@@ -144,8 +144,12 @@
     &-list {
         grid-column: 5/-1;
         margin-left: calc(var(--grid-gap) * -1);
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+
+        &-wrap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: start;
+        }
 
         &-item {
             position: relative;
@@ -153,14 +157,20 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
-
             &-img {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 4rem;
                 aspect-ratio: 1.068;
                 overflow: hidden;
+
+                &-inner {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 26rem;
+                    height: 100%;
+                }
 
                 img {
                     width: 100%;

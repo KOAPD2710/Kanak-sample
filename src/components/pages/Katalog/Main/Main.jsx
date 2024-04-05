@@ -5,7 +5,9 @@ function Item({ ...props }) {
     return (
         <a href="#" className="katalog-main-list-item" >
             <div className="katalog-main-list-item-img">
-                <img src={props.img.url} alt={props.img.alt} width={props.img.dimensions.width} className="img" />
+                <div className="katalog-main-list-item-img-inner">
+                    <img src={props.img.url} alt={props.img.alt} width={props.img.dimensions.width} className="img" />
+                </div>
             </div>
             <div className="katalog-main-list-item-info">
                 <div className="line line-mid"></div>
@@ -145,7 +147,9 @@ function KatalogMain({ ...props }) {
                     </ul>
                 </div>
                 <div className="katalog-main-list">
-                    {renderListItem}
+                    <div className="katalog-main-list-wrap">
+                        {renderListItem}
+                    </div>
                 </div>
             </div>
         </section>
