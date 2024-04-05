@@ -115,7 +115,7 @@
                     align-items: center;
                     justify-content: center;
                     padding: 4rem;
-                    aspect-ratio: 1;
+                    aspect-ratio: 1.068;
                     overflow: hidden;
 
                     img {
@@ -173,7 +173,8 @@
 
                 .line-right {
                     position: absolute;
-                    top: 0;
+                    height: calc(100% + .2rem);
+                    top: -.1rem;
                     right: -.1rem;
                 }
 

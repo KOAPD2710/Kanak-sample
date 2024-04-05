@@ -13,6 +13,7 @@ import Value from "@pages/Kustomer/Value/Value.astro";
 import Award from "@pages/Kustomer/Award/Award.astro";
 import Benefit from "@pages/Kustomer/Benefit/Benefit.astro";
 import Catalog from "@/components/pages/Kustomer/Catalog/Catalog.astro";
+import { convertHighlight } from "@/components/utils/text";
 
 export async function getStaticPaths() {
     const list = await getAllByType("industry");
@@ -32,51 +33,6 @@ const serviceItem = [];
 item.data.service_sub_items.forEach((el, idx) => {
     el.item.uid && serviceItem.push(el.item.uid);
 });
-const exploreData = [
-    {
-        label: "PRIVATE LABEL SOLUTIONS",
-        title: "Your Brand, Our Benchmark",
-        list: [
-            {
-                title: "National Brand Quality",
-                describle:
-                    "Match the best with our full suite of Chinet®-equivalent eco-plates, platters, bowls, and cups that boast equal or superior strength and meet strict compostability standards.",
-            },
-            {
-                title: "Retail Ready in Real-Time",
-                describle:
-                    "Always stocked, always ready—meet demand spikes or market shifts without breaking a sweat.",
-            },
-            {
-                title: "Mix, match, and ship-fast!",
-                describle:
-                    "All products are packaged in our Fort Wayne clean room using top-quality, domestically sourced materials, with same-day order processing and allocation.",
-            },
-        ],
-    },
-    {
-        label: "CUSTOM PACKAGING SOLUTIONS",
-        title: "Packaging That Tells Your Story",
-        list: [
-            {
-                title: "Packaging Perfection",
-                describle:
-                    "Your product's wow factor matters.  From cool shapes to eye-catching prints, our custom options make sure your product shines on shelves and grabs attention.",
-            },
-            {
-                title: "Effortless Execution",
-                describle:
-                    "Our custom packaging solutions are meticulously designed to comply with safety and regulatory standards.",
-            },
-            {
-                title: "Brand-Centric Approach",
-                describle:
-                    "Your brand story is our guide. Every product reflects your brand's promise, going above and beyond.",
-            },
-        ],
-    },
-];
-
 const cataData = [
     {
         title: "VERSATILE DINNERWARE",
@@ -183,7 +139,14 @@ console.log(item.data.commitment_list);
             />
         )
     }
-    <Explore list={exploreData} />
+    {
+        item.data.explore_title[0] !== undefined && (
+            <Explore
+                listGroup={item.data.explore_list.map((el) => el.item)}
+                title={convertHighlight(item.data.explore_title)}
+            />
+        )
+    }
     {
         item.data.commitment_title[0] !== undefined && (
             <Commitment

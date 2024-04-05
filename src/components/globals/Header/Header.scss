@@ -460,7 +460,6 @@
             }
 
             .line {
-                margin-top: 4rem;
 
                 @include sm {
                     margin-top: 2.4rem;
@@ -474,9 +473,9 @@
                 align-items: center;
                 row-gap: 1.6rem;
                 width: 100%;
+                margin-bottom: 4rem;
                 overflow: hidden;
-                transition: color .4s ease;
-
+                transition: all .4s ease;
 
                 * {
                     pointer-events: none
@@ -507,6 +506,7 @@
 
                 &.active {
                     color: var(--cl-orange);
+                    margin-bottom: 2rem;
 
                     .ic svg {
                         transform: rotate(180deg);
@@ -527,10 +527,11 @@
                 transition: height .6s ease;
 
                 &-inner {
-                    padding-top: 4rem;
                     display: flex;
                     flex-direction: column;
                     row-gap: 2rem;
+                    padding-top: 2rem;
+                    padding-bottom: 4rem;
                     width: 100%;
 
                     @include sm {

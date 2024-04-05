@@ -6,10 +6,8 @@ import useDebounceCallback from "@hooks/useDebounce";
 
 function CatalogueMain({ ...props }) {
     const [index, setIndex] = useState(0)
-    let list = props.list.reduce((acc, curr) => acc.concat(curr.list), []);
-
     const debounceHover = useDebounceCallback(setIndex, 200);
-    console.log(list)
+    let list = props.list.reduce((acc, curr) => acc.concat(curr.list), []);
     return (
         <div className="kustomer-cata-main">
             <div className="kustomer-cata-main-content-wrap">
