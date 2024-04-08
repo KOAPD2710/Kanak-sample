@@ -11,7 +11,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 8rem;
+        margin-bottom: 7.2rem;
 
         &-img {
             margin-bottom: 2rem;
@@ -20,6 +20,68 @@
         }
     }
 
+    &-pdf {
+        grid-column: 1/9;
+        justify-self: start;
+        padding-top: 6.8rem;
+
+        @include md {
+            padding-block: 3.6rem;
+        }
+
+        @include sm {
+            grid-column: span 4;
+            justify-self: center;
+            padding-block: 2rem;
+        }
+
+        &-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: solid .2rem var(--cl-txt);
+            transition: all 400ms ease;
+
+            &:hover {
+                color: var(--cl-orange);
+                border-color: var(--cl-orange);
+
+                .home-prod-pdf-link-ic {
+                    border-color: var(--cl-orange);
+                }
+            }
+
+            &-ic {
+                position: relative;
+                @include size(8rem);
+                border-right: solid .2rem currentColor;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: border-color 400ms ease;
+
+                @include md {
+                    @include size(6rem);
+                }
+
+                .ic-32 {
+                    @include size(3.2rem);
+                }
+            }
+
+            &-txt {
+                padding: 2rem;
+
+                @include md {
+                    padding: 1.8rem 1.6rem;
+                }
+
+                @include sm {
+                    padding: 1.6rem 1.8rem;
+                }
+            }
+        }
+    }
 
     &-main {
         position: relative;

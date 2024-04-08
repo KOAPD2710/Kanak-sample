@@ -25,6 +25,7 @@
 
     &-title {
         grid-column: 1/10;
+        margin-right: -2rem;
 
         span {
             display: inline;
@@ -168,7 +169,6 @@
 
             &-sub {
                 max-width: 80rem;
-                margin-top: auto;
                 margin-bottom: 4rem;
                 color: rgba($cl-txt-light, .6);
 

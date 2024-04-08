@@ -126,6 +126,18 @@ function KustomerSustain(props) {
                     <span className="heading h6 txt-black txt-up kustomer-sus-head-sub">
                         {props.subtitle}
                     </span>
+                    <div className="kustomer-sus-pdf">
+                        <a href="#" className="kustomer-sus-pdf-link">
+                            <div className="kustomer-sus-pdf-link-ic">
+                                <div className="ic ic-32">
+                                    {props.PDFIcon}
+                                </div>
+                            </div>
+                            <div className="txt txt-20 txt-med kustomer-sus-pdf-link-txt">
+                                Download Sustainable Catalog
+                            </div>
+                        </a>
+                    </div>
                 </div>
                 <div className="kustomer-sus-main">
                     <div className="line kustomer-sus-main-line-top"></div>

@@ -32,10 +32,10 @@ function cleanText(text) {
 function parseUrl(url) {
     const [baseUrl, query] = url.split('?');
     const queryParams = query ? query.split('&') : [];
-    
+
     let cate = '';
     let tag = '';
-    
+
     queryParams.forEach(param => {
         const [key, value] = param.split('=');
         if (key === 'cate') {
@@ -44,34 +44,34 @@ function parseUrl(url) {
             tag = value;
         }
     });
-    
+
     return { baseUrl, cate, tag };
 }
 
 function checkValue(data) {
     if (data === null || typeof data === 'undefined') {
-      return "Data is null or undefined";
+        return false
     }
-      if (typeof data === 'string' && data.trim().length === 0) {
-      return "Data is an empty string";
+    if (typeof data === 'string' && data.trim().length === 0) {
+        return false
     }
-      if (Array.isArray(data) && data.length === 0) {
-      return "Data is an empty array";
+    if (Array.isArray(data) && data.length === 0) {
+        return false
     }
-      if (typeof data === 'object' && Object.keys(data).length === 0) {
-      return "Data is an empty object";
+    if (typeof data === 'object' && Object.keys(data).length === 0) {
+        return false
     }
-      if (typeof data === 'number' && isNaN(data)) {
-      return "Data is NaN (Not a Number)";
+    if (typeof data === 'number' && isNaN(data)) {
+        return false
     }
-      if (typeof data === 'number' && !isFinite(data)) {
-      return "Data is Infinity or -Infinity";
+    if (typeof data === 'number' && !isFinite(data)) {
+        return false
     }
     return true;
 }
 function formatData(data) {
     return data && data.toLowerCase().replace(/ /g, "-").replace("&", "")
 }
-export { convertHighlight, convertDate, cleanText, parseUrl, checkValue, formatData}
+export { convertHighlight, convertDate, cleanText, parseUrl, checkValue, formatData }
 
 

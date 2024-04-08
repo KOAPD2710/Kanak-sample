@@ -35,7 +35,7 @@ const list = await Promise.all(
     <Fragment set:html={newTitle} slot="title" />
     <Image
         src={quality}
-        class="home-client-title-quality"
+        class="kustomer-client-title-quality"
         alt="quality"
         width={quality.width / 2}
         slot="imgQuality"
@@ -44,7 +44,7 @@ const list = await Promise.all(
     <Fragment slot="listLogo">
         {
             list.map((item, idx) => (
-                <div class="home-client-item home-client-box">
+                <div class="kustomer-client-item kustomer-client-box">
                     <Image
                         src={item.data.client_logo.url}
                         alt="McDonald"
