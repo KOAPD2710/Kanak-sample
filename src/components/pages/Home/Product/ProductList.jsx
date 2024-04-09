@@ -1,7 +1,6 @@
 import './ProductList.scss';
 import { useEffect, useRef } from 'react';
 import { inView, timeline, animate } from "motion"
-import { useStore } from '@nanostores/react';
 import { useProductIndex } from '@contexts/StoreGlobal';
 import useDebounceCallback from '@hooks/useDebounce';
 
