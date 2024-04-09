@@ -3,11 +3,10 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import { suspend } from 'suspend-react'
 import { animate, scroll } from "motion"
-import gsap from 'gsap';
 import { Fork } from './Fork.jsx';
 import { Environment, ContactShadows, AdaptiveDpr} from "@react-three/drei";
-import { useStore } from '@nanostores/react';
-import { productIndex } from '@contexts/StoreGlobal';
+import { useSpring, animated } from '@react-spring/three'
+import { useProductIndex } from '@contexts/StoreGlobal';
 import { GetModel } from "../../../common/GetModel.jsx";
 import * as ut from '@/js/utils.js'
 import './HeroThree.scss';
@@ -23,10 +22,11 @@ function Content({...props}) {
     const products = useRef()
     const forkWrap = useRef()
     const fork = useRef()
-    const index = useStore(productIndex);
+    const { index, setIndex } = useProductIndex();
     const [scaleOffset, setScaleOffset] = useState(1);
     const [degraded, degrade] = useState(false)
     const clock = useThree(state => state.clock);
+
     let isLock = false;
     useFrame((state, delta) => {
         if (!products.current) return;
@@ -54,33 +54,6 @@ function Content({...props}) {
         }, {
             target: document.querySelector('.home-prod-cards-inner'),
             offset: ["start end", "center center"]
-        })
-        products.current.children.forEach((el, idx) => {
-            if (idx == index) {
-                // animate(
-                //     (progress) => {
-                //         products.current.children[index].scale.set(
-                //             animThreeVal(0, 1, progress),
-                //             animThreeVal(0, 1, progress),
-                //             animThreeVal(0, 1, progress)
-                //         )
-                //     }, { duration: 0.8}
-                // )
-                gsap.to(products.current.children[index].scale, {x: 1, y: 1, z: 1, duration: .8, ease: 'expo.out', overwrite: true})
-            } else {
-                // if (products.current.children[idx].scale.x != 0) {
-                //     animate(
-                //         (progress) => {
-                //             products.current.children[idx].scale.set(
-                //                 animThreeVal(products.current.children[idx].scale.x, 0, progress),
-                //                 animThreeVal(products.current.children[idx].scale.y, 0, progress),
-                //                 animThreeVal(products.current.children[idx].scale.y, 0, progress)
-                //             )
-                //         }, { duration: 0.4}
-                //     )
-                // }
-                gsap.to(products.current.children[idx].scale, {x: 0, y: 0, z: 0, duration: .8, ease: 'expo.out', overwrite: true})
-            }
         })
     }, [index])
 
@@ -151,7 +124,7 @@ function Content({...props}) {
                         {props.list.map((item, idx) => {
                             if (item.data.file.url) {
                                 return (
-                                    <mesh key={idx} scale={idx == 0 ? [1,1,1] : [0,0,0]}>
+                                    <animated.mesh key={idx} scale={useSpring({ scale: idx == index ? [1, 1, 1] : [0, 0, 0] }).scale}>
                                         <Suspense>
                                             {item.uid == 'bowls' ? (
                                                 <GetModel file='/glb/58-bowl-clean-transformed.glb' scale={[.36,.36,.36]}/>
@@ -176,7 +149,7 @@ function Content({...props}) {
                                                 />
                                             )}
                                         </Suspense>
-                                    </mesh>
+                                    </animated.mesh>
                                 )
                             }
                         })}

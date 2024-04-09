@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState, useEffect, useMemo, memo } from "react";
+import { Suspense, useRef, useState, useEffect, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import { GetModel } from "@/components/common/GetModel";

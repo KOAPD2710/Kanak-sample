@@ -2,12 +2,12 @@ import './ProductList.scss';
 import { useEffect, useRef } from 'react';
 import { inView, timeline, animate } from "motion"
 import { useStore } from '@nanostores/react';
-import { productIndex } from '@contexts/StoreGlobal';
+import { useProductIndex } from '@contexts/StoreGlobal';
 import useDebounceCallback from '@hooks/useDebounce';
 
 function HomeProductList(props) {
-    const index = useStore(productIndex);
-    const debounceHover = useDebounceCallback(productIndex.set, 150);
+    const { index, setIndex } = useProductIndex();
+    const debounceHover = useDebounceCallback(setIndex, 150);
 
     useEffect(() => {
         const allItems = document.querySelectorAll(".home-prod-main-item")
@@ -22,7 +22,7 @@ function HomeProductList(props) {
                 [el.querySelector('.home-prod-main-item-title'), { opacity: 1, x: 0 }, { duration: 1.2 }],
                 [el.querySelector('.home-prod-main-item-label'), { opacity: 1, x: 0 }, { duration: 1.2, at: "-1" }],
                 [el.querySelector('.line'), { scaleX: 1 }, { duration: .8, at: '<' }],
-                [idx == allItems.length - 1 && el.querySelector('.line-bottom'), { scaleX: 1 }, { duration: .8, at: "-0.6" }]
+                [el.querySelector('.line-bottom'), { scaleX: 1 }, { duration: .8, at: "-0.6" }]
             ]
             inView(el, () => {
                 timeline(sequence).finished.then(() => {

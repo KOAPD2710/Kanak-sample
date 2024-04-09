@@ -1,4 +1,5 @@
 import { atom } from 'nanostores';
+import { useStore } from '@nanostores/react';
 
 /**
  * Chứa state dùng chung nhiều nơi.
@@ -6,5 +7,14 @@ import { atom } from 'nanostores';
  * @returns
  */
 
-export const productIndex = atom(0);
+const productIndex = atom(0);
+function useProductIndex() {
+    const index = useStore(productIndex);
+
+    const setIndex = (value) => productIndex.set(value);
+
+    return { index, setIndex };
+}
+export { useProductIndex };
+
 export const brandIndex = atom(0);
