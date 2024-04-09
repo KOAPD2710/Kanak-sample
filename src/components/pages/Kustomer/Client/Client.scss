@@ -1,8 +1,15 @@
 @use '@styles/mixins' as *;
 
-.home-client {
+.kustomer-client {
     padding-top: 28rem;
+
+
+    @include md {
+        padding-top: 17rem;
+    }
+
     @include sm {
+        padding-top: 14rem;
         padding-bottom: 6rem;
     }
 
@@ -70,10 +77,7 @@
             position: absolute;
 
             @include md {
-                top: -1.6rem;
-                width: 4.8rem;
-                left: auto;
-                right: 0;
+                display: none;
             }
 
             @include sm {
@@ -104,6 +108,15 @@
 
     &-sub {
         max-width: 32rem;
+
+        @include md {
+            @include text(14);
+            max-width: 27rem;
+        }
+
+        @include sm {
+            max-width: none;
+        }
     }
 
     &-item {

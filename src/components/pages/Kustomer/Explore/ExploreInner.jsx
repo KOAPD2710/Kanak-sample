@@ -29,7 +29,7 @@ function ExploreInner({ ...props }) {
         }, { margin: "-10% 0px -10% 0px" })
     }, [])
     return (
-        <div className="kustomer-explore-main-item-list-inner" ref={itemRef}>
+        <div className="keen-slider__slide kustomer-explore-main-item-list-inner" ref={itemRef}>
             <h4 className="heading h5 txt-black txt-up kustomer-explore-main-item-list-inner-title">{props.data.title[0].text}</h4>
             <p className="txt txt-20 txt-med kustomer-explore-main-item-list-inner-des">{props.data.describe}</p>
             <div className="line"></div>

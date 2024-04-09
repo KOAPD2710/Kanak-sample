@@ -6,21 +6,43 @@
     --HomeProductCardHeight: 66.2rem;
     --SectionPadBot: 28.8rem;
 
-
-    // padding-bottom: 20rem;
     padding-bottom: var(--SectionPadBot);
     contain: paint;
 
+    @include md {
+        --HomeProductCardHeight: 41rem;
+        --btnHeight: 13.6rem;
+        --SectionPadBot: 10rem;
+    }
+
     &-title-wrap {
         grid-column: 1/12;
+
+        @include md {
+            grid-column: 1/-1;
+        }
     }
 
     &-title {
         max-width: 99rem;
+
+        @include md {
+            @include text(h1);
+            max-width: 45rem;
+        }
+
+        @include sm {
+            @include text(h2)
+        }
     }
 
     &-label {
         margin-bottom: 2rem;
+
+        @include md {
+            @include text(h5);
+            margin-bottom: 1.2rem;
+        }
     }
 
     &-des {
@@ -32,6 +54,10 @@
         span {
             display: inline;
         }
+
+        @include md {
+            display: none;
+        }
     }
 
     &-main {
@@ -41,26 +67,45 @@
         column-gap: var(--grid-gap);
         margin-top: 13rem;
 
+        @include md {
+            margin-top: 6rem;
+        }
+
         &-content-wrap {
             grid-column: 1/10;
+            display: flex;
+            flex-direction: column;
+            row-gap: 16rem;
+
+            @include md {
+                grid-column: 1/8;
+                row-gap: 6rem;
+            }
         }
 
         &-content {
             display: grid;
             grid-template-columns: repeat(9, 1fr);
             column-gap: var(--grid-gap);
-            margin-bottom: 16rem;
+
+            @include md {
+                grid-template-columns: repeat(7, 1fr);
+            }
 
             &:last-child {
-                margin-bottom: 0;
-
                 .kustomer-cata-main-content-des-subtitle {
                     max-width: 38.2rem;
                 }
             }
 
+
             &-des {
                 grid-column: 1/5;
+
+                @include md {
+                    grid-column: 1/7;
+                    margin-bottom: 4rem;
+                }
 
                 &-title {
                     margin-bottom: 2rem;
@@ -74,6 +119,11 @@
             &-list {
                 grid-column: 6/-1;
                 margin-left: calc(var(--grid-gap) * -1);
+
+                @include md {
+                    grid-column: 1/-1;
+                    margin-left: 0;
+                }
 
                 &-item {
                     position: relative;
@@ -89,6 +139,10 @@
 
                     &-count {
                         opacity: .4;
+
+                        @include md {
+                            @include text(h6)
+                        }
                     }
 
                     .line {
@@ -130,6 +184,10 @@
         position: relative;
         grid-column: 11/16;
 
+        @include md {
+            grid-column: 9/-1;
+        }
+
         &-inner {
             position: relative;
             height: var(--HomeProductCardHeight);
@@ -160,9 +218,19 @@
             align-items: center;
             border: solid .2rem var(--cl-txt);
 
+            @include md {
+                height: 5.6rem;
+            }
+
             &-txt {
                 margin-left: 3.2rem;
                 max-width: 13.6rem;
+
+                @include md {
+                    margin-left: 1.2rem;
+                    margin-right: 1.2rem;
+                    @include text(14);
+                }
             }
         }
 
@@ -177,6 +245,10 @@
                 align-items: center;
                 justify-content: center;
                 color: var(--cl-txt);
+
+                @include md {
+                    @include size(5.7rem, 5.6rem);
+                }
 
                 .ic {
                     transition: all 200ms ease;
@@ -252,11 +324,19 @@
             align-items: center;
             border: solid .2rem var(--cl-txt);
 
+            @include md {
+                height: 5.6rem;
+            }
+
             &-txt-wrap {
                 margin-left: 3.2rem;
                 margin-right: 3.2rem;
                 display: grid;
                 align-items: center;
+
+                @include md {
+                    margin-left: 1.2rem;
+                }
             }
 
             &-txt {
@@ -265,6 +345,10 @@
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity .4s ease;
+
+                @include md {
+                    @include text(h6);
+                }
 
                 &.active {
                     opacity: 1;
@@ -283,6 +367,14 @@
             pointer-events: none;
             transition: opacity 0.4s ease;
             @include size(10.2rem, 10rem);
+
+            @include md {
+                @include size(5.7rem, 5.6rem);
+
+                .ic {
+                    @include size(4rem);
+                }
+            }
 
             &.active {
                 opacity: 1;

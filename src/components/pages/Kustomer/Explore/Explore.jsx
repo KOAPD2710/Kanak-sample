@@ -6,7 +6,6 @@ import SplitType from 'split-type';
 import ExploreItem from "./ExploreItem"
 
 function KustomerExplore({ ...props }) {
-    const allItem = props.list
     useEffect(() => {
         const title = new SplitType(".kustomer-explore-title", { types: 'lines, words', lineClass: 'split-line' })
 

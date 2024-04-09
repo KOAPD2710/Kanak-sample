@@ -3,7 +3,17 @@
 
 
 .kustomer-sus {
+    position: relative;
     padding-bottom: 21rem;
+    z-index: 3;
+
+    @include md {
+        padding-bottom: 14rem;
+    }
+
+    @include sm {
+        padding-bottom: 6rem;
+    }
 
     &-head {
         grid-column: 4/14;
@@ -11,15 +21,114 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 8rem;
+        margin-bottom: 7.2rem;
+
+        @include md {
+            grid-column: 2/12;
+            margin-bottom: 6rem;
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            margin-bottom: 4rem;
+        }
 
         &-img {
-            margin-bottom: 2rem;
             width: 96.2%;
             max-width: 96.2rem;
+            margin-bottom: 2rem;
+
+            @include md {
+                width: 81.41693291%;
+                max-width: 50.96rem;
+                margin-bottom: 2.1rem;
+            }
+
+            @include sm {
+                width: 32rem;
+                max-width: none;
+            }
+        }
+
+        &-sub {
+            @include md {
+                font-kerning: auto;
+                max-width: 37.4rem;
+            }
         }
     }
 
+    &-pdf {
+        grid-column: 1/9;
+        justify-self: start;
+        padding-top: 6.8rem;
+
+        @include md {
+            padding-top: 4.4rem;
+        }
+
+        @include sm {
+            width: 100%;
+            justify-self: center;
+            padding-top: 4.1rem;
+        }
+
+        &-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: solid .2rem var(--cl-txt);
+            transition: all 400ms ease;
+
+            &:hover {
+                color: var(--cl-orange);
+                border-color: var(--cl-orange);
+
+                .home-prod-pdf-link-ic {
+                    border-color: var(--cl-orange);
+                }
+            }
+
+            &-ic {
+                position: relative;
+                @include size(8rem);
+                border-right: solid .2rem currentColor;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: border-color 400ms ease;
+
+                @include md {
+                    @include size(6rem);
+                }
+
+                @include sm {
+                    display: none;
+                }
+
+                .ic-32 {
+                    @include size(3.2rem);
+
+                    @include md {
+                        @include size(2.4rem);
+                    }
+                }
+            }
+
+            &-txt {
+                padding: 2rem;
+
+                @include md {
+                    padding: 1.85rem 1.8rem;
+                    @include text(18);
+                }
+
+                @include sm {
+                    padding: 1.6rem 1.8rem;
+                }
+            }
+        }
+    }
 
     &-main {
         position: relative;
@@ -33,18 +142,100 @@
         }
 
         &-cate {
+            position: relative;
             grid-column: 1/5;
+
+            @include md {
+                grid-column: 1/4;
+            }
+
+            @include md {
+                grid-column: 1/-1;
+            }
+
+            &-toggle {
+                display: none;
+
+                @include sm {
+                    position: relative;
+                    display: flex;
+                    width: 100%;
+                    padding: 2.1rem 0;
+                    border-bottom: .2rem solid var(--cl-txt);
+                    background: var(--bg-txt) repeat;
+                    background-size: 40rem auto;
+                    background-color: var(--cl-bg);
+                    z-index: 2;
+                }
+
+                &-btn {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    &-wrap {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: start;
+                        justify-content: space-between;
+                    }
+                }
+
+                &-label {
+                    margin-bottom: .4rem
+                }
+
+                .icDropdown {
+                    @include size(2.4rem);
+                }
+            }
 
             &-list {
                 padding-top: 4rem;
                 display: flex;
                 flex-direction: column;
                 row-gap: 2.8rem;
+                z-index: 1;
+
+                @include md {
+                    row-gap: 1.6rem;
+                }
+
+                @include sm {
+                    width: 100%;
+                    position: absolute;
+                    top: 100%;
+                    padding-top: 0;
+                    opacity: 0;
+                    transform: translateY(-2rem);
+                    background: var(--bg-txt) repeat;
+                    background-size: 40rem auto;
+                    background-color: var(--cl-bg);
+                    row-gap: 0;
+                    pointer-events: none;
+                    transition: all .4s ease-out;
+
+                    &.active {
+                        opacity: 1;
+                        transform: none;
+                        pointer-events: auto;
+                    }
+                }
 
                 &-item {
                     position: relative;
                     display: flex;
                     align-items: center;
+                    justify-content: start;
+                    align-items: center;
+                    column-gap: 0.8rem;
+                    transition: color .4s ease;
+
+                    @include sm {
+                        width: 100%;
+
+                    }
 
                     &-txt {
                         transition: transform .4s ease;
@@ -59,37 +250,54 @@
                         opacity: 0;
                         background-color: var(--cl-orange);
                         transition: all .4s ease;
+
+                        @include sm {
+                            display: none;
+                        }
                     }
 
-                    &-inner {
-                        display: flex;
-                        justify-content: start;
-                        align-items: center;
-                        column-gap: 0.8rem;
-                        transition: color .4s ease;
+                    &:hover {
+                        .dot {
+                            opacity: 1;
+                            transition-delay: .8s;
+                        }
 
-                        &:hover {
-                            .dot {
-                                opacity: 1;
-                                transition-delay: .8s;
-                            }
+                        .kustomer-sus-main-cate-list-item-txt {
+                            transform: translateX(1.8rem);
+                        }
+                    }
 
-                            .kustomer-sus-main-cate-list-item-txt {
-                                transform: translateX(1.8rem);
-                            }
+                    &.active {
+                        color: var(--cl-orange);
+
+                        .dot {
+                            opacity: 1;
+                            transition-duration: .4s !important;
+                            transition-delay: 0ms !important;
+                        }
+
+                        .kustomer-sus-main-cate-list-item-txt {
+                            transform: translateX(1.8rem);
+                        }
+                    }
+
+                    @include sm {
+                        padding: 2rem;
+                        border: .2rem solid var(--cl-txt);
+
+                        &:not(:last-child) {
+                            border-bottom: none;
+                        }
+
+                        &:first-child {
+                            border-top: none;
                         }
 
                         &.active {
                             color: var(--cl-orange);
 
-                            .dot {
-                                opacity: 1;
-                                transition-duration: .4s !important;
-                                transition-delay: 0ms !important;
-                            }
-
                             .kustomer-sus-main-cate-list-item-txt {
-                                transform: translateX(1.8rem);
+                                transform: none;
                             }
                         }
                     }
@@ -102,6 +310,17 @@
             margin-left: calc(var(--grid-gap) * -1);
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+
+            @include md {
+                grid-column: 4/-1;
+                grid-template-columns: repeat(2, 1fr);
+                margin-left: 0;
+            }
+
+            @include sm {
+                grid-column: 1/-1;
+                grid-template-columns: 1fr;
+            }
 
             &-item {
                 position: relative;
@@ -123,6 +342,10 @@
                         justify-content: center;
                         width: 26rem;
                         height: 100%;
+
+                        @include sm {
+                            width: 23.3rem;
+                        }
                     }
 
                     img {
@@ -145,6 +368,13 @@
                         align-items: center;
                         padding: 2.6rem 0;
                         margin: 0 3.2rem;
+
+
+                        @include md {
+                            padding: 1.9rem 0;
+                            margin-left: 2rem;
+                            margin-right: 3.2rem;
+                        }
                     }
 
                     &-qr {
@@ -155,8 +385,16 @@
                         align-items: center;
                         padding: 1rem;
 
+                        @include md {
+                            padding: .8rem;
+                        }
+
                         &-inner {
                             @include size(8rem);
+
+                            @include md {
+                                @include size(4rem);
+                            }
                         }
                     }
                 }
@@ -188,6 +426,49 @@
                 .line-bot {
                     position: absolute;
                     bottom: -.1rem;
+                }
+            }
+        }
+
+        &-load {
+            display: none;
+            margin-top: 4rem;
+            justify-content: center;
+
+            @include sm {
+                display: flex;
+            }
+
+            &.hidden {
+                display: none;
+            }
+
+            &-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: solid .2rem var(--cl-txt);
+                transition: all 400ms ease;
+
+                &-ic {
+                    @include size(5.2rem, 5rem);
+                    border-right: solid .2rem currentColor;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .ic {
+                        contain: paint;
+                    }
+                }
+
+                &-txt {
+                    padding: .5rem 1.6rem;
+                }
+
+                &:hover {
+                    border-color: var(--cl-orange);
+                    color: var(--cl-orange);
                 }
             }
         }
