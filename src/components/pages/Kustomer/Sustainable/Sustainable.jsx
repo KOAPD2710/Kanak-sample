@@ -55,7 +55,9 @@ function SustainableItem(props) {
     return (
         <a href="#" className="kustomer-sus-main-table-item" ref={itemRef}>
             <div className="kustomer-sus-main-table-item-img">
-                <img src={props.data.thumbnail.url} alt={props.data.thumbnail.alt} width={props.data.thumbnail.dimensions.width} className="img" />
+                <div className="kustomer-sus-main-table-item-img-inner">
+                    <img src={props.data.thumbnail.url} alt={props.data.thumbnail.alt} width={props.data.thumbnail.dimensions.width} className="img" />
+                </div>
             </div>
             <div className="kustomer-sus-main-table-item-info">
                 <div className="line line-mid"></div>

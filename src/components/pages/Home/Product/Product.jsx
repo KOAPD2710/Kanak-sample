@@ -1,6 +1,5 @@
-import { useRef, useEffect } from 'react';
 import './Product.scss';
-import { useStore } from '@nanostores/react';
+import { useRef, useEffect } from 'react';
 import { useProductIndex } from '@contexts/StoreGlobal';
 import { scroll } from "motion"
 import cn from 'clsx';

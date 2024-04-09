@@ -5,20 +5,19 @@ function Item({ ...props }) {
     return (
         <a href="#" className="katalog-main-list-item" >
             <div className="katalog-main-list-item-img">
-                {props.img}
-                {/* <img src={props.data.thumbnail.url} alt={props.data.thumbnail.alt} width={props.data.thumbnail.dimensions.width} className="img" /> */}
+                <div className="katalog-main-list-item-img-inner">
+                    <img src={props.img.url} alt={props.img.alt} width={props.img.dimensions.width} className="img" />
+                </div>
             </div>
             <div className="katalog-main-list-item-info">
                 <div className="line line-mid"></div>
                 <h4 className="heading h6 txt-black txt-up katalog-main-list-item-info-name">
-                    {/* {props.data.title} */}
-                    Bowls
+                    {props.name}
                 </h4>
                 <div className="katalog-main-list-item-info-qr">
                     <div className="line line-ver line-qr"></div>
                     <div className="katalog-main-list-item-info-qr-inner">
-                        {/* <img src={props.data.qr_code.url} alt={props.data.qr_code.alt} width={props.data.qr_code.dimensions.width} /> */}
-                        {props.qr}
+                        <img src={props.qr.url} alt={props.qr.alt} width={props.qr.dimensions.width} />
                     </div>
                 </div>
             </div>
@@ -53,25 +52,29 @@ function FilterCate({ ...props }) {
 }
 
 function KatalogMain({ ...props }) {
-    const { list: allItem } = props;
+    const { allItem: allItem } = props;
     const [filter, setFilter] = useState('All');
     const [category, setCategory] = useState(props.cateList[0]);
-    // const [itemList, setItemList] = useState(allItem);
-    // const [limit, setLimit] = useState(4);
-    const toggleRef = useRef();
 
+    let newList = allItem.filter((item) => {
+        if (filter == "All") {
+            return item.cate === category && item;
+        } else {
+            return item.data.tag_grp.some(tag => tag.tags === filter) && item.cate === category && item
+        }
+    });
     const renderFilterTag = useMemo(() => {
         return (
             <>
                 <FilterTag name={'All'}
                     // count={allItem.length}
                     isActive={filter == 'All'}
-                    onClick={(e) => { filterTag(e) }} />
+                    onClick={(e) => { filterList(e) }} />
                 {props.tagList.map((el, idx) => (
                     <FilterTag name={el}
                         // count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => { filterTag(e) }}
+                        onClick={(e) => { filterList(e) }}
                         key={idx} />
                 ))}
             </>
@@ -84,32 +87,31 @@ function KatalogMain({ ...props }) {
                 <FilterCate
                     key={el}
                     data={el}
-                    onClick={(e) => { filterCate(e) }}
+                    onClick={(e) => { filterList(e) }}
                     isActive={category == el}
                 />
             ))
         )
     }, [category])
 
-    function filterTag(e) {
-        const targetTag = e.target.getAttribute('data-filter')
-        setFilter(targetTag)
-    }
-    function filterCate(e) {
-        const targetTag = e.target.getAttribute('data-cate')
-        setCategory(targetTag)
-    }
-    // useEffect(() => {
-    //     console.log(filter);
-    // }, [filter])
-    // useEffect(() => {
-    //     console.log(category);
-    // }, [category])
+    const renderListItem = useMemo(() => {
+        return (
+            newList.map((item, idx) => (
+                <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
+            ))
+        )
+    }, [newList, category, filter])
 
-    useEffect(() => {
-        console.log(props.allItem);
-        console.log(props.check);
-    }, [])
+    function filterList(e) {
+        let target = e.target
+        if (target.hasAttribute('data-filter')) {
+            let data = e.target.getAttribute('data-filter')
+            setFilter(data)
+        } else if (target.hasAttribute('data-cate')) {
+            let data = e.target.getAttribute('data-cate')
+            setCategory(data)
+        }
+    }
     return (
         <section className="katalog-main">
             <div className="container grid">
@@ -145,9 +147,9 @@ function KatalogMain({ ...props }) {
                     </ul>
                 </div>
                 <div className="katalog-main-list">
-                    {props.allItem.map((item, idx) => (
-                        <Item key={idx} {...item} img={props.img} qr={props.qr} ></Item>
-                    ))}
+                    <div className="katalog-main-list-wrap">
+                        {renderListItem}
+                    </div>
                 </div>
             </div>
         </section>
