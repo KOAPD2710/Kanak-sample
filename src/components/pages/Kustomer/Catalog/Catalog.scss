@@ -1,7 +1,6 @@
 @use '@styles/colors' as *;
 @use '@styles/mixins' as *;
 
-
 .kustomer-cata {
     --btnHeight: 16.8rem;
     --HomeProductCardHeight: 66.2rem;
@@ -142,25 +141,12 @@
             transition: opacity 400ms ease;
             // opacity: 0;
             // pointer-events: none;
-
             &.active {
                 opacity: 1;
                 pointer-events: auto;
             }
 
             .img {
-                pointer-events: none;
-                user-select: none;
-            }
-
-            .testne {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 100vw;
-                height: 70vh;
-                // background-color: teal;
                 pointer-events: none;
                 user-select: none;
             }
@@ -238,9 +224,23 @@
 
             &-inner {
                 user-select: none;
+                @include size(100%);
                 img {
                     margin-left: -25%;
                     width: 150%;
+                }
+                &-canvas {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 100vw;
+                    height: 100vh;
+                    pointer-events: none;
+                    user-select: none;
+                    * {
+                        pointer-events: none !important;
+                    }
                 }
             }
         }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useStore } from '@nanostores/react';
-import { productIndex } from '@contexts/StoreGlobal';
 import { getByUID } from "@/prismic";
 import useDebounceCallback from "@hooks/useDebounce";
+import CatalogThreeMain from "./CatalogThree";
 
 function CatalogueMain({ ...props }) {
     const [index, setIndex] = useState(0)
@@ -63,8 +63,10 @@ function CatalogueMain({ ...props }) {
                     </div>
                     <div className="kustomer-cata-card-middle">
                         <div className="kustomer-cata-card-middle-inner">
-                            {props.img}
-                            <canvas className="testne"></canvas>
+                            <div className="kustomer-cata-card-middle-inner-canvas">
+                                <CatalogThreeMain list={list} index={index} />
+                            </div>
+                            {/* {props.img} */}
                         </div>
                     </div>
                     <div className="kustomer-cata-card-bottom">
