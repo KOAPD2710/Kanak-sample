@@ -86,7 +86,7 @@ function KustomerSustain(props) {
     const allItem = props.productList
     const [filter, setFilter] = useState(0);
     const [listItem, setListItem] = useState(props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0]));
-    const [limit, setLimit] = useState(4);
+    const [limit, setLimit] = useState(9999);
     const [toggleDropdown, setToggleDropdown] = useState(false)
 
     const toggleRef = useRef();
@@ -102,6 +102,10 @@ function KustomerSustain(props) {
     }, [filter, limit]);
 
     useEffect(() => {
+
+        if (window.innerWidth < 768) {
+            setLimit(4)
+        }
         const subtitle = new SplitType('.kustomer-sus-head-sub', { types: "lines,words", lineClass: 'split-line' })
 
         animate('.kustomer-sus-head-img', { opacity: 0, transform: "translateY(30%) scale(.9)" }, { duration: 0 })
