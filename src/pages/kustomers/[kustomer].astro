@@ -159,6 +159,7 @@ const filterCaseStudy = listCaseStudy.filter(
             <CaseStudy
                 label={item.data.kase_study_label}
                 title={item.data.kase_study_title[0].text}
+                des={item.data.kase_study_describe[0].text}
                 list={filterCaseStudy}
             />
         )

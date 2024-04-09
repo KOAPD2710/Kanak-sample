@@ -62,7 +62,7 @@ function KustomerValue(props) {
     }, [])
     return (
         <div className="kustomer-val-wrap" ref={ref}>
-            <section className="kustomer-val bg-dark" style={{ '--offsetMargin': '100vh' }}>
+            <section className="kustomer-val bg-dark">
                 <div className="kustomer-val-stick">
                     <div className="container">
                         <div className="kustomer-val-title-wrap">

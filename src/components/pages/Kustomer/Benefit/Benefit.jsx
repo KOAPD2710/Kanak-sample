@@ -1,11 +1,13 @@
-import { useEffect } from "react"
+import "keen-slider/keen-slider.min.css"
+import { useKeenSlider } from 'keen-slider/react'
+import { useEffect, useState } from "react"
 import "./Benefit.scss"
 import { animate, timeline, stagger, inView } from "motion";
 import SplitType from 'split-type';
 
 function BenefitItem({ data }) {
     return (
-        <div className="kustomer-benefit-item">
+        <div className="keen-slider__slide kustomer-benefit-item">
             <div className="ic kustomer-benefit-item-ic">
                 <img src={data.icon.url} alt={data.icon.alt} width={data.icon.dimensions.width} className="img img-fill" />
             </div>
@@ -22,6 +24,22 @@ function BenefitItem({ data }) {
 }
 
 function KustomerBenefit(props) {
+    const [sliderRef, instanceRef] = useKeenSlider({
+        initial: 0,
+        disabled: true,
+        slides: {
+            perView: 'auto',
+        },
+        defaultAnimation: {
+            duration: 800
+        },
+        breakpoints: {
+            '(max-width: 767px)': {
+                disabled: false
+            },
+        },
+    })
+
     useEffect(() => {
         const title = new SplitType('.kustomer-benefit-title-txt', { types: "lines, words", lineClass: 'split-line' })
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
@@ -76,9 +94,11 @@ function KustomerBenefit(props) {
                             {props.title}
                         </h3>
                     </div>
-                    {props.list.map((item, idx) => (
-                        <BenefitItem key={idx} {...item} />
-                    ))}
+                    <div className={`keen-slider kustomer-benefit-list`} ref={sliderRef}>
+                        {props.list.map((item, idx) => (
+                            <BenefitItem key={idx} {...item} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

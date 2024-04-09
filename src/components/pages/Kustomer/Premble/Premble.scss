@@ -7,6 +7,11 @@
     margin-top: calc(var(--offset-top) * -1);
     padding-top: calc(var(--offset-top) + 7rem);
 
+    @include sm {
+        // --offset-top: 13rem;
+        padding-top: calc(var(--offset-top) - 7rem);
+    }
+
     &-title {
         grid-column: 3/15;
         text-align: center;
@@ -19,6 +24,11 @@
             @include text(h5);
             margin-left: calc(var(--grid-gap) * -1);
             margin-right: calc(var(--grid-gap) * -1);
+        }
+
+        @include sm {
+            margin: 0;
+            grid-column: 1/-1;
         }
     }
 
@@ -33,6 +43,10 @@
 
             @include md {
                 margin-top: -1.8rem;
+            }
+
+            @include sm {
+                margin-top: -1.25rem;
             }
         }
 

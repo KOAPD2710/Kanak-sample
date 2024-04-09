@@ -3,7 +3,13 @@
 .kustomer-client {
     padding-top: 28rem;
 
+
+    @include md {
+        padding-top: 17rem;
+    }
+
     @include sm {
+        padding-top: 14rem;
         padding-bottom: 6rem;
     }
 
@@ -102,6 +108,15 @@
 
     &-sub {
         max-width: 32rem;
+
+        @include md {
+            @include text(14);
+            max-width: 27rem;
+        }
+
+        @include sm {
+            max-width: none;
+        }
     }
 
     &-item {

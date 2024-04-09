@@ -3,7 +3,7 @@ import { animate, timeline, stagger, inView } from "motion";
 import SplitType from 'split-type';
 import { parseRem } from "@/js/utils";
 
-function CommitItem({ title, describle, ...props }) {
+function CommitItem({ title, describle, img, idx, ...props }) {
     const itemRef = useRef()
     useEffect(() => {
         const item = itemRef.current
@@ -35,11 +35,17 @@ function CommitItem({ title, describle, ...props }) {
     }, [])
     return (
         <div className="kustomer-commit-main-item" {...props} ref={itemRef}>
+            <div className="kustomer-commit-main-item-img">
+                <img src={img.url} alt={img.alt} width={img.dimensions.width} />
+            </div>
             <h3 className="heading h4 txt-black txt-up kustomer-commit-main-item-title">{title}</h3>
             <div className="txt txt-18 txt-med kustomer-commit-main-item-des">
                 <p>{describle}</p>
             </div>
             <div className="kustomer-commit-main-item-bg"></div>
+            {idx % 2 != 0 && (
+                <div className="line line-ver"></div>
+            )}
             <div className="line">
                 <div className="line-inner"></div>
             </div>
@@ -52,7 +58,7 @@ function CommitItem({ title, describle, ...props }) {
 
 function KustomerCommitMain(props) {
     let allItem = props.list;
-    const contentList = allItem.map((item, idx) => ({ title: item.data.title, describle: item.data.describle, idx: idx }));
+    const contentList = allItem.map((item, idx) => ({ title: item.data.title, describle: item.data.describle, image: item.data.image, idx: idx }));
     const thumbList = allItem.map((item, idx) => ({ image: item.data.image, idx: idx }));
 
     const [activeIc, setActiveIc] = useState(-1)
@@ -88,7 +94,7 @@ function KustomerCommitMain(props) {
         inView('.kustomer-commit-main', () => {
             thumbReq = requestAnimationFrame(thumbMove)
         })
-
+        console.log(contentList);
         return () => {
             cancelAnimationFrame(thumbReq)
         }
@@ -98,8 +104,10 @@ function KustomerCommitMain(props) {
             <div className="kustomer-commit-main-wrapper">
                 {contentList.map((item, idx) =>
                     <CommitItem
+                        img={item.image}
                         title={item.title[0].text}
                         describle={item.describle}
+                        idx={idx}
                         key={idx}
                         onMouseEnter={() => { setActiveIc(item.idx) }}
                         onMouseLeave={() => { setActiveIc(-1) }}

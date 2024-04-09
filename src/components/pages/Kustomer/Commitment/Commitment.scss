@@ -8,12 +8,21 @@
     color: var(--cl-txt-light);
     padding-top: 18rem;
 
+    @include md {
+        padding-top: 10rem;
+    }
+
     &-subtitle {
         grid-column: 1/-1;
         text-align: center;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 3.2rem;
+
+        @include md {
+            @include text(h5);
+            margin-bottom: 1.2rem;
+        }
     }
 
     &-title {
@@ -23,6 +32,17 @@
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 12rem;
+
+        @include md {
+            @include text(h1);
+            width: 62.6rem;
+            margin-bottom: 8.2rem;
+        }
+
+        @include sm {
+            @include text(h2);
+            width: unset;
+        }
     }
 
     &-main {
@@ -32,6 +52,20 @@
         &-wrapper {
             margin-left: calc(var(--container-padding) * -1);
             margin-right: calc(var(--container-padding) * -1);
+
+            @include md {
+                margin: 0;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                margin-bottom: 10rem;
+                border-bottom: .2rem solid var(--cl-txt);
+            }
+
+            @include sm {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 0;
+            }
         }
 
         &-item {
@@ -48,8 +82,49 @@
             z-index: 1;
             min-height: 19.2rem;
 
+            @include md {
+                display: flex;
+                align-items: start;
+                flex-direction: column;
+                padding: 4rem 0;
+
+                &:nth-child(odd) {
+                    padding-right: 4rem;
+
+                    @include sm {
+                        padding-right: 0;
+                    }
+                }
+
+                &:nth-child(even) {
+                    padding-left: 4rem;
+
+                    @include sm {
+                        padding-left: 0;
+                    }
+                }
+            }
+
+            @include sm {
+                text-align: center;
+            }
+
             &>* {
                 z-index: 2;
+            }
+
+            &-img {
+                display: none;
+
+                @include md {
+                    display: flex;
+                    @include size(6rem);
+                    margin-bottom: 2rem;
+                }
+
+                @include sm {
+                    align-self: center;
+                }
             }
 
             &-title {
@@ -57,6 +132,12 @@
                 margin-right: -2rem;
                 justify-self: start;
                 transition: color .4s ease;
+
+                @include md {
+                    @include text(h5);
+                    margin-bottom: 1.2rem;
+                    max-width: 34rem;
+                }
             }
 
             &-des {
@@ -82,13 +163,23 @@
 
             &:nth-child(n+2) {
                 margin-top: -.2rem;
+
+                @include md {
+                    margin-top: 0;
+                }
             }
 
             .line {
                 position: absolute;
+                top: -.1rem;
+                left: 0;
                 width: calc(100% - var(--container-padding) * 2);
                 transition: width .4s ease;
                 background: none;
+
+                @include md {
+                    width: 100%;
+                }
 
                 .line-inner {
                     width: 100%;
@@ -101,7 +192,29 @@
                 }
 
                 &:last-child {
+                    top: auto;
                     bottom: 0;
+
+                    @include md {
+                        display: none;
+                    }
+                }
+            }
+
+            .line-ver {
+                display: none;
+
+                @include md {
+                    position: absolute;
+                    top: 0;
+                    left: -.1rem;
+                    display: block;
+                    width: .2rem;
+                    background-color: var(--cl-txt);
+                }
+
+                @include sm {
+                    display: none;
                 }
             }
 
@@ -133,6 +246,10 @@
             left: 0;
             @include size(100%);
             z-index: 10;
+
+            @include md {
+                display: none;
+            }
 
             &-wrapper {
                 position: relative;

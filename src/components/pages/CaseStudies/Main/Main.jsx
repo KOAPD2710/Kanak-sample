@@ -37,12 +37,12 @@ function CaseMain({ ...props }) {
                 <FilterItem name={'All'}
                     count={allItem.length}
                     isActive={filter == 'All'}
-                    onClick={(e) => {filterList(e)}}/>
+                    onClick={(e) => { filterList(e) }} />
                 {props.cateList.map((el, idx) => (
                     <FilterItem name={el}
                         count={allItem.filter((item) => item.data.category == el).length}
                         isActive={filter == el}
-                        onClick={(e) => {filterList(e)}}
+                        onClick={(e) => { filterList(e) }}
                         key={idx} />
                 ))}
             </>
@@ -85,7 +85,7 @@ function CaseMain({ ...props }) {
         const sequence = [
             ['.case-filter .line-top', { scaleX: 1 }, { duration: 1, at: 0 }],
             ['.case-filter .line-bot', { scaleX: 1 }, { duration: .8, at: .2 }],
-            ['.case-filter-view-item', { opacity: 1 }, { duration: .8, delay: stagger(.1), at: .4}],
+            ['.case-filter-view-item', { opacity: 1 }, { duration: .8, delay: stagger(.1), at: .4 }],
             [toggle.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .3 }],
             ['.case-filter-list-toggle .ic', { opacity: 1, transform: "none" }, { duration: .6, at: .4 }],
         ]
@@ -117,12 +117,12 @@ function CaseMain({ ...props }) {
 
         // Button Anim
         const btnTxt = new SplitType('.case-list-load-btn-txt', { types: 'lines, words', lineClass: 'split-line' })
-        animate('.case-list-load', {opacity: 0}, {duration: 0})
+        animate('.case-list-load', { opacity: 0 }, { duration: 0 })
         animate('.case-list-load .ic svg', { opacity: 0, transform: 'translateY(-40%) scale(.8)' }, { duration: 0 })
         animate(btnTxt.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
 
         const btnSequence = [
-            ['.case-list-load', { opacity: 1}, { duration: .6, at: 0 }],
+            ['.case-list-load', { opacity: 1 }, { duration: .6, at: 0 }],
             ['.case-list-load .ic svg', { opacity: 1, transform: "none" }, { duration: .8, at: 0 }],
             [btnTxt.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(0.06), at: .2 }],
         ]
