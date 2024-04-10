@@ -85,7 +85,7 @@ function SustainableItem(props) {
 function KustomerSustain(props) {
     const allItem = props.productList
     const [filter, setFilter] = useState(0);
-    const [listLength, setListLength] = useState(1);
+    const [listLength, setListLength] = useState(4);
     const [limit, setLimit] = useState(9999);
     const [toggleDropdown, setToggleDropdown] = useState(false)
 
@@ -102,7 +102,6 @@ function KustomerSustain(props) {
         )
     }, [filter, limit]);
     useEffect(() => {
-
         if (window.innerWidth < 768) {
             setLimit(4)
         }
