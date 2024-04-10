@@ -10,7 +10,6 @@ import { GetModel } from "../../../common/GetModel.jsx";
 import * as ut from '@/js/utils.js'
 
 const warehouse = import('/envMap/warehouse.hdr?url').then((module) => module.default)
-
 function Content(props) {
     const wrap = useRef()
     const contactShadow = useRef(null)
@@ -76,7 +75,7 @@ function Content(props) {
                                                     />
                                                 )}
                                             </Suspense>
-                                            <meshBasicMaterial transparent={true} />
+                                            <meshBasicMaterial transparent />
                                         </animated.mesh>
                                     </animated.group>
                                 )
