@@ -3,15 +3,15 @@ import { getByUID } from "@/prismic.js";
 import KustomerBenefit from "./Benefit";
 
 const list = await Promise.all(
-    Astro.props.list
-        .map(async (uid: any) => {
-            let item = getByUID("benefit", uid);
-            return item;
-        })
+    Astro.props.list.map(async (uid: any) => {
+        let item = getByUID("benefit", uid);
+        return item;
+    }),
 );
 ---
+
 <KustomerBenefit
     {...Astro.props}
-    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
     list={list}
+    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
 />

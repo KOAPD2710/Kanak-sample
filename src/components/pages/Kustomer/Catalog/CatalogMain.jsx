@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react"
 import { useStore } from '@nanostores/react';
-import { productIndex } from '@contexts/StoreGlobal';
 import { getByUID } from "@/prismic";
-import useDebounceCallback from "@hooks/useDebounce";
+import CatalogThreeMain from "./CatalogThree";
 
 function CatalogueMain({ ...props }) {
-    const [index, setIndex] = useState(0)
-    const debounceHover = useDebounceCallback(setIndex, 200);
-    let list = props.list.reduce((acc, curr) => acc.concat(curr.list), []);
     return (
         <div className="kustomer-cata-main">
             <div className="kustomer-cata-main-content-wrap">
@@ -63,8 +59,10 @@ function CatalogueMain({ ...props }) {
                     </div>
                     <div className="kustomer-cata-card-middle">
                         <div className="kustomer-cata-card-middle-inner">
-                            {props.img}
-                            <canvas className="testne"></canvas>
+                            <div className="kustomer-cata-card-middle-inner-canvas">
+                                <CatalogThreeMain list={list} index={index} />
+                            </div>
+                            {/* {props.img} */}
                         </div>
                     </div>
                     <div className="kustomer-cata-card-bottom">
@@ -97,59 +95,6 @@ function CatalogueMain({ ...props }) {
                     ))}
                 </div>
             </div>
-            {/* <div className="kustomer-cata-card">
-                <div className="kustomer-cata-card-stick">
-                    <div className="line line-top"></div>
-                    <div className="line line-ver line-right"></div>
-                    <div className="line line-ver line-left"></div>
-                    <div className="kustomer-cata-card-inner">
-                        <div className="kustomer-cata-card-top">
-                            <div className="heading h6 txt-up txt-black kustomer-cata-card-top-txt">
-                                Product Kategories
-                            </div>
-                            <div className="kustomer-cata-card-nav">
-                                <button className={`kustomer-cata-card-nav-item prev${index == 0 ? ' disable' : ''}`} onClick={() => setIndex(index - 1)}>
-                                    <div className="line line-ver"></div>
-                                    <div className="ic ic-40">
-                                        {props.arrIcon}
-                                    </div>
-                                </button>
-                                <button className={`kustomer-cata-card-nav-item next${index == list.length - 1 ? ' disable' : ''}`} onClick={() => setIndex(index + 1)}>
-                                    <div className="line line-ver"></div>
-                                    <div className="ic ic-40">
-                                        {props.arrIcon}
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="line line-top-mid"></div>
-                        <div className="kustomer-cata-card-middle">
-                            <div className="kustomer-cata-card-middle-inner">
-                                {props.img}
-                            </div>
-                        </div>
-                        <div className="line line-bot-mid"></div>
-                        <div className="kustomer-cata-card-bottom">
-                            <div className="kustomer-cata-card-bottom-txt-wrap">
-                                {list.map((el, idx) => (
-                                    <div
-                                        key={idx}
-                                        className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`}>
-                                        {el.name}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="kustomer-cata-card-qr-wrap">
-                                <div className="line line-ver"></div>
-                                <div className={`kustomer-cata-card-qr`}>
-                                    {props.qr}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="line line-bot"></div>
-                </div>
-            </div> */}
         </div>
     )
 }

@@ -1,11 +1,30 @@
+import "keen-slider/keen-slider.min.css"
+import { useKeenSlider } from 'keen-slider/react'
 import ExploreInner from "./ExploreInner";
-
+import ArrowUpRight from "@/components/globals/IcArrow/ArrowUpRight.jsx";
 import { useEffect, useRef } from "react"
 import { animate, timeline, stagger, inView } from "motion";
 import SplitType from 'split-type';
 
 function ExploreItem({ ...props }) {
     const itemRef = useRef()
+
+    const [sliderRef, instanceRef] = useKeenSlider({
+        initial: 0,
+        disabled: true,
+        slides: {
+            perView: 'auto',
+        },
+        defaultAnimation: {
+            duration: 800
+        },
+        breakpoints: {
+            '(max-width: 767px)': {
+                disabled: false
+            },
+        },
+    })
+
     useEffect(() => {
         const item = itemRef.current
 
@@ -43,11 +62,15 @@ function ExploreItem({ ...props }) {
             <a href="" className="kustomer-explore-main-item-main bg-light" data-cursor="ext">
                 <div className="heading h5 txt-black txt-up kustomer-explore-main-item-main-label">{props.label[0].text}</div>
                 <h2 className="heading h1 txt-black txt-up kustomer-explore-main-item-main-title">{props.title[0].text}</h2>
+                <div className="kustomer-explore-main-item-main-link">
+                    <div className="txt txt-18 txt-bold kustomer-explore-main-item-main-link-txt">Learn more</div>
+                    <ArrowUpRight />
+                </div>
                 <div className="kustomer-explore-main-item-main-img">
                     <img src={props.img.url} alt={props.img.alt} width={props.img.dimensions.width} className="img img-fill" />
                 </div>
             </a>
-            <div className="kustomer-explore-main-item-list">
+            <div className="keen-slider kustomer-explore-main-item-list" ref={sliderRef}>
                 <div className="line line-ver kustomer-explore-main-item-list-line"></div>
                 {props.solutions.map((item) =>
                     <ExploreInner key={item[0].uid} {...item[0]} />

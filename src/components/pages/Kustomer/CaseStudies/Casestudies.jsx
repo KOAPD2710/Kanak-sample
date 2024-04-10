@@ -16,14 +16,14 @@ function KustomerCaseStudies({ ...props }) {
         animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(paragraph.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(link.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
-        animate(".kustomer-kasestu-des-link .ic svg", {opacity: 0, transform: 'translate(-100%, 100%)'}, {duration: 0})
+        animate(".kustomer-kasestu-des-link .ic svg", { opacity: 0, transform: 'translate(-100%, 100%)' }, { duration: 0 })
 
         const sequence = [
             [label.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.04), at: 0 }],
             [title.words, { opacity: 1, transform: "none" }, { duration: .8, delay: stagger(.02), at: .1 }],
             [paragraph.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.01), at: .3 }],
             [link.words, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.02), at: .6 }],
-            [".kustomer-kasestu-des-link .ic svg", {opacity: 1, transform: 'none'}, {duration: .4, at: .8}]
+            [".kustomer-kasestu-des-link .ic svg", { opacity: 1, transform: 'none' }, { duration: .4, at: .8 }]
         ]
         inView('.kustomer-kasestu', () => {
             timeline(sequence).finished.then(() => {
@@ -41,7 +41,7 @@ function KustomerCaseStudies({ ...props }) {
                 <div className="heading h4 txt-black txt-up kustomer-kasestu-label">{props.label}</div>
                 <h1 className="heading h0 txt-black txt-up kustomer-kasestu-title">{props.title}</h1>
                 <div className="kustomer-kasestu-des">
-                    <p className="txt txt-18 txt-med kustomer-kasestu-des-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <p className="txt txt-18 txt-med kustomer-kasestu-des-content">{props.des}</p>
                     <a href="/kase-studies" className="kustomer-kasestu-des-link txt-link" data-cursor="txtLink">
                         <div className="txt txt-18 txt-bold">View all kase studies</div>
                         <div className="ic ic-16">

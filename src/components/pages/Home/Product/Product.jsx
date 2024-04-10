@@ -1,27 +1,20 @@
-import { useRef, useEffect } from 'react';
 import './Product.scss';
-import { useStore } from '@nanostores/react';
-import { productIndex } from '@contexts/StoreGlobal';
+import { useRef, useEffect } from 'react';
+import { useProductIndex } from '@contexts/StoreGlobal';
 import { scroll } from "motion"
+import cn from 'clsx';
 
 function HomeProduct(props) {
-    const index = useStore(productIndex);
-    function onClickNavPrev(e) {
-        e.preventDefault();
-        productIndex.set(index - 1);
-    }
-    function onClickNavNext(e) {
-        e.preventDefault();
-        productIndex.set(index + 1);
-    }
+    const { index, setIndex } = useProductIndex();
+
     useEffect(() => {
-        console.log('init')
-        scroll(({ y }) => {
+        setIndex(0);
+        scroll(({y}) => {
             if (document.querySelectorAll('.home-prod-cards-inner').length >= 1) {
                 if (y.progress >= .9) {
                     document.querySelector('.home-prod-cards-inner').classList.add('active')
                 } else {
-                    productIndex.set(0)
+                    setIndex(0);
                     document.querySelector('.home-prod-cards-inner').classList.remove('active')
                 }
             }
@@ -39,12 +32,16 @@ function HomeProduct(props) {
                             Product Kategories
                         </div>
                         <div className="home-prod-cards-nav">
-                            <button className={`home-prod-cards-nav-item prev${index == 0 ? ' disable' : ''}`} onClick={onClickNavPrev}>
+                            <button
+                                className={cn('home-prod-cards-nav-item prev', { 'disable': index === 0 })}
+                                onClick={() => setIndex(index - 1)}>
                                 <div className="ic ic-40">
                                     {props.arrIcon}
                                 </div>
                             </button>
-                            <button className={`home-prod-cards-nav-item next${index == props.list.length - 1 ? ' disable' : ''}`} onClick={onClickNavNext}>
+                            <button
+                                className={cn('home-prod-cards-nav-item next', { 'disable': index == props.list.length - 1 })}
+                                onClick={() => setIndex(index + 1)}>
                                 <div className="ic ic-40">
                                     {props.arrIcon}
                                 </div>
@@ -57,14 +54,18 @@ function HomeProduct(props) {
                     <div className="home-prod-cards-bottom">
                         <div className="home-prod-cards-bottom-txt-wrap">
                             {props.list.map((item, idx) => (
-                                <div className={`heading h5 txt-up txt-black home-prod-cards-bottom-txt${idx == index ? ' active' : ''}`} key={idx}>
+                                <div
+                                    key={idx}
+                                    className={cn('heading h5 txt-up txt-black home-prod-cards-bottom-txt', { 'active': idx === index })}>
                                     {item.data.name}
                                 </div>
                             ))}
                         </div>
                         <div className="home-prod-cards-qr-wrap">
                             {props.itemList.map((item, idx) => (
-                                <div className={`home-prod-cards-qr${idx == index ? ' active' : ''}`} key={idx}>
+                                <div
+                                    key={idx}
+                                    className={cn('home-prod-cards-qr', { 'active': idx === index })}>
                                     <img src={item.data.qr.url} alt="" className="ic ic-80" />
                                 </div>
                             ))}
@@ -73,7 +74,9 @@ function HomeProduct(props) {
                 </div>
                 <div className='home-prod-cards-pagination'>
                     {props.list.map((_, idx) => (
-                        <button className={`home-prod-cards-pagination-dot${idx == index ? ' active' : ''}`} key={idx}>
+                        <button
+                            key={idx}
+                            className={cn('home-prod-cards-pagination-dot', { 'active': idx === index })}>
                             <span></span>
                         </button>
                     ))}

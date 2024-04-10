@@ -29,6 +29,42 @@ function cleanText(text) {
     }
     text.innerHTML = text.innerHTML.replace(/\-/g, "&#8209;").replace(/V/g, "&zwnj;V&zwnj;").replace(/\./g, "&zwnj;.&zwnj;").replace(/,/g, "&zwnj;,&zwnj;").replace(/A/g, "&zwnj;A&zwnj;").replace(/fi/g, "f&zwnj;i");
 }
-export { convertHighlight, convertDate, cleanText }
+function parseUrl(url) {
+    const [baseUrl, query] = url.split('?');
+    const queryParams = query ? query.split('&') : [];
+
+    let cate = '';
+    let tag = '';
+
+    queryParams.forEach(param => {
+        const [key, value] = param.split('=');
+        if (key === 'cate') {
+            cate = value;
+        } else if (key === 'tag') {
+            tag = value;
+        }
+    });
+
+    return { baseUrl, cate, tag };
+}
+
+function isEmpty(data) {
+    if
+        (data === null
+        || (typeof data === 'undefined')
+        || (typeof data === 'string' && data.trim().length === 0)
+        || (typeof data === 'object' && Object.keys(data).length === 0)
+        || (typeof data === 'number' && isNaN(data))
+        || (typeof data === 'number' && !isFinite(data))
+        || (Array.isArray(data) && data.length === 0))
+        return true;
+
+    return false;
+
+}
+function formatData(data) {
+    return data && data.toLowerCase().replace(/ /g, "-").replace("&", "")
+}
+export { convertHighlight, convertDate, cleanText, parseUrl, isEmpty, formatData }
 
 

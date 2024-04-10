@@ -7,13 +7,15 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: end;
     padding-top: 17.6rem;
     z-index: 3;
 
+    @include md {
+        padding-top: 8rem;
+    }
+
     @include sm {
-        height: auto;
-        margin-bottom: 0;
+        padding-top: 6rem;
     }
 
     &-title-wrap {
@@ -21,6 +23,16 @@
         margin-bottom: 18rem;
         grid-template-columns: repeat(16, 1fr);
         column-gap: 2rem;
+
+        @include md {
+            grid-template-columns: repeat(12, 1fr);
+            margin-bottom: 6rem;
+        }
+
+        @include sm {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     &-title {
@@ -31,11 +43,14 @@
         }
 
         @include md {
-            @include text(h1)
+            grid-column: 1/11;
+            margin-bottom: 2rem;
+            @include text(h1);
         }
 
         @include sm {
-            @include text(h5);
+            grid-column: 1/-1;
+            @include text(h2);
         }
     }
 
@@ -43,10 +58,20 @@
         grid-column: 12/-1;
         align-self: end;
         opacity: .6;
-    }
 
-    &-label {
-        margin-bottom: 3.2rem;
+        @include md {
+            grid-column: 1/9;
+            margin-right: 2rem;
+            font-weight: 700;
+            text-transform: none;
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            font-weight: 500;
+            @include text(16);
+            margin-right: unset;
+        }
     }
 
     &-main {
@@ -68,8 +93,8 @@
             flex-wrap: nowrap;
 
             @include sm {
-                flex-wrap: initial;
                 flex-direction: column;
+                padding-bottom: 2rem;
             }
         }
 
@@ -79,6 +104,10 @@
             left: 0;
             background-color: var(--cl-txt);
             width: 100%;
+
+            @include sm {
+                display: none;
+            }
         }
 
         &-item {
@@ -92,24 +121,24 @@
             will-change: transform;
 
             @include md {
-                padding: {
-                    top: 2.7rem;
-                    bottom: 8rem;
-                    right: 7.2rem;
-                    left: 7.2rem;
-                }
+                padding-top: 4.8rem;
+                padding-bottom: 6rem;
+                border-top: .2rem solid var(--cl-txt);
             }
 
             @include sm {
-                border-top: 0.2rem solid var(--cl-txt);
                 width: 100%;
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+                padding-right: unset !important;
+                padding-left: unset !important;
             }
 
             &:first-child {
                 padding-right: 7.4rem;
 
-                @include sm {
-                    width: 100%;
+                @include md {
+                    padding-right: 3.6rem;
                 }
             }
 
@@ -125,11 +154,11 @@
                 margin-bottom: 3.2rem;
 
                 @include md {
-                    margin-bottom: 2.7rem;
+                    margin-bottom: 1.2rem;
                 }
 
-                @include md {
-                    margin-bottom: 4.8rem;
+                @include sm {
+                    flex-direction: column;
                 }
             }
 
@@ -144,11 +173,11 @@
                 color: rgba($cl-txt-light, .8);
 
                 @include md {
-                    @include text(h1);
+                    @include text(h6);
                 }
 
                 @include sm {
-                    @include text(h2);
+                    order: 1;
                 }
             }
 
@@ -157,24 +186,29 @@
                 margin-bottom: 4rem;
 
                 @include md {
-                    margin-bottom: 3.2rem;
-                    max-width: 37rem;
+                    margin-bottom: 2rem;
+                    max-width: 26.1rem;
+                    @include text(h4);
                 }
 
                 @include sm {
                     @include text(h3);
+                    margin-bottom: 3.2rem;
                 }
             }
 
             &-sub {
                 max-width: 80rem;
-                margin-top: auto;
                 margin-bottom: 4rem;
                 color: rgba($cl-txt-light, .6);
 
                 @include md {
-                    margin-bottom: 3.2rem;
+                    margin-bottom: 2.8rem;
                     @include text(16);
+                }
+
+                @include sm {
+                    margin-bottom: 3.2rem;
                 }
             }
 
@@ -199,12 +233,14 @@
 
                 .ic-120 {
                     @include md {
-                        @include size(10.2rem);
+                        @include size(8rem);
                     }
+                }
 
-                    @include sm {
-                        @include size(7.7rem);
-                    }
+                @include sm {
+                    position: relative;
+                    order: 0;
+                    margin-bottom: 6rem;
                 }
             }
 

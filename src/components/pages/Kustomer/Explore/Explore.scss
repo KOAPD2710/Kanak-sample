@@ -3,6 +3,7 @@
 
 
 .kustomer-explore {
+    contain: paint;
 
     &-title {
         grid-column: 3/15;
@@ -10,11 +11,30 @@
         max-width: 100rem;
         margin: auto;
         margin-bottom: 10rem;
+
+        @include md {
+            grid-column: 1/-1;
+            @include text(h1);
+            margin-bottom: 8.8rem;
+        }
+
+        @include sm {
+            @include text(h3);
+            text-align: left;
+            margin-bottom: 6rem;
+        }
     }
 
     &-main {
         grid-column: 1/-1;
         grid-row: 2/3;
+
+        @include sm {
+            display: flex;
+            flex-direction: column;
+            row-gap: 6rem;
+            padding-bottom: 6rem;
+        }
 
         &-item {
             --fr-width: 4rem;
@@ -24,14 +44,17 @@
             grid-template-columns: repeat(var(--grid-column), 1fr);
             column-gap: var(--grid-gap);
 
+            @include sm {
+                grid-template-columns: 1fr;
+            }
 
             &:last-child {
-                .kustomer-explore-main-item-main {
-                    padding-bottom: 7.2rem;
-                }
-
                 .kustomer-explore-main-item-list {
                     padding-bottom: 2rem;
+
+                    @include md {
+                        padding-bottom: 0;
+                    }
                 }
             }
 
@@ -39,6 +62,10 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+
+                @include sm {
+                    display: none;
+                }
             }
 
             &-main {
@@ -52,12 +79,42 @@
                 transition: color .4s ease;
                 background-color: var(--cl-bg);
 
+                @include md {
+                    grid-column: 1/8;
+                    margin-right: 0;
+                    padding-right: 3rem;
+                    padding-bottom: 4rem;
+                }
+
+                @include sm {
+                    grid-column: 1/-1;
+                    padding-right: 0;
+                    padding-top: 0;
+                }
+
                 &-label {
                     margin-bottom: 3.2rem;
+                    @include md {
+                        margin-bottom: .8rem;
+                        @include text(20);
+                    }
+
+                    @include sm {
+                        order: 1;
+                    }
                 }
 
                 &-title {
                     max-width: 81.2rem;
+
+                    @include md {
+                        @include text(h3);
+                        margin-bottom: 3.4rem
+                    }
+
+                    @include sm {
+                        order: 1
+                    }
                 }
 
                 &-img {
@@ -67,6 +124,41 @@
                     transform-origin: right bottom;
                     transition: transform 600ms ease;
                     mix-blend-mode: multiply;
+
+                    @include md {
+                        @include size(20rem, 30rem);
+                    }
+
+                    @include sm {
+                        order: 0;
+                        width: 100%;
+                        height: unset;
+                        overflow: hidden;
+                        aspect-ratio: 1.8244680851;
+                        margin-bottom: 3.4rem;
+
+                        img {
+                            object-fit: cover;
+                        }
+                    }
+                }
+
+                &-link {
+                    display: none;
+
+                    @include md {
+                        display: flex;
+                        align-items: center;
+                        column-gap: .8rem;
+
+                        svg {
+                            @include size(1.6rem);
+                        }
+                    }
+
+                    @include sm {
+                        order: 1
+                    }
                 }
 
                 @media (hover: hover) {
@@ -90,25 +182,95 @@
                 padding-left: calc(var(--fr-width) + var(--grid-gap));
                 padding-top: 6rem;
 
+                @include md {
+                    grid-column: 8/-1;
+                    margin-left: calc(var(--grid-gap) * -1);
+                    padding-left: 3rem;
+                    padding-top: 4rem;
+                    row-gap: 4rem;
+                }
+
+                @include sm {
+                    display: flex;
+                    padding: 0;
+                    grid-column: 1/-1;
+                    margin-left: 0;
+                    height: fit-content;
+                    flex-direction: unset;
+                }
+
                 .line-ver {
                     position: absolute;
                     top: 0;
                     left: 0;
+
+                    @include sm {
+                        display: none;
+                    }
                 }
 
                 &-inner {
+                    min-height: unset !important;
+
+                    @include sm {
+                        min-height: 100% !important;
+                        width: auto !important;
+                        min-width: 28rem;
+                        padding: 4rem 3rem;
+                        border-left: .2rem solid var(--cl-txt);
+                        border-bottom: .2rem solid var(--cl-txt);
+
+                        &:nth-child(2) {
+                            padding-left: 0;
+                            border-left: none;
+                        }
+                    }
+
+
 
                     &-title {
                         margin-bottom: 4rem;
+
+                        @include md {
+                            margin-bottom: 1.2rem;
+                        }
                     }
 
                     &-des {
                         margin-bottom: 5.2rem;
+
+                        @include md {
+                            margin-bottom: 4rem;
+                            @include text(16);
+                        }
+
+                        @include sm {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .line {
+                        @include sm {
+                            position: absolute;
+                            width: 100%;
+                            top: 0;
+                            left: 0;
+                        }
                     }
 
                     &:last-child {
                         .line {
                             display: none;
+                        }
+                    }
+
+                    @include sm {
+                        &:last-child {
+                            border-right: .2rem solid var(--cl-txt);
+
+                            .line {
+                                display: block;
+                            }
                         }
                     }
                 }

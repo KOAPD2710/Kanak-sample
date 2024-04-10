@@ -1,8 +1,8 @@
 ---
-import { getByUID, getAllByType } from "@/prismic";
-import "./Commitment.scss"
-import KustomerCommitHead from './CommitmentHead';
-import KustomerCommitMain from './CommitmentMain';
+import { getAllByType } from "@/prismic";
+import "./Commitment.scss";
+import KustomerCommitHead from "./CommitmentHead";
+import KustomerCommitMain from "./CommitmentMain";
 
 const listCommit = await getAllByType("commitment");
 let newList = [];
@@ -11,11 +11,17 @@ Astro.props.list.map((el) => {
         item.uid == el && newList.push(item);
     });
 });
-
 ---
+
 <section class="kustomer-commit">
     <div class="container grid">
-        <KustomerCommitHead {...Astro.props} client:visible={{ rootMargin: "100% 0px 100% 0px" }} />
-        <KustomerCommitMain list={newList} client:visible={{ rootMargin: "100% 0px 100% 0px" }} />
+        <KustomerCommitHead
+            {...Astro.props}
+            client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+        />
+        <KustomerCommitMain
+            list={newList}
+            client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+        />
     </div>
 </section>

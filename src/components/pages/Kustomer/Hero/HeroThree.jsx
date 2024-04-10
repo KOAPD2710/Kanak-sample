@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState, useEffect, useMemo, memo } from "react";
+import { Suspense, useRef, useState, useEffect, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useWindowSize from "@hooks/useWindowSize";
 import { GetModel } from "@/components/common/GetModel";
@@ -73,9 +73,9 @@ function Content(props) {
     useEffect(() => {
         if (window.innerWidth > 991) {
         } else if (window.innerWidth > 767) {
-            setScaleOffset(2)
+            // setScaleOffset()
         } else {
-            setScaleOffset(1.5)
+            setScaleOffset(.8)
         }
     }, []);
 

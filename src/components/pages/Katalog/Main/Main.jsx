@@ -1,4 +1,5 @@
 import "./Main.scss"
+import { parseUrl, formatData } from "@/components/utils/text";
 import { useState, useEffect, useRef, useMemo } from "react";
 
 function Item({ ...props }) {
@@ -28,10 +29,9 @@ function Item({ ...props }) {
     )
 }
 
-
 function FilterTag({ ...props }) {
     return (
-        <button className={`katalog-main-filter-item ${props.isActive ? "active" : ""}`} data-filter={props.name} onClick={props.onClick}>
+        <button className={`katalog-main-filter-item ${props.isActive ? "active" : ""}`} data-filter={formatData(props.name)} onClick={props.onClick}>
             <div className="txt txt-20 txt-bold katalog-main-filter-item-txt">
                 {props.name}
             </div>
@@ -43,7 +43,7 @@ function FilterTag({ ...props }) {
 function FilterCate({ ...props }) {
     return (
         <li className={`katalog-main-cate-item ${props.isActive ? "active" : ""}`} >
-            <button className="katalog-main-cate-item-inner" data-cursor="txtLink" data-cursor-txtlink="child" data-cate={props.data} onClick={props.onClick}>
+            <button className="katalog-main-cate-item-inner" data-cursor="txtLink" data-cursor-txtlink="child" data-cate={formatData(props.data)} onClick={props.onClick}>
                 <div className="dot"></div>
                 <div className="txt txt-20 txt-black txt-up katalog-main-cate-item-txt" data-cursor-txtlink-child="true">{props.data}</div>
             </button>
@@ -53,27 +53,25 @@ function FilterCate({ ...props }) {
 
 function KatalogMain({ ...props }) {
     const { allItem: allItem } = props;
-    const [filter, setFilter] = useState('All');
-    const [category, setCategory] = useState(props.cateList[0]);
+    const [filter, setFilter] = useState('all');
+    const [category, setCategory] = useState(formatData(props.cateList[0]));
 
     let newList = allItem.filter((item) => {
-        if (filter == "All") {
+        if (filter == "all") {
             return item.cate === category && item;
         } else {
-            return item.data.tag_grp.some(tag => tag.tags === filter) && item.cate === category && item
+            return item.data.tag_grp.some(target => formatData(target.tags) == filter) && item.cate === category && item
         }
     });
     const renderFilterTag = useMemo(() => {
         return (
             <>
                 <FilterTag name={'All'}
-                    // count={allItem.length}
-                    isActive={filter == 'All'}
+                    isActive={filter == 'all'}
                     onClick={(e) => { filterList(e) }} />
                 {props.tagList.map((el, idx) => (
                     <FilterTag name={el}
-                        // count={allItem.filter((item) => item.data.category == el).length}
-                        isActive={filter == el}
+                        isActive={filter == formatData(el)}
                         onClick={(e) => { filterList(e) }}
                         key={idx} />
                 ))}
@@ -88,7 +86,7 @@ function KatalogMain({ ...props }) {
                     key={el}
                     data={el}
                     onClick={(e) => { filterList(e) }}
-                    isActive={category == el}
+                    isActive={category == formatData(el)}
                 />
             ))
         )
@@ -100,7 +98,7 @@ function KatalogMain({ ...props }) {
                 <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
             ))
         )
-    }, [newList, category, filter])
+    }, [category, filter])
 
     function filterList(e) {
         let target = e.target
@@ -112,6 +110,44 @@ function KatalogMain({ ...props }) {
             setCategory(data)
         }
     }
+    function updateUrl(url, key, value) {
+        let urlObject = new URL(url);
+        let searchParams = new URLSearchParams(urlObject.search);
+      
+        if (value === "") {
+            // If value is an empty string, remove the target key
+            searchParams.delete(key);
+        } else {
+            // Otherwise, set or append the key-value pair
+            if (searchParams.has(key)) {
+                searchParams.set(key, value);
+            } else {
+                searchParams.append(key, value);
+            }
+        }
+      
+        urlObject.search = searchParams.toString();
+        return urlObject.toString();
+    }
+    useEffect(() => {
+        const dataUrl = parseUrl(window.location.href)
+        if (dataUrl.cate != "") {
+            setCategory(formatData(dataUrl.cate))
+        }
+        if (dataUrl.tag != "") {
+            setFilter(formatData(dataUrl.tag))
+        }
+    }, [])
+    useEffect(() => {
+        window.history.replaceState(null, null, updateUrl(window.location.href, 'cate', formatData(category)));
+    }, [category])
+    useEffect(() => {
+        if (filter == "all") {
+            window.history.replaceState(null, null, updateUrl(window.location.href, 'tag', ''));
+        } else {
+            window.history.replaceState(null, null, updateUrl(window.location.href, 'tag', formatData(filter)));
+        }
+    }, [filter])
     return (
         <section className="katalog-main">
             <div className="container grid">

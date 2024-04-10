@@ -4,6 +4,10 @@
 .kustomer-service {
     padding-bottom: 18rem;
 
+    @include md {
+        padding-bottom: 8rem;
+    }
+
     &-line {
         grid-column: 1/-1;
     }
@@ -17,18 +21,53 @@
             max-width: 80rem;
             padding-top: 12rem;
             padding-bottom: 6rem;
+
+            @include md {
+                grid-column: 1/7;
+                padding-top: 4rem;
+                max-width: 34.6rem;
+            }
+
+            @include sm {
+                padding-top: 0;
+                padding-bottom: 0;
+                margin-bottom: 4rem;
+                grid-column: 1/-1;
+            }
+        }
+
+        @include md {
+            @include text(h1);
+        }
+
+        @include sm {
+            @include text(h2);
         }
     }
+
 
     &-main {
         position: relative;
         grid-column: 9/-1;
         margin-left: calc(var(--grid-gap)/2 * -1);
 
+        @include md {
+            grid-column: 7/-1;
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            margin-left: 0;
+        }
+
         .line-ver {
             position: absolute;
             top: 0;
             left: -.1rem;
+
+            @include sm {
+                display: none;
+            }
         }
 
         &-inner {
@@ -39,6 +78,18 @@
             row-gap: 6rem;
             padding-top: 8rem;
             padding-bottom: 3rem;
+
+            @include md {
+                display: flex;
+                flex-direction: column;
+                padding-top: 4rem;
+                padding-left: 4rem;
+            }
+
+            @include sm {
+                padding: 0;
+                row-gap: 4rem;
+            }
         }
 
         &-item {
@@ -54,6 +105,10 @@
                 width: 100%;
                 aspect-ratio: 1.895890411;
                 margin-bottom: 3.2rem;
+
+                @include sm {
+                    aspect-ratio: 1.3643724696;
+                }
             }
 
             &-content {
@@ -64,11 +119,27 @@
                 &-title {
                     grid-column: 1/4;
                     margin-bottom: 4rem;
+
+                    @include md {
+                        grid-column: 1/-1;
+                        margin-bottom: .8rem;
+                        @include text(h5);
+                    }
+                }
+
+                &-des {
+                    @include md {
+                        @include text(16);
+                    }
                 }
 
                 &-info {
                     grid-column: 4/8;
                     margin-bottom: 4rem;
+
+                    @include md {
+                        grid-column: 1/-1;
+                    }
                 }
 
                 .line {

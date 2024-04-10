@@ -4,35 +4,26 @@ import useWindowSize from "@hooks/useWindowSize";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from '@gsap/react';
-import { useStore } from '@nanostores/react';
-import { productIndex } from '@contexts/StoreGlobal';
+import { useProductIndex } from '@contexts/StoreGlobal';
 import { GetModel } from "../../../common/GetModel.jsx";
+import { animate, scroll } from "motion";
 function CustomMaterial({...props}) {
-    return ( <>
-     <meshStandardMaterial color={props.color} roughness={props.roughness}/>
-    </>
+    return (
+        <meshStandardMaterial color={props.color} roughness={props.roughness}/>
     )
 }
 function Content({...props}) {
     const wrap = useRef()
     const productsWrap = useRef()
     const products = useRef()
-    const index = useStore(productIndex);
+    const { index, setIndex } = useProductIndex();
     const clock = useThree(state => state.clock);
+
     useFrame((state, delta) => {
         if (!products.current) return
         products.current.rotation.x = Math.cos(clock.elapsedTime / 2) * Math.PI * .02
         products.current.rotation.y += .2 * delta
     })
-    useEffect(() => {
-        products.current.children.forEach((el, idx) => {
-            if (idx == index) {
-                gsap.to(products.current.children[index].scale, {x: 1, y: 1, z: 1, duration: .8, ease: 'expo.out', overwrite: true})
-            } else {
-                gsap.to(products.current.children[idx].scale, {x: 0, y: 0, z: 0, duration: .8, ease: 'expo.out', overwrite: true})
-            }
-        })
-    }, [index])
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger)
@@ -40,12 +31,8 @@ function Content({...props}) {
             scrollTrigger: {
                 trigger: '.home-prod-title-wrap',
                 start: 'bottom bottom',
-                onEnter: () => {
-                    productIndex.set(0)
-                },
-                onLeaveBack: () => {
-                    productIndex.set(0)
-                }
+                onEnter: () => setIndex(0),
+                onLeaveBack: () => setIndex(0)
             }
         })
     }, [])

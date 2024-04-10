@@ -4,26 +4,97 @@
 
 .kustomer-benefit {
     padding-bottom: 19rem;
+    contain: paint;
+
+    @include md {
+        padding-bottom: 10rem;
+    }
+
+    @include sm {
+        padding-bottom: 6rem;
+    }
 
     &-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-    }
-    &-title {
-        grid-column: span 2;
-        &-txt {
-            max-width: 75rem;
+
+        @include md {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include sm {
+            grid-template-columns: 1fr;
         }
     }
+
+    &-title {
+        grid-column: span 2;
+
+        @include md {
+            grid-column: span 1;
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            margin-bottom: 4rem;
+        }
+
+        &-txt {
+            max-width: 75rem;
+
+            @include md {
+                @include text(h5);
+                max-width: 32rem;
+            }
+        }
+    }
+
+    &-list {
+        display: contents !important;
+
+        @include sm {
+            display: flex !important;
+            // overflow: visible !important;
+            // overflow: unset !important;
+            // margin-right: calc(var(--container-padding) * -1);
+            // padding-right: var(--container-padding);
+        }
+    }
+
     &-item {
         position: relative;
         padding: 4.8rem 6rem 4.8rem 4rem;
         min-height: 32.2rem;
+
+        @include md {
+            padding: 4rem 4rem 3rem 3rem;
+            min-height: 23.2rem;
+        }
+
+        @include sm {
+            overflow: unset !important;
+            width: 100%;
+            min-width: 30rem;
+
+            &:first-child {
+                padding-left: 0;
+
+                .line-left {
+                    display: none;
+                }
+            }
+        }
+
+
         .line {
             position: absolute;
             width: calc(100% + .2rem);
             top: -.1rem;
             left: -.1rem;
+            @include sm {
+                top: 0;
+                left: 0;
+            }
         }
 
         .line-ver {
@@ -34,21 +105,38 @@
         .line-bot {
             top: auto;
             bottom: -.1rem;
+            @include sm {
+                bottom: 0;
+            }
         }
 
         .line-right {
             left: auto;
             right: -.1rem;
+            @include sm {
+                right: -.2rem;
+            }
         }
+
         &-ic {
             @include size(6.4rem);
             margin-bottom: 4rem;
+            @include md {
+                margin-bottom: 3rem;
+                @include size(4.8rem);
+            }
         }
 
         &-content {
             &-title {
                 margin-bottom: 1.2rem;
                 max-width: 28rem;
+            }
+
+            &-des {
+                @include md {
+                    @include text(16);
+                }
             }
         }
     }

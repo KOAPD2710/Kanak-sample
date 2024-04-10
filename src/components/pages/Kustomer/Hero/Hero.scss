@@ -3,18 +3,31 @@
 
 
 .kustomer-hero {
-    // background-color: var(--cl-bg-dark);
-    // background: var(--bg-txt-dark) repeat;
     background-size: 20rem auto;
     position: relative;
     height: 100vh;
     contain: paint;
     padding-bottom: 5rem;
+    @include md {
+        height: auto;
+    }
+
     &-subtitle {
-        padding-top: 18.75vh;
+        padding-top: clamp(16rem, 18.75vh, 50%);
         grid-column: 4/14;
         text-align: center;
         margin-bottom: 1.6rem;
+
+        @include md {
+            margin-bottom: .8rem;
+            grid-column: 3/11;
+            max-width: 45.6rem;
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            text-align: start;
+        }
     }
 
     &-title {
@@ -22,7 +35,16 @@
         text-align: center;
         max-width: 83.3rem;
         margin: auto;
-        // color: var(--cl-txt-light);
+
+        @include md {
+            grid-column: 2/12;
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            @include text(h2);
+            text-align: start;
+        }
     }
 
     &-slide {
@@ -30,12 +52,25 @@
         align-items: end;
         position: absolute;
         height: 100%;
-        // inset: 0;
         left: 0;
         right: 0;
         bottom: 0;
         height: calc(100vh - 56.49vh);
+        z-index: 2;
         cursor: grab;
+        margin-top: 7.6rem;
+
+        @include md {
+            position: relative;
+            height: 27.8rem;
+            margin-top: 9rem;
+        }
+        @include sm {
+            height: 15.2rem;
+            position: relative;
+            margin-top: 4rem;
+        }
+
         canvas {
             position: relative;
             height: 100%;

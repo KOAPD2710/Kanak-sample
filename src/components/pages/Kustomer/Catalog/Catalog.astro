@@ -1,12 +1,14 @@
 ---
 import Image from "astro/components/Image.astro";
-import KustomerCatalog from "./Catalog";
+import KustomerCatalogTitle from './CatalogTitle';
+import KustomerCatalogList from './CatalogList';
+import KustomerCatalogThree from './CatalogThree';
 
 import arrIcon from "@assets/arr-right.svg?raw";
 import qr from "@assets/kustomer-qr.png";
-import image from "@assets/kustomer-hero-left.png";
+import "./Catalog.scss"
 
-const { title, describe } = Astro.props;
+const { title, describe, label, data } = Astro.props;
 const newTitle = title.replace(
 	"RETAILERS",
 	`<span class="txt-green">RETAILERS</span>`,
@@ -28,14 +30,18 @@ describe.forEach((el, elIdx) => {
 	newDescribe += bodyText;
 });
 ---
-
-<KustomerCatalog
-	{...Astro.props}
-	client:visible={{ rootMargin: "100% 0px 100% 0px" }}
->
-	<Fragment set:html={newTitle} slot="title" />
-	<Fragment set:html={newDescribe} slot="describe" />
-	<Fragment set:html={arrIcon} slot="arrIcon" />
-	<Image src={qr} alt="" slot="qr" class="ic ic-80" />
-	<Image src={image} alt="" slot="image" class="img img-fill" />
-</KustomerCatalog>
+<section class="kustomer-cata">
+	<div class="container grid">
+		<KustomerCatalogTitle label={label} client:visible={{ rootMargin: "100% 0px 100% 0px" }}>
+			<Fragment set:html={newTitle} slot="title" />
+			<Fragment set:html={newDescribe} slot="describe" />
+		</KustomerCatalogTitle>
+		<div class="kustomer-cata-main">
+			<KustomerCatalogList list={data} client:visible={{ rootMargin: "100% 0px 100% 0px" }}/>
+			<KustomerCatalogThree list={data} client:idle>
+				<Image src={qr} alt="" slot="qr" class="ic ic-80" />
+				<Fragment set:html={arrIcon} slot="arrIcon" />
+			</KustomerCatalogThree>
+		</div>
+	</div>
+</section>
