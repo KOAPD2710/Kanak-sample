@@ -13,7 +13,7 @@ import Value from "@pages/Kustomer/Value/Value.astro";
 import Award from "@pages/Kustomer/Award/Award.astro";
 import Benefit from "@pages/Kustomer/Benefit/Benefit.astro";
 import Catalog from "@/components/pages/Kustomer/Catalog/Catalog.astro";
-import { convertHighlight, checkValue } from "@/components/utils/text";
+import { convertHighlight, isEmpty } from "@utils/text";
 
 export async function getStaticPaths() {
     const list = await getAllByType("industry");
@@ -87,16 +87,14 @@ const filterCaseStudy = listCaseStudy.filter(
         sub_title={homeData.data.client_sub_title[0].text}
         client_list={homeData.data.client_list}
     />
-    {
-        checkValue(item.data.service_title) && (
+    {   !isEmpty(item.data.service_title) && (
             <Service
                 title={item.data.service_title[0].text}
                 listItems={serviceItem}
             />
         )
     }
-    {
-        checkValue(item.data.sustainable_subtitle) && (
+    {   !isEmpty(item.data.sustainable_subtitle) && (
             <>
                 <Sustainable
                     subtitle={item.data.sustainable_subtitle[0].text}
@@ -109,8 +107,7 @@ const filterCaseStudy = listCaseStudy.filter(
             </>
         )
     }
-    {
-        checkValue(item.data.katalog_title) && (
+    {   !isEmpty(item.data.katalog_title) && (
             <Catalog
                 label={item.data.katalog_label}
                 title={item.data.katalog_title[0].text}
@@ -137,16 +134,14 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {
-        checkValue(item.data.explore_title) && (
+    {   !isEmpty(item.data.explore_title) && (
             <Explore
                 listGroup={item.data.explore_list.map((el) => el.item)}
                 title={convertHighlight(item.data.explore_title)}
             />
         )
     }
-    {
-        checkValue(item.data.commitment_title) && (
+    {   !isEmpty(item.data.commitment_title) && (
             <Commitment
                 label={item.data.commitment_label}
                 title={item.data.commitment_title[0].text}
@@ -154,8 +149,7 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {
-        checkValue(item.data.kase_study_title) && (
+    {   !isEmpty(item.data.kase_study_title) && (
             <CaseStudy
                 label={item.data.kase_study_label}
                 title={item.data.kase_study_title[0].text}
@@ -164,8 +158,7 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {
-        checkValue(item.data.value_title) && (
+    {   !isEmpty(item.data.value_title) && (
             <Value
                 describe={item.data.value_describe}
                 title={item.data.value_title[0].text}
@@ -173,8 +166,7 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {
-        checkValue(item.data.award_title) && (
+    {   !isEmpty(item.data.award_title) && (
             <Award
                 title={item.data.award_title[0].text}
                 describe={item.data.award_describe}

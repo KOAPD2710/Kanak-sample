@@ -94,14 +94,13 @@
 
                 &-label {
                     margin-bottom: 3.2rem;
-
                     @include md {
+                        margin-bottom: .8rem;
                         @include text(20);
                     }
 
                     @include sm {
                         order: 1;
-                        margin-bottom: .8rem;
                     }
                 }
 
@@ -241,6 +240,7 @@
                         margin-bottom: 5.2rem;
 
                         @include md {
+                            margin-bottom: 4rem;
                             @include text(16);
                         }
 

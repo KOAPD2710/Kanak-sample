@@ -149,7 +149,7 @@
                 grid-column: 1/4;
             }
 
-            @include md {
+            @include sm {
                 grid-column: 1/-1;
             }
 
@@ -159,11 +159,10 @@
                 @include sm {
                     position: relative;
                     display: flex;
-                    width: 100%;
+                    width: calc(100% + .2rem);
                     padding: 2.1rem 0;
+                    margin: 0 -.1rem;
                     border-bottom: .2rem solid var(--cl-txt);
-                    background: var(--bg-txt) repeat;
-                    background-size: 40rem auto;
                     background-color: var(--cl-bg);
                     z-index: 2;
                 }
@@ -181,14 +180,17 @@
                         justify-content: space-between;
                     }
                 }
+                &-ic {
+                    transition: transform 0.4s ease-in-out;
+                    &.active {
+                        transform: rotate(180deg);
+                    }
+                }
 
                 &-label {
                     margin-bottom: .4rem
                 }
 
-                .icDropdown {
-                    @include size(2.4rem);
-                }
             }
 
             &-list {
@@ -203,9 +205,10 @@
                 }
 
                 @include sm {
-                    width: 100%;
                     position: absolute;
-                    top: 100%;
+                    top: calc(100% - .1rem);
+                    left: -.1rem;
+                    right: -.1rem;
                     padding-top: 0;
                     opacity: 0;
                     transform: translateY(-2rem);
@@ -340,8 +343,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        width: 64%;
-                        height: 55.26%;
+                        @include size(64%, 55.26%);
 
                         @include sm {
                             width: 23.3rem;

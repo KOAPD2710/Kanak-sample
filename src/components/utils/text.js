@@ -48,30 +48,23 @@ function parseUrl(url) {
     return { baseUrl, cate, tag };
 }
 
-function checkValue(data) {
-    if (data === null || typeof data === 'undefined') {
-        return false
-    }
-    if (typeof data === 'string' && data.trim().length === 0) {
-        return false
-    }
-    if (Array.isArray(data) && data.length === 0) {
-        return false
-    }
-    if (typeof data === 'object' && Object.keys(data).length === 0) {
-        return false
-    }
-    if (typeof data === 'number' && isNaN(data)) {
-        return false
-    }
-    if (typeof data === 'number' && !isFinite(data)) {
-        return false
-    }
-    return true;
+function isEmpty(data) {
+    if
+        (data === null
+        || (typeof data === 'undefined')
+        || (typeof data === 'string' && data.trim().length === 0)
+        || (typeof data === 'object' && Object.keys(data).length === 0)
+        || (typeof data === 'number' && isNaN(data))
+        || (typeof data === 'number' && !isFinite(data))
+        || (Array.isArray(data) && data.length === 0))
+        return true;
+
+    return false;
+
 }
 function formatData(data) {
     return data && data.toLowerCase().replace(/ /g, "-").replace("&", "")
 }
-export { convertHighlight, convertDate, cleanText, parseUrl, checkValue, formatData }
+export { convertHighlight, convertDate, cleanText, parseUrl, isEmpty, formatData }
 
 

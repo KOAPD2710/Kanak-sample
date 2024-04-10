@@ -7,7 +7,7 @@
     overflow: hidden;
 
     @include md {
-        padding-top: 10rem;
+        padding-top: 8rem;
         padding-bottom: 9rem;
     }
 
@@ -56,6 +56,7 @@
 
         @include sm {
             grid-column: 1/-1;
+            margin-top: 2rem;
             margin-left: unset;
         }
 
@@ -91,9 +92,8 @@
         @include md {
             margin-top: 5.7rem;
         }
-
         @include sm {
-            margin-top: 5.7rem;
+            margin-top: 4rem;
         }
 
         &-wrapper {
@@ -112,7 +112,7 @@
             background-color: var(--cl-bg);
 
             @include md {
-                width: 37.6rem !important;
+                width: calc(50% + 2.4rem) !important;
                 padding: 2.4rem;
             }
 

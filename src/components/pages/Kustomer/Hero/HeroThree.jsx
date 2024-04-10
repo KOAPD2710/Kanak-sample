@@ -73,9 +73,9 @@ function Content(props) {
     useEffect(() => {
         if (window.innerWidth > 991) {
         } else if (window.innerWidth > 767) {
-            setScaleOffset(2)
+            // setScaleOffset()
         } else {
-            setScaleOffset(1.5)
+            setScaleOffset(.8)
         }
     }, []);
 

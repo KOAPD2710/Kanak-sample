@@ -7,6 +7,7 @@ import { Fork } from '@pages/Home/HeroThree/Fork.jsx';
 import { Environment, ContactShadows, AdaptiveDpr } from "@react-three/drei";
 import { useSpring, useTransition, animated, easings } from '@react-spring/three'
 import { GetModel } from "../../../common/GetModel.jsx";
+import { useProductIndex } from "@contexts/StoreGlobal.js";
 import * as ut from '@/js/utils.js'
 
 const warehouse = import('/envMap/warehouse.hdr?url').then((module) => module.default)
@@ -21,12 +22,12 @@ function Content(props) {
     let isLock = false;
     useFrame((state, delta) => {
         if (!products.current) return;
-        products.current.rotation.y += .006
+        products.current.rotation.y += .006 * props.direction
     })
     const transition = useTransition(props.index, {
-        from: { rotation: [0, -Math.PI, 0], scale: [0, 0, 0], opacity: 0 },
+        from: { rotation: [0, -Math.PI * props.direction, 0], scale: [0, 0, 0], opacity: 0 },
         enter: { rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
-        leave: { rotation: [0, Math.PI, 0], scale: [0, 0, 0], opacity: 0 },
+        leave: { rotation: [0, Math.PI * props.direction, 0], scale: [0, 0, 0], opacity: 0 },
         config: () => (n) => n === "opacity" && { friction: 60 }
     })
 
@@ -95,13 +96,79 @@ function Content(props) {
 
 function CatalogThreeMain(props) {
     const { width, height } = useWindowSize();
+    const { index, setIndex } = useProductIndex();
+    const [direction, setDirection] = useState(1);
+    const list = props.list.reduce((acc, curr) => acc.concat(curr.list), []);
     let perspective = 5;
     let fov = 30;
+    const onChangeIndex = (dir) => {
+        setDirection(dir);
+        setIndex(index + dir);
+    }
     return (
-        <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows>
-            <Content width={width} height={height} {...props} />
-            <AdaptiveDpr pixelated />
-        </Canvas>
+        <div className="kustomer-cata-card">
+            <div className="kustomer-cata-card-inner">
+                <div className="kustomer-cata-card-top">
+                    <div className="heading h6 txt-up txt-black kustomer-cata-card-top-txt">
+                        Product Kategories
+                    </div>
+                    <div className="kustomer-cata-card-nav">
+                        <button
+                            className={`kustomer-cata-card-nav-item prev${index == 0 ? ' disable' : ''}`}
+                            onClick={() => onChangeIndex(-1)}>
+                            <div className="ic ic-40">
+                                {props.arrIcon}
+                            </div>
+                        </button>
+                        <button
+                            className={`kustomer-cata-card-nav-item next${index == list.length - 1 ? ' disable' : ''}`}
+                            onClick={() => onChangeIndex(1)}>
+                            <div className="ic ic-40">
+                                {props.arrIcon}
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div className="kustomer-cata-card-middle">
+                    <div className="kustomer-cata-card-middle-inner">
+                        <div className="kustomer-cata-card-middle-inner-canvas">
+                            <Canvas camera={{ fov: fov, near: 0.1, far: 10000, position: [0, 0, perspective], aspect: width / height }} shadows>
+                                <Content width={width} height={height} index={index} direction={direction} list={list} />
+                                <AdaptiveDpr pixelated />
+                            </Canvas>
+                        </div>
+                    </div>
+                </div>
+                <div className="kustomer-cata-card-bottom">
+                    <div className="kustomer-cata-card-bottom-txt-wrap">
+                        {list.map((el, idx) => (
+                            <div
+                                key={idx}
+                                className={`heading h5 txt-up txt-black kustomer-cata-card-bottom-txt${idx == index ? ' active' : ''}`}>
+                                {el.name}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="kustomer-cata-card-qr-wrap">
+                        <div className={`kustomer-cata-card-qr`}>
+                            {props.qr}
+                        </div>
+                        {/* {props.itemList.map((item, idx) => (
+                            <div className={`kustomer-cata-card-qr${idx == index ? ' active' : ''}`} key={idx}>
+                                <img src={item.data.qr.url} alt="" className="ic ic-80" />
+                            </div>
+                        ))} */}
+                    </div>
+                </div>
+            </div>
+            <div className='kustomer-cata-card-pagination'>
+                {props.list.map((_, idx) => (
+                    <button className={`kustomer-cata-card-pagination-dot${idx == index ? ' active' : ''}`} key={idx}>
+                        <span></span>
+                    </button>
+                ))}
+            </div>
+        </div>
     )
 }
 export default CatalogThreeMain;
