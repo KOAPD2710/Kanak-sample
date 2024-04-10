@@ -86,11 +86,11 @@ function KustomerSustain(props) {
     const allItem = props.productList
     const [filter, setFilter] = useState(0);
     const [listLength, setListLength] = useState(props.cateList[0].list.length);
-    const [limit, setLimit] = useState(999);
-    const [toggleDropdown, setToggleDropdown] = useState(false)
+    const [limit, setLimit] = useState(9999);
+    const [toggleDropdown, setToggleDropdown] = useState(false);
 
     const toggleRef = useRef();
-    useOutsideAlerter(toggleRef, () => { setToggleDropdown(false) })
+    useOutsideAlerter(toggleRef, () => setToggleDropdown(false))
 
     const renderList = useMemo(() => {
         let list = props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0]);
@@ -101,8 +101,10 @@ function KustomerSustain(props) {
             ))
         )
     }, [filter, limit]);
-
     useEffect(() => {
+        if (window.innerWidth < 768) {
+            setLimit(4)
+        }
         const subtitle = new SplitType('.kustomer-sus-head-sub', { types: "lines,words", lineClass: 'split-line' })
 
         animate('.kustomer-sus-head-img', { opacity: 0, transform: "translateY(30%) scale(.9)" }, { duration: 0 })
