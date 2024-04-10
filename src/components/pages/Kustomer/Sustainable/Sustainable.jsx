@@ -85,7 +85,7 @@ function SustainableItem(props) {
 function KustomerSustain(props) {
     const allItem = props.productList
     const [filter, setFilter] = useState(0);
-    const [listItem, setListItem] = useState(props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0]));
+    const [listLength, setListLength] = useState(1);
     const [limit, setLimit] = useState(9999);
     const [toggleDropdown, setToggleDropdown] = useState(false)
 
@@ -93,14 +93,14 @@ function KustomerSustain(props) {
     useOutsideAlerter(toggleRef, () => { setToggleDropdown(false) })
 
     const renderList = useMemo(() => {
-        setListItem(props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0]))
+        let list = props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0])
+        setListLength(list.length)
         return (
-            listItem.map((item, idx) => (
+            list.map((item, idx) => (
                 idx < limit && <SustainableItem {...item} img={props.img} qr={props.qr} key={idx} filter={filter} />
             ))
         )
     }, [filter, limit]);
-
     useEffect(() => {
 
         if (window.innerWidth < 768) {
@@ -180,7 +180,7 @@ function KustomerSustain(props) {
                     </div>
                     <div className="kustomer-sus-main-table">
                         {renderList}
-                        <div className={`kustomer-sus-main-load ${limit >= listItem.length ? 'hidden' : ''}`}>
+                        <div className={`kustomer-sus-main-load ${limit >= listLength.length ? 'hidden' : ''}`}>
                             <button className="kustomer-sus-main-load-btn" onClick={() => setLimit(limit + 4)}>
                                 <div className="kustomer-sus-main-load-btn-ic">
                                     <div className="ic ic-16">
