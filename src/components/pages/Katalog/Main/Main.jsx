@@ -56,13 +56,45 @@ function KatalogMain({ ...props }) {
     const [filter, setFilter] = useState('all');
     const [category, setCategory] = useState(formatData(props.cateList[0]));
 
+    function UpdateUrlSearch(url, key, value) {
+        let urlObject = new URL(url);
+        let searchParams = new URLSearchParams(urlObject.search);
+
+        if (value === "") {
+            searchParams.delete(key);
+        } else {
+            if (searchParams.has(key)) {
+                searchParams.set(key, value);
+            } else {
+                searchParams.append(key, value);
+            }
+        }
+
+        urlObject.search = searchParams.toString();
+        return urlObject.toString();
+    }
     let newList = allItem.filter((item) => {
         if (filter == "all") {
-            return item.cate === category && item;
+            return item
         } else {
-            return item.data.tag_grp.some(target => formatData(target.tags) == filter) && item.cate === category && item
+            return item.data.tag_grp.some(target => formatData(target.tags) == filter) && item
         }
     });
+    let currCatelist = []
+    newList.map((el) => {
+        if (!currCatelist.includes(el.cate)) {
+            currCatelist.push(el.cate)
+        }
+    })
+    useEffect(() => {
+        const searchParam = new URLSearchParams(window.location.search);
+        if (searchParam.has("cate")) {
+            setCategory(searchParam.get("cate"))
+        };
+        if (searchParam.has("tag")) {
+            setFilter(searchParam.get("tag"))
+        }
+    }, [])
     const renderFilterTag = useMemo(() => {
         return (
             <>
@@ -78,27 +110,51 @@ function KatalogMain({ ...props }) {
             </>
         )
     }, [filter])
-
-    const renderFilterCate = useMemo(() => {
-        return (
-            props.cateList.map((el) => (
-                <FilterCate
-                    key={el}
-                    data={el}
-                    onClick={(e) => { filterList(e) }}
-                    isActive={category == formatData(el)}
-                />
-            ))
-        )
-    }, [category])
-
     const renderListItem = useMemo(() => {
         return (
             newList.map((item, idx) => (
+                item.cate == category &&
                 <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
             ))
         )
     }, [category, filter])
+    const renderFilterCate = useMemo(() => {
+        let forceCategory
+        if (!currCatelist.includes(category)) {
+            forceCategory = props.cateList.find((el) => currCatelist.includes(formatData(el)))
+            setCategory(formatData(forceCategory))
+        }
+        return (
+            filter == "all" ?
+                props.cateList.map((el) => (
+                    <FilterCate
+                        key={el}
+                        data={el}
+                        onClick={(e) => { filterList(e) }}
+                        isActive={category == formatData(el)}
+                    />
+                )) :
+                props.cateList.map((el) => (
+                    currCatelist.includes(formatData(el)) &&
+                    <FilterCate
+                        key={el}
+                        data={el}
+                        onClick={(e) => { filterList(e) }}
+                        isActive={category == formatData(el)}
+                    />
+                ))
+        )
+    }, [category, filter])
+    useEffect(() => {
+        window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'cate', formatData(category)));
+    }, [category])
+    useEffect(() => {
+        if (filter == "all") {
+            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', ''));
+        } else {
+            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', formatData(filter)));
+        }
+    }, [filter])
 
     function filterList(e) {
         let target = e.target
@@ -110,44 +166,6 @@ function KatalogMain({ ...props }) {
             setCategory(data)
         }
     }
-    function updateUrl(url, key, value) {
-        let urlObject = new URL(url);
-        let searchParams = new URLSearchParams(urlObject.search);
-      
-        if (value === "") {
-            // If value is an empty string, remove the target key
-            searchParams.delete(key);
-        } else {
-            // Otherwise, set or append the key-value pair
-            if (searchParams.has(key)) {
-                searchParams.set(key, value);
-            } else {
-                searchParams.append(key, value);
-            }
-        }
-      
-        urlObject.search = searchParams.toString();
-        return urlObject.toString();
-    }
-    useEffect(() => {
-        const dataUrl = parseUrl(window.location.href)
-        if (dataUrl.cate != "") {
-            setCategory(formatData(dataUrl.cate))
-        }
-        if (dataUrl.tag != "") {
-            setFilter(formatData(dataUrl.tag))
-        }
-    }, [])
-    useEffect(() => {
-        window.history.replaceState(null, null, updateUrl(window.location.href, 'cate', formatData(category)));
-    }, [category])
-    useEffect(() => {
-        if (filter == "all") {
-            window.history.replaceState(null, null, updateUrl(window.location.href, 'tag', ''));
-        } else {
-            window.history.replaceState(null, null, updateUrl(window.location.href, 'tag', formatData(filter)));
-        }
-    }, [filter])
     return (
         <section className="katalog-main">
             <div className="container grid">
