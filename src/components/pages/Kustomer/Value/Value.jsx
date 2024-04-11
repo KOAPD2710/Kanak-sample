@@ -44,9 +44,18 @@ function KustomerValue(props) {
                 [itemSub.lines, { opacity: 1, transform: 'none' }, { duration: .6, delay: stagger(.04), at: .3 }],
                 [itemLink.words, { opacity: 1, transform: 'none' }, { duration: .8, delay: stagger(.04), at: .2 }],
                 [el.querySelector('.kustomer-val-main-item-link svg'), { opacity: 1, transform: 'none' }, { duration: .6, at: .4 }],
-                [el.querySelector('.kustomer-val-main-item-ic'), { opacity: 1, scale: 1 }, { duration: 1, at: .5 }],
                 [idx != 0 && el.querySelector('.line.line-left'), { scaleY: 1 }, { duration: 1, at: 0 }]
             ]
+
+            if (window.innerWidth > 767) {
+                sequence.push(
+                    [el.querySelector('.kustomer-val-main-item-ic'), { opacity: 1, scale: 1 }, { duration: 1, at: .5 }],
+                )
+            } else {
+                sequence.push(
+                    [el.querySelector('.kustomer-val-main-item-ic'), { opacity: 1, scale: 1 }, { duration: 1, at: .1 }],
+                )
+            }
             inView(el, () => {
                 timeline(sequence, { delay: idx % 2 == 0 ? 0 : idx * .2 }).finished.then(() => {
                     el.querySelector('.kustomer-val-main-item-ic').removeAttribute('style')

@@ -112,10 +112,12 @@ function KustomerSustain(props) {
         animate(subtitle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate('.kustomer-sus-main-line-top', { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
         animate(".kustomer-sus-main-cate-list-item", { opacity: 0, transform: "translateX(20px)" }, { duration: 0 })
+        animate('.kustomer-sus-pdf', { opacity: 0, transform: "translateY(2rem)" }, { duration: 0 })
 
         const sequence = [
             ['.kustomer-sus-head-img', { opacity: 1, transform: "none" }, { duration: .6, at: 0 }],
             [subtitle.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.0085), at: .15 }],
+            ['.kustomer-sus-pdf', { opacity: 1, transform: "none" }, { duration: .4, at: .3 }],
             ['.kustomer-sus-main-line-top', { scaleX: 1 }, { duration: .6, at: .2 }],
             [".kustomer-sus-main-cate-list-item", { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.05), at: .2 }]
         ]
@@ -128,6 +130,20 @@ function KustomerSustain(props) {
                 document.querySelectorAll('.kustomer-sus-main-cate-list-item').forEach(item => item.removeAttribute('style'))
             })
         })
+
+        // Btn Anima
+
+        animate('.kustomer-sus-main-load', { opacity: 0, transform: "translateY(2rem)" }, { duration: 0 })
+
+        const btnSequence = [
+            ['.kustomer-sus-main-load', { opacity: 1, transform: "none" }, { duration: .8, at: 0 }],
+        ]
+
+        inView('.kustomer-sus-main-load', () => {
+            timeline(btnSequence).finished.then(() => {
+                document.querySelector('.kustomer-sus-main-load').removeAttribute('style')
+            })
+        }, { margin: '-30% 0px -30% 0px' })
     }, [])
 
     return (

@@ -12,14 +12,28 @@
         .line-top {}
 
         &-list {
+            position: relative;
+
             &-toggle {
                 display: none;
+
+                @include md {
+                    display: flex;
+                    align-items: center;
+                }
+
+                &-ic {}
             }
 
             &-dropdown {
                 position: relative;
                 display: flex;
                 justify-content: space-between;
+
+                @include md {
+                    position: absolute;
+                }
+
 
                 &-inner {
                     display: flex;
