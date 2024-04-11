@@ -18,7 +18,7 @@
     }
 
     &-itemdtl {
-        --padding-2side: 20rem;
+        --padding-2side: 10rem;
 
         position: relative;
         grid-column: 2/16;
@@ -27,8 +27,12 @@
         grid-template-columns: repeat(14, 1fr);
         column-gap: var(--grid-gap);
         padding: 7.9rem 0;
-        height: 80rem;
         max-height: calc(100vh - var(--padding-2side)*2);
+        opacity: 0;
+
+        &.active {
+            opacity: 1;
+        }
 
         &-card {
             grid-column: 2/6;
@@ -96,7 +100,6 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            max-height: 100%;
 
             &-title {
                 margin-bottom: 4rem;
@@ -104,7 +107,10 @@
         }
 
         &-table {
+            display: flex;
+            flex-direction: column;
             flex: 1;
+            height: 100%;
 
             &-head,
             &-item {
@@ -120,8 +126,12 @@
             }
 
             &-item-wrap {
-                height: 100%;
-                overflow-y: scroll;
+                flex: 1 1 auto;
+                overflow-y: auto;
+                height: 0px;
+                min-height: 40rem;
+                padding-bottom: .2rem;
+                // scrollbar-width: none;
             }
 
             &-item {

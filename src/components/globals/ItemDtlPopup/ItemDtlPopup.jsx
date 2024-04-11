@@ -43,7 +43,7 @@ function GlobalPopup({ ...props }) {
                                 <div className="popup-itemdtl-table-dtl">Details</div>
                                 <div className="popup-itemdtl-table-model">3D Model</div>
                             </div>
-                            <div className="popup-itemdtl-table-item-wrap">
+                            <div className="popup-itemdtl-table-item-wrap" data-lenis-prevent="#">
                                 <div className="popup-itemdtl-table-item-inner">
                                     {[...Array(15)].map((el) => (
                                         <div className="txt txt-16 txt-med popup-itemdtl-table-item">
