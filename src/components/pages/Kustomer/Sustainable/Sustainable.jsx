@@ -6,6 +6,7 @@ import { getAllByType } from "@/prismic"
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
 
 import { animate, timeline, stagger, inView } from "motion";
+import cn from 'clsx';
 import SplitType from 'split-type';
 
 function SustainableItem(props) {
@@ -85,16 +86,16 @@ function SustainableItem(props) {
 function KustomerSustain(props) {
     const allItem = props.productList
     const [filter, setFilter] = useState(0);
-    const [listLength, setListLength] = useState(4);
+    const [listLength, setListLength] = useState(props.cateList[0].list.length);
     const [limit, setLimit] = useState(9999);
-    const [toggleDropdown, setToggleDropdown] = useState(false)
+    const [isDropdown, setIsDropdown] = useState(false);
 
     const toggleRef = useRef();
-    useOutsideAlerter(toggleRef, () => { setToggleDropdown(false) })
+    useOutsideAlerter(toggleRef, () => setIsDropdown(false))
 
     const renderList = useMemo(() => {
-        let list = props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0])
-        setListLength(list.length)
+        let list = props.cateList[filter].list.map((uid) => allItem.filter((item) => item.uid == uid)[0]);
+        setListLength(list.length);
         return (
             list.map((item, idx) => (
                 idx < limit && <SustainableItem {...item} img={props.img} qr={props.qr} key={idx} filter={filter} />
@@ -155,22 +156,22 @@ function KustomerSustain(props) {
                 <div className="kustomer-sus-main">
                     <div className="line kustomer-sus-main-line-top"></div>
                     <div className="kustomer-sus-main-cate" ref={toggleRef}>
-                        <div className="kustomer-sus-main-cate-toggle">
-                            <button className="kustomer-sus-main-cate-toggle-btn" onClick={(e) => { setToggleDropdown(!toggleDropdown) }}>
+                        <div className="bg-light kustomer-sus-main-cate-toggle">
+                            <button className="kustomer-sus-main-cate-toggle-btn" onClick={(e) => { setIsDropdown(!isDropdown) }}>
                                 <div className="kustomer-sus-main-cate-toggle-btn-wrap">
                                     <div className="txt txt-16 txt-black txt-up kustomer-sus-main-cate-toggle-label">type</div>
                                     <div className="txt h5 txt-black txt-up kustomer-sus-main-cate-toggle-txt">{props.cateList[filter].name}</div>
                                 </div>
-                                <ArrowDropdown />
+                                <ArrowDropdown className={cn("ic ic-24 kustomer-sus-main-cate-toggle-ic", { "active": isDropdown })} />
                             </button>
                         </div>
-                        <div className={`kustomer-sus-main-cate-list ${toggleDropdown ? "active" : ""}`}>
+                        <div className={cn('kustomer-sus-main-cate-list', { 'active': isDropdown })}>
                             {props.cateList.map((el, idx) => (
                                 <button className={`kustomer-sus-main-cate-list-item ${filter == idx ? 'active' : ''}`}
                                     key={idx}
                                     data-cursor="txtLink"
                                     data-cursor-txtlink="child"
-                                    onClick={() => { setFilter(idx); setToggleDropdown(false) }}>
+                                    onClick={() => { setFilter(idx); setIsDropdown(false) }}>
                                     <div className="dot"></div>
                                     <span className="heading h6 txt-black txt-up kustomer-sus-main-cate-list-item-txt" data-cursor-txtlink-child="true">{el.name}</span>
                                 </button>
@@ -179,7 +180,7 @@ function KustomerSustain(props) {
                     </div>
                     <div className="kustomer-sus-main-table">
                         {renderList}
-                        <div className={`kustomer-sus-main-load ${limit >= listLength.length ? 'hidden' : ''}`}>
+                        <div className={`kustomer-sus-main-load ${limit >= listLength ? 'hidden' : ''}`}>
                             <button className="kustomer-sus-main-load-btn" onClick={() => setLimit(limit + 4)}>
                                 <div className="kustomer-sus-main-load-btn-ic">
                                     <div className="ic ic-16">

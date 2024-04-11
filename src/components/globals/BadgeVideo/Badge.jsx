@@ -11,7 +11,7 @@ function VideoBadge(props) {
                     {props.icBadgeOutside}
                 </div>
                 <div className="video-badge-ic">
-                    <div className="ic ic-80 video-badge-ic-inner">
+                    <div className="ic video-badge-ic-inner">
                         {props.icPlay}
                     </div>
                 </div>

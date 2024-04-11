@@ -11,6 +11,9 @@
     @include md {
         padding-top: 10rem;
     }
+    @include sm {
+        padding-top: 8rem;
+    }
 
     &-subtitle {
         grid-column: 1/-1;
@@ -42,6 +45,13 @@
         @include sm {
             @include text(h2);
             width: unset;
+            margin-bottom: 6rem;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
+            overflow-wrap: break-word;
+            inline-size: 100%;
         }
     }
 
@@ -147,6 +157,9 @@
                 max-width: 48.6rem;
                 font-kerning: none;
                 justify-self: end;
+                @include sm {
+                    @include text(16);
+                }
             }
 
             &-bg {

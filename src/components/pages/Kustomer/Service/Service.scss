@@ -128,7 +128,7 @@
                 }
 
                 &-des {
-                    @include sm {
+                    @include md {
                         @include text(16);
                     }
                 }

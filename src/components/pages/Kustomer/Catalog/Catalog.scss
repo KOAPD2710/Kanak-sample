@@ -1,19 +1,17 @@
 @use '@styles/colors' as *;
 @use '@styles/mixins' as *;
 
-
 .kustomer-cata {
-    --btnHeight: 16.8rem;
     --HomeProductCardHeight: 66.2rem;
-    --SectionPadBot: 28.8rem;
 
-    padding-bottom: var(--SectionPadBot);
+    padding-bottom: 28.8rem;
     contain: paint;
-
     @include md {
         --HomeProductCardHeight: 41rem;
-        --btnHeight: 13.6rem;
-        --SectionPadBot: 10rem;
+        padding-bottom: 10rem;
+    }
+    @include sm {
+        --HomeProductCardHeight: 42rem;
     }
 
     &-title-wrap {
@@ -47,7 +45,7 @@
     }
 
     &-des {
-        grid-column: 13/16;
+        grid-column: 13/17;
         align-self: end;
         margin-bottom: .9rem;
         max-width: 29rem;
@@ -72,6 +70,11 @@
             margin-top: 6rem;
         }
 
+        @include sm {
+            display: flex;
+            flex-direction: column;
+        }
+
         &-content-wrap {
             grid-column: 1/10;
             display: flex;
@@ -79,7 +82,7 @@
             row-gap: 16rem;
 
             @include md {
-                grid-column: 1/8;
+                grid-column: 1/7;
                 row-gap: 6rem;
             }
         }
@@ -110,10 +113,19 @@
 
                 &-title {
                     margin-bottom: 2rem;
+                    @include md {
+                        margin-bottom: 1.2rem;
+                    }
                 }
 
                 &-subtitle {
                     max-width: 28.5rem;
+                    @include md {
+                        @include text(16);
+                    }
+                    @include sm {
+                        max-width: 30.4rem;
+                    }
                 }
             }
 
@@ -124,6 +136,9 @@
                 @include md {
                     grid-column: 1/-1;
                     margin-left: 0;
+                }
+                @include sm {
+                    display: none;
                 }
 
                 &-item {
@@ -186,7 +201,7 @@
         grid-column: 11/16;
 
         @include md {
-            grid-column: 9/-1;
+            grid-column: 8/-1;
         }
 
         &-inner {
@@ -200,25 +215,12 @@
             transition: opacity 400ms ease;
             // opacity: 0;
             // pointer-events: none;
-
             &.active {
                 opacity: 1;
                 pointer-events: auto;
             }
 
             .img {
-                pointer-events: none;
-                user-select: none;
-            }
-
-            .testne {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 100vw;
-                height: 70vh;
-                // background-color: teal;
                 pointer-events: none;
                 user-select: none;
             }
@@ -310,10 +312,23 @@
 
             &-inner {
                 user-select: none;
-
+                @include size(100%);
                 img {
                     margin-left: -25%;
                     width: 150%;
+                }
+                &-canvas {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 100vw;
+                    height: 100vh;
+                    pointer-events: none;
+                    user-select: none;
+                    * {
+                        pointer-events: none !important;
+                    }
                 }
             }
         }

@@ -87,14 +87,14 @@ function CaseStudiesMain({ ...props }) {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const [sliderRef, instanceRef] = useKeenSlider({
-        initial: 0,
+        // initial: 0,
         disabled: false,
         slides: {
             perView: 'auto',
         },
-        defaultAnimation: {
-            duration: 800
-        },
+        // defaultAnimation: {
+        //     duration: 800
+        // },
         // breakpoints: {
         //     '(max-width: 991px)': {
         //         disabled: true
