@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-// import ItemDtlPopup from "@components/globals/ItemDtlPopup/ItemDtlPopup.astro";
+import ItemDtlPopup from "@pages/Katalog/ItemDtlPopup/ItemDtlPopup.astro";
 import Hero from "@pages/Katalog/Hero/Hero.astro";
 import Main from "@pages/Katalog/Main/Main.astro";
 
@@ -12,7 +12,7 @@ const subtitle = await data.subtitle[0].text;
 ---
 
 <Layout title="Katalog">
-    <!-- <ItemDtlPopup /> -->
+    <ItemDtlPopup />
     <Hero title={title} sub={subtitle} />
     <Main data={data} />
 </Layout>

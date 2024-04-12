@@ -4,11 +4,10 @@ import GlobalPopup from "./ItemDtlPopup";
 import img from "@assets/plate.png";
 import qr from "@assets/kustomer-qr.png";
 import arrIcon from "@assets/arr-right.svg?raw";
-
 ---
 
-<GlobalPopup >
-	<Fragment set:html={arrIcon} slot="arrIcon" />
-    <Image src={img} alt="" slot="img"></Image>
-    <Image src={qr} alt="" slot="qr"></Image>
+<GlobalPopup client:load>
+    <Fragment set:html={arrIcon} slot="arrIcon" />
+    <Image src={img} alt="" slot="img" />
+    <Image src={qr} alt="" slot="qr" />
 </GlobalPopup>

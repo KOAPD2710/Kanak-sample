@@ -9,11 +9,18 @@
         padding-bottom: 6rem;
     }
 
+    @include sm {
+        padding-top: 14rem;
+        padding-bottom: 4rem;
+    }
+
     &-title {
         grid-column: 1/7;
 
-        @include md {
-            grid-column: 1/7;
+        @include sm {
+            grid-column: 1/-1;
+            @include text(h1);
+            margin-bottom: 1.6rem;
         }
     }
 
@@ -30,6 +37,13 @@
             margin-left: -.6rem;
             margin-bottom: unset;
             @include text(14);
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            margin-left: unset;
+            font-weight: 500;
+            @include text(16);
         }
     }
 }
