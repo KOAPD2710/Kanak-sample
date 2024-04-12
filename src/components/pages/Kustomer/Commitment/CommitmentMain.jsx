@@ -94,7 +94,6 @@ function KustomerCommitMain(props) {
         inView('.kustomer-commit-main', () => {
             thumbReq = requestAnimationFrame(thumbMove)
         })
-        console.log(contentList);
         return () => {
             cancelAnimationFrame(thumbReq)
         }

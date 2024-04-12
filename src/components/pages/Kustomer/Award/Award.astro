@@ -1,29 +1,29 @@
 ---
-import KustomerAward from "./Award";
-import Image from "astro/components/Image.astro";
 import * as prismicH from "@prismicio/client";
+import Image from "astro/components/Image.astro";
 
 import imgPlate from "@assets/kustomer-plate.png";
+import KustomerAwardThree from './AwardThree';
+import KustomerAwardContent from './AwardContent';
+import "./Award.scss"
 
-const { title, describe } = Astro.props;
-const newTitle = title.replace(
+const newTitle = Astro.props.title.replace(
     "BEST PLATE AWARD",
     `<span class="txt-green">Best Plate Award</span>`,
 );
 ---
-
-<KustomerAward
-    label={Astro.props.label}
-    btn={Astro.props.btn}
-    medal={Astro.props.medal}
-    qr={Astro.props.qr}
-    des={Astro.props.describe}
-    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
->
-    <Fragment
-        set:html={prismicH.asHTML(Astro.props.describe)}
-        slot="describe"
-    />
-    <Fragment set:html={newTitle} slot="title" />
-    <Image src={imgPlate} alt="" slot="imgPlate" />
-</KustomerAward>
+<section class="kustomer-award">
+    <div class="container grid">
+        <KustomerAwardThree qr={Astro.props.qr} client:idle>
+            <Image src={imgPlate} alt="" slot="imgPlate" />
+        </KustomerAwardThree>
+        <KustomerAwardContent
+            label={Astro.props.label}
+            btn={Astro.props.btn}
+            medal={Astro.props.medal}
+            client:visible={{ rootMargin: "100% 0px 100% 0px" }}>
+            <Fragment set:html={prismicH.asHTML(Astro.props.describe)} slot="describe" />
+            <Fragment set:html={newTitle} slot="title" />
+        </KustomerAwardContent>
+    </div>
+</section>
