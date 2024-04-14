@@ -4,26 +4,38 @@ import { useKeenSlider } from 'keen-slider/react'
 import "keen-slider/keen-slider.min.css"
 
 function GlobalPopup({ ...props }) {
-    const [isOpenPopup, setIsOpenPopup] = useState(false)
-    const [loaded, setLoaded] = useState(false)
-    const [thumbLength, setThumbLength] = useState(4);
-    const [sliderInitialized, setSliderInitialized] = useState(false);
-    const [slider, setSlider] = useState(null);
-    const sliderRef = useRef();
+    const [isOpenPopup, setIsOpenPopup] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [sliderRef, sliderInst] = useKeenSlider({
+        initial: 0,
+        slidesPerView: 'auto',
+        loop: true,
+        created() {
+            setLoaded(true);
+        },
+    });
 
     useEffect(() => {
         function changeName(data) {
-            document.querySelector('.popup-itemdtl-content-title').innerHTML = data
+            document.querySelector('.popup-itemdtl-content-title').innerHTML = data + ' ' + data + ' ' + data + ' ';
         }
-
+    
         function changeListVariants(data) {
-            document.querySelector('.popup-itemdtl-table-item-inner').innerHTML = data
+            document.querySelector('.popup-itemdtl-table-item-inner').innerHTML = data;
         }
-
+    
         function changeListThumb(data) {
-            document.querySelector('.popup-itemdtl-card-img-inner').innerHTML = data
+            document.querySelector('.popup-itemdtl-card-img-inner').innerHTML = data;
         }
-
+        function changeListPagi(data) {
+            const parent = document.querySelector('.popup-itemdtl-card-pagi');
+            let cloner = parent.childNodes[0];
+            parent.innerHTML = '';
+            for (let i = 0; i < data; i++) {
+                parent.appendChild(cloner.cloneNode(true));
+            }
+        }
+    
         const Popup = {
             open: (data) => {
                 setIsOpenPopup(true);
@@ -31,28 +43,14 @@ function GlobalPopup({ ...props }) {
                 changeListVariants(data.querySelector('.data-variants').innerHTML);
                 let thumb = `<div class="keen-slider__slide">${data.querySelector('.data-thumb').innerHTML}</div>` + data.querySelector('.data-carousel').innerHTML;
                 changeListThumb(thumb);
-                setThumbLength(document.querySelector('.popup-itemdtl-card-img-inner').childNodes.length);
-
-                if (!sliderInitialized) {
-                    const sliderInstance = new KeenSlider(sliderRef.current, {
-                        initial: 0,
-                        disabled: false,
-                        slides: {
-                            perView: "auto"
-                        },
-                        created() {
-                            setLoaded(true);
-                        }
-                    });
-                    setSlider(sliderInstance);
-                    setSliderInitialized(true);
-                }
+                changeListPagi(document.querySelector('.popup-itemdtl-card-img-inner').childNodes.length)
             },
             close: () => {
                 setIsOpenPopup(false);
+                setLoaded(false);
             }
         };
-
+    
         document.querySelectorAll("[data-popup]").forEach((el) => {
             if (el.getAttribute('data-popup') === "close") {
                 el.addEventListener("click", function (e) {
@@ -65,11 +63,10 @@ function GlobalPopup({ ...props }) {
                 });
             }
         });
-    }, [sliderInitialized]);
+    }, [sliderInst]);
 
     useEffect(() => {
-        console.log(thumbLength);
-    }, [thumbLength])
+    }, [])
     return (
         <div className={`popup ${isOpenPopup ? "active" : ""}`}>
             <div className="container grid">
@@ -87,9 +84,7 @@ function GlobalPopup({ ...props }) {
                         </div>
                         <div className="popup-itemdtl-card-bottom">
                             <div className="popup-itemdtl-card-pagi">
-                                {/* {[...Array(5)].map((el) => (
-                                    <button className="popup-itemdtl-card-pagi-btn"></button>
-                                ))} */}
+                                <button className="popup-itemdtl-card-pagi-btn"></button>
                             </div>
                             <div className="popup-itemdtl-card-nav">
                                 <button className="popup-itemdtl-card-nav-btn prev">

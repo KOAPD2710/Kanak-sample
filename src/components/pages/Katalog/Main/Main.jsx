@@ -5,10 +5,60 @@ import { formatData } from "@/components/utils/text";
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
 import { useState, useEffect, useRef, useMemo } from "react";
 
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
+
 function Item({ ...props }) {
-    console.log(props);
+
+    const itemRef = useRef();
+    const [animationStarted, setAnimationStarted] = useState(false);
+
+    useEffect(() => {
+        const item = itemRef.current
+
+        const name = new SplitType(item.querySelector('.katalog-main-list-item-info-name'), { types: "lines,words", lineClass: 'split-line' })
+        if (animationStarted) {
+            timeline().cancel();
+            name.revert();
+            item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'));
+            item.querySelector('.katalog-main-list-item-img').removeAttribute('style');
+            item.querySelector('.katalog-main-list-item-img-inner').removeAttribute('style');
+        }
+
+        animate(item.querySelector('.line-left'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate(item.querySelector('.line-bot'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate(item.querySelector('.line-right'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate(item.querySelector('.line-mid'), { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate(item.querySelector('.line-qr'), { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate(name.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(item.querySelector('.katalog-main-list-item-info-qr-inner'), { opacity: 0, scale: .9 }, { duration: 0 })
+        animate(item.querySelector('.katalog-main-list-item-img'), { opacity: 0, scale: .9 }, { duration: 0 })
+
+        const sequence = [
+            [item.querySelector('.line-left'), { scaleY: 1 }, { duration: .6, at: 0 }],
+            [item.querySelector('.katalog-main-list-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: .2 }],
+            [item.querySelector('.line-mid'), { scaleX: 1 }, { duration: .4, at: .35 }],
+            [item.querySelector('.line-bot'), { scaleX: 1 }, { duration: .45, at: .5 }],
+            [item.querySelector('.line-right'), { scaleY: 1 }, { duration: .5, at: .6 }],
+            [item.querySelector('.line-qr'), { scaleY: 1 }, { duration: .4, at: .6 }],
+            [name.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.02), at: .5 }],
+            [item.querySelector('.katalog-main-list-item-info-qr-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .45 }]
+        ]
+
+        inView(item, () => {
+            timeline(sequence).finished.then(() => {
+                setAnimationStarted(false);
+                setTimeout(() => {
+                    name.revert();
+                    item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'));
+                    item.querySelector('.katalog-main-list-item-img').removeAttribute('style');
+                    item.querySelector('.katalog-main-list-item-info-qr-inner').removeAttribute('style');
+                }, 1000)
+            })
+        })
+    }, [props.tag, props.category])
     return (
-        <button className="katalog-main-list-item" data-popup="open">
+        <button className="katalog-main-list-item" data-popup="open" ref={itemRef}>
             <div className="katalog-main-list-item-img">
                 <div className="katalog-main-list-item-img-inner data-thumb">
                     <img src={props.img.url} alt={props.img.alt} width={props.img.dimensions.width} className="img" />
@@ -41,14 +91,53 @@ function Item({ ...props }) {
                 <div className="data-variants">
                     {props.variants.map((item, idx) => (
                         <div className="txt txt-16 txt-med popup-itemdtl-table-item" key={idx}>
-                            <div className="popup-itemdtl-table-code">{item.sku}</div>
-                            <div className="popup-itemdtl-table-size">{item.size}</div>
-                            <div className="popup-itemdtl-table-color">{item.color}</div>
-                            <div className="popup-itemdtl-table-count">{item.pack_count}</div>
-                            <div className="popup-itemdtl-table-dtl">{item.details}</div>
-                            <div className="popup-itemdtl-table-model">
-                                <div className="popup-itemdtl-table-model-inner">
-                                    <img src={item.qr_code.url} alt={item.qr_code.alt} width={item.qr_code.dimensions.width} />
+                            <div className="popup-itemdtl-table-item-div desktop">
+                                <div className="popup-itemdtl-table-code">{item.sku}</div>
+                                <div className="popup-itemdtl-table-size">{item.size}</div>
+                                <div className="popup-itemdtl-table-color">{item.color}</div>
+                                <div className="popup-itemdtl-table-count">{item.pack_count}</div>
+                                <div className="popup-itemdtl-table-dtl">{item.details}</div>
+                                <div className="popup-itemdtl-table-model">
+                                    <div className="popup-itemdtl-table-model-inner">
+                                        <img src={item.qr_code.url} alt={item.qr_code.alt} width={item.qr_code.dimensions.width} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="popup-itemdtl-table-item-div tablet">
+                                <div className="line line-top"></div>
+                                <div className="line line-ver line-mid"></div>
+                                {idx == props.variants.length - 1 && (
+                                    <div className="line line-bot"></div>
+                                )}
+                                <div className="div-left">
+                                    <div className="popup-itemdtl-table-code">
+                                        <div className="head">SKU</div>
+                                        {item.sku}
+                                    </div>
+                                    <div className="popup-itemdtl-table-model">
+                                        <div className="head">3D Model</div>
+                                        <div className="popup-itemdtl-table-model-inner">
+                                            <img src={item.qr_code.url} alt={item.qr_code.alt} width={item.qr_code.dimensions.width} />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="div-right">
+                                    <div className="popup-itemdtl-table-size">
+                                        <div className="head">Size</div>
+                                        {item.size}
+                                    </div>
+                                    <div className="popup-itemdtl-table-color">
+                                        <div className="head">Color</div>
+                                        {item.color}
+                                    </div>
+                                    <div className="popup-itemdtl-table-count">
+                                        <div className="head">Pack / Count</div>
+                                        {item.pack_count}
+                                    </div>
+                                    <div className="popup-itemdtl-table-dtl">
+                                        <div className="head">Details</div>
+                                        {item.details}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +305,7 @@ function KatalogMain({ ...props }) {
         return (
             renderList.map(({ data }, idx) => (
                 idx < limit &&
-                <Item key={idx} name={data.title} img={data.thumbnail} qr={data.qr} variants={data.variants} carousel={data.carousel_imgs}></Item>
+                <Item key={idx} name={data.title} img={data.thumbnail} qr={data.qr} variants={data.variants} carousel={data.carousel_imgs} cate={category} tag={tag}></Item>
             ))
         )
     }, [category, tag])
@@ -274,12 +363,54 @@ function KatalogMain({ ...props }) {
         if (window.innerWidth < 768) {
             setLimit(4)
         }
+        animate('.katalog-main-line-top', {scaleX: 0, transformOrigin: "left"}, {duration: 0})
+        animate('.katalog-main-line-bot', {scaleX: 0, transformOrigin: "left"}, {duration: 0})
+        animate('.katalog-main-line-left', {scaleY: 0, transformOrigin: "top"}, {duration: 0})
+        animate('.katalog-main-line-right', {scaleY: 0, transformOrigin: "top"}, {duration: 0})
+        animate('.katalog-main-filter-list-pdf', {opacity: 0}, {duration: 0})
+
+        const sequence = [
+            ['.katalog-main-line-top', {scaleX: 1}, {duration: .6, at: 0}],
+            ['.katalog-main-line-bot', {scaleX: 1}, {duration: .8, at: .1}],
+            ['.katalog-main-line-left', {scaleY: 1}, {duration: .6, at: .1}],
+            ['.katalog-main-line-right', {scaleY: 1}, {duration: .6, at: .1}],
+        ]
+
+        const splitTitles = []
+        document.querySelectorAll('.katalog-main-filter-list-dropdown .katalog-main-filter-item').forEach((item, idx) => {
+            const label = new SplitType(item.querySelector('.katalog-main-filter-item-txt'), { types: 'lines, words', lineClass: 'split-line' })
+            animate(label.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+            sequence.push(
+                [label.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.02), at: .2 + .04 * idx }],
+            )
+            splitTitles.push(label)
+        })
+
+        if (window.innerWidth > 767) {
+            sequence.push(
+                ['.katalog-main-filter-list-pdf', {opacity: 1}, {duration: .6, at: .6}]
+            )
+        }
+
+        inView(".katalog-main", () => {
+            timeline(sequence).finished.then(() => {
+                splitTitles.forEach(item => item.revert())
+                document.querySelector('.katalog-main-line-top').removeAttribute('style')
+                document.querySelector('.katalog-main-line-bot').removeAttribute('style')
+                document.querySelector('.katalog-main-line-left').removeAttribute('style')
+                document.querySelector('.katalog-main-line-right').removeAttribute('style')
+                document.querySelector('.katalog-main-filter-list-pdf').removeAttribute('style')
+
+
+            })
+        })
+        console.log(document.querySelectorAll('.katalog-main-filter .line-bot').length);
     }, [])
     return (
         <section className="katalog-main">
             <div className="container grid">
                 <div className="katalog-main-filter">
-                    <div className="line line-top"></div>
+                    <div className="line line-top katalog-main-line-top"></div>
                     <div className="katalog-main-filter-inner">
                         <div className="katalog-main-filter-list" ref={toggleRef}>
                             {renderToggleBtn}

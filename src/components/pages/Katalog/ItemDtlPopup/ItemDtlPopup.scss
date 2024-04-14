@@ -32,6 +32,12 @@
         max-height: calc(100vh - var(--padding-2side)*2);
         opacity: 1;
 
+        @include md {
+            grid-column: 1/-1;
+            padding: 5rem 0;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
         &.active {
             opacity: 1;
         }
@@ -42,6 +48,11 @@
             top: 3rem;
             right: 3rem;
             transition: color .4s ease;
+
+            @include md {
+                top: 1rem;
+                right: 1rem;
+            }
 
             @media (hover: hover) {
                 &:hover {
@@ -56,6 +67,12 @@
             margin-left: calc(var(--grid-gap)* -1);
             align-self: center;
             height: fit-content;
+
+            @include md {
+                grid-column: 2/6;
+                margin-left: calc(-1 * var(--grid-gap) - .8rem);
+                margin-right: 2.5rem;
+            }
 
             &-img {
                 display: flex;
@@ -94,6 +111,10 @@
                     @include size(1rem);
                     background-color: var(--cl-txt);
                     border-radius: 100vmax;
+
+                    @include md {
+                        @include size(.7rem);
+                    }
                 }
             }
 
@@ -125,6 +146,12 @@
             flex-direction: column;
             height: 100%;
 
+            @include md {
+                grid-column: 6/12;
+                margin-left: unset;
+                margin-right: calc(-1 * var(--grid-gap) - .8rem);
+            }
+
             &-title {
                 margin-bottom: 4rem;
             }
@@ -137,7 +164,7 @@
             height: 100%;
 
             &-head,
-            &-item {
+            &-item-div {
                 display: grid;
                 max-width: 100%;
                 grid-template-columns: 13.1% 9.5% 11.6% 16% 34% 1fr;
@@ -147,6 +174,10 @@
 
             &-head {
                 padding-bottom: 1.6rem;
+
+                @include md {
+                    display: none;
+                }
             }
 
             &-item-wrap {
@@ -158,10 +189,6 @@
             }
 
             &-item {
-                align-items: center;
-                padding-top: .8rem;
-                padding-bottom: .8rem;
-
                 .popup-itemdtl-table-model {
                     display: flex;
                     align-items: center;
@@ -169,8 +196,99 @@
                     padding-left: .8rem;
                     padding-right: .8rem;
 
+                    @include md {
+                        padding: unset;
+                    }
+
                     &-inner {
                         @include size(100%);
+                    }
+                }
+
+                &-div {
+                    align-items: center;
+                    padding-top: .8rem;
+                    padding-bottom: .8rem;
+
+                    @include md {
+                        grid-template-columns: 25.1fr 74.9fr;
+                        column-gap: unset;
+                        padding: unset;
+                    }
+
+                    &.desktop {
+                        @include md {
+                            display: none;
+                        }
+                    }
+                    &.tablet {
+                        display: none;
+
+                        @include md {
+                            position: relative;
+                            display: grid;
+
+                            .div-left {
+                                grid-column: 1/2;
+                                grid-row: 1/2;
+                            }
+                            .div-right {
+                                grid-column: 2/3;
+                                grid-row: 1/2;
+                            }
+                            .popup-itemdtl-table-code {
+
+                            }
+                            .popup-itemdtl-table-size {
+
+                            }
+                            .popup-itemdtl-table-color {
+
+                            }
+                            .popup-itemdtl-table-count {
+
+                            }
+                            .popup-itemdtl-table-dtl {
+                                
+                            }
+                            .popup-itemdtl-table-model {
+                                display: flex;
+                                align-items: start;
+                                flex-direction: column;
+                            }
+                        }
+                    }
+                }
+                .line {
+                    display: none;
+
+                    @include md {
+                        &-top  {
+                            display: block;
+                            position: absolute;
+                            top: -.1rem;
+                            left: 0;
+                        }
+                        &-mid {
+                            display: block;
+                            grid-column: 2/3;
+                            grid-row: 1/-1;
+                        }
+
+                        &-bot {
+                            display: block;
+                            position: absolute;
+                            bottom: -.1rem;
+                            left: 0;
+                        }
+                    }
+                }
+
+                &:first-child {
+                    @include md {
+                        .line-top {
+                            top: 0rem;
+                        }
                     }
                 }
             }
