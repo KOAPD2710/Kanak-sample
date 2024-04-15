@@ -459,13 +459,6 @@
                 padding-top: 2.4rem;
             }
 
-            .line {
-
-                @include sm {
-                    margin-top: 2.4rem;
-                }
-            }
-
             &-head {
                 position: relative;
                 display: flex;
@@ -476,6 +469,10 @@
                 margin-bottom: 4rem;
                 overflow: hidden;
                 transition: all .4s ease;
+
+                @include sm {
+                    margin-bottom: 2.4rem;
+                }
 
                 * {
                     pointer-events: none
@@ -508,6 +505,10 @@
                     color: var(--cl-orange);
                     margin-bottom: 2rem;
 
+                    @include sm {
+                        margin-bottom: 1.4rem;
+                    }
+
                     .ic svg {
                         transform: rotate(180deg);
                     }
@@ -535,7 +536,8 @@
                     width: 100%;
 
                     @include sm {
-                        padding-top: 2.4rem;
+                        padding-top: 1rem;
+                        padding-bottom: 2.4rem;
                     }
                 }
 
