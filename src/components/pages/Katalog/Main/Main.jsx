@@ -2,6 +2,7 @@ import "./Main.scss"
 import ArrowDropdown from "@/components/globals/IcArrow/ArrowDropdown.jsx";
 import ArrowDown from "@/components/globals/IcArrow/ArrowDown.jsx";
 import { formatData } from "@/components/utils/text";
+import { isEmpty } from "@/components/utils/text";
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
 import { useState, useEffect, useRef, useMemo } from "react";
 
@@ -81,9 +82,11 @@ function Item({ ...props }) {
                 <div className="data-name">{props.name}</div>
                 <div className="data-carousel">
                     {props.carousel.map(({ image }, idx) => (
-                        <div className="keen-slider__slide" key={idx} >
-                            <img src={image.url} alt={image.alt} width={image.dimensions.width} />
-                        </div>
+                        !isEmpty(image) && (
+                            <div className="keen-slider__slide" key={idx} >
+                                <img src={image.url} alt={image.alt} width={image.dimensions.width} />
+                            </div>
+                        )
                     ))}
                 </div>
                 <div className="data-variants">
@@ -97,7 +100,7 @@ function Item({ ...props }) {
                                 <div className="popup-itemdtl-table-dtl">{item.details ? item.details : '-'}</div>
                                 <div className="popup-itemdtl-table-model">
                                     <div className="popup-itemdtl-table-model-inner">
-                                        {item.qr_code ? (
+                                        {!isEmpty(item.qr_code) ? (
                                             <img src={item.qr_code.url} alt={item.qr_code.alt} width={item.qr_code.dimensions.width} />)
                                             : '-'
                                         }
@@ -118,7 +121,7 @@ function Item({ ...props }) {
                                     <div className="wrap popup-itemdtl-table-model">
                                         <div className="head">3D Model</div>
                                         <div className="popup-itemdtl-table-model-inner">
-                                            {item.qr_code ? (
+                                            {!isEmpty(item.qr_code) ? (
                                                 <img src={item.qr_code.url} alt={item.qr_code.alt} width={item.qr_code.dimensions.width} />)
                                                 : '-'
                                             }

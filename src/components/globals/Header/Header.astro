@@ -21,14 +21,20 @@ let newList = kustomerList.map((el, idx) => ({
 const pages = [
     { name: "Kustomers", link: "/", type: "dropdown", sub_menu: [...newList] },
     { name: "Katalog", link: "/katalog", type: "" },
-    { name: "Solutions", link: "/", type: "dropdown",
+    {
+        name: "Solutions",
+        link: "/",
+        type: "dropdown",
         sub_menu: [
             { name: "Private label", url: "/" },
             { name: "Custom packaging", url: "/" },
         ],
     },
-    { name: "Fullfilment", link: "/", type: "" },
-    { name: "Resources", link: "/", type: "dropdown",
+    { name: "Fullfilment", link: "/fullfilment", type: "" },
+    {
+        name: "Resources",
+        link: "/",
+        type: "dropdown",
         sub_menu: [
             { name: "Insights", url: "/insights" },
             { name: "Kase Studies", url: "/kase-studies" },
