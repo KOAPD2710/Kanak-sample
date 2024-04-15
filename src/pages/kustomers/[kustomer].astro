@@ -33,41 +33,6 @@ const serviceItem = [];
 item.data.service_sub_items.forEach((el: any, idx: number) => {
     el.item.uid && serviceItem.push(el.item.uid);
 });
-const cataData = [
-    {
-        title: "VERSATILE DINNERWARE",
-        subtitle:
-            "Made from sturdy, compostable bagasse, suitable for any retail setting.",
-        list: [
-            {
-                uid: "bowls",
-                name: "Bowls",
-            },
-            {
-                uid: "plates--platters",
-                name: "Plates & Platters",
-            },
-            {
-                uid: "cups",
-                name: "Cups",
-            },
-        ],
-    },
-    {
-        title: "COMPLEMENTARY ITEMS",
-        subtitle: "Catering to all your dining needs with a sustainable touch",
-        list: [
-            {
-                uid: "kutlery",
-                name: "Kutlery",
-            },
-            {
-                uid: "straws",
-                name: "Straws",
-            },
-        ],
-    },
-];
 
 const listCaseStudy = await getAllByType("case_study");
 const filterCaseStudy = listCaseStudy.filter(
@@ -87,14 +52,16 @@ const filterCaseStudy = listCaseStudy.filter(
         sub_title={homeData.data.client_sub_title[0].text}
         client_list={homeData.data.client_list}
     />
-    {   !isEmpty(item.data.service_title) && (
+    {
+        !isEmpty(item.data.service_title) && (
             <Service
                 title={item.data.service_title[0].text}
                 listItems={serviceItem}
             />
         )
     }
-    {   !isEmpty(item.data.sustainable_subtitle) && (
+    {
+        !isEmpty(item.data.sustainable_subtitle) && (
             <>
                 <Sustainable
                     subtitle={item.data.sustainable_subtitle[0].text}
@@ -107,12 +74,12 @@ const filterCaseStudy = listCaseStudy.filter(
             </>
         )
     }
-    {   !isEmpty(item.data.katalog_title) && (
+    {
+        !isEmpty(item.data.katalog_title) && (
             <Catalog
                 label={item.data.katalog_label}
                 title={item.data.katalog_title[0].text}
                 describe={item.data.katalog_des}
-                data={cataData}
                 group1={
                     item.data.katalog_grp_1_title
                         ? {
@@ -134,14 +101,16 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {   !isEmpty(item.data.explore_title) && (
+    {
+        !isEmpty(item.data.explore_title) && (
             <Explore
                 listGroup={item.data.explore_list.map((el) => el.item)}
                 title={convertHighlight(item.data.explore_title)}
             />
         )
     }
-    {   !isEmpty(item.data.commitment_title) && (
+    {
+        !isEmpty(item.data.commitment_title) && (
             <Commitment
                 label={item.data.commitment_label}
                 title={item.data.commitment_title[0].text}
@@ -149,7 +118,8 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {   !isEmpty(item.data.kase_study_title) && (
+    {
+        !isEmpty(item.data.kase_study_title) && (
             <CaseStudy
                 label={item.data.kase_study_label}
                 title={item.data.kase_study_title[0].text}
@@ -158,7 +128,8 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {   !isEmpty(item.data.value_title) && (
+    {
+        !isEmpty(item.data.value_title) && (
             <Value
                 describe={item.data.value_describe}
                 title={item.data.value_title[0].text}
@@ -166,7 +137,8 @@ const filterCaseStudy = listCaseStudy.filter(
             />
         )
     }
-    {   !isEmpty(item.data.award_title) && (
+    {
+        !isEmpty(item.data.award_title) && (
             <Award
                 title={item.data.award_title[0].text}
                 describe={item.data.award_describe}

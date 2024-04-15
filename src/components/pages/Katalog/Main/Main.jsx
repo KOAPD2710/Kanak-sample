@@ -1,5 +1,6 @@
 import "./Main.scss"
-import { parseUrl, formatData } from "@/components/utils/text";
+import ArrowDropdown from "@/components/globals/IcArrow/ArrowDropdown.jsx";
+import { formatData } from "@/components/utils/text";
 import { useState, useEffect, useRef, useMemo } from "react";
 
 function Item({ ...props }) {
@@ -31,7 +32,7 @@ function Item({ ...props }) {
 
 function FilterTag({ ...props }) {
     return (
-        <button className={`katalog-main-filter-item ${props.isActive ? "active" : ""}`} data-filter={formatData(props.name)} onClick={props.onClick}>
+        <button className={`katalog-main-filter-item ${props.isActive ? "active" : ""}`} data-tag={props.name} onClick={props.onClick}>
             <div className="txt txt-20 txt-bold katalog-main-filter-item-txt">
                 {props.name}
             </div>
@@ -53,101 +54,121 @@ function FilterCate({ ...props }) {
 
 function KatalogMain({ ...props }) {
     const { allItem: allItem } = props;
-    const [filter, setFilter] = useState('all');
+    const [tag, setTag] = useState('All');
     const [category, setCategory] = useState(formatData(props.cateList[0]));
 
-    let newList = allItem.filter((item) => {
-        if (filter == "all") {
-            return item.cate === category && item;
-        } else {
-            return item.data.tag_grp.some(target => formatData(target.tags) == filter) && item.cate === category && item
-        }
-    });
-    const renderFilterTag = useMemo(() => {
-        return (
-            <>
-                <FilterTag name={'All'}
-                    isActive={filter == 'all'}
-                    onClick={(e) => { filterList(e) }} />
-                {props.tagList.map((el, idx) => (
-                    <FilterTag name={el}
-                        isActive={filter == formatData(el)}
-                        onClick={(e) => { filterList(e) }}
-                        key={idx} />
-                ))}
-            </>
-        )
-    }, [filter])
-
-    const renderFilterCate = useMemo(() => {
-        return (
-            props.cateList.map((el) => (
-                <FilterCate
-                    key={el}
-                    data={el}
-                    onClick={(e) => { filterList(e) }}
-                    isActive={category == formatData(el)}
-                />
-            ))
-        )
-    }, [category])
-
-    const renderListItem = useMemo(() => {
-        return (
-            newList.map((item, idx) => (
-                <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
-            ))
-        )
-    }, [category, filter])
-
-    function filterList(e) {
-        let target = e.target
-        if (target.hasAttribute('data-filter')) {
-            let data = e.target.getAttribute('data-filter')
-            setFilter(data)
-        } else if (target.hasAttribute('data-cate')) {
-            let data = e.target.getAttribute('data-cate')
-            setCategory(data)
-        }
-    }
-    function updateUrl(url, key, value) {
+    function UpdateUrlSearch(url, key, value) {
         let urlObject = new URL(url);
         let searchParams = new URLSearchParams(urlObject.search);
-      
+
         if (value === "") {
-            // If value is an empty string, remove the target key
             searchParams.delete(key);
         } else {
-            // Otherwise, set or append the key-value pair
             if (searchParams.has(key)) {
                 searchParams.set(key, value);
             } else {
                 searchParams.append(key, value);
             }
         }
-      
+
         urlObject.search = searchParams.toString();
         return urlObject.toString();
     }
-    useEffect(() => {
-        const dataUrl = parseUrl(window.location.href)
-        if (dataUrl.cate != "") {
-            setCategory(formatData(dataUrl.cate))
+    let newList = allItem.filter((item) => {
+        if (tag == "All") {
+            return item
+        } else {
+            return item.data.tag_grp.some(target => target.tags == tag) && item
         }
-        if (dataUrl.tag != "") {
-            setFilter(formatData(dataUrl.tag))
+    });
+    let currCatelist = []
+    newList.map((el) => {
+        if (!currCatelist.includes(el.cate)) {
+            currCatelist.push(el.cate)
+        }
+    })
+    useEffect(() => {
+        const searchParam = new URLSearchParams(window.location.search);
+        if (searchParam.has("cate")) {
+            setCategory(searchParam.get("cate"))
+        };
+        if (searchParam.has("tag")) {
+            setTag(props.tagList.find(item => formatData(item) === searchParam.get("tag")));
         }
     }, [])
+    const renderFilterTag = useMemo(() => {
+        return (
+            <>
+                <FilterTag name={'All'}
+                    isActive={tag == 'All'}
+                    onClick={(e) => { filterList(e) }} />
+                {props.tagList.map((el, idx) => (
+                    <FilterTag name={el}
+                        isActive={tag == el}
+                        onClick={(e) => { filterList(e) }}
+                        key={idx} />
+                ))}
+            </>
+        )
+    }, [tag])
+    const renderListItem = useMemo(() => {
+        return (
+            newList.map((item, idx) => (
+                item.cate == category &&
+                <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
+            ))
+        )
+    }, [category, tag])
+    const renderFilterCate = useMemo(() => {
+        let forceCategory
+        if (!currCatelist.includes(category)) {
+            forceCategory = props.cateList.find((el) => currCatelist.includes(formatData(el)))
+            setCategory(formatData(forceCategory))
+        }
+        return (
+            tag == "all" ?
+                props.cateList.map((el) => (
+                    <FilterCate
+                        key={el}
+                        data={el}
+                        onClick={(e) => { filterList(e) }}
+                        isActive={category == formatData(el)}
+                    />
+                )) :
+                props.cateList.map((el) => (
+                    currCatelist.includes(formatData(el)) &&
+                    <FilterCate
+                        key={el}
+                        data={el}
+                        onClick={(e) => { filterList(e) }}
+                        isActive={category == formatData(el)}
+                    />
+                ))
+        )
+    }, [category, tag])
     useEffect(() => {
-        window.history.replaceState(null, null, updateUrl(window.location.href, 'cate', formatData(category)));
+        window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'cate', formatData(category)));
+        console.log(category);
     }, [category])
     useEffect(() => {
-        if (filter == "all") {
-            window.history.replaceState(null, null, updateUrl(window.location.href, 'tag', ''));
+        if (tag == "All") {
+            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', ''));
         } else {
-            window.history.replaceState(null, null, updateUrl(window.location.href, 'tag', formatData(filter)));
+            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', formatData(tag)));
         }
-    }, [filter])
+        console.log(tag);
+    }, [tag])
+
+    function filterList(e) {
+        let target = e.target
+        if (target.hasAttribute('data-tag')) {
+            let data = e.target.getAttribute('data-tag')
+            setTag(data)
+        } else if (target.hasAttribute('data-cate')) {
+            let data = e.target.getAttribute('data-cate')
+            setCategory(data)
+        }
+    }
     return (
         <section className="katalog-main">
             <div className="container grid">
@@ -157,10 +178,10 @@ function KatalogMain({ ...props }) {
                         <div className="katalog-main-filter-list">
                             <button className="katalog-main-filter-list-toggle">
                                 <div className="txt txt-18 txt-bold katalog-main-filter-list-toggle-txt">
-                                    {filter == 'All' ? 'Categories' : filter}
+                                    {tag == 'All' ? 'All' : tag}
                                 </div>
                                 <div className={`ic ic-20 katalog-main-filter-list-toggle-ic`}>
-                                    {props.icDropdown}
+                                    <ArrowDropdown />
                                 </div>
                             </button>
                             <div className={`katalog-main-filter-list-dropdown`}>

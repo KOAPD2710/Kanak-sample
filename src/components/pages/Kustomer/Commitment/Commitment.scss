@@ -11,6 +11,7 @@
     @include md {
         padding-top: 10rem;
     }
+
     @include sm {
         padding-top: 8rem;
     }
@@ -148,6 +149,11 @@
                     margin-bottom: 1.2rem;
                     max-width: 34rem;
                 }
+
+                @include sm {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
             }
 
             &-des {
@@ -157,6 +163,7 @@
                 max-width: 48.6rem;
                 font-kerning: none;
                 justify-self: end;
+
                 @include sm {
                     @include text(16);
                 }

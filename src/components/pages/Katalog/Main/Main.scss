@@ -12,14 +12,28 @@
         .line-top {}
 
         &-list {
+            position: relative;
+
             &-toggle {
                 display: none;
+
+                @include md {
+                    display: flex;
+                    align-items: center;
+                }
+
+                &-ic {}
             }
 
             &-dropdown {
                 position: relative;
                 display: flex;
                 justify-content: space-between;
+
+                @include md {
+                    position: absolute;
+                }
+
 
                 &-inner {
                     display: flex;
@@ -157,6 +171,7 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
+
             &-img {
                 display: flex;
                 align-items: center;
@@ -168,8 +183,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    width: 26rem;
-                    height: 100%;
+                    @include size(64%, 55.26%);
                 }
 
                 img {

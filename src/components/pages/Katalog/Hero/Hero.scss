@@ -4,8 +4,17 @@
     padding-top: 24rem;
     padding-bottom: 8rem;
 
+    @include md {
+        padding-top: 18rem;
+        padding-bottom: 6rem;
+    }
+
     &-title {
         grid-column: 1/7;
+
+        @include md {
+            grid-column: 1/7;
+        }
     }
 
     &-subtitle {
@@ -13,5 +22,14 @@
         align-self: end;
         margin-bottom: .9rem;
         margin-left: -1rem;
+
+        @include md {
+            grid-column: 8/-1;
+            font-weight: 700;
+            text-transform: unset;
+            margin-left: -.6rem;
+            margin-bottom: unset;
+            @include text(14);
+        }
     }
 }

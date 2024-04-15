@@ -94,6 +94,7 @@
 
                 &-label {
                     margin-bottom: 3.2rem;
+
                     @include md {
                         margin-bottom: .8rem;
                         @include text(20);
@@ -212,22 +213,6 @@
                 &-inner {
                     min-height: unset !important;
 
-                    @include sm {
-                        min-height: 100% !important;
-                        width: auto !important;
-                        min-width: 28rem;
-                        padding: 4rem 3rem;
-                        border-left: .2rem solid var(--cl-txt);
-                        border-bottom: .2rem solid var(--cl-txt);
-
-                        &:nth-child(2) {
-                            padding-left: 0;
-                            border-left: none;
-                        }
-                    }
-
-
-
                     &-title {
                         margin-bottom: 4rem;
 
@@ -249,10 +234,37 @@
                         }
                     }
 
-                    .line {
+                    .line-top {
                         @include sm {
                             position: absolute;
                             width: 100%;
+                            top: 0;
+                            left: 0;
+                        }
+                    }
+
+                    .line-bot {
+                        display: none;
+
+                        @include sm {
+                            display: block;
+                            position: absolute;
+                            width: 100%;
+                            bottom: 0;
+                            left: 0;
+                        }
+                    }
+
+                    .line-right {
+                        display: none;
+                    }
+
+                    .line-left {
+                        display: none;
+
+                        @include sm {
+                            display: block;
+                            position: absolute;
                             top: 0;
                             left: 0;
                         }
@@ -265,11 +277,30 @@
                     }
 
                     @include sm {
-                        &:last-child {
-                            border-right: .2rem solid var(--cl-txt);
+                        min-height: 100% !important;
+                        width: auto !important;
+                        min-width: 28rem;
+                        padding: 4rem 3rem;
 
+                        &:last-child {
                             .line {
                                 display: block;
+                            }
+
+                            .line-right {
+                                display: block;
+                                position: absolute;
+                                top: 0;
+                                left: auto;
+                                right: 0;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            padding-left: unset;
+
+                            .line-left {
+                                display: none;
                             }
                         }
                     }

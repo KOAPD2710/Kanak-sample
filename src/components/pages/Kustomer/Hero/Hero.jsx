@@ -1,6 +1,8 @@
 import "./Hero.scss"
 import KustomerHeroThree from "./HeroThree"
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { animate, timeline, stagger, inView } from "motion";
+import SplitType from 'split-type';
 
 function KustomerHero(props) {
     const [currentIdx, setCurrentIdx] = useState(1);
@@ -63,12 +65,33 @@ function KustomerHero(props) {
         // trackRef.current.ontouchmove = (e) => handleOnMove(e.touches[0]);
     }, [trackRef, currentIdx]);
 
+    useEffect(() => {
+        const title = new SplitType('.kustomer-hero-title', { types: "lines,words", lineClass: 'split-line' })
+        const subtitle = new SplitType('.kustomer-hero-subtitle', { types: "lines,words", lineClass: 'split-line' })
+
+
+        animate(title.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+        animate(subtitle.words, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
+
+
+        const sequence = [
+            [subtitle.words, { transform: 'none', opacity: 1 }, { duration: .6, delay: stagger(.01), at: 0 }],
+            [title.words, { opacity: 1, transform: "none" }, { duration: .5, delay: stagger(.04), at: .2 }],
+        ]
+
+        inView('.kustomer-hero', () => {
+            timeline(sequence).finished.then(() => {
+                title.revert()
+                subtitle.revert()
+            })
+        })
+    }, [])
+
     return (
         <section className="kustomer-hero bg-white">
             <div className="container grid">
                 <div className="heading h6 txt-black txt-up kustomer-hero-subtitle">{props.label}</div>
                 <h1 className="heading h0 txt-black txt-up kustomer-hero-title">{props.title}</h1>
-                {/* <h1 className="heading h0 txt-black txt-up kustomer-hero-title">Sustainably Crafted, Retail Ready</h1> */}
             </div>
             <div className="kustomer-hero-slide" ref={trackRef} data-percentage={0} data-prev-percentage={0}>
                 <KustomerHeroThree list={productArr} onDrag={onDrag} currentPos={currentPos} currentIdx={currentIdx} />

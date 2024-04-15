@@ -14,7 +14,7 @@
 
     &-title {
         position: sticky;
-        top: 18rem;
+        top: calc(50vh - 22rem);
 
         &-wrapper {
             grid-column: 1/9;
@@ -38,10 +38,12 @@
 
         @include md {
             @include text(h1);
+            top: calc(50vh - 10rem);
         }
 
         @include sm {
             @include text(h2);
+            position: static;
         }
     }
 

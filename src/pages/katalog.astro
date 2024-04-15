@@ -1,11 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
+// import ItemDtlPopup from "@components/globals/ItemDtlPopup/ItemDtlPopup.astro";
 import Hero from "@pages/Katalog/Hero/Hero.astro";
 import Main from "@pages/Katalog/Main/Main.astro";
+
 import { getPage } from "@/prismic.js";
+const { data } = await getPage("katalog_page");
+
+const title = await data.title[0].text;
+const subtitle = await data.subtitle[0].text;
 ---
 
 <Layout title="Katalog">
-    <Hero />
-    <Main />
+    <!-- <ItemDtlPopup /> -->
+    <Hero title={title} sub={subtitle} />
+    <Main data={data} />
 </Layout>

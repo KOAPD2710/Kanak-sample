@@ -1,19 +1,19 @@
 ---
 import Image from "astro/components/Image.astro";
-import KustomerCatalogTitle from './CatalogTitle';
-import KustomerCatalogList from './CatalogList';
-import KustomerCatalogThree from './CatalogThree';
+import KustomerCatalogTitle from "./CatalogTitle";
+import KustomerCatalogList from "./CatalogList";
+import KustomerCatalogThree from "./CatalogThree";
 
 import arrIcon from "@assets/arr-right.svg?raw";
 import qr from "@assets/kustomer-qr.png";
-import "./Catalog.scss"
+import "./Catalog.scss";
+import { getByUID } from "@/prismic";
 
 const { title, describe, label, data } = Astro.props;
 const newTitle = title.replace(
 	"RETAILERS",
 	`<span class="txt-green">RETAILERS</span>`,
 );
-
 let newDescribe = "";
 describe.forEach((el, elIdx) => {
 	let bodyText = el.text;
@@ -29,16 +29,62 @@ describe.forEach((el, elIdx) => {
 	});
 	newDescribe += bodyText;
 });
+
+let listCategory = [];
+await Promise.all(
+	Astro.props.group1.list
+		.reduce((acc, curr) => acc.concat(curr.item), [])
+		.map(async ({ uid }) => {
+			await getByUID("product_group", uid).then((item) => {
+				listCategory.push(item);
+			});
+		}),
+);
+await Promise.all(
+	Astro.props.group2.list
+		.reduce((acc, curr) => acc.concat(curr.item), [])
+		.map(async ({ uid }) => {
+			await getByUID("product_group", uid).then((item) => {
+				listCategory.push(item);
+			});
+		}),
+);
+
+let listItem = [];
+await Promise.all(
+	listCategory.map(async (item) => {
+		await getByUID(
+			"product",
+			item.data.product_list.filter((el: any) => el.is_featured)[0]
+				.product.uid,
+		).then((target) => {
+			listItem.push(target);
+		});
+	}),
+);
 ---
+
 <section class="kustomer-cata">
 	<div class="container grid">
-		<KustomerCatalogTitle label={label} client:visible={{ rootMargin: "100% 0px 100% 0px" }}>
+		<KustomerCatalogTitle
+			label={label}
+			client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+		>
 			<Fragment set:html={newTitle} slot="title" />
 			<Fragment set:html={newDescribe} slot="describe" />
 		</KustomerCatalogTitle>
 		<div class="kustomer-cata-main">
-			<KustomerCatalogList list={data} client:visible={{ rootMargin: "100% 0px 100% 0px" }}/>
-			<KustomerCatalogThree list={data} client:idle>
+			<KustomerCatalogList
+				grp1={Astro.props.group1}
+				grp2={Astro.props.group2}
+				list={listCategory}
+				client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+			/>
+			<KustomerCatalogThree
+				listCate={listCategory}
+				listItem={listItem}
+				client:load
+			>
 				<Image src={qr} alt="" slot="qr" class="ic ic-80" />
 				<Fragment set:html={arrIcon} slot="arrIcon" />
 			</KustomerCatalogThree>
