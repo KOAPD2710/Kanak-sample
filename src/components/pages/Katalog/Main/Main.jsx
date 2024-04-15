@@ -1,5 +1,6 @@
 import "./Main.scss"
-import { parseUrl, formatData } from "@/components/utils/text";
+import ArrowDropdown from "@/components/globals/IcArrow/ArrowDropdown.jsx";
+import { formatData } from "@/components/utils/text";
 import { useState, useEffect, useRef, useMemo } from "react";
 
 function Item({ ...props }) {
@@ -31,7 +32,7 @@ function Item({ ...props }) {
 
 function FilterTag({ ...props }) {
     return (
-        <button className={`katalog-main-filter-item ${props.isActive ? "active" : ""}`} data-filter={formatData(props.name)} onClick={props.onClick}>
+        <button className={`katalog-main-filter-item ${props.isActive ? "active" : ""}`} data-tag={props.name} onClick={props.onClick}>
             <div className="txt txt-20 txt-bold katalog-main-filter-item-txt">
                 {props.name}
             </div>
@@ -53,7 +54,7 @@ function FilterCate({ ...props }) {
 
 function KatalogMain({ ...props }) {
     const { allItem: allItem } = props;
-    const [filter, setFilter] = useState('all');
+    const [tag, setTag] = useState('All');
     const [category, setCategory] = useState(formatData(props.cateList[0]));
 
     function UpdateUrlSearch(url, key, value) {
@@ -74,10 +75,10 @@ function KatalogMain({ ...props }) {
         return urlObject.toString();
     }
     let newList = allItem.filter((item) => {
-        if (filter == "all") {
+        if (tag == "All") {
             return item
         } else {
-            return item.data.tag_grp.some(target => formatData(target.tags) == filter) && item
+            return item.data.tag_grp.some(target => target.tags == tag) && item
         }
     });
     let currCatelist = []
@@ -92,24 +93,24 @@ function KatalogMain({ ...props }) {
             setCategory(searchParam.get("cate"))
         };
         if (searchParam.has("tag")) {
-            setFilter(searchParam.get("tag"))
+            setTag(props.tagList.find(item => formatData(item) === searchParam.get("tag")));
         }
     }, [])
     const renderFilterTag = useMemo(() => {
         return (
             <>
                 <FilterTag name={'All'}
-                    isActive={filter == 'all'}
+                    isActive={tag == 'All'}
                     onClick={(e) => { filterList(e) }} />
                 {props.tagList.map((el, idx) => (
                     <FilterTag name={el}
-                        isActive={filter == formatData(el)}
+                        isActive={tag == el}
                         onClick={(e) => { filterList(e) }}
                         key={idx} />
                 ))}
             </>
         )
-    }, [filter])
+    }, [tag])
     const renderListItem = useMemo(() => {
         return (
             newList.map((item, idx) => (
@@ -117,7 +118,7 @@ function KatalogMain({ ...props }) {
                 <Item key={idx} name={item.data.title} img={item.data.thumbnail} qr={item.data.qr} ></Item>
             ))
         )
-    }, [category, filter])
+    }, [category, tag])
     const renderFilterCate = useMemo(() => {
         let forceCategory
         if (!currCatelist.includes(category)) {
@@ -125,7 +126,7 @@ function KatalogMain({ ...props }) {
             setCategory(formatData(forceCategory))
         }
         return (
-            filter == "all" ?
+            tag == "all" ?
                 props.cateList.map((el) => (
                     <FilterCate
                         key={el}
@@ -144,23 +145,25 @@ function KatalogMain({ ...props }) {
                     />
                 ))
         )
-    }, [category, filter])
+    }, [category, tag])
     useEffect(() => {
         window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'cate', formatData(category)));
+        console.log(category);
     }, [category])
     useEffect(() => {
-        if (filter == "all") {
+        if (tag == "All") {
             window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', ''));
         } else {
-            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', formatData(filter)));
+            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', formatData(tag)));
         }
-    }, [filter])
+        console.log(tag);
+    }, [tag])
 
     function filterList(e) {
         let target = e.target
-        if (target.hasAttribute('data-filter')) {
-            let data = e.target.getAttribute('data-filter')
-            setFilter(data)
+        if (target.hasAttribute('data-tag')) {
+            let data = e.target.getAttribute('data-tag')
+            setTag(data)
         } else if (target.hasAttribute('data-cate')) {
             let data = e.target.getAttribute('data-cate')
             setCategory(data)
@@ -175,10 +178,10 @@ function KatalogMain({ ...props }) {
                         <div className="katalog-main-filter-list">
                             <button className="katalog-main-filter-list-toggle">
                                 <div className="txt txt-18 txt-bold katalog-main-filter-list-toggle-txt">
-                                    {filter == 'All' ? 'Categories' : filter}
+                                    {tag == 'All' ? 'All' : tag}
                                 </div>
                                 <div className={`ic ic-20 katalog-main-filter-list-toggle-ic`}>
-                                    {props.icDropdown}
+                                    <ArrowDropdown />
                                 </div>
                             </button>
                             <div className={`katalog-main-filter-list-dropdown`}>

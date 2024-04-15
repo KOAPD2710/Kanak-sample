@@ -6,10 +6,12 @@
 
     padding-bottom: 28.8rem;
     contain: paint;
+
     @include md {
         --HomeProductCardHeight: 41rem;
         padding-bottom: 10rem;
     }
+
     @include sm {
         --HomeProductCardHeight: 42rem;
     }
@@ -113,6 +115,7 @@
 
                 &-title {
                     margin-bottom: 2rem;
+
                     @include md {
                         margin-bottom: 1.2rem;
                     }
@@ -120,9 +123,11 @@
 
                 &-subtitle {
                     max-width: 28.5rem;
+
                     @include md {
                         @include text(16);
                     }
+
                     @include sm {
                         max-width: 30.4rem;
                     }
@@ -137,6 +142,7 @@
                     grid-column: 1/-1;
                     margin-left: 0;
                 }
+
                 @include sm {
                     display: none;
                 }
@@ -177,8 +183,12 @@
                     }
 
                     .line-bot {
+                        position: absolute;
                         top: auto;
+                        left: 0;
                         bottom: -.1rem;
+                        background-color: var(--cl-txt);
+                        @include size(100%, .2rem);
                     }
 
                     &:hover,
@@ -213,6 +223,7 @@
             flex-direction: column;
             justify-content: space-between;
             transition: opacity 400ms ease;
+
             // opacity: 0;
             // pointer-events: none;
             &.active {
@@ -313,10 +324,12 @@
             &-inner {
                 user-select: none;
                 @include size(100%);
+
                 img {
                     margin-left: -25%;
                     width: 150%;
                 }
+
                 &-canvas {
                     position: absolute;
                     top: 50%;
@@ -326,6 +339,7 @@
                     height: 100vh;
                     pointer-events: none;
                     user-select: none;
+
                     * {
                         pointer-events: none !important;
                     }
@@ -379,7 +393,7 @@
             align-items: center;
             justify-content: center;
             grid-area: 1/1/2/2;
-            // opacity: 0;
+            opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
             @include size(10.2rem, 10rem);

@@ -3,25 +3,30 @@ import { getAllByType, getByUID } from "@/prismic";
 import { formatData } from "@/components/utils/text";
 import KatalogMain from "./Main";
 
+const { list_category: list } = Astro.props.data;
+
 const allTag = await getAllByType("case_study");
 const tagList = [];
 allTag.map((el, idx) => {
 	!tagList.includes(el.data.category) && tagList.push(el.data.category);
 });
+let listUidCate = [];
+await list
+	.reduce((acc, curr) => acc.concat(curr.item.uid), [])
+	.map((el) => {
+		!listUidCate.includes(el) && listUidCate.push(el);
+	});
 
-const allCate = await getAllByType("product_group");
-const cateNotSustainable = [];
-allCate.map(
-	(item) =>
-		item.data.is_sustainables_ === false && cateNotSustainable.push(item),
+let listCate = await Promise.all(
+	listUidCate.map(async (el: any) => {
+		const item = await getByUID("product_group", el);
+		return item;
+	}),
 );
-const cateList = cateNotSustainable.reduce(
-	(acc, curr) => acc.concat(curr.data.name),
-	[],
-);
+const cateList = listCate.reduce((acc, curr) => acc.concat(curr.data.name), []);
 const productList = [];
 await Promise.all(
-	cateNotSustainable
+	listCate
 		.reduce(
 			(acc, curr) =>
 				acc.concat({
@@ -33,8 +38,12 @@ await Promise.all(
 		.map(async (data: any) => {
 			await Promise.all(
 				data.list.map(async (el: any) => {
-					const item = await getByUID("product", el.product.uid);
-					productList.push({ ...item, cate: formatData(data.name) });
+					await getByUID("product", el.product.uid).then((item) => {
+						productList.push({
+							...item,
+							cate: formatData(data.name),
+						});
+					});
 				}),
 			);
 		}),

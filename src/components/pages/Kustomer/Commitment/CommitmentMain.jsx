@@ -14,6 +14,7 @@ function CommitItem({ title, describle, img, idx, ...props }) {
         animate(title.words, { transform: "translateY(100%)" }, { duration: 0 })
         animate(describe.lines, { opacity: 0, transform: "translateY(100%)" }, { duration: 0 })
         animate(item.querySelectorAll(".line-inner"), { scaleX: 0, transformOrigin: 'left' }, { duration: 0 })
+        animate(item.querySelector('.kustomer-commit-main-item-img'), { opacity: 0, scale: .9 }, { duration: 0 })
 
 
         let lineList = []
@@ -22,14 +23,17 @@ function CommitItem({ title, describle, img, idx, ...props }) {
         })
         const itemSequence = [
             [lineList, { scaleX: 1 }, { duration: .8, delay: stagger(.4), at: 0 }],
-            [title.words, { transform: "none" }, { duration: .6, delay: stagger(.04), at: 0 }],
-            [describe.lines, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .25 }],
+            [item.querySelector('.kustomer-commit-main-item-img'), { opacity: 1, scale: 1 }, { duration: .6, at: .1 }],
+            [title.words, { transform: "none" }, { duration: .6, delay: stagger(.04), at: .1 }],
+            [describe.lines, { opacity: 1, transform: "none" }, { duration: .6, delay: stagger(.04), at: .35 }],
         ]
 
         inView(item, () => {
             timeline(itemSequence).finished.then(() => {
                 title.revert()
                 describe.revert()
+                lineList.forEach(item => item.removeAttribute('style'))
+                item.querySelector('.kustomer-commit-main-item-img').removeAttribute('style')
             })
         }, { margin: "-10% 0px -10% 0px" })
     }, [])
