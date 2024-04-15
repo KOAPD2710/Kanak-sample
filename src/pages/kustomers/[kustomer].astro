@@ -33,41 +33,6 @@ const serviceItem = [];
 item.data.service_sub_items.forEach((el: any, idx: number) => {
     el.item.uid && serviceItem.push(el.item.uid);
 });
-const cataData = [
-    {
-        title: "VERSATILE DINNERWARE",
-        subtitle:
-            "Made from sturdy, compostable bagasse, suitable for any retail setting.",
-        list: [
-            {
-                uid: "bowls",
-                name: "Bowls",
-            },
-            {
-                uid: "plates--platters",
-                name: "Plates & Platters",
-            },
-            {
-                uid: "cups",
-                name: "Cups",
-            },
-        ],
-    },
-    {
-        title: "COMPLEMENTARY ITEMS",
-        subtitle: "Catering to all your dining needs with a sustainable touch",
-        list: [
-            {
-                uid: "kutlery",
-                name: "Kutlery",
-            },
-            {
-                uid: "straws",
-                name: "Straws",
-            },
-        ],
-    },
-];
 
 const listCaseStudy = await getAllByType("case_study");
 const filterCaseStudy = listCaseStudy.filter(
@@ -115,7 +80,6 @@ const filterCaseStudy = listCaseStudy.filter(
                 label={item.data.katalog_label}
                 title={item.data.katalog_title[0].text}
                 describe={item.data.katalog_des}
-                data={cataData}
                 group1={
                     item.data.katalog_grp_1_title
                         ? {

@@ -3,7 +3,7 @@ import { Environment, ContactShadows, AdaptiveDpr } from "@react-three/drei";
 import useWindowSize from "@hooks/useWindowSize";
 import { suspend } from 'suspend-react'
 import { GetModel } from "@/components/common/GetModel";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { normalize } from "@utils/parse";
 
 const warehouse = import('/envMap/warehouse.hdr?url').then((module) => module.default)
@@ -12,8 +12,9 @@ function Content(props) {
     const productInner = useRef();
     const [scaleOffset, setScaleOffset] = useState(1);
     const [degraded, degrade] = useState(false);
-    let mousePos = { x: 0, y: 0 };
+    const { clock } = useThree();
 
+    let mousePos = { x: 0, y: 0 };
     useEffect(() => {
         if (window.innerWidth > 991) {
         } else if (window.innerWidth > 767) {
@@ -24,7 +25,6 @@ function Content(props) {
     }, []);
 
 	const lerp = (a, b, n = 0.07) => (1 - n) * a + n * b;
-
     const mousePosAnim = (ref) => {
         let getX = ref.current.rotation.x;
         let targetX = (mousePos.x * Math.PI) / 15;
@@ -40,15 +40,41 @@ function Content(props) {
             lerp(getZ, targetZ))
     }
 
-    useFrame(({ clock }) => {
+    let requestId;
+    const animateProduct = () => {
+        requestId = undefined;
+        start();
         if (!productInner.current) return;
-        mousePosAnim(productInner);
 
-        product.current.rotation.x += (0 - product.current.rotation.x + Math.cos(clock.getElapsedTime() / 2) * Math.PI * .02) * .08
-        product.current.rotation.y += (0 - product.current.rotation.y + Math.cos(clock.getElapsedTime() / 2) * Math.PI * .02) * .08
-    })
+        mousePosAnim(productInner);
+        product.current.rotation.x += (0 - product.current.rotation.x + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
+        product.current.rotation.y += (0 - product.current.rotation.y + Math.cos(clock.elapsedTime / 2) * Math.PI * .02) * .08
+    }
+    const start = () => {
+        if (!requestId) {
+            requestId = window.requestAnimationFrame(animateProduct)
+        }
+    }
+    const stop = () => {
+        if (requestId) {
+            window.cancelAnimationFrame(requestId);
+            requestId = undefined;
+        }
+    }
 
     useEffect(() => {
+        const awardSection = document.querySelector(".kustomer-award-product")
+        const observerSection = new IntersectionObserver(
+            ([e]) => {
+                if (e.isIntersecting) {
+                    start();
+                }
+                else {
+                    stop();
+                }
+            });
+        observerSection.observe(awardSection);
+
         const getMousePos = (e) => {
             mousePos.x = normalize(e.clientX, props.width) * -1;
             mousePos.y = normalize(e.clientY, props.height);

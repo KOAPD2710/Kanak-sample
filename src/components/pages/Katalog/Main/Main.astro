@@ -18,8 +18,8 @@ await list
 	});
 
 let listCate = await Promise.all(
-	listUidCate.map(async (el: any) => {
-		const item = await getByUID("product_group", el);
+	listUidCate.map((el: any) => {
+		const item = getByUID("product_group", el);
 		return item;
 	}),
 );
