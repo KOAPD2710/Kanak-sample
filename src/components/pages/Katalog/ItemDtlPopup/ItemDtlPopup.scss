@@ -13,10 +13,24 @@
     opacity: 0;
     z-index: 999;
     pointer-events: none;
+    transition: opacity .4s ease;
+
+    @include sm {
+        height: 100dvh;
+        background-color: var(--cl-bg);
+    }
 
     &.active {
         opacity: 1;
         pointer-events: auto;
+    }
+
+    .container.grid {
+        @include sm {
+            height: 100%;
+            max-height: 100%;
+
+        }
     }
 
     &-itemdtl {
@@ -25,21 +39,58 @@
         position: relative;
         grid-column: 2/16;
         background-color: var(--cl-bg);
-        display: grid;
-        grid-template-columns: repeat(14, 1fr);
-        column-gap: var(--grid-gap);
-        padding: 7.9rem 0;
-        max-height: calc(100vh - var(--padding-2side)*2);
+
         opacity: 1;
 
         @include md {
             grid-column: 1/-1;
-            padding: 5rem 0;
-            grid-template-columns: repeat(12, 1fr);
+        }
+
+        @include sm {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        &-wrap {
+
+            @include sm {
+                height: 100%;
+            }
+
+            &-inner {
+                display: grid;
+                grid-template-columns: repeat(14, 1fr);
+                column-gap: var(--grid-gap);
+                padding: 7.9rem 0;
+                max-height: calc(100vh - var(--padding-2side)*2);
+
+                @include md {
+                    padding: 5rem 0;
+                    grid-template-columns: repeat(12, 1fr);
+                }
+
+                @include sm {
+                    display: block;
+                    padding-top: 6rem;
+                    height: 100%;
+                    max-height: unset;
+                    overflow-y: auto;
+                }
+            }
         }
 
         &.active {
             opacity: 1;
+        }
+
+        &-title {
+            display: none;
+
+            @include sm {
+                display: block;
+                width: 100%;
+                margin-bottom: 4rem;
+            }
         }
 
         &-btn {
@@ -52,6 +103,11 @@
             @include md {
                 top: 1rem;
                 right: 1rem;
+            }
+
+            @include sm {
+                top: .6rem;
+                right: -1rem;
             }
 
             @media (hover: hover) {
@@ -74,6 +130,11 @@
                 margin-right: 2.5rem;
             }
 
+            @include sm {
+                margin: unset;
+                margin-bottom: 4rem;
+            }
+
             &-img {
                 display: flex;
                 align-items: center;
@@ -81,8 +142,24 @@
                 width: 100%;
                 aspect-ratio: 0.867803838;
 
-                &-inner {
+                @include md {
+                    aspect-ratio: 0.7894736842;
+                }
+
+                @include sm {
+                    aspect-ratio: 1.2077464789;
+                }
+
+                img {
                     width: 36rem;
+
+                    @include md {
+                        width: 18.8rem;
+                    }
+
+                    @include sm {
+                        width: 23.3rem;
+                    }
                 }
 
                 .keen-slider__slide {
@@ -152,16 +229,36 @@
                 margin-right: calc(-1 * var(--grid-gap) - .8rem);
             }
 
+            @include sm {
+                margin-right: unset;
+                height: fit-content;
+                // height: calc(100% - 50rem);
+                // padding-bottom: 5rem;
+            }
+
             &-title {
                 margin-bottom: 4rem;
+
+                @include md {
+                    margin-right: .8rem;
+                }
+
+                @include sm {
+                    display: none;
+                }
             }
         }
 
         &-table {
             display: flex;
             flex-direction: column;
-            flex: 1;
+            // flex: 1;
             height: 100%;
+
+            @include sm {
+                display: block;
+                height: unset;
+            }
 
             &-head,
             &-item-div {
@@ -183,12 +280,18 @@
             &-item-wrap {
                 flex: 1 1 auto;
                 overflow-y: auto;
-                height: 0;
+                // height: 0;
                 padding-bottom: .2rem;
                 scrollbar-width: none;
+
+                @include sm {
+                    flex: 0;
+                    overflow: visible;
+                }
             }
 
             &-item {
+
                 .popup-itemdtl-table-model {
                     display: flex;
                     align-items: center;
@@ -221,6 +324,7 @@
                             display: none;
                         }
                     }
+
                     &.tablet {
                         display: none;
 
@@ -231,44 +335,87 @@
                             .div-left {
                                 grid-column: 1/2;
                                 grid-row: 1/2;
+                                padding-top: 2.4rem;
+                                padding-bottom: 2.4rem;
+                                height: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                row-gap: 2rem;
+                                align-items: start;
+
+                                .wrap {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: start;
+                                    row-gap: .8rem;
+                                }
                             }
+
                             .div-right {
                                 grid-column: 2/3;
                                 grid-row: 1/2;
-                            }
-                            .popup-itemdtl-table-code {
+                                padding-top: 2.4rem;
+                                padding-bottom: 2.4rem;
+                                padding-left: 2rem;
+                                height: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                row-gap: 1.2rem;
+                                align-items: start;
 
+                                .wrap {
+                                    width: 100%;
+                                    display: flex;
+                                    column-gap: 1rem;
+                                }
                             }
-                            .popup-itemdtl-table-size {
 
+                            .head {
+                                @include text(14);
+                                flex-shrink: 0;
                             }
-                            .popup-itemdtl-table-color {
 
+                            .body {
+                                flex: 1;
+                                text-align: end;
                             }
-                            .popup-itemdtl-table-count {
 
-                            }
-                            .popup-itemdtl-table-dtl {
-                                
-                            }
+                            .popup-itemdtl-table-code {}
+
+                            .popup-itemdtl-table-size {}
+
+                            .popup-itemdtl-table-color {}
+
+                            .popup-itemdtl-table-count {}
+
+                            .popup-itemdtl-table-dtl {}
+
                             .popup-itemdtl-table-model {
                                 display: flex;
                                 align-items: start;
                                 flex-direction: column;
+
+                                &-inner {
+                                    @include size(4.8rem)
+                                }
                             }
+
+
                         }
                     }
                 }
+
                 .line {
                     display: none;
 
                     @include md {
-                        &-top  {
+                        &-top {
                             display: block;
                             position: absolute;
                             top: -.1rem;
                             left: 0;
                         }
+
                         &-mid {
                             display: block;
                             grid-column: 2/3;

@@ -235,17 +235,14 @@
 
             &-pdf {
                 position: relative;
-                padding: 3.5rem 2.4rem;
+                padding: 3.8rem 4rem;
                 background-color: var(--cl-orange);
                 color: var(--cl-white);
                 transition: all .4s ease;
 
                 @include md {
-                    grid-column: 4/-1;
-                    width: 50%;
-                    margin-left: auto;
-                    padding: 2.8rem 2.4rem;
-                    grid-row: 1/2;
+                    width: calc(50% + .1rem);
+                    padding: 3.05rem 4rem;
                 }
 
                 @include sm {
@@ -255,6 +252,16 @@
                     width: 100%;
                     background-color: var(--cl-orange);
                     padding: 1.85rem 2.4rem;
+                }
+
+                &-wrap {
+                    @include md {
+                        display: flex;
+                        justify-content: end;
+                        grid-column: 4/-1;
+                        width: 100%;
+                        grid-row: 1/2;
+                    }
                 }
 
                 &-txt {
@@ -267,7 +274,7 @@
                 .line-ver {
                     position: absolute;
                     top: 0;
-                    left: -.1rem;
+                    left: 0;
 
                     @include sm {
                         display: none;
@@ -469,6 +476,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                width: 100%;
                 aspect-ratio: 1.068;
                 overflow: hidden;
 

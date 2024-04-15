@@ -42,18 +42,16 @@ function Item({ ...props }) {
             [item.querySelector('.line-right'), { scaleY: 1 }, { duration: .5, at: .6 }],
             [item.querySelector('.line-qr'), { scaleY: 1 }, { duration: .4, at: .6 }],
             [name.words, { opacity: 1, transform: "none" }, { duration: .4, delay: stagger(.02), at: .5 }],
-            [item.querySelector('.katalog-main-list-item-info-qr-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .45 }]
+            [item.querySelector('.katalog-main-list-item-info-qr-inner'), { opacity: 1, scale: 1 }, { duration: .6, at: .45 }],
         ]
 
         inView(item, () => {
             timeline(sequence).finished.then(() => {
                 setAnimationStarted(false);
-                setTimeout(() => {
-                    name.revert();
-                    item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'));
-                    item.querySelector('.katalog-main-list-item-img').removeAttribute('style');
-                    item.querySelector('.katalog-main-list-item-info-qr-inner').removeAttribute('style');
-                }, 1000)
+                name.revert();
+                item.querySelectorAll('.line').forEach(item => item.removeAttribute('style'));
+                item.querySelector('.katalog-main-list-item-img').removeAttribute('style');
+                item.querySelector('.katalog-main-list-item-info-qr-inner').removeAttribute('style');
             })
         })
     }, [props.tag, props.category])
@@ -110,11 +108,11 @@ function Item({ ...props }) {
                                     <div className="line line-bot"></div>
                                 )}
                                 <div className="div-left">
-                                    <div className="popup-itemdtl-table-code">
+                                    <div className="wrap popup-itemdtl-table-code">
                                         <div className="head">SKU</div>
                                         {item.sku}
                                     </div>
-                                    <div className="popup-itemdtl-table-model">
+                                    <div className="wrap popup-itemdtl-table-model">
                                         <div className="head">3D Model</div>
                                         <div className="popup-itemdtl-table-model-inner">
                                             <img src={item.qr_code.url} alt={item.qr_code.alt} width={item.qr_code.dimensions.width} />
@@ -122,21 +120,21 @@ function Item({ ...props }) {
                                     </div>
                                 </div>
                                 <div className="div-right">
-                                    <div className="popup-itemdtl-table-size">
+                                    <div className="wrap popup-itemdtl-table-size">
                                         <div className="head">Size</div>
-                                        {item.size}
+                                        <div className="body">{item.size}</div>
                                     </div>
-                                    <div className="popup-itemdtl-table-color">
+                                    <div className="wrap popup-itemdtl-table-color">
                                         <div className="head">Color</div>
-                                        {item.color}
+                                        <div className="body">{item.color}</div>
                                     </div>
-                                    <div className="popup-itemdtl-table-count">
+                                    <div className="wrap popup-itemdtl-table-count">
                                         <div className="head">Pack / Count</div>
-                                        {item.pack_count}
+                                        <div className="body">{item.pack_count}</div>
                                     </div>
-                                    <div className="popup-itemdtl-table-dtl">
+                                    <div className="wrap popup-itemdtl-table-dtl">
                                         <div className="head">Details</div>
-                                        {item.details}
+                                        <div className="body">{item.details}</div>
                                     </div>
                                 </div>
                             </div>
@@ -250,6 +248,9 @@ function KatalogMain({ ...props }) {
         )
     }, [tag])
     const renderFilterDropdownCate = useMemo(() => {
+
+
+
         return (
             <>
                 {tag == "all" ?
@@ -363,17 +364,25 @@ function KatalogMain({ ...props }) {
         if (window.innerWidth < 768) {
             setLimit(4)
         }
-        animate('.katalog-main-line-top', {scaleX: 0, transformOrigin: "left"}, {duration: 0})
-        animate('.katalog-main-line-bot', {scaleX: 0, transformOrigin: "left"}, {duration: 0})
-        animate('.katalog-main-line-left', {scaleY: 0, transformOrigin: "top"}, {duration: 0})
-        animate('.katalog-main-line-right', {scaleY: 0, transformOrigin: "top"}, {duration: 0})
-        animate('.katalog-main-filter-list-pdf', {opacity: 0}, {duration: 0})
+        animate('.katalog-main-line-top', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.katalog-main-line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.katalog-main-line-left', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate('.katalog-main-line-right', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate('.katalog-main-list-line', { scaleY: 0, transformOrigin: "top" }, { duration: 0 })
+        animate('.katalog-main-filter-list-pdf', { opacity: 0 }, { duration: 0 })
+        animate('.katalog-main-filter-list-toggle-btn', { opacity: 0 }, { duration: 0 })
+        animate('.katalog-main-filter .line-bot', { scaleX: 0, transformOrigin: "left" }, { duration: 0 })
+        animate('.katalog-main-cate-list .katalog-main-cate-item', { transform: "translateX(-2rem)", opacity: 0 }, { duration: 0 })
 
         const sequence = [
-            ['.katalog-main-line-top', {scaleX: 1}, {duration: .6, at: 0}],
-            ['.katalog-main-line-bot', {scaleX: 1}, {duration: .8, at: .1}],
-            ['.katalog-main-line-left', {scaleY: 1}, {duration: .6, at: .1}],
-            ['.katalog-main-line-right', {scaleY: 1}, {duration: .6, at: .1}],
+            ['.katalog-main-line-top', { scaleX: 1 }, { duration: .6, at: 0 }],
+            ['.katalog-main-line-bot', { scaleX: 1 }, { duration: .8, at: .1 }],
+            ['.katalog-main-line-left', { scaleY: 1 }, { duration: .6, at: .1 }],
+            ['.katalog-main-line-right', { scaleY: 1 }, { duration: .6, at: .1 }],
+            ['.katalog-main-list-line', { scaleY: 1 }, { duration: .6, at: .1 }],
+            ['.katalog-main-filter .line-bot', { scaleX: 1 }, { duration: .6, at: .1 }],
+            ['.katalog-main-filter-list-toggle-btn', { opacity: 1 }, { duration: .4, at: .6 }],
+            ['.katalog-main-cate-list .katalog-main-cate-item', { transform: "none", opacity: 1 }, { duration: .5, delay: stagger(.05), at: .2 }],
         ]
 
         const splitTitles = []
@@ -385,10 +394,13 @@ function KatalogMain({ ...props }) {
             )
             splitTitles.push(label)
         })
-
         if (window.innerWidth > 767) {
             sequence.push(
-                ['.katalog-main-filter-list-pdf', {opacity: 1}, {duration: .6, at: .6}]
+                ['.katalog-main-filter-list-pdf', { opacity: 1 }, { duration: .6, at: .6 }]
+            )
+        } else {
+            sequence.push(
+                ['.katalog-main-filter-list-pdf', { opacity: 1 }, { duration: .6, at: .1 }]
             )
         }
 
@@ -399,9 +411,11 @@ function KatalogMain({ ...props }) {
                 document.querySelector('.katalog-main-line-bot').removeAttribute('style')
                 document.querySelector('.katalog-main-line-left').removeAttribute('style')
                 document.querySelector('.katalog-main-line-right').removeAttribute('style')
+                document.querySelector('.katalog-main-list-line').removeAttribute('style')
                 document.querySelector('.katalog-main-filter-list-pdf').removeAttribute('style')
-
-
+                document.querySelector('.katalog-main-filter-list-toggle-btn').removeAttribute('style')
+                document.querySelector('.katalog-main-filter .line-bot').removeAttribute('style')
+                document.querySelectorAll('.katalog-main-cate-list .katalog-main-cate-item').forEach(item => item.removeAttribute('style'))
             })
         })
         console.log(document.querySelectorAll('.katalog-main-filter .line-bot').length);
@@ -424,10 +438,12 @@ function KatalogMain({ ...props }) {
                                     {renderFilterDropdownCate}
                                 </div>
                             </div>
-                            <button className="btn katalog-main-filter-list-pdf" data-cursor="hide">
-                                <div className="line line-ver line-left"></div>
-                                <div className="txt txt-20 txt-med katalog-main-filter-list-pdf-txt">Download Catalog</div>
-                            </button>
+                            <div className="katalog-main-filter-list-pdf-wrap">
+                                <button className="btn katalog-main-filter-list-pdf" data-cursor="hide">
+                                    <div className="line line-ver line-left"></div>
+                                    <div className="txt txt-20 txt-med katalog-main-filter-list-pdf-txt">Download Catalog</div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div className="line line-bot"></div>
