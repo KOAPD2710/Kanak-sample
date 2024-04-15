@@ -30,25 +30,21 @@ describe.forEach((el, elIdx) => {
 	newDescribe += bodyText;
 });
 
-let listCategory = [];
-await Promise.all(
+let list1 = await Promise.all(
 	Astro.props.group1.list
 		.reduce((acc, curr) => acc.concat(curr.item), [])
 		.map(async ({ uid }) => {
-			await getByUID("product_group", uid).then((item) => {
-				listCategory.push(item);
-			});
+			return await getByUID("product_group", uid);
 		}),
 );
-await Promise.all(
+let list2 = await Promise.all(
 	Astro.props.group2.list
 		.reduce((acc, curr) => acc.concat(curr.item), [])
 		.map(async ({ uid }) => {
-			await getByUID("product_group", uid).then((item) => {
-				listCategory.push(item);
-			});
+			return await getByUID("product_group", uid);
 		}),
 );
+let listCategory = [...list1, ...list2];
 
 let listItem = [];
 await Promise.all(
