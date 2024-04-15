@@ -42,7 +42,7 @@
 
         opacity: 1;
 
-        @include md {
+        @include md { 
             grid-column: 1/-1;
         }
 
@@ -55,6 +55,7 @@
 
             @include sm {
                 height: 100%;
+                margin-right: calc(var(--container-padding) * -1);
             }
 
             &-inner {
@@ -75,6 +76,7 @@
                     height: 100%;
                     max-height: unset;
                     overflow-y: auto;
+                    padding-right: var(--container-padding);
                 }
             }
         }
@@ -125,6 +127,7 @@
             height: fit-content;
 
             @include md {
+                align-self: start;
                 grid-column: 2/6;
                 margin-left: calc(-1 * var(--grid-gap) - .8rem);
                 margin-right: 2.5rem;
@@ -237,9 +240,13 @@
             }
 
             &-title {
+                max-width: 69.4rem;
+                margin-top: 4.2rem;
                 margin-bottom: 4rem;
 
                 @include md {
+                    max-width: none;
+                    margin-top: unset;
                     margin-right: .8rem;
                 }
 
@@ -304,7 +311,7 @@
                     }
 
                     &-inner {
-                        @include size(100%);
+                        @include size(4.8rem);
                     }
                 }
 

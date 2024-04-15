@@ -326,9 +326,7 @@
 
     &-cate {
         grid-column: 1/5;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
-        padding-left: 4rem;
+        padding: 4rem 2rem 4rem 4rem;
 
         @include md {
             grid-column: 1/4;

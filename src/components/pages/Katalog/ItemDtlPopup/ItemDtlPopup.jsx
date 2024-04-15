@@ -3,6 +3,7 @@ import "./ItemDtlPopup.scss"
 import * as ut from '@/js/utils.js';
 import { getLenis } from '@/components/core/lenis';
 import { useKeenSlider } from 'keen-slider/react'
+import useOutsideAlerter from "@hooks/useOutsideAlerter";
 import "keen-slider/keen-slider.min.css"
 
 function GlobalPopup({ ...props }) {
@@ -16,6 +17,9 @@ function GlobalPopup({ ...props }) {
     //         setLoaded(true);
     //     },
     // });
+
+    // useOutsideAlerter(toggleRef, () => { setIsOpenTagDropdow(false) })
+
 
     useEffect(() => {
         if (window.innerWidth < 768) {
