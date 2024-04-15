@@ -6,10 +6,6 @@ import * as prismicH from "@prismicio/client";
 import imgPlate from "@assets/kustomer-plate.png";
 
 const { title, describe } = Astro.props;
-const newTitle = title.replace(
-    "BEST PLATE AWARD",
-    `<span class="txt-green">Best Plate Award</span>`,
-);
 ---
 
 <KustomerAward
@@ -24,6 +20,6 @@ const newTitle = title.replace(
         set:html={prismicH.asHTML(Astro.props.describe)}
         slot="describe"
     />
-    <Fragment set:html={newTitle} slot="title" />
+    <Fragment set:html={title} slot="title" />
     <Image src={imgPlate} alt="" slot="imgPlate" />
 </KustomerAward>

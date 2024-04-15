@@ -20,10 +20,6 @@ const OpBgTextureDark = await getImage({
     width: bgTextureDark.width,
 });
 const title = Astro.props.title;
-const newTitle = title.replace(
-    "ECO-EXCELLENCE",
-    `<span class="txt-green">ECO-</span><span class="txt-green">EXCELLENCE</span>`,
-);
 ---
 
 <KustomerValue
@@ -31,7 +27,7 @@ const newTitle = title.replace(
     describe={Astro.props.describe}
     client:visible={{ rootMargin: "100% 0px 100% 0px" }}
 >
-    <Fragment set:html={newTitle} slot="title" />
+    <Fragment set:html={title} slot="title" />
     <Fragment slot="list">
         {
             list.map(
