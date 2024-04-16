@@ -1,0 +1,13 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Hero from "@pages/Fullfilment/Hero/Hero.astro";
+import Main from "@pages/Fullfilment/Main/Main.astro";
+
+import { getPage } from "@/prismic.js";
+const { data } = await getPage("fullfilment_page");
+---
+
+<Layout title="Fullfilment">
+    <Hero title={data.hero_title} sub={data.hero_sub} />
+    <Main img={data.hero_image} title={data.list_title} />
+</Layout>
