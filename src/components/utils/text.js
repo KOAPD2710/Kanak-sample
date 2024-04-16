@@ -29,24 +29,6 @@ function cleanText(text) {
     }
     text.innerHTML = text.innerHTML.replace(/\-/g, "&#8209;").replace(/V/g, "&zwnj;V&zwnj;").replace(/\./g, "&zwnj;.&zwnj;").replace(/,/g, "&zwnj;,&zwnj;").replace(/A/g, "&zwnj;A&zwnj;").replace(/fi/g, "f&zwnj;i");
 }
-function parseUrl(url) {
-    const [baseUrl, query] = url.split('?');
-    const queryParams = query ? query.split('&') : [];
-
-    let cate = '';
-    let tag = '';
-
-    queryParams.forEach(param => {
-        const [key, value] = param.split('=');
-        if (key === 'cate') {
-            cate = value;
-        } else if (key === 'tag') {
-            tag = value;
-        }
-    });
-
-    return { baseUrl, cate, tag };
-}
 
 function isEmpty(data) {
     if
@@ -65,6 +47,6 @@ function isEmpty(data) {
 function formatData(data) {
     return data && data.toLowerCase().replace(/ /g, "-").replace("&", "")
 }
-export { convertHighlight, convertDate, cleanText, parseUrl, isEmpty, formatData }
+export { convertHighlight, convertDate, cleanText, isEmpty, formatData }
 
 

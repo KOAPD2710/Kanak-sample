@@ -3,75 +3,107 @@
 .global-cta {
     position: relative;
     z-index: 5;
+
     padding: {
         top: 39.6rem;
         bottom: 7.55rem;
     }
-    @include md{
+
+    @include md {
         padding: {
             top: 12.4rem;
             bottom: 5.7rem;
         }
     }
+
     @include sm {
         padding: {
             top: 29.5rem;
             bottom: 1.6rem;
         }
     }
+
     &-bg {
         position: absolute;
         inset: 0;
+
         @include sm {
             left: -22rem;
         }
     }
+
     .container {
         height: 100%;
     }
+
     &-main {
         grid-column: 1/6;
         align-self: end;
         border: solid .2rem var(--cl-txt);
         background-color: var(--cl-bg);
+
         @include sm {
             grid-column: span 4;
         }
+
         &-head {
             padding: 2rem;
         }
+
         &-tail {
             padding: 2rem;
             position: relative;
+
             @include md {
                 padding: 1.6rem;
             }
+
             .line {
                 position: absolute;
                 top: 0;
                 left: 0;
             }
+
             &-btn {
                 @include md {
                     padding: 1.85rem 2rem;
+
                     .txt-18 {
                         @include text(16);
                     }
                 }
+
                 @include sm {
                     padding: 2.4rem 2rem;
                 }
             }
         }
     }
+
     &-title {
         @include md {
             @include text(h4);
         }
     }
+
     .line.line-bot {
         position: absolute;
         bottom: -.2rem;
         left: 0;
+    }
+}
+
+
+html[data-page='Fulfillment'] {
+    .global-cta {
+        &-main {
+            grid-column: 1/7;
+            max-width: 55.5rem;
+
+            @include md {
+                grid-column: 1/6;
+                max-width: unset ;
+            }
+        }
     }
 }

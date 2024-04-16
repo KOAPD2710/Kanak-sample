@@ -427,7 +427,6 @@ function KatalogMain({ ...props }) {
                 document.querySelectorAll('.katalog-main-cate-list .katalog-main-cate-item').forEach(item => item.removeAttribute('style'))
             })
         })
-        console.log(document.querySelectorAll('.katalog-main-filter .line-bot').length);
     }, [])
     return (
         <section className="katalog-main">

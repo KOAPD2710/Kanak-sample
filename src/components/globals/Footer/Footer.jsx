@@ -132,7 +132,7 @@ function GlobalFooter(props) {
                         <MenuItem>Product Katalog</MenuItem>
                         <MenuItem>Private Label</MenuItem>
                         <MenuItem>Kustom Packaging Solutions</MenuItem>
-                        <MenuItem>Testing, QC & Compliance</MenuItem>
+                        <MenuItem link='/compliance'>Testing, QC & Compliance</MenuItem>
                     </MenuColumn>
                     <MenuColumn
                         title="Kustomers"
