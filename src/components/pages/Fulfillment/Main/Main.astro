@@ -1,0 +1,23 @@
+---
+import { getByUID } from "@/prismic";
+import { convertHighlight } from "@/components/utils/text";
+import FulfillMain from "./Main";
+const list = Astro.props.list;
+
+let uidList = list.reduce((acc, curr) => acc.concat(curr.item.uid), []);
+
+let listItem = await Promise.all(
+    uidList.map(async (uid: any) => {
+        let item = await getByUID("fulfillment", uid);
+        return item;
+    }),
+);
+---
+
+<FulfillMain
+    list={listItem}
+    img={Astro.props.img}
+    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+>
+    <Fragment set:html={convertHighlight(Astro.props.title)} slot="title" />
+</FulfillMain>
