@@ -1,0 +1,52 @@
+@use '@styles/mixins' as *;
+
+.fulfill-hero {
+    padding-top: 25rem;
+    padding-bottom: 10rem;
+
+    @include md {
+        padding-top: 20rem;
+        padding-bottom: 6rem;
+    }
+
+    @include sm {
+        padding-top: 15.6rem;
+        padding-bottom: 4rem;
+    }
+
+    &-title {
+        grid-column: 1/9;
+
+        @include md {
+            grid-column: 1/7;
+            @include text(h1);
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            margin-bottom: 1.6rem;
+        }
+    }
+
+    &-sub {
+        align-self: end;
+        grid-column: 12/-1;
+        margin-left: calc(var(--grid-gap) * -1);
+        margin-bottom: .9rem;
+
+        @include md {
+            grid-column: 8/-1;
+            text-transform: unset;
+            font-weight: 700;
+            margin-left: unset;
+            margin-bottom: unset;
+            @include text(14);
+        }
+
+        @include sm {
+            grid-column: 1/-1;
+            font-weight: 500;
+            @include text(16)
+        }
+    }
+}

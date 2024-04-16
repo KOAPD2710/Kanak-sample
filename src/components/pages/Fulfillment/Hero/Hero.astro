@@ -1,10 +1,12 @@
 ---
 import FullfilHero from "./Hero";
 import { convertHighlight } from "@/components/utils/text";
+
+console.log(Astro.props.sub);
 ---
 
 <FullfilHero
     title={convertHighlight(Astro.props.title)}
-    sub={convertHighlight(Astro.props.sub)}
+    sub={Astro.props.sub[0].text}
     client:visible={{ rootMargin: "100% 0px 100% 0px" }}
 />
