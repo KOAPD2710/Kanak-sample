@@ -1,0 +1,16 @@
+---
+import { convertHighlight } from "@/components/utils/text";
+import FullfilMain from "./Main";
+
+import Image from "astro/components/Image.astro";
+
+import thumb from "@assets/ffment-thumb.jpg";
+---
+
+<FullfilMain
+    img={Astro.props.img}
+    client:visible={{ rootMargin: "100% 0px 100% 0px" }}
+>
+    <Fragment set:html={convertHighlight(Astro.props.title)} slot="title" />
+    <Image src={thumb} alt="" slot="thumb" class="img" />
+</FullfilMain>

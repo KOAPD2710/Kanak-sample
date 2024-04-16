@@ -45,7 +45,10 @@ const filterCaseStudy = listCaseStudy.filter(
     footer_cta={item.data.cta_title[0]?.text}
     footer_bg={item.data.cta_background}
 >
-    <Hero label={item.data.hero_label} title={item.data.hero_title[0].text} />
+    <Hero
+        label={item.data.hero_label}
+        title={convertHighlight(item.data.hero_title)}
+    />
     {item.data.hero_subtitle && <Premble title={item.data.hero_subtitle} />}
     <Client
         title={homeData.data.client_title[0].text}
@@ -78,8 +81,8 @@ const filterCaseStudy = listCaseStudy.filter(
         !isEmpty(item.data.katalog_title) && (
             <Catalog
                 label={item.data.katalog_label}
-                title={item.data.katalog_title[0].text}
-                describe={item.data.katalog_des}
+                title={convertHighlight(item.data.katalog_title)}
+                describe={convertHighlight(item.data.katalog_des)}
                 group1={
                     item.data.katalog_grp_1_title
                         ? {
@@ -132,7 +135,7 @@ const filterCaseStudy = listCaseStudy.filter(
         !isEmpty(item.data.value_title) && (
             <Value
                 describe={item.data.value_describe}
-                title={item.data.value_title[0].text}
+                title={convertHighlight(item.data.value_title)}
                 value_list={item.data.value_list.map(({ item }) => item.uid)}
             />
         )
@@ -140,7 +143,7 @@ const filterCaseStudy = listCaseStudy.filter(
     {
         !isEmpty(item.data.award_title) && (
             <Award
-                title={item.data.award_title[0].text}
+                title={convertHighlight(item.data.award_title)}
                 describe={item.data.award_describe}
                 label={item.data.award_label}
                 btn={item.data.award_button}

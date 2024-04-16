@@ -6,11 +6,6 @@ import imgPlate from "@assets/kustomer-plate.png";
 import KustomerAwardThree from './AwardThree';
 import KustomerAwardContent from './AwardContent';
 import "./Award.scss"
-
-const newTitle = Astro.props.title.replace(
-    "BEST PLATE AWARD",
-    `<span class="txt-green">Best Plate Award</span>`,
-);
 ---
 <section class="kustomer-award">
     <div class="container grid">
@@ -23,7 +18,7 @@ const newTitle = Astro.props.title.replace(
             medal={Astro.props.medal}
             client:visible={{ rootMargin: "100% 0px 100% 0px" }}>
             <Fragment set:html={prismicH.asHTML(Astro.props.describe)} slot="describe" />
-            <Fragment set:html={newTitle} slot="title" />
+            <Fragment set:html={Astro.props.title} slot="title" />
         </KustomerAwardContent>
     </div>
 </section>

@@ -180,8 +180,10 @@
                         justify-content: space-between;
                     }
                 }
+
                 &-ic {
                     transition: transform 0.4s ease-in-out;
+
                     &.active {
                         transform: rotate(180deg);
                     }
@@ -345,8 +347,9 @@
                         justify-content: center;
                         @include size(64%, 55.26%);
 
-                        @include sm {
+                        @include md {
                             width: 23.3rem;
+                            height: auto;
                         }
                     }
 
