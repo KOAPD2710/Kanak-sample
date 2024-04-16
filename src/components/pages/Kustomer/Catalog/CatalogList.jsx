@@ -3,6 +3,7 @@ import SplitType from 'split-type';
 import { useProductIndex } from "@contexts/StoreGlobal";
 import useDebounceCallback from "@hooks/useDebounce";
 import { useEffect } from 'react';
+import { formatData } from "@/components/utils/text";
 function KustomerCatalogList(props) {
     const { index, setIndex } = useProductIndex();
     const debounceHover = useDebounceCallback(setIndex, 200);
@@ -71,7 +72,7 @@ function KustomerCatalogList(props) {
                         {itemGroup1.map((item, idx) => (
                             <a
                                 key={item.uid}
-                                href="#"
+                                href={`/katalog?cate=${formatData(item.data.name)}`}
                                 className={`kustomer-cata-main-content-list-item ${index == (props.list.findIndex(listItem => listItem.uid == item.uid)) ? "active" : ''}`}
                                 onMouseEnter={() => debounceHover(props.list.findIndex(listItem => listItem.uid == item.uid))}>
                                 <h3 className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">
@@ -101,7 +102,7 @@ function KustomerCatalogList(props) {
                         {itemGroup2.map((item, idx) => (
                             <a
                                 key={item.uid}
-                                href="#"
+                                href={`/katalog?cate=${formatData(item.data.name)}`}
                                 className={`kustomer-cata-main-content-list-item ${index == (props.list.findIndex(listItem => listItem.uid == item.uid)) ? "active" : ''}`}
                                 onMouseEnter={() => debounceHover(props.list.findIndex(listItem => listItem.uid == item.uid))}>
                                 <h3 className="heading h6 txt-black txt-up kustomer-cata-main-content-list-item-name">

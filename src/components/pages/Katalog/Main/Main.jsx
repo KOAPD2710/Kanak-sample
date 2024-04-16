@@ -203,7 +203,7 @@ function KatalogMain({ ...props }) {
         let urlObject = new URL(url);
         let searchParams = new URLSearchParams(urlObject.search);
 
-        if (value === "") {
+        if (isEmpty(value)) {
             searchParams.delete(key);
         } else {
             if (searchParams.has(key)) {
@@ -234,11 +234,11 @@ function KatalogMain({ ...props }) {
     })
     useEffect(() => {
         const searchParam = new URLSearchParams(window.location.search);
-        if (searchParam.has("cate")) {
-            setCategory(props.cateList.find(item => formatData(item) === searchParam.get("cate")))
+        if (searchParam.has("category")) {
+            setCategory(props.cateList.find(item => formatData(item) === searchParam.get("category")))
         };
-        if (searchParam.has("tag")) {
-            setTag(props.tagList.find(item => formatData(item) === searchParam.get("tag")));
+        if (searchParam.has("kustomer")) {
+            setTag(props.tagList.find(item => formatData(item) === searchParam.get("kustomer")));
         }
     }, [])
     const renderFilterDropdownTag = useMemo(() => {
@@ -348,16 +348,14 @@ function KatalogMain({ ...props }) {
     }, [category, tag])
 
     useEffect(() => {
-        window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'cate', formatData(category)));
-        console.log(category);
+        window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'category', formatData(category)));
     }, [category])
     useEffect(() => {
         if (tag == "All") {
-            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', ''));
+            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'kustomer', ''));
         } else {
-            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'tag', formatData(tag)));
+            window.history.replaceState(null, null, UpdateUrlSearch(window.location.href, 'kustomer', formatData(tag)));
         }
-        console.log(tag);
     }, [tag])
     function filterList(e) {
         let target = e.target
@@ -447,10 +445,10 @@ function KatalogMain({ ...props }) {
                                 </div>
                             </div>
                             <div className="katalog-main-filter-list-pdf-wrap">
-                                <button className="btn katalog-main-filter-list-pdf" data-cursor="hide">
+                                <a href="" className="btn katalog-main-filter-list-pdf" data-cursor="hide">
                                     <div className="line line-ver line-left"></div>
                                     <div className="txt txt-20 txt-med katalog-main-filter-list-pdf-txt">Download Catalog</div>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

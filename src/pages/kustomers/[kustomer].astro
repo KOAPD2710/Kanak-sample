@@ -107,7 +107,7 @@ const filterCaseStudy = listCaseStudy.filter(
     {
         !isEmpty(item.data.explore_title) && (
             <Explore
-                listGroup={item.data.explore_list.map((el) => el.item)}
+                listGroup={item.data.explore_list}
                 title={convertHighlight(item.data.explore_title)}
             />
         )

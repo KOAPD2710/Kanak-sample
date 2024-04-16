@@ -6,10 +6,10 @@ import KatalogMain from "./Main";
 
 const { list_category: list } = Astro.props.data;
 
-const allTag = await getAllByType("case_study");
+const allTag = await getAllByType("industry");
 const tagList = [];
 allTag.map((el, idx) => {
-	!tagList.includes(el.data.category) && tagList.push(el.data.category);
+	!tagList.includes(el.data.title) && tagList.push(el.data.title);
 });
 let listUidCate = [];
 await list
