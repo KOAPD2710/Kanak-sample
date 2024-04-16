@@ -57,7 +57,7 @@ function CasedtlSlide({ ...props }) {
                     <div className="keen-slider casedtl-slide-main-inner" ref={sliderRef}>
                         {props.data.images.map((item, idx) => (
                             <div className="keen-slider__slide casedtl-slide-main-inner-item" key={idx}>
-                                <img src={item.image_item.url} alt="" className="img img-fill" />
+                                <img src={item.image_item?.url} alt="" className="img img-fill" />
                             </div>
                         ))}
                     </div>
